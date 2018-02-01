@@ -1,10 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="61abc726-7ee7-4794-a1ce-3cf826a1c832" name="Default" comment="更新readme2">
-      <change beforePath="$PROJECT_DIR$/.gitignore" afterPath="$PROJECT_DIR$/.gitignore" />
+    <list default="true" id="61abc726-7ee7-4794-a1ce-3cf826a1c832" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/src/pages/Home.vue" afterPath="$PROJECT_DIR$/src/pages/Home.vue" />
     </list>
     <list id="b272740f-08f6-486a-93e5-b14e8310f0c6" name="New changelist" comment="New changelist" />
     <list id="f0ec4a65-42d0-424a-ae84-8b1adfb18354" name="readme" comment="" />
@@ -219,6 +217,11 @@
     </findStrings>
   </component>
   <component name="Git.Settings">
+    <option name="PREVIOUS_COMMIT_AUTHORS">
+      <list>
+        <option value="lvjr &lt;462293072@qq.com&gt;" />
+      </list>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
@@ -565,7 +568,7 @@
       <workItem from="1517405368037" duration="11093000" />
       <workItem from="1517447112918" duration="9776000" />
       <workItem from="1517484762918" duration="3974000" />
-      <workItem from="1517494492510" duration="1660000" />
+      <workItem from="1517494492510" duration="1700000" />
     </task>
     <task id="LOCAL-00001" summary="更新readme">
       <created>1517494795987</created>
@@ -588,11 +591,18 @@
       <option name="project" value="LOCAL" />
       <updated>1517495621215</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="main.js去空格">
+      <created>1517496190446</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1517496190446</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="349400000" />
+    <option name="totallyTimeSpent" value="349440000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -671,7 +681,8 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="更新readme" />
     <MESSAGE value="更新main.js" />
-    <option name="LAST_COMMIT_MESSAGE" value="更新main.js" />
+    <MESSAGE value="main.js去空格" />
+    <option name="LAST_COMMIT_MESSAGE" value="main.js去空格" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
