@@ -1,0 +1,48 @@
+.timer_count_down {
+  padding-bottom: px2rem(16px);
+  text-align: center;
+  .titel {
+    margin: 0 auto;
+    line-height: px2rem(30px);
+    @include font-dpr(12px);
+    color: $color-black;
+  }
+
+  .timer {
+    margin: 0 auto;
+    @include flexJust();
+    @include setSize(px2rem(90px), px2rem(16px));
+    .box{
+      @include flex(9);
+      background: $color-black-secondary;
+      @include font-dpr(13px);
+      line-height: px2rem(16px);
+      color: $white;
+      border-radius: px2rem(3px);
+    }
+
+    .tdot {
+      @include flex(5);
+      width: px2rem(20px);
+      height: 100%;
+      line-height: px2rem(16px);
+      position: relative;
+      &:before {
+        @include centerLeft;
+        top: px2rem(3px);
+        content: '';
+        @include setSize(px2rem(3px), px2rem(3px));
+        background: $color-black-secondary;
+
+      }
+      &:after {
+        @include centerLeft;
+        bottom: px2rem(3px);
+        content: '';
+        @include setSize(px2rem(3px), px2rem(3px));
+        background: $color-black-secondary;
+      }
+
+    }
+  }
+}

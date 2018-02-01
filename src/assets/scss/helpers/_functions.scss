@@ -1,0 +1,8 @@
+/**
+ * Created by lvjr on 2017/3/9.
+ */
+//将px转换成rem
+$defaut-font-size: 37.5px;
+@function px2rem($px) {
+  @return $px/$defaut-font-size * 1rem;
+}

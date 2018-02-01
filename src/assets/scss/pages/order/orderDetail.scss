@@ -1,0 +1,217 @@
+.order_detail {
+  padding: 0 px2rem(10px) px2rem(95px);
+
+  .guide-info {
+    padding: px2rem(18px);
+    background: $white;
+    .guide-img {
+      @include setSize(px2rem(80px), px2rem(80px));
+      border-radius: 50%;
+      img {
+        display: block;
+        width: 100%;
+        max-height: 100%;
+        border-radius: 50%;
+      }
+    }
+    .guide-detail {
+      margin-left: px2rem(13px);
+      .guide-name {
+        line-height: px2rem(30px);
+        @include font-dpr(18px);
+        color: $color-black;
+      }
+
+      .guide-scenic {
+        padding-left: px2rem(25px);
+        line-height: px2rem(30px);
+        @include font-dpr(16px);
+        background: url(../../assets/img/nav_map@2x.png) no-repeat px2rem(6px) center;
+        background-size: px2rem(15px) px2rem(18px);
+        span {
+          padding: 0 px2rem(6px);
+        }
+      }
+
+      .guide-mode {
+        line-height: px2rem(20px);
+        @include font-dpr(16px);
+        color: $color-gray-secondary;
+      }
+
+    }
+  }
+
+  .order-info {
+    background: $color-senior-bg;
+    .title {
+      @include setSize(100%, px2rem(45px));
+      padding-left: px2rem(18px);
+      @include font-dpr(18px);
+      line-height: px2rem(45px);
+      background: $white;
+    }
+    .info-item {
+      padding: 0 px2rem(18px);
+      @include setSize(100%, px2rem(40px));
+      line-height: px2rem(40px);
+      @include font-dpr(16px);
+      color: $color-gray-secondary;
+
+    }
+  }
+
+  .group-trip {
+    padding: 0 px2rem(18px);
+    @include setSize(100%, px2rem(60px));
+    background: $white;
+    line-height: px2rem(60px);
+    position: relative;
+    .group-toggle {
+      line-height: px2rem(60px);
+      color: $color-black;
+      @include font-dpr(18px)
+    }
+
+    .check {
+      padding: 0 px2rem(20px);
+    }
+  }
+
+  .notify {
+    padding: px2rem(9px) px2rem(16px);
+    @include font-dpr(14px);
+    line-height: 1.5;
+    background: $color-senior-bg;
+  }
+
+  .tickets {
+    padding: 0 px2rem(18px);
+    background: $white;
+    .tickit-m, .tickit-n {
+      @include setSize(100%, px2rem(60px));
+      line-height: px2rem(60px);
+      @include font-dpr(16px);
+    }
+
+    .tickit-m {
+      border-bottom: 1px solid $color-body-bg;
+    }
+    .tickit-txt {
+      @include font-dpr(14px);
+      color: $color-gray-primary;
+      svg {
+        fill: $color-gray-secondary;
+        width: px2rem(16px);
+        height: px2rem(16px);
+        vertical-align: text-top;
+      }
+    }
+  }
+
+  .contact {
+    padding: 0 px2rem(18px);
+    background: $white;
+    .contact-name, .contact-phone {
+      @include setSize(100%, px2rem(60px));
+      line-height: px2rem(60px);
+      @include font-dpr(16px);
+      border-bottom: 1px solid $color-body-bg;
+    }
+    .contact-txt {
+      @include font-dpr(14px);
+      color: $color-gray-primary;
+      svg {
+        fill: $color-gray-secondary;
+        width: px2rem(16px);
+        height: px2rem(16px);
+        vertical-align: text-top;
+      }
+    }
+  }
+
+  .note-message {
+    padding: 0 px2rem(18px);
+    background: $white;
+    .title {
+      @include setSize(100%, px2rem(45px));
+      @include font-dpr(17px);
+      line-height: px2rem(45px);
+    }
+
+    .note-text {
+      display: block;
+      @include setSize(100%, px2rem(80px));
+      padding: px2rem(10px);
+      line-height: px2rem(20px);
+      background: $color-body-bg;
+      border: none;
+      @include font-dpr(14px);
+    }
+  }
+
+  .coupons {
+    padding: 0 px2rem(18px) px2rem(5px);
+    background: $white;
+    @include setSize(100%, px2rem(60px));
+    line-height: px2rem(60px);
+    @include font-dpr(16px);
+    .coupon-txt {
+      @include font-dpr(14px);
+      color: $color-gray-primary;
+      svg {
+        fill: $color-gray-secondary;
+        width: px2rem(16px);
+        height: px2rem(16px);
+        vertical-align: text-top;
+      }
+    }
+  }
+
+  .agreement {
+    padding: px2rem(16px);
+    @include font-dpr(14px);
+    line-height: px2rem(18px);
+    color: $color-gray-secondary;
+    span {
+      color: $color-red;
+    }
+  }
+
+  .submit-order {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    padding: 0 px2rem(18px);
+    width: 100%;
+    height: px2rem(80px);
+    border-top: 1px solid $color-body-bg;
+    background: $white;
+    .total {
+      height: px2rem(80px);
+      line-height: px2rem(80px);
+      @include font-dpr(17px);
+      color: $color-black;
+      .total-num {
+        height: px2rem(80px);
+        padding-left: px2rem(8px);
+        color: $color-red;
+        svg {
+          fill: $color-red;
+          width: px2rem(16px);
+          height: px2rem(16px);
+          //vertical-align: middle;
+        }
+      }
+    }
+
+    .btn-wrapper {
+      padding: px2rem(17px) 0;
+
+      .sub-btn {
+        @include setButton(px2rem(132px), px2rem(46px), $white, $color-red, px2rem(6px))
+      }
+    }
+  }
+
+}

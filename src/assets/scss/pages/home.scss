@@ -1,0 +1,385 @@
+.Home {
+  width: 100%;
+  height: 100%;
+  padding-top: px2rem(45px);
+  background: #f8f8f8;
+  position: relative;
+  -webkit-overflow-scrolling: touch;
+  .header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: px2rem(45px);
+    padding-left: px2rem(15px);
+    padding-top: px2rem(10px);
+    background:#fff url("../../assets/img/logo.png") no-repeat px2rem(20px) center;
+    background-size: px2rem(54px) px2rem(22px);
+    z-index: 999;
+    //.logo-img {
+    //  display: block;
+    //  float: left;
+    //  margin-top: px2rem(2px);
+    //  width: px2rem(54px);
+    //  height: px2rem(22px);
+    //  margin-right: px2rem(20px);
+    //}
+    .search-input {
+      //float: left;
+
+      .search-icon {
+        fill: $color-gray-secondary;
+        width: px2rem(16px);
+        height:px2rem(16px);
+        vertical-align: middle;
+      }
+      width: 70%;
+      height: px2rem(28px);
+      line-height: px2rem(28px);
+      @include font-dpr(14px);
+      color: #ccc;
+      padding-left: px2rem(12px);
+      margin-left: px2rem(70px);
+      border: 1px solid #989898;
+      border-radius: px2rem(15px);
+      //background: url("../../assets/img/nav_search@3x.png") no-repeat px2rem(18px) center;
+      //background-size: px2rem(12px) px2rem(12px);
+    }
+  }
+
+  .banner {
+    width: 100%;
+    //padding: 53.3% 0 0;
+    position: relative;
+    height: px2rem(200px);
+    .slide-container {
+      .cube-slide .cube-slide-group .cube-slide-item > a img {
+        display: block;
+        width: 100%;
+        height: 100%;
+      }
+      width: 100%;
+      height: px2rem(200px);
+      overflow: hidden;
+      .cube-slide-dots {
+        position: absolute;
+        bottom: .0625rem;
+        right: 0;
+        left: 0;
+        padding: 0 .1875rem;
+        font-size: 0;
+        text-align: center;
+        -webkit-transform: translateZ(1px);
+        transform: translateZ(1px);
+        span {
+          display: inline-block;
+          vertical-align: bottom;
+          margin: 0 px2rem(5px);
+          @include setSize(px2rem(8px), px2rem(8px));
+          border-radius: 100%;
+          background: $gray;
+          &.active {
+            background-color: $color-red;
+          }
+        }
+
+
+      }
+    }
+  }
+
+  .nav {
+    height: px2rem(120px);
+    margin-bottom: px2rem(10px);
+    background: #fff;
+
+    .nav-item {
+      width: 25%;
+
+      .nav-link {
+        display: block;
+        padding-top: px2rem(25px);
+        padding-bottom: px2rem(25px);
+        text-align: center;
+        color: $color-black;
+      }
+
+      .nav-img {
+        border: 0;
+        width: px2rem(44px);
+        height: px2rem(44px);
+      }
+
+      .nav-tit {
+        @include font-dpr(12px);
+        line-height: px2rem(32px);
+      }
+    }
+  }
+
+  .title {
+    width: 100%;
+    height: px2rem(24px);
+    padding-left: px2rem(20px);
+    padding-right: px2rem(20px);
+    @include font-dpr(18px);
+    color: $color-black;
+    line-height: px2rem(24px);
+    .more-link {
+      @include font-dpr(12px);
+      line-height: px2rem(24px);
+      color: $color-gray-secondary;
+      //padding-right: px2rem(20px);
+      position: relative;
+      svg {
+        fill: $color-gray-secondary;
+        width: px2rem(16px);
+        height:px2rem(16px);
+        vertical-align: text-top;
+      }
+    }
+
+  }
+  /*热门景点*/
+  .hot-spots {
+    width: 100%;
+    height: px2rem(232px);
+    padding-top: px2rem(24px);
+    margin-bottom: px2rem(10px);
+    background: #fff;
+    .spots-wrapper, .area-wrapper {
+      width: 100%;
+      overflow: hidden;
+    }
+    .spots-list {
+      //width: px2rem(520px);
+      padding-top: px2rem(9px);
+      padding-left: px2rem(21px);
+      //display: -webkit-box;
+      //overflow-x: scroll;
+      -webkit-overflow-scrolling:touch;
+    }
+
+    .spot {
+      padding-right: px2rem(9px);
+      text-align: center;
+      .spot-img {
+        display: block;
+        width: px2rem(160px);
+        height: px2rem(100px);
+        margin-bottom: px2rem(10px);
+        img {
+          width: 100%;
+          height: 100%;
+        }
+      }
+      .spot-name, .spot-guide {
+        width: px2rem(160px);
+        height: px2rem(20px);
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        line-height: px2rem(20px);
+        @include font-dpr(14px);
+
+        color: $color-black;
+      }
+      .spot-name {
+        font-weight: 700;
+      }
+    }
+
+  }
+
+  /*热门推荐路线*/
+  .recommended-tours {
+    width: 100%;
+    height: px2rem(520px);
+    padding-top: px2rem(24px);
+    margin-bottom: px2rem(10px);
+    background: #fff;
+    .recom-wrapper {
+      width: 100%;
+      padding-top: px2rem(10px);
+      .ads-img{
+        width: 100%;
+        height: px2rem(210px);
+      }
+      .abstract {
+        padding: px2rem(15px);
+      }
+      .tours-title {
+        //height: px2rem(40px);
+        line-height: px2rem(20px);
+        //margin: px2rem(15px);
+        @include font-dpr(15px);
+        color: $color-black;
+        display: -webkit-box ;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 2;/*第2行出现省略号*/
+      }
+
+      .tours-price {
+        height: px2rem(30px);
+        line-height: px2rem(30px);
+        color: $color-red;
+        span {
+          @include font-dpr(18px);
+        }
+      }
+
+      .tours-guide {
+        margin-top: px2rem(10px);
+        line-height: px2rem(20px);
+        @include font-dpr(12px);
+        color: $color-black;
+      }
+
+
+      .guide-recom {
+        padding:0 px2rem(15px);
+        height: px2rem(130px);
+        .guide-intro {
+          padding: px2rem(10px);
+          background: #F9F9F9;
+          border-radius: px2rem(2px);
+          height: px2rem(85px);
+          .guide-tit {
+            height: px2rem(22px);
+            line-height: px2rem(23px);
+            @include font-dpr(12px);
+            color: $color-black;
+            text-align: left;
+          }
+          .guide-img {
+            width: px2rem(22px);
+            height: px2rem(22px);
+            border-radius: 50%;
+            margin-right: px2rem(3px);
+          }
+
+          .guide-txt {
+            margin-top: px2rem(10px);
+            line-height: 1.5;
+            @include cliptxt(2);
+
+            //display: -webkit-box ;
+            //overflow: hidden;
+            //text-overflow: ellipsis;
+            //-webkit-box-orient: vertical;
+            //-webkit-line-clamp: 2;/*第2行出现省略号*/
+          }
+        }
+
+        .swiper-pagination {
+          width: px2rem(3px);
+          height: px2rem(3px);
+          border-radius: 100%;
+          background: #ff5a5f;
+          margin: px2rem(30px) auto;
+        }
+      }
+    }
+  }
+
+  /*推荐向导*/
+  .recommended-guides {
+    width: 100%;
+    padding-top: px2rem(24px);
+    height: px2rem(400px);
+    background: #fff;
+  }
+
+  .guides-wrapper {
+    width: 100%;
+    overflow: hidden;
+  }
+  .guides-list {
+    //width: px2rem(600px);
+    padding-top: px2rem(9px);
+    padding-left: px2rem(21px);
+
+    .guide {
+      margin-right: px2rem(10px);
+      width: px2rem(236px);
+    }
+    .guide-img {
+      width: 100%;
+      height: px2rem(175px);
+      img {
+        width: 100%;
+        height: px2rem(175px);
+      }
+    }
+
+    .guide-txt {
+      padding: px2rem(9px) px2rem(8px);
+      margin: 0 auto;
+    }
+    .guide-intro {
+      margin-top: px2rem(9px);
+      height: px2rem(36px);
+      line-height: px2rem(18px);
+      display: -webkit-box ;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      -webkit-box-orient: vertical;
+      -webkit-line-clamp: 2;/*第2行出现省略号*/
+      @include font-dpr(14px);
+      color: $color-gray-secondary;
+      b {
+        @include font-dpr(16px);
+        color: $color-black;
+      }
+    }
+
+    .guide-evalu {
+      margin: px2rem(16px) 0;
+      @include font-dpr(10px);
+      color: $color-gray-primary;
+
+      //.star {
+      //  width: px2rem(55px);
+      //  font-size: 0;
+      //  padding-top: px2rem(3px);
+      //  text-align: center;
+      //  span {
+      //    display: inline-block;
+      //    width: px2rem(11px);
+      //    height: px2rem(11px);
+      //    background: url("../../assets/img/details_icon_mark@2x.png") no-repeat ;
+      //    background-size:100%;
+      //  }
+      //
+      //  .active {
+      //    background: url("../../assets/img/details_icon_markon@2x.png") no-repeat ;
+      //  }
+      //}
+
+      .num {
+        padding:0 px2rem(8px);
+        margin: 0 px2rem(8px);
+        border-left: 1px solid $color-gray-primary;
+        border-right: 1px solid $color-gray-primary;
+      }
+    }
+    .guide-order {
+      @include setButton(100%, px2rem(35px), $color-black, #fff, px2rem(5px));
+      border: 1px solid #ccc;
+      @include font-dpr(16px);
+    }
+
+  }
+
+  .footer {
+    padding: px2rem(20px);
+    @include font-dpr(12px);
+    color: $color-gray-secondary;
+    text-align: center;
+    line-height: 2;
+  }
+
+
+}

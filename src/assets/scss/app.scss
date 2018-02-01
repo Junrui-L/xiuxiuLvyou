@@ -1,0 +1,60 @@
+/**
+ * Created by tangyuanyuan on 2017/3/9.
+ */
+
+/*reset*/
+@import "helpers/reset";
+//helpers
+@import "helpers/functions";
+@import "helpers/variables";
+@import "helpers/mixins";
+
+//components
+@import "components/slider";
+@import "components/evaluateStar";
+@import "components/headTop";
+@import "components/alertTip";
+@import "components/dropDown";
+@import "components/timerCountDown";
+@import "components/swiper";
+@import "components/switch";
+@import "components/selectOption";
+@import "components/checkBox";
+@import "components/raidoBox";
+//@import "components/buttons";
+////@import "components/icon";
+//@import "components/input";
+//@import "components/list";
+//@import "components/font";
+//@import "components/loading";
+
+/*首页*/
+@import "pages/home";
+
+
+/*景区列表*/
+@import "pages/scenicRegion/scenicRegion";
+@import "pages/scenicRegion/scenicDetail";
+
+/*区导列表*/
+@import "pages/guide/guide";
+@import "pages/guide/guideDetail";
+
+/*搜索*/
+@import "pages/search/search";
+
+@import "pages/search/searchList";
+
+
+/*一键选导*/
+@import "pages/oneStepGuide/oneStepGuide";
+@import "pages/oneStepGuide/waitResponse";
+
+/*订单*/
+@import "pages/order/orderDetail";
+@import "pages/order/order";
+@import "pages/order/prepayOrder";
+
+/*设置联系方式*/
+@import "pages/setContact/setContact";
+

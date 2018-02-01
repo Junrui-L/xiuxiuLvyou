@@ -1,0 +1,265 @@
+.guide_detail {
+  width: 100%;
+  padding-top: px2rem(40px);
+  padding-bottom: px2rem(80px);
+  .guide-info {
+    background: $white;
+    padding: px2rem(20px);
+    border-bottom: 1px solid $gray;
+    position: relative;
+    .name {
+      @include font-dpr(24px);
+      line-height: px2rem(45px);
+      span {
+        padding: 0 px2rem(5px);
+        color: $color-gray-secondary;
+        @include font-dpr(13px)
+      }
+    }
+
+    .certification {
+      @include font-dpr(13px);
+      color: $color-black;
+      span {
+        padding:0 px2rem(6px);
+        position: relative;
+        &:after {
+          content: '';
+          @include centerTop;
+          right: 0;
+          width: 2px;
+          height: px2rem(15px);
+          background: $color-gray-secondary;
+        }
+      }
+
+      span:nth-of-type(1) {
+        padding-left: 0;
+      }
+      span:nth-last-of-type(1) {
+        &:after {
+          background: $white;
+        }
+      }
+    }
+
+    .img-wrapper {
+      @include centerTop;
+      right: px2rem(20px);
+
+      @include setSize(px2rem(66px), px2rem(66px));
+      border-radius: 50%;
+      img {
+        width: 100%;
+        height: 100%;
+        border: 0;
+        border-radius: 50%;
+      }
+    }
+
+  }
+
+
+
+  .guide-date {
+    @include setSize(100%, px2rem(72px));
+    background: $white;
+    @include flexJust;
+    .date-item {
+     @include flex(1);
+      text-align: center;
+      padding-top: px2rem(16px);
+      strong {
+        @include font-dpr(18px);
+        line-height: px2rem(24px);
+      }
+      p {
+        @include font-dpr(14px);
+        color: $color-gray-secondary;
+      }
+    }
+  }
+
+  .detail-container {
+    margin-top: px2rem(8px);
+    padding: px2rem(18px) px2rem(20px);
+    background: $white;
+    .about {
+      padding-bottom: px2rem(21px);
+      position: relative;
+      h3 {
+        @include font-dpr(20px);
+        line-height: 2;
+      }
+
+      .introduce {
+
+        line-height: px2rem(22px);
+        @include font-dpr(14px);
+        color: $color-black;
+
+      }
+
+      .clipFive {
+        height: px2rem(110px);
+        @include cliptxt(5)
+      }
+
+      .see-all {
+        position: absolute;
+        right: px2rem(5px);
+        bottom: px2rem(5px);
+        color: $color-red;
+        @include font-dpr(14px);
+      }
+    }
+
+    .tite {
+      @include font-dpr(20px);
+      line-height: 2;
+      color: $color-black;
+      border-bottom: 1px solid $color-body-bg;
+    }
+
+    .tourist-eval {
+
+
+      .all-command {
+        .command-tit {
+          padding: px2rem(5px) 0;
+          position: relative;
+          .command-num {
+            @include font-dpr(18px);
+            color: $color-black;
+            line-height: 1.3;
+          }
+          .see-command {
+            @include centerTop;
+            right: 0;
+            color: $color-red;
+            line-height: 2;
+            @include font-dpr(16px)
+          }
+
+        }
+
+
+        .command-tip {
+          padding-top: px2rem(10px);
+
+          .tip {
+            @include setSize(30%, px2rem(33px));
+            line-height: px2rem(30px);
+            text-align: center;
+            @include font-dpr(12px);
+            color: $color-gray-secondary;
+            margin-right: 4% ;
+            margin-bottom: px2rem(10px);
+            border: 1px solid $color-gray-secondary;
+          }
+
+          .tip:nth-of-type(3n) {
+            margin-right: 0;
+          }
+        }
+      }
+
+    }
+  }
+
+  /*其他向导玩法*/
+  .other-playmethos{
+
+    .methods {
+      width: 100%;
+      padding-bottom: px2rem(20px);
+      .method-img {
+        height: px2rem(75px);
+        width: px2rem(120px);
+        margin-right: px2rem(12px);
+        img {
+          width: 100%;
+          max-height: 100%;
+        }
+      }
+
+      .method-detail {
+        width: px2rem(200px);
+        height: px2rem(75px);
+        color: $color-gray-primary;
+        .method-desc {
+          @include setSize(100%, px2rem(50px));
+          @include font-dpr(16px);
+          @include cliptxt(2);
+          color: $color-black;
+          line-height: px2rem(25px);
+        }
+
+        .method-price {
+          text-align: right;
+          line-height: px2rem(25px);
+          @include font-dpr(18px);
+          color: $color-red;
+        }
+      }
+
+
+      .method-txt {
+        margin-top: px2rem(16px);
+        @include setSize(100%, px2rem(64px));
+        padding: px2rem(10px);
+        background: $color-body-bg;
+        p {
+          line-height: px2rem(22px);
+          width: 100%;
+          @include cliptxt(2);
+          @include font-dpr(14px);
+        }
+      }
+    }
+
+
+  }
+
+
+  .secnic-footer{
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    z-index: 2;
+    @include setSize(100%, px2rem(80px));
+    padding: px2rem(17px) px2rem(20px);
+    background: $white;
+    box-shadow:0px px2rem(-4px) px2rem(14px) $color-gray-secondary;
+
+    .fucc {
+      font-size:0;
+      span {
+        display: inline-block;
+        @include setSize(px2rem(80px),100%);
+        padding-top: px2rem(30px);
+        @include font-dpr(11px);
+        color: $color-black;
+        line-height: px2rem(16px);
+        text-align: center;
+      }
+
+      .favarate {
+        background: url(../../assets/img/details_icon_mark@2x.png) no-repeat center px2rem(3px);
+        background-size: px2rem(26px) px2rem(26px);
+      }
+
+      .chat {
+        background: url(../../assets/img/Group@2x.png) no-repeat center px2rem(5px);
+        background-size: px2rem(22px) px2rem(22px);
+      }
+    }
+    .order-btn {
+      @include setButton(px2rem(168px), px2rem(46px), $white, $color-red , px2rem(4px))
+    }
+  }
+
+
+
+
+}

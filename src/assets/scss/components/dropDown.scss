@@ -1,0 +1,236 @@
+
+.iv-dropDown-cover{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background :rgba(0,0,0,.7);
+    z-index: 10;
+  }
+  .select-wrapper {
+    width: 100%;
+    @include font-dpr(16px);
+    @include flexJust;
+    background: $white;
+    position: relative;
+    z-index: 1000;
+    .iv-dropDown-nav{
+      float: left;
+      @include setSize(75%, px2rem(44px));
+      line-height:  px2rem(44px);
+      text-align: center;
+
+      position: relative;
+      z-index: 100;
+      border-bottom:1px solid $gray;
+
+      @include flexJust();
+
+      li{
+        @include flex(1);
+        @include ellipsis();
+
+        position: relative;
+        padding: 0 12px;
+        &.cur{
+          color : $orange;
+          &:after{
+            border-color:transparent transparent transparent $orange;
+          }
+        }
+
+        &:after{
+          position: absolute;
+          bottom: 2px;
+          right: 4px;
+          content: '';
+          display: block;
+          width: 0;
+          border-width: 6px;
+          border-style:solid;
+          border-color:transparent transparent transparent $gray;
+          @include transform(rotate(45deg));
+        }
+        &:before{
+          content: '';
+          display: block;
+          @include setSize(1px, px2rem(20px));
+          background: $gray;
+          position: absolute;
+          right: 0;
+          top: 50%;
+          @include transform(scaleX(0.5) translateY(-50%));
+        }
+        &:last-child:before{
+          display: none;
+        }
+      }
+    }
+
+    .pro-select {
+      width: 25%;
+      line-height: px2rem(44px);
+      text-align: center;
+      position: relative;
+      &.cur{
+        color : $orange;
+        &:after{
+          border-color:transparent transparent transparent $orange;
+        }
+      }
+
+      &:after{
+        position: absolute;
+        bottom: 2px;
+        right: 4px;
+        content: '';
+        display: block;
+        width: 0;
+        border-width: 6px;
+        border-style:solid;
+        border-color:transparent transparent transparent $gray;
+        @include transform(rotate(45deg));
+      }
+      &:before{
+        content: '';
+        display: block;
+        @include setSize(1px, px2rem(20px));
+        background: $gray;
+        position: absolute;
+        right: 0;
+        top: 50%;
+        @include transform(scaleX(0.5) translateY(-50%));
+      }
+
+      &:last-child:before{
+        display: none;
+      }
+    }
+  }
+
+  .iv-dropDown-wrapper{
+    width: 100%;
+    min-height: px2rem(300px);
+    position: relative;
+    z-index: 100;
+    background: $white;
+    overflow: auto;
+    display: none;
+    padding-bottom: px2rem(88px);
+
+
+    &.show {
+      display: block;
+    }
+  }
+
+  .pro-select-wrapper {
+    width: 100%;
+    height: px2rem(300px);
+    position: relative;
+    z-index: 100;
+    background: $white;
+    overflow: auto;
+    //display: none;
+    &.proshow {
+      display: block;
+    }
+  }
+
+  .iv-dropDown-list{
+    background:$white;
+    height: px2rem(400px);
+    display: none;
+    position: relative;
+    z-index: 1000;
+    &.active{
+      @include flexbox();
+    }
+
+    ul{
+      position: relative;
+      height: px2rem(400px);
+      -webkit-overflow-scrolling: touch;
+      @include flex(1);
+      @include transition(all 0.5s);
+      border-right:1px solid $gray;
+      overflow-y: auto;
+      &:last-child{
+        border-right:none;
+      }
+
+      &:after{
+        border-right:1px solid $gray;
+        position: absolute;
+        right: 0;
+      }
+      li{
+        height: px2rem(44px);
+        line-height: px2rem(44px);
+        @include font-dpr(16px);
+        text-align: center;
+        position: relative;
+        border-bottom: 1px solid #ccc;
+
+        &.cur{
+          color: $orange;
+        }
+      }
+    }
+
+
+    &.pro-list {
+      display: block;
+      padding: px2rem(15px);
+
+      .check-wrapper {
+        margin-bottom: px2rem(10px);
+        h5 {
+          height: px2rem(30px);
+          line-height: px2rem(30px);
+          @include font-dpr(10px);
+
+        }
+
+        .price-limit {
+          line-height: px2rem(36px);
+          @include font-dpr(15px);
+
+          svg {
+            fill: $color-gray-secondary;
+            width: px2rem(16px);
+            height:px2rem(16px);
+            vertical-align: text-top;
+          }
+        }
+      }
+
+      .btn-wrapper {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        @include setSize(100%, px2rem(60px));
+        z-index: 10000;
+        background: $white;
+        padding: px2rem(10px) px2rem(35px);
+
+        .re {
+
+          @include setButton(px2rem(138px), px2rem(40px), $color-black, $white, px2rem(6px));
+          border: 1px solid $color-gray-secondary;
+
+        }
+
+        .sure {
+            @include setButton(px2rem(138px), px2rem(40px), $white, $color-red, px2rem(6px));
+
+        }
+
+      }
+
+    }
+
+
+  }
+

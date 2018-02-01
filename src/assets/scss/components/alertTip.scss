@@ -1,0 +1,69 @@
+@keyframes tipMove{
+  0%   { transform: scale(1) }
+  35%  { transform: scale(.8) }
+  70%  { transform: scale(1.1) }
+  100% { transform: scale(1) }
+}
+.alet_container{
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 200;
+  background: rgba(255, 12, 23, .5);
+}
+.tip_text_container{
+  @include center;
+  width: 80%;
+  //animation: tipMove .4s ;
+  background-color: #fff;
+  border: 1px;
+  padding-top: px2rem(20px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  border: 1px;
+  border-radius: px2rem(15px);
+  .tip_icon{
+    @include setSize(px2rem(45px), px2rem(45px));
+    border: 3px solid #f8cb86;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    span:nth-of-type(1){
+      @include setSize(px2rem(3px), px2rem(20px));
+      background-color: #f8cb86;
+    }
+    span:nth-of-type(2){
+      @include setSize(px2rem(5px), px2rem(5px));
+      border: 1px;
+      border-radius: 50%;
+      margin-top: .2rem;
+      background-color: #f8cb86;
+    }
+  }
+  .tip_text{
+    line-height: .9rem;
+    text-align: center;
+    margin-top: px2rem(20px);
+    padding: 0 .4rem;
+    @include font-dpr(18px);
+    color: $color-black;
+  }
+  .confrim{
+    @include font-dpr(16px);
+    font-weight: bold;
+    margin-top: px2rem(30px);
+    background-color: #4cd964;
+    width: 100%;
+    text-align: center;
+    line-height: 1.8rem;
+    border: 1px;
+    border-bottom-left-radius: 0.25rem;
+    border-bottom-right-radius: 0.25rem;
+  }
+}

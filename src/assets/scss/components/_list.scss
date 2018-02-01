@@ -1,0 +1,22 @@
+/**
+ * Created by tangyuanyuan on 2017/3/9.
+ 使用说明：ul列表会有默认样式
+          如非ul/li标签需要有列表样式，可以加上class:ul/li 或 list/item，便拥有默认的列表样式
+ */
+
+ul,.list,.ul{
+  padding:0;
+  li,.li,.item{
+    border:none;
+    border-top: $border;
+    padding:$spacing-big $spacing-base;
+    list-style: none;
+  }
+}
+
+.border{
+  border-bottom: $border;
+}
+.margin20 {
+  margin-top: px2rem(20px);
+}

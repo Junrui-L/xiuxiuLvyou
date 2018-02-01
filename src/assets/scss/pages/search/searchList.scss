@@ -1,0 +1,126 @@
+.search_list {
+
+  width: 100%;
+  height: 100%;
+  background: #f8f8f8;
+  -webkit-overflow-scrolling: touch;
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  right: 0;
+  left: 0;
+  /*顶部搜索框*/
+  .header {
+    position: relative;
+    width: 100%;
+    height: px2rem(45px);
+    padding: px2rem(10px) px2rem(15px) 0;
+    background: #fff;
+    z-index: 999;
+    .head_goback{
+      @include centerTop;
+      @include setSize(8%, px2rem(30px));
+      line-height: px2rem(44px);
+      //margin-left: px2rem(25px);
+      left: px2rem(15px);
+      svg {
+        fill: #666;
+        @include setSize(px2rem(20px), px2rem(20px));
+      }
+    }
+    .search-icon {
+      position: absolute;
+      left: 12%;
+      top: px2rem(16px);
+      fill: $color-gray-secondary;
+      width: px2rem(16px);
+      height:px2rem(16px);
+      vertical-align: middle;
+      z-index: 20;
+    }
+    .search-input {
+      @include centerTop;
+      left: 9%;
+      @include setSize(75%, px2rem(28px));
+      line-height: px2rem(28px);
+      @include font-dpr(14px);
+      color: $color-black;
+      padding-left: px2rem(35px);
+      background: $color-senior-bg;
+      border-radius: px2rem(15px);
+      outline: none;
+    }
+    .delete {
+      @include centerTop;
+      left: 78%;
+      @include setSize(px2rem(15px), px2rem(15px));
+      @include bgImg("../../assets/img/nav_search_delete@2x.png");
+
+    }
+    .search-btn {
+      @include setSize(15%, px2rem(28px));
+      line-height: px2rem(28px);
+      text-align: center;
+      @include font-dpr(14px);
+      color: $color-black;
+    }
+
+  }
+
+/*搜索结果列表*/
+  .search-list {
+    flex: 1;
+    padding: px2rem(10px);
+    background: $color-body-bg;
+    height: 100%;
+    overflow-y: scroll;
+    -webkit-overflow-scrolling: touch;
+    .list-wrapper {
+      //height: 100%;
+      padding-left: px2rem(10px);
+      background: #fff;
+      .list-item {
+        @include setSize(100%, px2rem(60px));
+        line-height: px2rem(60px);
+        padding-left: px2rem(30px);
+        @include font-dpr(16px);
+        color: $color-black;
+        border-bottom: $border;
+        display: block;
+        span {
+          color: $gray;
+        }
+
+      }
+      .local {
+        @include bgImg("../../assets/img/search_list_local@2x.png");
+        background-position: px2rem(5px) center;
+        background-size: px2rem(16px);
+      }
+
+      .spot {
+        @include bgImg("../../assets/img/search_list_de@2x.png");
+        background-position: px2rem(5px) center;
+        background-size: px2rem(16px);
+      }
+
+      .play {
+        @include bgImg("../../assets/img/search_list_wan@2x.png");
+        background-position: px2rem(5px) center;
+        background-size: px2rem(16px);
+      }
+
+
+    }
+  }
+
+
+
+
+
+
+
+
+
+
+}

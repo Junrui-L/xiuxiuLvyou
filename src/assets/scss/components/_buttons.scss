@@ -1,0 +1,53 @@
+/**
+ * Created by tangyuanyuan on 2017/3/9.
+ *使用说明：按钮默认为橘色长按钮，
+           需要圆角： class="btn-radius",
+           需要小按钮：class="btn-small",
+           圆角小按钮则为：class="btn-radius btn-small"
+           其他使用同上
+ */
+//普通橘色按钮
+button,.btn{
+  @include setButton($btn-width,$btn-height,$color-white,$color-orange-secondary,$btn-radius);
+  border:none;
+  text-align: center;
+  display: inline-block;
+  line-height: $btn-height;
+}
+//椭圆角按钮
+.btn-radius{
+  @include setRadius($btn-radius-large);
+}
+//小按钮
+.btn-small{
+  @include setSize($btn-width-small,$btn-height-small);
+}
+//特小按钮
+.btn-smallest{
+  @include setSize($btn-width-smallest,$btn-height-smallest);
+}
+//红色按钮
+.btn-red{
+  @include setBtnColor($color-white,$color-red);
+}
+//反色橘色按钮
+.btn-orange-inverse{
+  width: 100%;
+  @include setBtnColor($color-orange-secondary,$color-white);
+  height:px2rem(87px);
+  line-height:px2rem(87px);
+  border-top:1px solid $color-orange-secondary ;
+  border-radius: 0px;
+}
+//反色灰色按钮
+.btn-gray-inverse{
+  width: 100%;
+  @include setBtnColor(#c5c5c5,$color-white);
+  height:px2rem(87px);
+  line-height:px2rem(87px);
+  border-top:1px solid #eceded;
+  border-radius: 0px;
+}
+.btn.btn-orange-disable{
+  background: rgba(247,139,0,0.2) !important;
+}

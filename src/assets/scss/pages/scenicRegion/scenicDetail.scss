@@ -1,0 +1,428 @@
+.scenic_detail {
+  background: $color-body-bg;
+  padding-bottom: px2rem(80px);
+  header {
+    width: 100%;
+    height: px2rem(210px);
+
+    .head-img {
+      width: 100%;
+      height: px2rem(210px);
+    }
+  }
+
+  .main-content {
+    padding: px2rem(15px) px2rem(20px);
+    background: $white;
+
+    .guide-wrapper {
+      margin-top: px2rem(10px);
+      border-top: 2px solid $gray;
+      width: 100%;
+
+      padding: px2rem(20px) 0;
+      position: relative;
+      .guide-img {
+        @include setSize(px2rem(60px), px2rem(60px));
+        margin-right: px2rem(12px);
+        @include setRadius(100%);
+        img {
+          @include setSize(100%, 100%);
+          border-radius: 100%;
+        }
+      }
+
+      .guide-detail {
+        height: px2rem(54px);
+      }
+      .guide-name {
+        width: px2rem(180px);
+        height: px2rem(25px);
+        line-height: px2rem(25px);
+        @include font-dpr(12px);
+        color: $color-gray-primary;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        span {
+          @include font-dpr(16px);
+          color: $color-black;
+        }
+      }
+
+      .guide-level {
+        //margin: px2rem(8px) 0;
+        line-height: px2rem(26px);
+        @include font-dpr(14px);
+        color: $color-black;
+
+      }
+
+      .guide-order {
+        @include centerTop;
+        right: 0;
+        @include setSize(px2rem(25px), px2rem(25px));
+        background: url(../../assets/img/Shape@2x.png) no-repeat center;
+        background-size: px2rem(15px) px2rem(20px);
+      }
+
+
+
+    }
+  }
+
+  .head-wrapper {
+    .region-name {
+      @include font-dpr(24px);
+      line-height: px2rem(30px);
+      span {
+        box-sizing: border-box;
+        display: inline-block;
+        @include font-dpr(14px);
+        line-height: px2rem(30px);
+        padding-left: px2rem(10px);
+        padding-right: px2rem(8px);
+        background:  url(../../assets/img/Rectangle.png) no-repeat center;
+        background-size: px2rem(50px) px2rem(20px);
+        color: $white;
+      }
+    }
+
+    .region-adress {
+      @include font-dpr(16px);
+      line-height: px2rem(28px);
+      padding-left: px2rem(30px);
+      background: url(../../assets/img/search_list_local@2x.png) no-repeat px2rem(8px) center;
+      background-size: px2rem(15px) px2rem(20px);
+    }
+
+    .tips {
+      padding: px2rem(10px) 0;
+      .tip {
+        margin-right: px2rem(10px);
+        padding: 0 px2rem(3px);
+        background: $color-senior-bg;
+        color: $color-brown-primary;
+        @include font-dpr(12px)
+      }
+    }
+  }
+
+
+  .region-detail-nav {
+    margin-top: px2rem(10px);
+    @include setSize(100%, px2rem(50px));
+    padding: 0 px2rem(20px);
+    background: $white;
+    border-bottom: 2px solid $color-body-bg;
+    .nav-title {
+      width: 100%;
+      @include flexJust();
+
+      .nav-item {
+        @include flex(1);
+        @include font-dpr(16px);
+        line-height: px2rem(50px);
+        text-align: center;
+      }
+
+      .active {
+        color: $color-red;
+        position: relative;
+        background: transparent;
+        &:after {
+          @include centerLeft;
+          bottom: 0;
+          content: '';
+          width: px2rem(60px);
+          height: px2rem(3px);
+          background: $color-red;
+        }
+      }
+    }
+
+  }
+
+  .detail-desc {
+    background: $white;
+
+    section {
+      padding:0 px2rem(20px);
+    }
+    .tite {
+
+      @include font-dpr(20px);
+      line-height: px2rem(50px);
+      color: $color-black;
+      border-bottom: 1px solid $color-body-bg;
+    }
+
+    .list-wrapper {
+      width: 100%;
+
+      border-bottom: 1px solid $color-body-bg;
+      .list-item {
+
+        .item-tit {
+          padding: 0 px2rem(20px);
+          @include setSize(100%, px2rem(60px));
+          line-height: px2rem(60px);
+          @include font-dpr(16px);
+          border-top: 1px solid $color-body-bg;
+          span {
+            color: $color-red;
+            padding-right: px2rem(20px);
+            position: relative;
+            &:after {
+              content: '';
+              position: absolute;
+              top: px2rem(27px);
+              right: px2rem(5px);
+              @include setSize(px2rem(8px), px2rem(8px));
+              border-bottom: 2px solid $gray;
+              border-right: 2px solid $gray;
+              @include transform(rotate(45deg));
+            }
+
+
+          }
+
+          span.up:after {
+            @include transform(rotate(225deg))
+          }
+        }
+
+      }
+    }
+
+    .sub-title {
+      padding-left: px2rem(20px);
+      @include font-dpr(16px);
+
+    }
+
+    .price-desc {
+      padding: px2rem(10px) px2rem(20px);
+      line-height: 1.3;
+      @include font-dpr(14px);
+      background: $color-body-bg;
+    }
+
+  }
+
+  .methods-desc {
+    padding: 0 px2rem(20px);
+    line-height: 1.3;
+    @include font-dpr(14px);
+  }
+
+  .img-wrapper {
+    width: 100%;
+    padding: 0 px2rem(20px);
+    margin-bottom: px2rem(20px);
+    .img-container {
+      width: px2rem(165px);
+      padding: 35% 0 0;
+      position: relative;
+      img {
+        @include center;
+        width: 100%;
+        max-height: 100%;
+      }
+    }
+    .img-container:nth-of-type(2n) {
+      float: left;
+
+    }
+    .img-container:nth-of-type(2n+1) {
+      float: right;
+    }
+
+  }
+
+  .all-command {
+    padding: 0 px2rem(20px);
+
+    .command-tit {
+      padding: px2rem(5px) 0;
+      position: relative;
+      .command-num {
+        @include font-dpr(18px);
+        color: $color-black;
+        line-height: 1.3;
+      }
+      .see-command {
+        @include centerTop;
+        right: 0;
+        color: $color-red;
+        line-height: 2;
+        @include font-dpr(16px)
+      }
+
+    }
+
+
+    .command-tip {
+      padding-top: px2rem(10px);
+
+      .tip {
+        @include setSize(30%, px2rem(33px));
+        line-height: px2rem(30px);
+        text-align: center;
+        @include font-dpr(12px);
+        color: $color-gray-secondary;
+        margin-right: 4% ;
+        margin-bottom: px2rem(10px);
+        border: 1px solid $color-gray-secondary;
+      }
+
+      .tip:nth-of-type(3n) {
+        margin-right: 0;
+      }
+    }
+  }
+
+  .methos-wrapper {
+    padding: px2rem(20px);
+
+    .methods {
+      width: 100%;
+      padding-bottom: px2rem(20px);
+      .method-img {
+        height: px2rem(75px);
+        width: px2rem(120px);
+        margin-right: px2rem(12px);
+        img {
+          width: 100%;
+          max-height: 100%;
+        }
+      }
+
+      .method-detail {
+        width: px2rem(200px);
+        height: px2rem(75px);
+        color: $color-gray-primary;
+        .method-desc {
+          @include setSize(100%, px2rem(50px));
+          @include font-dpr(16px);
+          @include cliptxt(2);
+          color: $color-black;
+          line-height: px2rem(25px);
+        }
+
+        .method-price {
+          text-align: right;
+          line-height: px2rem(25px);
+          @include font-dpr(18px);
+          color: $color-red;
+        }
+      }
+
+
+      .method-txt {
+        margin-top: px2rem(16px);
+        @include setSize(100%, px2rem(64px));
+        padding: px2rem(10px);
+        background: $color-body-bg;
+        p {
+          line-height: px2rem(22px);
+          width: 100%;
+          @include cliptxt(2);
+          @include font-dpr(14px);
+        }
+      }
+    }
+
+
+  }
+
+  .secnic-footer{
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    z-index: 2;
+    @include setSize(100%, px2rem(80px));
+    padding: px2rem(17px) px2rem(20px);
+    background: $white;
+    box-shadow:0px px2rem(-4px) px2rem(14px) $color-gray-secondary;
+
+    .fucc {
+      font-size:0;
+      span {
+        display: inline-block;
+        @include setSize(px2rem(80px),100%);
+        padding-top: px2rem(30px);
+        @include font-dpr(11px);
+        color: $color-black;
+        line-height: px2rem(16px);
+        text-align: center;
+      }
+
+      .favarate {
+        background: url(../../assets/img/details_icon_mark@2x.png) no-repeat center px2rem(3px);
+        background-size: px2rem(26px) px2rem(26px);
+      }
+
+      .chat {
+        background: url(../../assets/img/Group@2x.png) no-repeat center px2rem(5px);
+        background-size: px2rem(22px) px2rem(22px);
+      }
+    }
+    .order-btn {
+      @include setButton(px2rem(168px), px2rem(46px), $white, $color-red , px2rem(4px))
+    }
+  }
+
+  .bootom-cotent {
+    padding: px2rem(20px);
+    padding-bottom: px2rem(60px);
+    @include setSize(100%, px2rem(400px));
+    background: $white;
+    position: relative;
+    .close {
+      position: absolute;
+      top: px2rem(10px);
+      right: px2rem(10px);
+      @include setSize(px2rem(30px), px2rem(30px));
+      &:before, &:after {
+        content: '';
+        position: absolute;
+        top: px2rem(15px);
+        left: 0;
+        @include transform(rotate(45deg));
+        @include setSize(px2rem(30px), 2px);
+        background: $color-black;
+      }
+
+      &:after {
+        @include transform(rotate(135deg));
+      }
+    }
+
+    .choose-item {
+      @include setSize(100%, px2rem(50px));
+      line-height: px2rem(50px);
+      @include font-dpr(14px);
+      border-bottom: 1px solid $color-body-bg;
+      color: $color-gray-secondary;
+      span {
+        color: $color-black;
+      }
+      svg {
+        fill: $color-gray-secondary;
+        width: px2rem(16px);
+        height:px2rem(16px);
+        vertical-align: text-bottom;
+      }
+    }
+
+    .next-step {
+      padding: 0;
+      @include centerLeft;
+      bottom: px2rem(10px);
+      @include setSize(90%, px2rem(50px));
+      line-height: px2rem(50px);
+    }
+  }
+
+}

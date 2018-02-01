@@ -1,0 +1,110 @@
+.ScenicRegion {
+  background: $color-body-bg;
+  header {
+    width: 100%;
+    height: px2rem(210px);
+
+    .head-img {
+      width: 100%;
+      height: px2rem(210px);
+    }
+  }
+
+  .region-wrapper {
+    padding: px2rem(10px);
+
+    .region-list {
+      padding:0 px2rem(10px);
+      background: #fff;
+
+    }
+
+    .region {
+      width: 100%;
+
+      padding: px2rem(20px) 0;
+      border-bottom: 2px solid #ccc;
+
+      .region-img {
+        height: px2rem(75px);
+        width: px2rem(120px);
+        margin-right: px2rem(12px);
+        img {
+          width: 100%;
+          max-height: 100%;
+        }
+      }
+
+      .region-name {
+        width: px2rem(180px);
+        height: px2rem(25px);
+        line-height: px2rem(25px);
+        @include font-dpr(12px);
+        color: $color-gray-primary;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        span {
+          @include font-dpr(16px);
+          color: $color-black;
+        }
+      }
+
+      .region-level {
+        margin: px2rem(8px) 0;
+        height: px2rem(20px);
+        line-height: px2rem(20px);
+        @include font-dpr(14px);
+        color: $color-black;
+
+      }
+
+      .region-category {
+        width:px2rem(200px);
+        line-height: px2rem(20px);
+        @include font-dpr(12px);
+        color: $color-black;
+        span {
+          color: $color-gray-primary;
+        }
+      }
+    }
+    .region:nth-last-of-type(1) {
+      border: none;
+    }
+
+
+
+    .region-txt {
+      margin-top: px2rem(16px);
+      padding: px2rem(12px);
+      height: px2rem(64px);
+      @include font-dpr(12px);
+      background: $color-senior-bg;
+      p {
+        @include cliptxt(2)
+
+      }
+
+    }
+
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+}

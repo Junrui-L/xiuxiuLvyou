@@ -1,0 +1,80 @@
+/**
+ * Created by tangyuanyuan on 2017/3/10.
+ */
+//示例
+/*
+<div class="inputGroup">
+  <div class="inputDiv">
+    <label><i class="icon"></icon>姓名</label>
+    <input type="text" placeholder="请输入姓名">
+  </div>
+  <div class="inputDiv">
+    <label><i class="icon"></icon>出生年份</label>
+    <select>
+      <option>1991</option>
+    </select>
+  </div>
+</div>
+<div class="inputGroup">
+  <div class="inputDiv">
+    <label>单位名称</label>
+    <input type="text" placeholder="请输入单位名称">
+  </div>
+</div>
+*/
+.input-group{
+  background-color: $color-white;
+  margin-bottom: px2rem(20px);
+  padding:0  $spacing-base;
+}
+.input-div{
+  background-color: $color-white;
+  border-bottom: $border;
+  label,span{
+    color:$color-black;
+    @include font-dpr($font-size-base);
+    /*font-family: $font-family-base;*/
+    display: inline-block;
+    text-align: left;
+    height: $input-height;
+    line-height: $input-height;
+    vertical-align: middle;
+  }
+  label,span{
+    width:$label-width;
+    .icon{
+      width:$icon-width;
+      height:$icon-height;
+      display: inline-block;
+      margin:0 $spacing-base;
+      vertical-align: middle;
+    }
+  }
+  input,.select{
+    border: none;
+  }
+  &:last-child{
+    border-bottom: none;
+  }
+}
+/*.select,input{
+  position: relative;
+  color:$color-black;
+  @include font-dpr($font-size-base);
+  font-family: $font-family-base;
+  display: inline-block;
+  text-align: left;
+  width:$input-width;
+  height: $input-height;
+  line-height: $input-height;
+  vertical-align: middle;
+  &:after{
+    content:'>';
+    position: absolute;
+    top:0;
+    right:$spacing-base;
+  }
+}*/
+
+
+

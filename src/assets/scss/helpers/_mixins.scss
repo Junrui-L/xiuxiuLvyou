@@ -1,0 +1,206 @@
+/**
+ * Created by lvjr on 2017/12/19.
+ */
+
+//字体适配
+@mixin font-dpr($font-size){
+  font-size: $font-size;
+  [data-dpr='2'] & {
+    font-size: $font-size * 2;
+  }
+  [data-dpr='3'] & {
+    font-size: $font-size * 3;
+  }
+  //下版注意加上line-hegiht:100%
+}
+
+@mixin lin-dpr ($height) {
+  line-height: $height;
+  [data-dpr='2'] & {
+    line-height: $height * 2;
+  }
+  [data-dpr='3'] & {
+    line-height: $height * 3;
+  }
+}
+
+@mixin height-dpr($height) {
+  height: $height;
+  [data-dpr='2'] & {
+    height: $height * 2;
+  }
+  [data-dpr='3'] & {
+    height: $height * 3;
+  }
+}
+@mixin img-dpr($imgSrc,$bigImgSrc){
+  background: url($imgSrc) no-repeat 0 0;
+  background-size:contain;
+  [data-dpr='3'] & {
+    background: url($imgSrc) no-repeat 0 0;
+    background-size: contain;
+  }
+}
+@mixin setSize($width,$height){
+  width:$width;
+  height:$height;
+}
+@mixin setColor($color:$color-black,$bgcolor:$color-white){
+  color: $color;
+  background-color: $bgcolor;
+}
+@mixin setRadius($radius){
+  border-radius: $radius;
+}
+@mixin setButton($width,$height,$color,$bgcolor,$radius){
+  @include setSize($width,$height);
+  @include setColor($color,$bgcolor);
+  @include font-dpr(16px);
+  @include setRadius($radius);
+  border: none;
+  &:active{
+    background-color: darken($bgcolor,$color-amount);
+  }
+}
+@mixin setBtnColor($color,$bgcolor){
+  @include setColor($color,$bgcolor);
+  &:active{
+    @include setColor($color,darken($bgcolor,$color-amount));
+  }
+}
+@mixin hideAppearance{
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance:none;
+}
+
+//arrow
+@mixin arrow($deg){
+  content: '';
+  display:inline-block;
+  margin-top: px2rem(5px);
+  @include setSize(px2rem(8px), px2rem(8px));
+  border-right:1px solid #C7C7C7;
+  border-top:1px solid #C7C7C7;
+   transform : rotate($deg);
+}
+// 背景图片地址和大小
+@mixin bgImg($url) {
+  background-image: url($url);
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+}
+
+
+@mixin borderRadius($radius) {
+  -webkit-border-radius: $radius;
+  -moz-border-radius: $radius;
+  -ms-border-radius: $radius;
+  -o-border-radius: $radius;
+  border-radius: $radius;
+}
+//定位全屏
+@mixin allcover{
+  position:absolute;
+  top:0;
+  right:0;
+}
+
+//定位上下左右居中
+@mixin center {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+//定位上下居中
+@mixin centerTop {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+//定位左右居中
+@mixin centerLeft {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+//字体大小、行高、字体
+@mixin font($size, $line-height, $family: 'Microsoft YaHei') {
+  font: #{$size}/#{$line-height} $family;
+}
+
+//字体大小，颜色
+@mixin sc($size, $color){
+  font-size: $size;
+  color: $color;
+}
+//flexBox
+@mixin flexbox(){
+  //OLD - iOS 6-, Safari 3.1-6
+  display: -webkit-box;
+  //NEW - Chrome
+  display: -webkit-flex;
+  display: flex;
+}
+//flex 布局和 子元素 对其方式
+@mixin flexJust($type: space-between){
+  display: flex;
+  justify-content: $type;
+
+}
+
+@mixin flex($per){
+  -webkit-box-flex:$per;
+  -webkit-flex:$per;
+  flex:$per;
+  //下面3个属性是为了兼容安卓4.3
+  display:block;
+  width:0;
+  overflow:hidden;
+}
+
+//ellipsis 超出隐藏
+@mixin ellipsis(){
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+@mixin cliptxt($line:2) {
+  display: -webkit-box ;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: $line;/*第2行出现省略号*/
+}
+
+@mixin transform($trans){
+  transform: $trans;
+}
+
+@mixin transition($trans){
+  transition: $trans;
+}
+
+@mixin animation($anim){
+  transform: $anim;
+}
+
+/*懒加载图片的样式*/
+img[lazy=loading] {
+  width: px2rem(16px)!important;
+  //@include center;
+  background: $gray;
+}
+img[lazy=error] {
+  width: 100%;
+  height: 100%;
+}
+img[lazy=loaded] {
+
+  display: block;
+}

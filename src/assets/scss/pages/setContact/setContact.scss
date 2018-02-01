@@ -1,0 +1,54 @@
+.set_contact {
+  padding-top: px2rem(20px);
+  @include setSize(100%, 100%);
+  background: $white;
+  .title {
+    margin-bottom: px2rem(45px);
+    @include setSize(100%, px2rem(50px));
+    line-height: px2rem(50px);
+    @include font-dpr(28px);
+    color: $color-black;
+    text-align: center;
+  }
+
+  .input-wrapper {
+    padding: 0 px2rem(20px);
+    @include setSize(100%, px2rem(55px));
+    position: relative;
+    input {
+      @include setSize(100%, px2rem(55px));
+      line-height: px2rem(55px);
+      color: $color-black;
+      border: none;
+      @include font-dpr(14px);
+      border-bottom: 1px solid $gray;
+    }
+    .delete {
+      @include centerTop;
+      left: px2rem(200px);
+      @include setSize(px2rem(15px), px2rem(15px));
+      @include bgImg("../../assets/img/nav_search_delete@2x.png");
+    }
+
+    .btn-txt {
+      @include centerTop;
+      right: px2rem(10px);
+      @include setButton(px2rem(120px), px2rem(30px), $color-gray-secondary, $white, 0);
+      @include font-dpr(14px)
+    }
+  }
+
+  .save-wrapper {
+    margin-top: px2rem(44px);
+    padding: 0 px2rem(20px);
+
+    .save-btn {
+      @include setButton(100%, px2rem(45px), $white, $color-red, px2rem(5px))
+    }
+  }
+
+
+
+
+
+}

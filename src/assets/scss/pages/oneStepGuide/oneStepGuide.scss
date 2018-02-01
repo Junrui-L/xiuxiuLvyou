@@ -1,0 +1,164 @@
+.one_step_guide {
+  background: $color-body-bg;
+  height: 100%;
+  padding-top: px2rem(44px);
+
+
+  .container {
+    padding: px2rem(10px);
+    border-radius: px2rem(3px);
+    .guide-type {
+      margin-bottom: px2rem(10px);
+    }
+    /*tab切换*/
+    .change_show_type{
+      height:1.2rem;
+      width: 100%;
+      background:#fff;
+      div{
+        width: 50%;
+        width: 50%;
+        height:1.2rem;
+        float:left;
+        text-align:center;
+        font-size: 0;
+
+        span{
+          display: inline-block;
+          width: px2rem(100px);
+          line-height:1.2rem;
+          @include font-dpr(16px);
+          &.activity_show{
+            color:#fc8190;
+            border-bottom: .05rem solid #fc8190;
+          }
+        }
+      }
+    }
+
+    /*导游选择器*/
+
+    .change_content {
+      height: 100%;
+      width: 100%;
+      padding-left: px2rem(15px);
+      background: $white;
+      .condition {
+        width: 100%;
+        .cont-item {
+          height: px2rem(50px);
+          line-height: px2rem(50px);
+          @include font-dpr(16px);
+          border-bottom: 1px solid $color-body-bg;
+          span {
+            @include setSize(50%, px2rem(50px));
+            padding-left: px2rem(30px);
+            background: url(../../assets/img/one_list_t@2x.png) no-repeat px2rem(5px) center ;
+            background-size: px2rem(12px) px2rem(12px);
+          }
+
+          .trip-mount {
+            background-image: url(../../assets/img/one_list_p@2x.png);
+          }
+          .trip-require {
+            background-image: url(../../assets/img/one_list_c@2x.png);
+          }
+          .thank-fee {
+            background-image: url(../../assets/img/one_list_m@2x.png);
+          }
+        }
+
+        .address {
+          padding-left: px2rem(30px);
+          position: relative;
+          &:before {
+            content: '';
+            @include centerTop;
+            left: px2rem(5px);
+            @include setSize(px2rem(5px), px2rem(5px));
+            background: $color-red;
+            border-radius: 50%;
+          }
+        }
+      }
+    }
+
+    .connect-phone {
+      padding: 0 px2rem(15px);
+      height: px2rem(50px);
+      line-height: px2rem(50px);
+      background: $white;
+      @include font-dpr(16px);
+      border-radius: px2rem(3px);
+      .phone {
+        color: $color-gray-secondary;
+        svg {
+          fill: $color-gray-secondary;
+          width: px2rem(16px);
+          height:px2rem(16px);
+          vertical-align: text-top;
+        }
+      }
+    }
+
+  }
+
+/*底部*/
+  .foot-content {
+    padding: px2rem(10px);
+    width: 100%;
+    @include centerLeft;
+    bottom: 0;
+    .group-buy {
+      height: px2rem(90px);
+      padding: px2rem(15px);
+      background: $white;
+      border-radius: px2rem(3px);
+    }
+    .buy-price {
+      width: 50%;
+      text-align: center;
+    }
+    .buy-price:nth-of-type(1) {
+      border-right: 3px solid $color-body-bg ;
+    }
+    .txt {
+      line-height: px2rem(25px);
+      @include font-dpr(14px);
+    }
+
+    .price {
+      line-height: px2rem(30px);
+      color: $gray;
+      @include font-dpr(14px);
+      span {
+        padding:0 px2rem(5px);
+        color: $color-black;
+        @include font-dpr(24px);
+      }
+
+    }
+    .group-active {
+      .txt {
+        color: $color-red;
+      }
+      .price {
+        color: $color-red;
+        span {
+          color: $color-red;
+        }
+      }
+        color: $color-red;
+    }
+
+    .btn-content {
+      height: px2rem(50px);
+      margin-top: px2rem(15px);
+      margin-bottom: px2rem(25px);
+      .call-guide {
+        @include setButton(100%,100%, $white, $color-red, px2rem(5px))
+      }
+    }
+  }
+
+}

@@ -1,0 +1,125 @@
+.Guide {
+  background: $color-body-bg;
+  header {
+    width: 100%;
+    height: px2rem(210px);
+
+    .head-img {
+      width: 100%;
+      height: px2rem(210px);
+    }
+  }
+
+  .guide-wrapper {
+    padding: px2rem(10px);
+
+    .guide-list {
+      padding:0 px2rem(10px);
+      background: #fff;
+
+    }
+
+    .guide {
+      width: 100%;
+
+      padding: px2rem(20px) 0;
+      border-bottom: 2px solid #ccc;
+      position: relative;
+      .guide-img {
+        height: px2rem(54px);
+        width: px2rem(54px);
+        margin-right: px2rem(12px);
+        @include setRadius(100%);
+        img {
+          @include setSize(100%, 100%);
+          border-radius: 100%;
+        }
+      }
+
+      .guide-detail {
+        height: px2rem(54px);
+      }
+      .guide-name {
+        width: px2rem(180px);
+        height: px2rem(25px);
+        line-height: px2rem(25px);
+        @include font-dpr(12px);
+        color: $color-gray-primary;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        span {
+          @include font-dpr(16px);
+          color: $color-black;
+        }
+      }
+
+      .guide-level {
+        margin: px2rem(8px) 0;
+        height: px2rem(20px);
+        line-height: px2rem(20px);
+        @include font-dpr(14px);
+        color: $color-black;
+
+      }
+
+      .guide-category {
+        line-height: px2rem(20px);
+        @include font-dpr(12px);
+        color: $color-black;
+        span {
+          color: $color-gray-primary;
+        }
+      }
+    }
+    .guide:nth-last-of-type(1) {
+      border: none;
+    }
+
+
+
+    .guide-txt {
+      margin-top: px2rem(16px);
+      padding: px2rem(12px);
+      height: px2rem(64px);
+      @include font-dpr(12px);
+      background: $color-senior-bg;
+      p {
+        display: -webkit-box ;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 2;/*第2行出现省略号*/
+
+      }
+
+    }
+    .guide-t {
+      position: relative;
+    }
+    .guide-order {
+      @include centerTop;
+      border: none;
+      @include setButton(px2rem(84px), px2rem(30px), #FF5A5F, #fff2f2, 2px)
+    }
+
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+}

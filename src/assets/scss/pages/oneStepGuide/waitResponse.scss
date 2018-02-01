@@ -1,0 +1,64 @@
+.wait_response {
+  width: 100%;
+  padding-top: px2rem(44px);
+  .tip-txt {
+    padding: px2rem(15px);
+    @include setSize(100%, px2rem(50px));
+    background: $color-red;
+    color: $white;
+    @include font-dpr(16px)
+  }
+
+  .custom-info {
+    padding: px2rem(10px);
+
+    .info-wrapper {
+      background: #fbfbfb;
+      .info-tit {
+        padding-left: px2rem(20px);
+        @include setSize(100%, px2rem(45px));
+        background: $white;
+        @include font-dpr(17px);
+        line-height: px2rem(45px);
+      }
+      .info-list {
+        padding: 0 px2rem(20px) px2rem(10px);
+      }
+      .info-item {
+
+        //@include setSize(100%, px2rem(50px));
+        line-height: px2rem(50px);
+        @include font-dpr(16px);
+        color: $color-gray-secondary;
+        span {
+          color: $color-black;
+          max-width: px2rem(230px);
+          @include ellipsis;
+        }
+      }
+
+    }
+
+    .another {
+      margin-top: px2rem(10px);
+      padding-left: px2rem(40px);
+      @include setSize(100%, px2rem(50px));
+
+      @include font-dpr(12px);
+      line-height: px2rem(50px);
+      color: $color-black;
+      background: $white url(../../assets/img/one_list_m@2x.png) no-repeat px2rem(15px) center;
+      background-size: px2rem(12px) px2rem(12px);
+      position: relative;
+      .cancel-btn {
+        @include centerTop;
+        right: px2rem(24px);
+        @include setButton(px2rem(75px), px2rem(30px), $color-black, $white, px2rem(5px));
+        border: 1px solid $color-gray-secondary;
+        @include font-dpr(12px);
+      }
+    }
+
+  }
+
+}

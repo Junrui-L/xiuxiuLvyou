@@ -1,0 +1,101 @@
+
+.head_top{
+  position: fixed;
+  z-index: 100;
+  left: 0;
+  top: 0;
+  @include setSize(100%, px2rem(44px));
+  //background: #fff;
+}
+
+.headbg {
+  background: #fff;
+  color: $color-black;
+  .head_goback svg {
+    fill: $color-black;
+  }
+  .title_head .title_text {
+    color: $color-black;
+  }
+}
+.head_goback{
+  @include centerTop;
+  left: px2rem(25px);
+  @include setSize(px2rem(30px), px2rem(30px));
+  line-height: px2rem(44px);
+  //margin-left: px2rem(25px);
+  svg {
+    fill: #fff;
+    @include setSize(px2rem(20px), px2rem(20px));
+  }
+}
+.head_login{
+  right: 0.55rem;
+  @include sc(0.65rem, #fff);
+  @include centerTop;
+  .login_span{
+    color: #fff;
+  }
+  .user_avatar{
+    fill: #fff;
+    @include setSize(.8rem, .8rem);
+  }
+}
+
+/*普通title*/
+.title_head{
+  @include center;
+  width: 50%;
+  color: #fff;
+  text-align: center;
+  .title_text{
+    @include font-dpr(14px);
+    text-align: center;
+    font-weight: bold;
+  }
+
+}
+
+/*带下拉选择的title*/
+.select-title {
+  max-width: 50%;
+  @include center;
+  height: px2rem(44px);
+  position: relative;
+  @include font-dpr(14px);
+  //color: #fff;
+  text-align: center;
+
+  .cityname {
+    //width: 100%;
+    max-width: 100%;
+    display: inline-block;
+    margin: 0 auto;
+    line-height: px2rem(44px);
+    padding-left: px2rem(30px);
+    padding-right: px2rem(30px);
+    background: url(../../assets/img/nav_map@2x.png) no-repeat px2rem(8px) center;
+    background-size: px2rem(18px) px2rem(22px);
+    @include ellipsis;
+    position: relative;
+    &:after {
+      @include centerTop;
+      content: '';
+      right: px2rem(8px);
+      @include setSize(px2rem(12px), px2rem(12px));
+      background: url(../../assets/img/home_down@2x.png) no-repeat center;
+      background-size: px2rem(15px) px2rem(8px);
+    }
+
+  }
+}
+/*呼叫对话框*/
+.message {
+  @include centerTop;
+  right: px2rem(25px);
+  @include setSize(px2rem(25px), px2rem(25px));
+  background: url(../../assets/img/Group@2x.png) no-repeat center;
+  background-size: 100%;
+}
+
+/*呼叫对话框*/

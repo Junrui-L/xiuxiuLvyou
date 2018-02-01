@@ -1,0 +1,14 @@
+/**
+ * Created by tangyuanyuan on 2017/4/7.
+ */
+.mint-indicator-wrapper{
+  padding:px2rem(20px) !important;
+  .mint-indicator-text{
+    margin-top: px2rem(10px) !important;
+    @include font-dpr(16px);
+  }
+  .mint-spinner-fading-circle{
+    width:px2rem(32px) !important;
+    height:px2rem(32px) !important;
+  }
+}

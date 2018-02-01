@@ -1,0 +1,201 @@
+.Search {
+  width: 100%;
+  height: 100%;
+  background: #f8f8f8;
+  -webkit-overflow-scrolling: touch;
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  right: 0;
+  left: 0;
+  /*顶部搜索框*/
+  .header {
+    position: relative;
+    width: 100%;
+    height: px2rem(45px);
+    padding: px2rem(10px) px2rem(15px) 0;
+    background: #fff;
+    z-index: 999;
+    .head_goback{
+      @include centerTop;
+      @include setSize(px2rem(30px), px2rem(30px));
+      line-height: px2rem(44px);
+      //margin-left: px2rem(25px);
+      left: px2rem(15px);
+      svg {
+        fill: #666;
+        @include setSize(px2rem(20px), px2rem(20px));
+      }
+    }
+
+    .search-input {
+      @include centerTop;
+      @include setSize(80%, px2rem(28px));
+      left: px2rem(45px);
+      //width: 80%;
+      //height: px2rem(28px);
+      line-height: px2rem(28px);
+      @include font-dpr(14px);
+      color: $color-black;
+      padding-left: px2rem(35px);
+      background: $color-senior-bg;
+      border-radius: px2rem(15px);
+    }
+
+    .search-icon {
+      position: absolute;
+      left: px2rem(55px);
+      top: px2rem(16px);
+      fill: $color-gray-secondary;
+      width: px2rem(16px);
+      height:px2rem(16px);
+      vertical-align: middle;
+      z-index: 10;
+    }
+  }
+
+  /*tab切换*/
+  .change_show_type{
+    height:1.2rem;
+    width: 100%;
+    background:#fff;
+    div{
+      width:30%;
+      height:1.2rem;
+      float:left;
+      text-align:center;
+      line-height:1.2rem;
+      @include font-dpr(16px);
+
+      span{
+        &.activity_show{
+          color:#fc8190;
+          border-bottom: .05rem solid #fc8190;
+          padding: .1rem .05rem;
+        }
+      }
+    }
+  }
+
+  /*选项联动*/
+  /* 景点目录 */
+  .area_content, .spots_content{
+    box-sizing:border-box;
+    position:relative;
+    display: flex;
+    flex: 1;
+    //padding-bottom: 1rem;
+    .menu_container {
+      display: flex;
+      flex: 1;
+      overflow-y: hidden;
+      position: relative;
+    }
+    .area_left{
+      -webkit-overflow-scrolling: touch;
+      overflow-y:auto;
+      height:100%;
+      .menu-wrap{
+        width:px2rem(90px);
+        li{
+          width:px2rem(90px);
+          height: px2rem(50px);
+          line-height: px2rem(50px);
+          text-align: center;
+          @include font-dpr(16px);
+          position:relative;
+          border-bottom: 1px solid #ccc;
+          background: #fff;
+          position:relative;
+        }
+        .active_ia{
+          background:$color-senior-bg;
+          color: #fc8190;
+          &:after{
+            content:'';
+            position:absolute;
+            left:0;
+            top:0;
+            width:.1rem;
+            height:100%;
+            background:#fc8190;
+          }
+        }
+
+      }
+
+    }
+
+    .area_right{
+      //margin-left:px2rem(90px);
+      background: $color-senior-bg;
+      -webkit-overflow-scrolling: touch;
+      flex: 4;
+      overflow-y: auto;
+      .area-wrapper {
+        padding: px2rem(15px);
+        .sub-cate{
+          box-sizing:border-box;
+          width:100%;
+          line-height:.6rem;
+          .sub_title {
+            font-weight: 500;
+            line-height: px2rem(32px);
+            @include font-dpr(14px)
+          }
+          span{
+            display: block;
+            width: px2rem(76px);
+            height: px2rem(32px);
+            @include font-dpr(12px);
+            border: 1px solid #999;
+            line-height: px2rem(32px);
+            text-align: center;
+            color:#999;
+          }
+
+          .search-history {
+            //margin-bottom: px2rem(10px);
+            .his-item {
+              width:  px2rem(76px);
+              height: px2rem(32px);
+              @include font-dpr(12px);
+              border: 1px solid #999;
+              line-height: px2rem(32px);
+              text-align: center;
+              color:#999;
+              margin: 0 px2rem(12px) px2rem(16px) 0 ;
+            }
+
+            .his-item:nth-of-type(3n) {
+              margin-right: 0;
+            }
+          }
+        }
+
+        .spots-item {
+          width: px2rem(120px);
+          //height: px2rem(88px);
+          img {
+            display: block;
+            width: 100%;
+            height: px2rem(88px);
+          }
+          p {
+            @include font-dpr(14px);
+            height: px2rem(30px);
+            line-height: px2rem(30px);
+            text-align: left;
+          }
+        }
+
+        .spots-item:nth-last-of-type(2n) {
+          float: right;
+        }
+
+
+      }
+    }
+  }
+
+}

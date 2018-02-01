@@ -1,0 +1,222 @@
+.order {
+  padding: 0 px2rem(10px) px2rem(30px);
+  .left-time {
+    padding: px2rem(18px) px2rem(20px) 0;
+    background: $white;
+    position: relative;
+    .order-state {
+      height: px2rem(26px);
+      line-height: px2rem(26px);
+      text-align: center;
+      @include font-dpr(16px);
+      font-weight: bold;
+      svg {
+        fill: $color-gray-secondary;
+        width: px2rem(16px);
+        height: px2rem(16px);
+        vertical-align: text-top;
+      }
+
+    }
+
+    .btn {
+      @include setButton(px2rem(95px), px2rem(35px), $color-black, $white, px2rem(3px))
+    }
+    .btn-topay {
+      width: px2rem(200px);
+      margin: 0 auto;
+      padding-bottom: px2rem(18px);
+      border-bottom: 1px solid $color-body-bg;
+
+      .cancel {
+        border: 1px solid $color-gray-secondary;
+        //background: $color-red;
+      }
+
+      .confirm {
+        //background: $color-red;
+        @include setButton(px2rem(95px), px2rem(35px), $white, $color-red, px2rem(3px))
+      }
+    }
+
+    .triping, .trip-end {
+      margin: 0 auto;
+      padding-bottom: px2rem(18px);
+      text-align: center;
+      border-bottom: 1px solid $color-body-bg;
+      .btn {
+        border: 1px solid $color-gray-secondary;
+      }
+    }
+
+    .btn-triped {
+      width: px2rem(315px);
+      margin: 0 auto;
+      padding-bottom: px2rem(18px);
+      border-bottom: 1px solid $color-body-bg;
+      .onemore {
+        margin-left:px2rem(15px);
+      }
+
+      .backpay, .onemore {
+        border: 1px solid $color-gray-secondary;
+      }
+
+      .evalu {
+        @include setButton(px2rem(95px), px2rem(35px), $white, $color-red, px2rem(3px))
+      }
+    }
+
+
+
+    /*耳朵小圆圈*/
+    &:before, &:after {
+      content: '';
+      position: absolute;
+      bottom: px2rem(-10px);
+      @include setSize(px2rem(20px), px2rem(20px));
+      background: #ededed;
+      border-radius: 100%;
+    }
+
+    &:before {
+      left: px2rem(-10px);
+    }
+
+    &:after {
+      right: px2rem(-10px);
+    }
+
+  }
+
+  .guide-info {
+    padding: px2rem(18px);
+    background: $white;
+    .guide-img {
+      @include setSize(px2rem(80px), px2rem(80px));
+      img {
+        display: block;
+        width: 100%;
+        max-height: 100%;
+      }
+    }
+    .guide-detail {
+      margin-left: px2rem(13px);
+      width: px2rem(220px);
+      .guide-name {
+        width: 100%;
+        line-height: px2rem(30px);
+        @include font-dpr(18px);
+        color: $color-black;
+        position: relative;
+        .message {
+          @include centerTop;
+          right: 0;
+          @include setSize(px2rem(25px), px2rem(25px));
+          background: url(../../assets/img/Group@2x.png) no-repeat center;
+          background-size: 100%;
+        }
+      }
+
+      .guide-scenic {
+        padding-left: px2rem(25px);
+        line-height: px2rem(30px);
+        @include font-dpr(16px);
+        background: url(../../assets/img/nav_map@2x.png) no-repeat px2rem(6px) center;
+        background-size: px2rem(15px) px2rem(18px);
+        span {
+          padding: 0 px2rem(6px);
+        }
+      }
+
+      .guide-mode {
+        line-height: px2rem(20px);
+        @include font-dpr(16px);
+        color: $color-gray-secondary;
+      }
+
+    }
+
+
+  }
+
+  .order-info {
+    margin-top: px2rem(10px);
+    background: $color-senior-bg;
+    .title {
+      @include setSize(100%, px2rem(45px));
+      padding-left: px2rem(18px);
+      @include font-dpr(18px);
+      line-height: px2rem(45px);
+      background: $white;
+    }
+    .info-item {
+      padding: 0 px2rem(18px);
+      @include setSize(100%, px2rem(36px));
+      line-height: px2rem(36px);
+      @include font-dpr(16px);
+      color: $color-gray-secondary;
+
+    }
+  }
+
+  .order-price {
+    padding: 0 px2rem(20px);
+    background: $white;
+    .price-item {
+      padding-top: px2rem(16px);
+      height: px2rem(82px);
+      line-height: px2rem(21px);
+      @include font-dpr(16px);
+      border-bottom: 1px solid $color-gray-secondary;
+      .price {
+        text-align: right;
+      }
+
+      .price-num {
+        margin-top: px2rem(7px);
+        color: $color-gray-secondary;
+        line-height: px2rem(20px);
+      }
+    }
+
+    .total-pay {
+      @include setSize(100%, px2rem(58px));
+      line-height: px2rem(58px);
+      text-align: right;
+      @include font-dpr(16px);
+      .total-num {
+        padding-left: px2rem(10px);
+        color: $color-red;
+        @include font-dpr(18px)
+      }
+    }
+
+  }
+
+  .order-check {
+    margin-top: px2rem(10px);
+    padding: 0 px2rem(20px);
+
+    .check-item {
+      padding: px2rem(10px) 0;
+      line-height: px2rem(20px);
+      @include font-dpr(16px)
+    }
+
+    .group-count {
+      width: px2rem(220px);
+    }
+
+
+  }
+
+
+  .foot-blank {
+    @include setSize(100%, px2rem(21px));
+    background: $white;
+  }
+
+
+
+}

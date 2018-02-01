@@ -1,0 +1,108 @@
+.prepay_order {
+  width: 100%;
+  .left-time {
+    padding: px2rem(18px) px2rem(20px) 0;
+  }
+
+  .order-main {
+    padding: px2rem(12px) px2rem(20px);
+
+    background: $color-senior-bg;
+    .img-wrapper {
+      @include setSize(px2rem(80px), px2rem(80px));
+      img {
+        width: 100%;
+        max-height: 100%;
+      }
+    }
+
+    .order-detail {
+      margin-left: px2rem(15px);
+      .order-item {
+        @include setSize(100%, px2rem(20px));
+        line-height: px2rem(20px);
+        @include font-dpr(14px);
+        color: $color-gray-secondary;
+      }
+
+      .order-price {
+        color: $color-red;
+        @include font-dpr(16px);
+      }
+    }
+
+  }
+
+  .account-wrapper {
+    margin-top: px2rem(10px);
+    padding: 0 px2rem(20px);
+    background: $white;
+
+    .accout-pay, .account-balance {
+      height: px2rem(50px);
+      line-height: px2rem(50px);
+      @include font-dpr(16px);
+
+    }
+    .accout-pay {
+      color: $color-black;
+      border-bottom: 1px solid $color-body-bg;
+      input {
+        @include setSize(px2rem(20px), px2rem(20px))
+      }
+    }
+
+    .account-balance {
+      color: $color-black-secondary;
+    }
+
+  }
+
+  .wx-pay {
+    margin-top: px2rem(10px);
+    padding: 0 px2rem(20px);
+    background: $white;
+    height: px2rem(50px);
+    line-height: px2rem(50px);
+    @include font-dpr(16px);
+    color: $color-black;
+    input {
+      @include setSize(px2rem(20px), px2rem(20px))
+    }
+
+  }
+
+  .all-pay {
+    @include setSize(100%, px2rem(44px));
+    line-height: px2rem(44px);
+    background: $white;
+    @include font-dpr(16px);
+    color: $color-black-secondary;
+    border-top: 1px solid $color-body-bg;
+    text-align: center;
+    span {
+      padding-right: px2rem(20px);
+      position: relative;
+      &:after {
+        content: '';
+        position: absolute;
+        top: 0;
+        right: 0;
+        @include setSize(px2rem(12px), px2rem(12px));
+        border-right: 1px solid $color-gray-secondary;
+        border-bottom: 1px solid $color-gray-secondary;
+        @include transform(rotate(45deg));
+      }
+
+    }
+  }
+
+  .sure-pay {
+    padding: px2rem(20px);
+    .pay-btn {
+      @include setButton(100%, px2rem(50px), $white, $color-red, px2rem(3px));
+
+    }
+  }
+
+}

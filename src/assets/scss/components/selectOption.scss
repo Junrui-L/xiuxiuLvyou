@@ -1,0 +1,26 @@
+.select-option {
+  display: flex;
+  height: 100%;
+  justify-content: space-between;
+  align-items: stretch;
+  .name {
+    flex: 0 0 auto;
+    width: px2rem(120px);
+    display: inline-flex;
+    padding-left: px2rem(10px);
+    align-items: center;
+  }
+
+  .select {
+    flex: 1 1 auto;
+    display: inline-flex;
+    align-items: center;
+    padding-left: 10px;
+    border-left: 1px solid rgba(0, 0, 0, .1);
+    box-shadow: 0 0 1px 1px #eee inset;
+  }
+}
+
+
+
+

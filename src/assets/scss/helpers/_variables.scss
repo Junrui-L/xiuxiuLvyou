@@ -1,0 +1,80 @@
+/**
+ * Created by lvjr on 2017/3/9.
+ */
+//color
+$white: #fff; //白色
+$gray: #ccc; //灰色
+$orange: #F7762A; //橘色
+
+$color-orange-primary:#f9d057;  //初级黄色
+$color-orange-secondary:#f78b00; //中级黄色
+$color-orange-senior:#fea700; //高级黄色
+$color-gray-primary:#adadad; //初级灰色
+$color-gray-secondary:#888; //中级灰色
+$color-blue:#22affc; //蓝色
+$color-green: #44DB5E; //绿色
+$color-brown-primary:#482000; //初级褐色
+$color-brown-secondary:#906c1e;  //中级褐色
+$color-red:#f34141; //红色
+$color-black:#333; //黑色
+$color-black-secondary: #656467; //浅黑色
+$color-white:#fff; //白色
+$color-amount:5%; //颜色变化值
+$color-body-bg: #f3f4f5;   //页面背景色，浅白
+$color-senior-bg: #f8f8f8;   //页面背景色，浅白
+$color-index-text: #73580a;
+
+  //font-size
+
+$font-size-base:14px;
+$font-size-small:12px;
+$font-size-smallest:13px;
+$font-size-large:48px;
+$font-size-largest:55px;
+
+//font-family
+$font-family-base:"黑体", "微软雅黑";
+/*@font-face {
+  font-family: 'numfont';
+  src: url(../../assets/fonts/Suiguanjia-Medium.otf);
+}
+@font-face {
+  font-family: 'sfui';
+  src: url(../../assets/fonts/Suiguanjia-Medium.otf);
+}*/
+$font-family-shuiguanjia:'numfont';
+$font-family-sfui:'sfui';
+
+//border
+$popup-border:1px solid #eceded; //弹框border线
+$border:1px solid #e4e4e4; //页面border线
+$input-border:1px solid #eceded; //input border线
+$border-light:1px solid $color-orange-secondary;  //黄色border
+
+//spacing
+$spacing-base:px2rem(32px);
+$spacing-small:px2rem(20px);
+$spacing-big:px2rem(47px);
+
+
+//btn
+$btn-width:px2rem(576px);
+$btn-width-small:px2rem(256px);
+$btn-width-smallest:px2rem(136px);
+$btn-height:px2rem(80px);
+$btn-height-small:px2rem(64px);
+$btn-height-smallest:px2rem(50px);
+$btn-height-big:px2rem(96px);
+$btn-radius:px2rem(8px);
+$btn-radius-large:px2rem(32px);
+
+//input
+$input-height:px2rem(100px);
+$input-width:px2rem(350px);
+
+//icon
+$icon-width:px2rem(350px);
+$icon-height:px2rem(350px);
+
+//label
+$label-width:px2rem(209px);

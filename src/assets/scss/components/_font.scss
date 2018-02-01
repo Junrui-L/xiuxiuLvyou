@@ -1,0 +1,40 @@
+/**
+ * Created by tangyuanyuan on 2017/3/10.
+ 使用说明：正常字体：class="font"，
+          大号字体： class="font-large",
+          超大号字体：class="font-largest",
+          小字体：class="font-small"
+          超小字体：class="smallest"
+          serai字体：class="font-serai"
+          serai大号字体则为：class="font-serai font-large"
+ 借鉴：根据常用字号按大小分class，如：
+ .font12{
+   font-size:font-dpr(12px);
+   line-height:px2rem(24px);
+ },font14,font13,font15
+ */
+.font{
+  @include font-dpr($font-size-base);
+}
+.font-large{
+  @include font-dpr($font-size-large);
+}
+
+.font-largest{
+  @include font-dpr($font-size-largest);
+}
+.font-small{
+  @include font-dpr($font-size-small);
+}
+.font-smallest{
+  @include font-dpr($font-size-smallest);
+}
+.font-shuiguanjia{
+  font-family: $font-family-shuiguanjia;
+  //color:$color-brown-primary;
+}
+.font-sfui{
+  font-family: $font-family-sfui;
+  //color:$color-brown-primary;
+}
+
