@@ -18,8 +18,6 @@ Vue.use(Cube);
 import './config/filter' //过滤器
 
 window.createAPI = Cube.createAPI;
-// Vue.use(Button)
-// Vue.use(Cell);
 //vue-lasyload or with options
 Vue.use(VueLazyload, {
   preLoad: 1.3,
