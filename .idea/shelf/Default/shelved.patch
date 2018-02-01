@@ -1,0 +1,14 @@
+Index: README.md
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+># xiuxiuLvyou\nlvyou\n\n旅游项目：这是2.1添加\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- README.md	(revision cfeb74fad33e3a2c5a1e57db210e7023d5c647a7)
++++ README.md	(date 1517494574463)
+@@ -2,3 +2,4 @@
+ lvyou
+ 
+ 旅游项目：这是2.1添加
++说明：项目每天更新，保证进度
