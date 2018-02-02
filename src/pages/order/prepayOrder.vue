@@ -51,6 +51,10 @@
       ]),
     },
     mounted() {
+      var href=location.href
+      if(href.indexOf(".html#/")>-1){
+        location.href=location.href.replace(".html#/",".html?#/")
+      }
       this.preOrderLoad();
     },
     methods: {

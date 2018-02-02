@@ -63,15 +63,15 @@ export const spotsList = (areasn) => $http.get('/guide.json?act=list', {
  *ok
  * */
 
-export const guideList = (scenicspotId, sex, agetype, minprice, maxprice, todaytuan, isbuyticket, isshuttle) => $http.post('/guide.json?act=guideslist', {
-  scenicspot: scenicspotId,
-  sex: sex,
-  agetype: agetype,
-  minprice: minprice,
-  maxprice: maxprice,
-  todaytuan: todaytuan,
-  isbuyticket: isbuyticket,
-  isshuttle: isshuttle
+export const guideList = (data) => $http.post('/guide.json?act=guideslist', {
+  scenicspot: data.scenicspotId,
+  sex: data.sex,
+  agetype: data.agetype,
+  minprice: data.minprice,
+  maxprice:data.maxprice,
+  todaytuan: data.todaytuan,
+  isbuyticket: data.isbuyticket,
+  isshuttle: data.isshuttle
 });
 
 /**
