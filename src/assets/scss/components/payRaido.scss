@@ -1,0 +1,37 @@
+.ui-radio{
+  width: px2rem(24px);
+  height: px2rem(24px);
+  border-radius: 50%;
+  border: 1px solid #CCC;
+  display: inline-block;
+  position: relative;
+}
+.ui-radio.disabled{
+  border-color: #ccc;
+}
+.ui-radio::after{
+  content: '';
+  width: px2rem(24px);
+  height: px2rem(24px);
+  border-radius: 50%;
+  display: inline-block;
+  position: absolute;
+  left: 0;
+  top: 0;
+  background: $white url(../../assets/img/common_icon_choose@3x.png) no-repeat ;
+  background-size: px2rem(24px) px2rem(24px);
+  opacity: 0;
+  transform: scale(0);
+}
+.ui-radio.disabled::after{
+  background-color: #ccc;
+}
+.ui-radio.checked::after {
+
+  opacity: 1;
+  transform: scale(1);
+}
+.ui-radio input[type=radio]{
+  opacity: 0;
+  margin: 0;
+}
