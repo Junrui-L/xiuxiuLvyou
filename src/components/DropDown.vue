@@ -344,27 +344,27 @@
         // }).show()
       },
       sureProSelect() {
-        let proCondition = {};
-        proCondition.sex = this.sex
-        proCondition.isGroup = this.isGroup
-        proCondition.serverType = this.serverType
-        proCondition.minprice = this.minprice
-        proCondition.maxprice = this.maxprice
-        proCondition.reserveTime = this.reserveTime
-        proCondition.orderTime = this.orderTime;
+        let proCondition = [];
+        proCondition.push({sex: this.sex})
+        proCondition.push({isGroup: this.isGroup})
+        proCondition.push({serverType: this.serverType})
+        proCondition.push({minprice: this.minprice})
+        proCondition.push({maxprice: this.maxprice})
+        proCondition.push({reserveTime: this.reserveTime})
+        proCondition.push({orderTime: this.orderTime})
         console.error(JSON.stringify(proCondition))
         this.hideWrapper();
         this.$emit('selectCallback', proCondition);
       },
       resetCon() {
-        this.isMale = false;
-        this.isFemale = false;
-        this.isGroup = false;
-        this.noGroup = false;
-        this.isshuttle = false;
-        this.isbuyticket = false;
-
-
+        this.sex = '';
+        this.isGroup = '';
+        this.serverType = '';
+        this.reserveTime = '';
+        this.orderTime = '';
+        this.priceRange=''
+        this.minprice=''
+        this.maxprice=''
       }
     }
   }
