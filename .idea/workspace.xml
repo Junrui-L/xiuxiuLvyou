@@ -3,12 +3,7 @@
   <component name="ChangeListManager">
     <list id="b272740f-08f6-486a-93e5-b14e8310f0c6" name="New changelist" comment="New changelist" />
     <list id="f0ec4a65-42d0-424a-ae84-8b1adfb18354" name="readme" comment="" />
-    <list default="true" id="61abc726-7ee7-4794-a1ce-3cf826a1c832" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/dist/index.html" afterPath="$PROJECT_DIR$/dist/index.html" />
-      <change beforePath="$PROJECT_DIR$/src/pages/order/Order.vue" afterPath="$PROJECT_DIR$/src/pages/order/Order.vue" />
-      <change beforePath="$PROJECT_DIR$/src/pages/order/prepayOrder.vue" afterPath="$PROJECT_DIR$/src/pages/order/prepayOrder.vue" />
-    </list>
+    <list default="true" id="61abc726-7ee7-4794-a1ce-3cf826a1c832" name="Default" comment="" />
     <ignored path="lyProject.iws" />
     <ignored path=".idea/workspace.xml" />
     <ignored path="E:\repositories\1229\xiuxiuLvyou\.idea\shelf/" />
@@ -651,7 +646,7 @@
       <workItem from="1517533895780" duration="791000" />
       <workItem from="1517553155990" duration="2638000" />
       <workItem from="1517581134004" duration="5937000" />
-      <workItem from="1517627179620" duration="120000" />
+      <workItem from="1517627179620" duration="322000" />
     </task>
     <task id="LOCAL-00001" summary="更新readme">
       <created>1517494795987</created>
@@ -692,7 +687,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="374765000" />
+    <option name="totallyTimeSpent" value="374967000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
