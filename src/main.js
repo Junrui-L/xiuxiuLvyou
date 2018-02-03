@@ -11,12 +11,12 @@ import VueLazyload from 'vue-lazyload'  //图片模板等懒加载
 import errImg from './assets/img/404.png' //404图片
 import loadingImg from './assets/img/loading-spin.svg' //loading图片
 //全局引用cube
+// import Cube from './assets/lib/cube-ui'
 import Cube from 'cube-ui'
 
 Vue.use(Cube);
 
 import './config/filter' //过滤器
-
 window.createAPI = Cube.createAPI;
 //vue-lasyload or with options
 Vue.use(VueLazyload, {
