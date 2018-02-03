@@ -19,7 +19,7 @@
               <img src="../../assets/img/tttt.png" alt="">
             </div>
             <div class="guide-detail fl"
-                 @click="$router.push({name: 'scenicDetail',  query: {scenicspot: 5, accountId: 1}})">
+                 @click="$router.push({name: 'scenicDetail',  query: {scenicspot: 4, accountId: 1}})">
               <h5 class="guide-name"><span>丁大力</span></h5>
               <div class="region-level"><span>服务100人</span> | <span>2种玩法 </span></div>
               <div class="guide-star"><span>类别：</span>历史古迹、历史博物馆</div>

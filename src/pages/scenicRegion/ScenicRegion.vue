@@ -3,7 +3,7 @@
 <template>
     <div class="ScenicRegion">
         <header>
-            <HeadTop go-back='true'>
+            <HeadTop go-back='true' :headBg="headBg">
               <div slot="select-title" class="select-title" @click="">
 
                 <span class="cityname " @click="showCityPicker">{{city}}</span>
@@ -38,8 +38,9 @@
 </template>
 
 <script type="text/ecmascript-6">
-    import {spotsList, cityScenicspots} from '../../http/getDate'
     import HeadTop from '../../components/HeadTop.vue'
+    import {spotsList, cityScenicspots} from '../../http/getDate'
+    import {throttle} from '../../config/myUtils'
     import { provinceList, cityList, areaList } from '../../config/datajs'
     const cityData = provinceList
     cityData.forEach(province => {
@@ -66,7 +67,7 @@
         },
         mounted() {
           this.cityPicker = this.$createCascadePicker({
-            title: 'City Picker',
+            title: '选择城市',
             data: cityData,
             onSelect: this.selectHandle,
             onCancel: this.cancelHandle
@@ -74,6 +75,15 @@
 
           this.getSpotsList(this.cityValue);
           //获取区域
+          window.addEventListener('scroll', throttle(() => {
+
+              let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+              if( scrollTop > 300) {
+                  this.headBg = true;
+              } else {
+                  this.headBg = false;
+              }
+          },250))
 
         },
         methods: {
@@ -81,11 +91,6 @@
             this.cityPicker.show()
           },
           selectHandle(selectedVal, selectedIndex, selectedText) {
-            // this.$createDialog({
-            //   type: 'warn',
-            //   content: `Selected Item: <br/> - value: ${selectedVal.join(', ')} <br/> - index: ${selectedIndex.join(', ')} <br/> - text: ${selectedText.join(' ')}`,
-            //   icon: 'cubeic-alert'
-            // }).show()
 
             this.city = selectedText[1];
             this.cityValue = selectedVal[1];

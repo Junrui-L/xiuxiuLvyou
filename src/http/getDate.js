@@ -75,6 +75,22 @@ export const guideList = (data) => $http.post('/guide.json?act=guideslist', {
 });
 
 /**
+ *区域向导列表
+ *ok
+ * */
+
+export const cityGuideList = (data) => $http.post('/guide.json?act=cityguideslist', {
+  scenicspot: data.scenicspotId,
+  sex: data.sex,
+  agetype: data.agetype,
+  minprice: data.minprice,
+  maxprice:data.maxprice,
+  todaytuan: data.todaytuan,
+  isbuyticket: data.isbuyticket,
+  isshuttle: data.isshuttle
+});
+
+/**
  *景区向导玩法详情
  *
  * */
@@ -249,6 +265,13 @@ export const payOrder = (num) => $http.post('/order.json?act=play', {
 export const payOrderWx = (num) => $http.post('/play.json?act=play', {
   orderNo: num
 });
+/**
+ *
+ *微信js-sdk加载参数信息
+ * */
+export const payConfigWx = (singnurl) => $http.get('http://www.youdingsoft.com/wxwebsite/wxconfig.json?generalid=""', {
+  url: singnurl
+});
 
 
 /**
@@ -266,4 +289,9 @@ export const updateOrder = (areasn) => $http.get('/order.json?act=updateStatus',
 export const cancelOrder = (areasn) => $http.get('/order.json?act=cancel', {
     areasn: areasn
 });
+
+/**
+ * 用户个人信息
+ *
+ * */
 

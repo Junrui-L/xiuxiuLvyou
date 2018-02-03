@@ -3,18 +3,34 @@ import Router from 'vue-router'
 
 //分页面异步加载文件
 const Home = r => require.ensure([], () => r(require('@/pages/Home')), 'home')
+//景区景点
 const ScenicRegion = r => require.ensure([], () => r(require('@/pages/scenicRegion/ScenicRegion')), 'scenicRegion')
 const ScenicDetail = r => require.ensure([], () => r(require('@/pages/scenicRegion/ScenicDetail')), 'scenicDetail')
 const Guide = r => require.ensure([], () => r(require('@/pages/guide/Guide')), 'guide')
 const GuideDetail = r => require.ensure([], () => r(require('@/pages/guide/GuideDetail')), 'guideDetail')
 const Search = r => require.ensure([], () => r(require('@/pages/search/Search')), 'search')
 const SearchList = r => require.ensure([], () => r(require('@/pages/search/SearchList')), 'searchList')
+//订单
 const OrderDetail = r => require.ensure([], () => r(require('@/pages/order/OrderDetail')), 'orderDetail')
 const Order = r => require.ensure([], () => r(require('@/pages/order/Order')), 'order')
 const PrepayOrder = r => require.ensure([], () => r(require('@/pages/order/PrepayOrder')), 'prepayOrder')
 const OneStepGuide = r => require.ensure([], () => r(require('@/pages/oneStepGuide/OneStepGuide')), 'oneStepGuide')
 const WaitResponse = r => require.ensure([], () => r(require('@/pages/oneStepGuide/WaitResponse')), 'waitResponse')
 const SetContact = r => require.ensure([], () => r(require('@/pages/setContact/SetContact')), 'setContact')
+//个人中心页面
+const MemberCenter = r => require.ensure([], () => r(require('@/pages/memCenter/MemberCenter')), 'memberCenter')
+const AccountBill = r => require.ensure([], () => r(require('@/pages/memCenter/accountBill')), 'accountBill')
+const AccountDetail = r => require.ensure([], () => r(require('@/pages/memCenter/accountDetail')), 'accountDetail')
+const Coupons = r => require.ensure([], () => r(require('@/pages/memCenter/coupons')), 'coupons')
+const Favorites = r => require.ensure([], () => r(require('@/pages/memCenter/favorites')), 'favorites')
+const MemberInfo = r => require.ensure([], () => r(require('@/pages/memCenter/memberInfo')), 'memberInfo')
+const MyQrcode = r => require.ensure([], () => r(require('@/pages/memCenter/myQrcode')), 'myQrcode')
+const MyWallet = r => require.ensure([], () => r(require('@/pages/memCenter/myWallet')), 'myWallet')
+const ScoreRule = r => require.ensure([], () => r(require('@/pages/memCenter/scoreRule')), 'scoreRule')
+const Scores = r => require.ensure([], () => r(require('@/pages/memCenter/scores')), 'scores')
+
+
+
 
 
 Vue.use(Router)
@@ -94,7 +110,59 @@ const router =  new Router({
       path: '/setContact',
       name: 'setContact',
       component: SetContact
+    },
+    //个人中心
+    {
+      path: '/memberCenter',
+      name: 'memberCenter',
+      component: MemberCenter
+    },
+    {
+      path: '/accountBill',
+      name: 'accountBill',
+      component: AccountBill
+    },
+    {
+      path: '/accountDetail',
+      name: 'accountDetail',
+      component: AccountDetail
+    },
+    {
+      path: '/coupons',
+      name: 'coupons',
+      component: Coupons
+    },
+    {
+      path: '/favorites',
+      name: 'favorites',
+      component: Favorites
+    },
+    {
+      path: '/memberInfo',
+      name: 'memberInfo',
+      component: MemberInfo
+    },
+    {
+      path: '/myQrcode',
+      name: 'myQrcode',
+      component: MyQrcode
+    },
+    {
+      path: '/myWallet',
+      name: 'myWallet',
+      component: MyWallet
+    },
+    {
+      path: '/scoreRule',
+      name: 'scoreRule',
+      component: ScoreRule
+    },
+    {
+      path: '/scores',
+      name: 'scores',
+      component: Scores
     }
+
   ],
   strict: process.env.NODE_ENV !== 'production',
   scrollBehavior (to, from, savedPosition) {

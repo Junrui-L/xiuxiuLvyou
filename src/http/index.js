@@ -65,12 +65,12 @@ export default ((url = '', data = {}) => {
                         withCredentials: true
                     })
                     .then(function (response) {
-                      console.log(response.data)
+                      // console.log(response.data)
                         if (response.data.code == 1010) {
                             console.log('没有权限')
                             // router.push({ path: '/login' })
                         } else if (response.data.code == 200) {
-                          // console.log(response.data)
+                          console.log('接口200正常返回')
                             resolve(response.data.data)
                         } else {
                             resolve(response.data)
@@ -91,13 +91,12 @@ export default ((url = '', data = {}) => {
                         headers: {'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'}
                     })
                     .then(function (response) {
-                      console.log(response.data)
-                        if (response.data.code == 1102) {
+                      // console.log(response.data)
+                        if (response.data.code == 1101) {
                             console.log('登录超时')
 
                         } else if (response.data.code == 200) {
-                            // console.log(response)
-                          // console.log('code=200')
+                            console.log('接口200正常返回')
                             resolve(response.data.data)
 
                         } else {

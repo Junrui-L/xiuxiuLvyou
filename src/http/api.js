@@ -7,7 +7,7 @@ const config = {
     },
     build: {
         //打包发布api基本地址
-        httpUrl: 'http://www.youdingsoft.com//siteH5/'
+        httpUrl: 'http://www.youdingsoft.com/siteH5/'
     },
       //图片地址
     imgUrl:  'www.youdingsoft.com/'

@@ -256,7 +256,11 @@
       ]),
     },
     mounted() {
-
+      // let href = location.href;
+      // console.log(href)
+      // if(href.indexOf('.html#/') > -1) {
+      //   location.href= location.href.replace('.html#/', '.html?a=a#/')
+      // }
       //获取首页数据
       this.initHome();
       var _this=this

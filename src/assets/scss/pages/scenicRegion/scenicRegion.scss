@@ -82,8 +82,8 @@
       @include font-dpr(12px);
       background: $color-senior-bg;
       p {
-        @include cliptxt(2)
-
+        @include cliptxt(2);
+        line-height: px2rem(20px);
       }
 
     }
