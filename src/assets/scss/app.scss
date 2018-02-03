@@ -1,5 +1,5 @@
 /**
- * Created by tangyuanyuan on 2017/3/9.
+ * Created by lvjr on 2017/3/9.
  */
 
 /*reset*/
@@ -58,4 +58,16 @@
 
 /*设置联系方式*/
 @import "pages/setContact/setContact";
+
+/*用户个人中心*/
+@import "pages/memCenter/memberCenter";
+@import "pages/memCenter/accountBill";
+@import "pages/memCenter/accountDetail";
+@import "pages/memCenter/coupons";
+@import "pages/memCenter/favorites";
+@import "pages/memCenter/memberInfo";
+@import "pages/memCenter/myQrcode";
+@import "pages/memCenter/myWallet";
+@import "pages/memCenter/scoreRule";
+@import "pages/memCenter/scores";
 
