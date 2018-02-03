@@ -189,7 +189,8 @@
         })
       },
       goPay(){
-        this.$router.push({name: 'prepayOrder',query: {from:  'detail'}})
+        this.$router.push({name: 'prepayOrder',query: {orn: this.orderInfo.ordernumber}})
+        // this.$router.push({name: 'prepayOrder'})
       },
       endLog() {
         console.log('.....倒计时结束了.....')

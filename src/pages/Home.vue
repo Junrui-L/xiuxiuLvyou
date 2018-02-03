@@ -270,7 +270,7 @@
       ...mapMutations(['GET_USERINFO','RECORD_ADDRESS' ,'BASE_ORDER']),
 
       async initHome() {
-        await userLogin('15814731314', '0123456').then(res=> {
+        await userLogin('15118252171', '123456').then(res=> {
           console.log(res)
         })
         await homeData().then(res => {
@@ -351,5 +351,4 @@
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="scss">
-
 </style>
