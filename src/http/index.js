@@ -94,7 +94,7 @@ export default ((url = '', data = {}) => {
                       // console.log(response.data)
                         if (response.data.code == 1101) {
                             console.log('登录超时')
-
+                          location.href= response.data.redirect;
                         } else if (response.data.code == 200) {
                             console.log('接口200正常返回')
                             resolve(response.data.data)

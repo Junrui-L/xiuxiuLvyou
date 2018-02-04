@@ -62,7 +62,7 @@
       ]),
     },
     mounted() {
-      this.configWx();
+      // this.configWx();
       this.preOrderLoad();
     },
     methods: {
@@ -107,20 +107,46 @@
         let that = this;
         console.log('支付请求');
         console.log('订单号：' + this.$route.query.orn)
-        payOrderWx(this.$route.query.orn).then(res => {
+        let signUrl = location.href;
+        payOrderWx(this.$route.query.orn, signUrl).then(res => {
           let that = this;
           console.log('===支付参数返回====')
-          // payOrderWx('180201000267178606').then(res => {
+          wx.config({
+            debug: false,
+            appId: res.configMap.appid,
+            timestamp: res.configMap.timestamp,
+            nonceStr: res.configMap.nonceStr, //随机串
+            signature: res.configMap.signature ,//微信签名
+            jsApiList: ['chooseWXPay','onMenuShareAppMessage'] // 必填，需要使用的JS接口列表，这里只写支付的
+          });
+
           console.log(res.pay.appid, res.pay.timestamp, res.pay.nonce_str, res.packageValue, res.pay.sign)
           wx.ready(function(){
             console.log('进入了 wx.ready')
             console.log(res)
+//             let a = 'http://www.youdingsoft.com/templates/h5/index.html?token=0#/prepayOrder?orn=20180202000384924799'
+//             wx.onMenuShareAppMessage({
+//               title: '12333', // 分享标题
+//               desc: '分享描述', // 分享描述
+//               link: a, // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
+//               imgUrl: 'http://www.youdingsoft.com/templates/h5/static/img/logo.50ae579.png', // 分享图标
+//               type: '', // 分享类型,music、video或link，不填默认为link
+//               dataUrl: '', // 如果type是music或video，则要提供数据链接，默认为空
+//               success: function () {
+// // 用户确认分享后执行的回调函数
+//               },
+//               cancel: function () {
+// // 用户取消分享后执行的回调函数
+//               }
+//             });
+            let paysi = res.pay.sign.toUpperCase();
+            console.log(paysi)
             wx.chooseWXPay({
               timestamp:res.pay.timestamp,  // 支付签名时间戳，注意微信jssdk中的所有使用timestamp字段均为小写。但最新版的支付后台生成签名使用的timeStamp字段名需大写其中的S字符
               nonceStr: res.pay.nonce_str, // 支付签名随机串，不长于 32 位
               package: res.packageValue, // 统一支付接口返回的prepay_id参数值，提交格式如：prepay_id=***）
               signType: "MD5", // 签名方式，默认为′SHA1′，使用新版支付需传入′MD5′
-              paySign: res.pay.sign , // 支付签名
+              paySign: paysi , // 支付签名
               success: function (res) {
                 if(res.errMsg == "chooseWXPay:ok"){
                   // alert("支付成功");
@@ -131,6 +157,7 @@
                   }).show()
                   // window.location.href  = "/hims/weixin/pages/Order_ok.html?access_token=" ;
                 }else{
+                  console.log(res.errMsg);
                   that.$createDialog({
                     type: 'alert',
                     title: '支付结果',
@@ -146,10 +173,12 @@
                 }).show()
               }
             });
+
+            wx.error(function (err) {
+              console.log(err)
+            })
           })
-          wx.error(function (err) {
-            console.log(err)
-          })
+
 
         })
       },

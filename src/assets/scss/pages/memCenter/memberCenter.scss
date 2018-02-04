@@ -1,0 +1,91 @@
+.memberCenter {
+
+  .header {
+    //@include setSize(100%, px2rem(130px));
+    background: #7e8c8d;
+
+    .hd {
+      padding: px2rem(20px) px2rem(20px) px2rem(10px);
+      height: px2rem(95px);
+      position: relative;
+      .img-wrapper {
+        @include setSize(px2rem(60px), px2rem(60px));
+        border-radius: 100%;
+        img {
+          width: 100%;
+          display: block;
+          border-radius: 100%;
+        }
+      }
+
+      .username {
+        padding-left: px2rem(20px);
+        width: 30%;
+        line-height: px2rem(60px);
+        color: $white;
+        @include font-dpr(17px)
+      }
+
+      .message {
+        position: absolute;
+        top:  px2rem(50px);
+        right: px2rem(20px);
+        @include setSize(px2rem(25px), px2rem(25px));
+        background: url(../../assets/img/message_white.png) no-repeat center;
+        background-size: 100%;
+      }
+
+    }
+
+    svg {
+      fill: $white;
+      width: px2rem(10px);
+      height:px2rem(10px);
+      vertical-align: middle;
+    }
+
+    .mem-wrap {
+      padding: px2rem(20px) 0 px2rem(15px);
+      //@include setSize(100%, px2rem(40px));
+      .mem-item {
+        width: 25%;
+        @include font-dpr(16px);
+        line-height: px2rem(20px);
+        color: $white;
+        text-align: center;
+        border-left: 2px solid #676766;
+        p {
+          color: #676766;
+          @include font-dpr(12px)
+        }
+      }
+
+      .mem-item:nth-of-type(1) {
+        border-left: 0;
+      }
+    }
+
+
+  }
+
+
+  .order-container {
+    margin-top: px2rem(10px);
+    background: $white  ;
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+}

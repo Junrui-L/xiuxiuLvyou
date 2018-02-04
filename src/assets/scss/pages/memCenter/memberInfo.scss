@@ -1,0 +1,69 @@
+.memberInfo {
+  padding-top: px2rem(15px);
+  .header {
+    background: $white;
+
+    .service-area {
+      @include setSize(100%, px2rem(82px));
+      line-height: px2rem(82px);
+      padding: 0 px2rem(20px);
+      color: $color-gray-secondary;
+      @include font-dpr(14px);
+      .title {
+        color: $color-black;
+      }
+
+      .img-wrapper {
+        margin-top: px2rem(11px);
+        //@include centerTop;
+        @include setSize(px2rem(78px), px2rem(60px));
+        border-radius: 50%;
+        img {
+          display: inline-block;
+          border: 0;
+          @include setSize(px2rem(60px), px2rem(60px));
+          border-radius: 50%;
+        }
+      }
+    }
+
+
+  }
+
+  svg {
+    fill: $color-gray-secondary;
+    width: px2rem(10px);
+    height:px2rem(10px);
+    vertical-align: middle;
+  }
+
+  .head-item {
+    @include setSize(100%, px2rem(50px));
+    line-height: px2rem(50px);
+    padding: 0 px2rem(20px);
+    @include font-dpr(14px);
+    color: $color-gray-secondary;
+
+    .item-wrapper {
+      border-bottom: 1px solid $color-body-bg;
+    }
+    .title {
+      color: $color-black;
+    }
+
+    .txt {
+      text-align: right;
+      width: 70%;
+      @include ellipsis;
+    }
+  }
+
+
+  .main {
+    margin-top: px2rem(20px);
+    background: $white;
+  }
+
+
+}
+

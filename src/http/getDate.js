@@ -262,8 +262,9 @@ export const payOrder = (num) => $http.post('/order.json?act=play', {
  *
  *付款加载微信参数信息
  * */
-export const payOrderWx = (num) => $http.post('/play.json?act=play', {
-  orderNo: num
+export const payOrderWx = (num, payUrl) => $http.post('/play.json?act=play', {
+  orderNo: num,
+  url: payUrl
 });
 /**
  *
