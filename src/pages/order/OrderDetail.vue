@@ -131,7 +131,7 @@
   import {mapState, mapMutations} from 'vuex'
   import {userInfo,loadYhj, initOrder, loadOrder, creatOrder} from '../../http/getDate'
   import {peopleNum} from '../../config/datajs'
-
+  import {localStore} from '../../config/myUtils'
   import SwitchOption from  '../../components/switchOption.vue'
   export default {
     data() {
@@ -330,6 +330,8 @@
               //
               //   }
               // }).show()
+              let loc =  localStore('orderNum', 'localStorage')
+              loc.set('orn', res.data[1])
               self.$router.push({name: 'order',query: {orderNum: res.data[1]}})
             }
 

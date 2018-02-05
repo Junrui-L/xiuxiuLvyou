@@ -216,6 +216,7 @@
   import AlertTip from '../components/alertTip.vue'
   import Swiper from '../components/Swiper.vue'
   import Banner from '../components/Banner.vue'
+  import {localStore} from '../config/myUtils'
   export default {
     name: 'Home',
     data() {
@@ -268,6 +269,11 @@
         _this.$refs.silde.refresh()
       }, 1000)
       // this.$refs.slide.refresh()
+
+      let loc =  localStore('orderNum', 'localStorage')
+      loc.set('orn','eeeeee')
+      let a = localStore('orderNum', 'localStorage').get('orn')
+      console.log(a+'活动的')
     },
 
     methods: {

@@ -1,0 +1,204 @@
+.prepay_order {
+  width: 100%;
+}
+
+.prepay_order .left-time {
+  padding: 0.48rem 0.53333rem 0;
+}
+
+.prepay_order .order-main {
+  padding: 0.32rem 0.53333rem;
+  background: #f8f8f8;
+}
+
+.prepay_order .order-main .img-wrapper {
+  width: 2.13333rem;
+  height: 2.13333rem;
+}
+
+.prepay_order .order-main .img-wrapper img {
+  width: 100%;
+  max-height: 100%;
+}
+
+.prepay_order .order-main .order-detail {
+  margin-left: 0.4rem;
+}
+
+.prepay_order .order-main .order-detail .order-item {
+  width: 100%;
+  height: 0.53333rem;
+  line-height: 0.53333rem;
+  font-size: 14px;
+  color: #888;
+}
+
+[data-dpr='2'] .prepay_order .order-main .order-detail .order-item {
+  font-size: 28px;
+}
+
+[data-dpr='3'] .prepay_order .order-main .order-detail .order-item {
+  font-size: 42px;
+}
+
+.prepay_order .order-main .order-detail .order-price {
+  color: #f34141;
+  font-size: 16px;
+}
+
+[data-dpr='2'] .prepay_order .order-main .order-detail .order-price {
+  font-size: 32px;
+}
+
+[data-dpr='3'] .prepay_order .order-main .order-detail .order-price {
+  font-size: 48px;
+}
+
+.prepay_order .account-wrapper {
+  margin-top: 0.26667rem;
+  padding: 0 0.53333rem;
+  background: #fff;
+}
+
+.prepay_order .account-wrapper .accout-pay, .prepay_order .account-wrapper .account-balance {
+  height: 1.33333rem;
+  line-height: 1.33333rem;
+  font-size: 16px;
+}
+
+[data-dpr='2'] .prepay_order .account-wrapper .accout-pay, [data-dpr='2'] .prepay_order .account-wrapper .account-balance {
+  font-size: 32px;
+}
+
+[data-dpr='3'] .prepay_order .account-wrapper .accout-pay, [data-dpr='3'] .prepay_order .account-wrapper .account-balance {
+  font-size: 48px;
+}
+
+.prepay_order .account-wrapper .accout-pay {
+  color: #333;
+  border-bottom: 1px solid #efeff4;
+}
+
+.prepay_order .account-wrapper .account-balance {
+  color: #656467;
+}
+
+.prepay_order .check-count {
+  padding-top: 0.32rem;
+}
+
+.prepay_order .wx-pay {
+  margin-top: 0.26667rem;
+  padding: 0 0.53333rem;
+  background: #fff;
+  height: 1.33333rem;
+  line-height: 1.33333rem;
+  font-size: 16px;
+  color: #333;
+}
+
+[data-dpr='2'] .prepay_order .wx-pay {
+  font-size: 32px;
+}
+
+[data-dpr='3'] .prepay_order .wx-pay {
+  font-size: 48px;
+}
+
+.prepay_order .all-pay {
+  width: 100%;
+  /*height: 1.17333rem;*/
+  line-height: 1.17333rem;
+  background: #fff;
+  font-size: 16px;
+  color: #656467;
+  border-top: 1px solid #efeff4;
+  text-align: center;
+}
+
+[data-dpr='2'] .prepay_order .all-pay {
+  font-size: 32px;
+}
+
+[data-dpr='3'] .prepay_order .all-pay {
+  font-size: 48px;
+}
+
+.prepay_order .all-pay span {
+  padding-right: 0.53333rem;
+  position: relative;
+}
+
+.prepay_order .all-pay span:after {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 0.32rem;
+  height: 0.32rem;
+  border-right: 1px solid #888;
+  border-bottom: 1px solid #888;
+  transform: rotate(45deg);
+}
+
+.prepay_order .sure-pay {
+  padding: 0.53333rem;
+}
+
+.prepay_order .sure-pay .pay-btn {
+  width: 100%;
+  height: 1.33333rem;
+  color: #fff;
+  background-color: #f34141;
+  font-size: 16px;
+  border-radius: 0.08rem;
+  border: none;
+}
+
+[data-dpr='2'] .prepay_order .sure-pay .pay-btn {
+  font-size: 32px;
+}
+
+[data-dpr='3'] .prepay_order .sure-pay .pay-btn {
+  font-size: 48px;
+}
+
+.prepay_order .sure-pay .pay-btn:active {
+  background-color: #f12929;
+}
+
+.ui-radio {
+  width: 0.64rem;
+  height: 0.64rem;
+  border-radius: 50%;
+  border: 1px solid #CCC;
+  display: inline-block;
+  position: relative; }
+
+.ui-radio.disabled {
+  border-color: #ccc; }
+
+.ui-radio::after {
+  content: '';
+  width: 0.64rem;
+  height: 0.64rem;
+  border-radius: 50%;
+  display: inline-block;
+  position: absolute;
+  left: 0;
+  top: 0;
+  background: #fff url(../img/common_icon_choose@3x.png) no-repeat;
+  background-size: 0.64rem 0.64rem;
+  opacity: 0;
+  transform: scale(0); }
+
+.ui-radio.disabled::after {
+  background-color: #ccc; }
+
+.ui-radio.checked::after {
+  opacity: 1;
+  transform: scale(1); }
+
+.ui-radio input[type=radio] {
+  opacity: 0;
+  margin: 0; }

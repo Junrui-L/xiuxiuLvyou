@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>微信支付</title>
+  <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+  <meta name="format-detection" content="telephone=no">
+  <link rel="stylesheet" type="text/css" href="./css/layer_rem.css">
+  <link rel="stylesheet" type="text/css" href="css/paystyle.css">
+  <script src="./js/flexible.js"></script>
+</head>
+<body>
+  <div id="app">
+    <div class="prepay_order">
+      <div class="left-time">
+        <!--<TimeCount :endTime="endT" :nowTime="nowT" :countCallback="endLog"/>-->
+      </div>
+      <div class="order-main clearfix">
+        <div class="img-wrapper fl">
+          <img src="./img/taiwdy.png" alt="">
+        </div>
+        <ul class="order-detail fl">
+          <li class="order-item order-price">￥ {{payOrderDetail.orderSumPrice}}.00</li>
+          <li class="order-item order-number">订单号：{{payOrderDetail.ordernumber}}</li>
+          <li class="order-item order-content">{{payOrderDetail.orderdoc}}</li>
+          <li class="order-item order-mode">{{payOrderDetail.orderdoc}}</li>
+        </ul>
+      </div>
+
+      <div class="account-wrapper">
+        <div class="accout-pay">账户支付 <span class="check-count fr"><pay-radio v-model="val" value="1"
+                                                                             @change="getVal"></pay-radio></span></div>
+        <div class="account-balance">余额：{{userAccount.accountBalance}}元</div>
+      </div>
+      <div class="wx-pay">微信支付 <span class="check-count fr"><pay-radio v-model="val" value="2"
+                                                                       @change="getVal"></pay-radio></span></div>
+      <div class="all-pay "><span>查看全部支付方式 </span>
+        <ul class="payme hide">
+          <li class="wx-pay">余额支付</li>
+          <li class="wx-pay">微信支付</li>
+        </ul>
+      </div>
+      <!--<SwitchOption name="注册 "></SwitchOption>-->
+      <div class="sure-pay">
+        <button class="pay-btn" @click="pay">确认支付 <span>￥ {{payOrderDetail.orderSumPrice}}元</span></button>
+      </div>
+    </div>
+  </div>
+
+
+  <input type="hidden" id="orderNo" value="20180203000346376683">
+  <script src="./js/jquery-2.2.2.js"></script>
+  <script src="./js/layer.js"></script>
+  <script src="./js/myUtils.js"></script>
+  <script src="./js/vue.min.js"></script>
+
+  <script>
+    //选择组件
+    Vue.component('pay-radio', {
+      template: '<label class="ui-radio" :class="{\'checked\':model==value,\'disabled\':disabled}">' +
+      '    <input type="radio" ref="radio" :value="value" @click="updateVal" :disabled="disabled">' +
+      '  </label>',
+      data: function () {
+
+      },
+      model: {//自定义 v-model的 prop和event,这个定义的意思就是使用change事件更新model的值,以此来实时更新v-model的值
+        prop: 'model',
+        event: 'change'
+      },
+      props: {
+        value: {//radio的value属性
+          type: [String, Number],
+          require: true
+        },
+        model: {//这里的model指的是上面定义的v-model的prop
+          type: [String, Number],
+          require: true
+        },
+        checked: {//是否默认选中
+          type: Boolean,
+          default: false
+        },
+        disabled: {//是否禁用
+          type: Boolean,
+          default: false
+        }
+      },
+      mounted: function () {//当dom渲染完成,判断组件是否默认选中
+        if (this.checked === true)
+          this.updateVal();
+      },
+      methods: {
+        updateVal: function () {//当用户点击radio时,触发change事件更新v-model
+          this.$emit('change', this.$refs.radio.value);
+        }
+      }
+    });
+
+
+    var myApp = new Vue({
+      el: '#app',
+      data: {
+        endT: '2018-02-09 11:55:00',
+        nowT: '2018-01-09 19:50:00',
+        payOrderDetail: '',
+        userAccount: '',
+        orderNumber: '',
+        configMap: '',
+        val: '2',
+        isdisabled: true,
+        ischecked: false
+      },
+      created(){
+        let loc =  localStore('orderNum', 'localStorage')
+        this.orderNumber = loc.get('orn')
+      },
+      mounted() {
+        console.log($("#orderNo").val() + '订单号')
+        // this.configWx();
+        this.preOrderLoad();
+      },
+      methods: {
+        endLog() {
+          console.log('.....倒计时结束了.....')
+        },
+        configWx(){
+          let signUrl = location.href;
+          let _this = this;
+          // signUrl = encodeURIComponent(signUrl)
+          console.log(`要签名的url ${signUrl}`)
+          $.post('/play.json?act=play',{orderNo: _this.orderNumber,url: window.location.href },function(res) {
+            console.log(res)
+            console.log('===》签名基本参数返回《====')
+            if(res.code && res.code == '-1001') {
+              console.log('还么登录,需要授权登录')
+              location.href= res.data.redirect;
+            }
+            console.log(res);
+            this.configMap = res.configMap;
+            wx.config({
+              debug: false,
+              appId: res.configMap.appid,
+              timestamp: res.configMap.timestamp,
+              nonceStr: res.configMap.nonceStr, //随机串
+              signature: res.configMap.signature ,//微信签名
+              jsApiList: ['chooseWXPay'] // 必填，需要使用的JS接口列表，这里只写支付的
+            });
+          })
+        },
+        preOrderLoad() {
+          let _this = this;
+          $.post('/siteH5/order.json?act=play',{ordernumber: _this.orderNumber},function(res) {
+            console.log('===去支付页返回====')
+            this.userAccount = res.capitalcenter;
+            this.payOrderDetail = res.orderMap;
+
+          })
+
+        },
+        onBridgeReady(){
+          let _this = this;;
+          let signUrl = location.href;
+          $.post('/siteH5/play.json?act=play',{orderNo: _this.orderNumber,url: window.location.href },function(res) {
+            let paysi = res.pay.sign.toUpperCase();
+            WeixinJSBridge.invoke('getBrandWCPayRequest',{
+              "appId" : res.configMap.appid,
+              "timeStamp" : res.pay.timestamp,
+              "nonceStr" : res.pay.nonce_str,
+              "package" : res.packageValue,
+              "signType" : "MD5",
+              "paySign" : paysi
+            },function(res){
+              //使用以上方式判断前端返回,微信团队郑重提示：res.err_msg将在用户支付成功后返回    ok，但并不保证它绝对可靠。
+              if(res.err_msg == "get_brand_wcpay_request:ok"){
+                layer.open({
+                  content: '支付成功！'
+                  ,skin: 'msg'
+                  ,time: 2 //2秒后自动关闭
+                });
+              }else if(res.err_msg == "get_brand_wcpay_request:cancel"){
+
+                layer.open({
+                  content: '用户取消支付！'
+                  ,skin: 'msg'
+                  ,time: 2 //2秒后自动关闭
+                });
+                // alert("用户取消支付!");
+              }else if(res.err_msg == "get_brand_wcpay_request：fail"){
+                layer.open({
+                  content: '支付失败！'
+                  ,skin: 'msg'
+                  ,time: 2 //2秒后自动关闭
+                });
+                // alert("支付失败!");
+              }
+            })
+
+
+          })
+
+        },
+        callPay(){
+          if (typeof WeixinJSBridge == "undefined"){
+            if( document.addEventListener ){
+              document.addEventListener('WeixinJSBridgeReady', this.onBridgeReady, false);
+            }else if (document.attachEvent){
+              document.attachEvent('WeixinJSBridgeReady', this.onBridgeReady);
+              document.attachEvent('onWeixinJSBridgeReady', this.onBridgeReady);
+            }
+          }else{
+            this.onBridgeReady();
+          }
+        },
+        conPay() {
+          let _this = this;
+          console.log('支付请求');
+          console.log('订单号：' + this.$route.query.orn)
+          let signUrl = location.href;
+          $.post('/play.json?act=play',{orderNo: _this.orderNumber,url: window.location.href },function(res) {
+            let that = this;
+            console.log('===支付参数返回====')
+            wx.config({
+              debug: false,
+              appId: res.configMap.appid,
+              timestamp: res.configMap.timestamp,
+              nonceStr: res.configMap.nonceStr, //随机串
+              signature: res.configMap.signature ,//微信签名
+              jsApiList: ['chooseWXPay','onMenuShareAppMessage'] // 必填，需要使用的JS接口列表，这里只写支付的
+            });
+
+            // console.log(res.pay.appid, res.pay.timestamp, res.pay.nonce_str, res.packageValue, res.pay.sign)
+            wx.ready(function(){
+              console.log('进入了 wx.ready')
+              console.log(res)
+              let paysi = res.pay.sign.toUpperCase();
+              console.log(paysi)
+              wx.chooseWXPay({
+                timestamp:res.pay.timestamp,  // 支付签名时间戳，注意微信jssdk中的所有使用timestamp字段均为小写。但最新版的支付后台生成签名使用的timeStamp字段名需大写其中的S字符
+                nonceStr: res.pay.nonce_str, // 支付签名随机串，不长于 32 位
+                package: res.packageValue, // 统一支付接口返回的prepay_id参数值，提交格式如：prepay_id=***）
+                signType: "MD5", // 签名方式，默认为′SHA1′，使用新版支付需传入′MD5′
+                paySign: paysi , // 支付签名
+                success: function (res) {
+                  if(res.errMsg == "chooseWXPay:ok"){
+                    // alert("支付成功");
+                    layer.open({
+                      content: '支付成功！'
+                      ,skin: 'msg'
+                      ,time: 2 //2秒后自动关闭
+                    });
+                    // window.location.href  = "/hims/weixin/pages/Order_ok.html?access_token=" ;
+                  }else{
+                    console.log(res.errMsg);
+                    layer.open({
+                      content: '支付失败！'
+                      ,skin: 'msg'
+                      ,time: 2 //2秒后自动关闭
+                    });
+                  }
+                },
+                cancel: function(res){
+                  layer.open({
+                    content: '支付取消！'
+                    ,skin: 'msg'
+                    ,time: 2 //2秒后自动关闭
+                  });
+                }
+              });
+
+              wx.error(function (err) {
+                console.log(err)
+              })
+            })
+
+
+          })
+        },
+        pay() {
+          console.log('当前地址'+location.href)
+          console.log('发起微信支付。。。')
+          if (this.val == 2) {
+            //微信支付调取1
+            // this.conPay()
+            //微信支付调取2
+            this.callPay();
+          } else if (this.val == 1) {
+            layer.open({
+              content: '选择了账号付款'
+              ,skin: 'msg'
+              ,time: 2 //2秒后自动关闭
+            });
+          }
+
+        },
+        getVal() {
+          let that = this
+          console.log('==切换了支付方式==')
+          console.log(this.val)
+
+          // layer.open({
+          //   content: that.val
+          //   ,skin: 'msg'
+          //   ,time: 2 //2秒后自动关闭
+          // });
+        }
+      }
+
+    })
+
+    $('.all-pay').click(function () {
+      $('.payme').toggleClass('hide')
+    })
+  </script>
+</body>
+</html>

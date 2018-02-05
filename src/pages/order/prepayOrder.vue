@@ -34,9 +34,8 @@
   import {mapState, mapMutations} from 'vuex'
   import {payOrder, payOrderWx, payConfigWx } from '../../http/getDate'
   import TimeCount from '../../components/timeCountDown.vue'
-  import SwitchOption from '../../components/switchOption.vue'
   import PayRadio from '../../components/payRadio.vue'
-
+  import {localStore} from '../../config/myUtils'
   export default {
     data() {
       return {
@@ -53,13 +52,16 @@
     },
     components: {
       TimeCount,
-      SwitchOption,
       PayRadio
     },
     computed: {
       ...mapState([
         'orderDetail'
       ]),
+    },
+    created(){
+      let loc =  localStore('orderNum', 'localStorage')
+      loc.set('orn', this.$route.query.orn)
     },
     mounted() {
       // this.configWx();
@@ -228,7 +230,10 @@
           //微信支付调取1
           // this.conPay()
           //微信支付调取2
-          this.callPay();
+          // this.callPay();
+          //去单独的支付页
+          window.location.href='http://www.youdingsoft.com/templates/h5/wxpay.html'
+
         } else if (this.val == 1) {
           this.$createDialog({
             type: 'alert',
