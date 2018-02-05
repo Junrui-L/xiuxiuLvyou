@@ -3,7 +3,7 @@
  * 异步获取数据，基于promise操作
  */
 import $http from './index'
-import {localStore} from  '../config/myUtils'
+import {localStore} from '../config/myUtils'
 
 /**
  * 用户登录
@@ -11,8 +11,8 @@ import {localStore} from  '../config/myUtils'
  * */
 
 export const userLogin = (phone, password) => $http.post('/user.json?act=passwordLogin', {
-    mobile: phone,
-    loginPassword: password
+  mobile: phone,
+  loginPassword: password
 });
 
 /**
@@ -21,9 +21,8 @@ export const userLogin = (phone, password) => $http.post('/user.json?act=passwor
  * */
 
 export const homeData = (areasn) => $http.get('/index.json?act=index', {
-    areasn: areasn
+  areasn: areasn
 });
-
 
 
 /**
@@ -31,14 +30,14 @@ export const homeData = (areasn) => $http.get('/index.json?act=index', {
  *ok
  * */
 export const cityArea = (areasn) => $http.get('/index.json?act=citys', {
-      citysn: areasn
+  citysn: areasn
 })
 /**
-* 获取区域景区
+ * 获取区域景区
  * ok
-* */
+ * */
 export const cityScenicspots = (areasn) => $http.get('/index.json?act=cityScenicspots', {
-    citysn: areasn
+  citysn: areasn
 });
 
 /**
@@ -55,7 +54,7 @@ export const searchScenicspots = (valword) => $http.post('/index.json?act=search
  * */
 
 export const spotsList = (areasn) => $http.get('/guide.json?act=list', {
-    city: areasn
+  city: areasn
 });
 
 /**
@@ -68,7 +67,7 @@ export const guideList = (data) => $http.post('/guide.json?act=guideslist', {
   sex: data.sex,
   agetype: data.agetype,
   minprice: data.minprice,
-  maxprice:data.maxprice,
+  maxprice: data.maxprice,
   todaytuan: data.todaytuan,
   isbuyticket: data.isbuyticket,
   isshuttle: data.isshuttle
@@ -84,7 +83,7 @@ export const cityGuideList = (data) => $http.post('/guide.json?act=cityguideslis
   sex: data.sex,
   agetype: data.agetype,
   minprice: data.minprice,
-  maxprice:data.maxprice,
+  maxprice: data.maxprice,
   todaytuan: data.todaytuan,
   isbuyticket: data.isbuyticket,
   isshuttle: data.isshuttle
@@ -107,7 +106,6 @@ export const loadPackage = (godate, accountId, playId) => $http.post('/order.jso
   accountId: accountId,
   playId: playId
 });
-
 
 
 /**
@@ -133,10 +131,7 @@ export const playlistDetail = (playId, accountId) => $http.get('/guide.json?act=
 /**
  * 获取个人信息
  * */
-export const userInfo = () => $http.get('/user.json?act=personal', {
-
-})
-
+export const userInfo = () => $http.get('/user.json?act=personal', {})
 
 
 /**
@@ -145,9 +140,7 @@ export const userInfo = () => $http.get('/user.json?act=personal', {
 
  * */
 
-export const getuserInfo = () => $http.get('/userInfo/getUserInfoDails', {
-
-});
+export const getuserInfo = () => $http.get('/userInfo/getUserInfoDails', {});
 
 /**
  *
@@ -171,9 +164,7 @@ export const initOrder = (godate, accountId, playId, tripsnum, packageid, source
  * 加载订单信息（下单）
  * */
 
-export const loadOrder = () => $http.get('/order.json?act=loadOrder', {
-
-});
+export const loadOrder = () => $http.get('/order.json?act=loadOrder', {});
 
 /**
  *
@@ -191,7 +182,7 @@ export const loadYhj = (make) => $http.get('/order.json?act=loadyhj', {
  * */
 
 export const loadOveryhj = (areasn) => $http.get('/order.json?act=loadOveryhj', {
-    areasn: areasn
+  areasn: areasn
 });
 
 /**
@@ -201,7 +192,7 @@ export const loadOveryhj = (areasn) => $http.get('/order.json?act=loadOveryhj', 
  * */
 
 export const loadmakeyhj = (areasn) => $http.get('/order.json?act=loadmakeyhj', {
-    areasn: areasn
+  areasn: areasn
 });
 
 /**
@@ -222,22 +213,21 @@ export const creatOrder = (godate,
                            limkman,
                            linkPhone,
                            require,
-                           yhjId
-) => $http.get('/order.json?act=create', {
-                godate: godate,
-                accountId: accountId,
-                playId: playId,
-                tripsnum: tripsnum,
-                packageid: packageid,
-                mpPackageid: mpPackageid,
-                mpPackagecount: mpPackagecount,
-                istuan: istuan,
-                source: source,
-                tipamount: tipamount,
-                limkman: limkman,
-                linkPhone: linkPhone,
-                require: require,
-                yhjId: yhjId
+                           yhjId) => $http.get('/order.json?act=create', {
+  godate: godate,
+  accountId: accountId,
+  playId: playId,
+  tripsnum: tripsnum,
+  packageid: packageid,
+  mpPackageid: mpPackageid,
+  mpPackagecount: mpPackagecount,
+  istuan: istuan,
+  source: source,
+  tipamount: tipamount,
+  limkman: limkman,
+  linkPhone: linkPhone,
+  require: require,
+  yhjId: yhjId
 });
 
 
@@ -255,7 +245,7 @@ export const orderDetail = (num) => $http.post('/order.json?act=details', {
  *付款加载信息
  * */
 export const payOrder = (num) => $http.post('/order.json?act=play', {
-    ordernumber: num
+  ordernumber: num
 });
 
 /**
@@ -280,7 +270,7 @@ export const payConfigWx = (singnurl) => $http.get('http://www.youdingsoft.com/w
  *修改订单状态
  * */
 export const updateOrder = (areasn) => $http.get('/order.json?act=updateStatus', {
-    areasn: areasn
+  areasn: areasn
 });
 
 /**
@@ -288,7 +278,7 @@ export const updateOrder = (areasn) => $http.get('/order.json?act=updateStatus',
  *取消订单
  * */
 export const cancelOrder = (areasn) => $http.get('/order.json?act=cancel', {
-    areasn: areasn
+  areasn: areasn
 });
 
 /**
@@ -296,3 +286,12 @@ export const cancelOrder = (areasn) => $http.get('/order.json?act=cancel', {
  *
  * */
 
+
+/**
+ *
+ *优惠劵列表
+
+ * */
+export const getCouponsList = (tomake) => $http.get('/user.json?act=loadyhj', {
+  tomake
+});
