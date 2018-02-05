@@ -103,6 +103,60 @@
         })
 
       },
+      onBridgeReady(){
+        let that = this;
+        let signUrl = location.href;
+        payOrderWx(this.$route.query.orn, signUrl).then(res => {
+
+          let paysi = res.pay.sign.toUpperCase();
+          WeixinJSBridge.invoke('getBrandWCPayRequest',{
+            "appId" : res.configMap.appid,
+            "timeStamp" : res.pay.timestamp,
+            "nonceStr" : res.pay.nonce_str,
+            "package" : res.packageValue,
+            "signType" : "MD5",
+            "paySign" : paysi
+          },function(res){
+            //使用以上方式判断前端返回,微信团队郑重提示：res.err_msg将在用户支付成功后返回    ok，但并不保证它绝对可靠。
+            if(res.err_msg == "get_brand_wcpay_request:ok"){
+              that.$createDialog({
+                type: 'alert',
+                title: '支付结果',
+                content: '支付成功'
+              }).show()
+            }else if(res.err_msg == "get_brand_wcpay_request:cancel"){
+              that.$createDialog({
+                type: 'alert',
+                title: '支付结果',
+                content: '用户取消支付'
+              }).show()
+              // alert("用户取消支付!");
+            }else if(res.err_msg == "get_brand_wcpay_request：fail"){
+              that.$createDialog({
+                type: 'alert',
+                title: '支付结果',
+                content: '支付失败!'
+              }).show()
+              // alert("支付失败!");
+            }
+          })
+
+
+        })
+
+      },
+      callPay(){
+        if (typeof WeixinJSBridge == "undefined"){
+          if( document.addEventListener ){
+            document.addEventListener('WeixinJSBridgeReady', this.onBridgeReady, false);
+          }else if (document.attachEvent){
+            document.attachEvent('WeixinJSBridgeReady', this.onBridgeReady);
+            document.attachEvent('onWeixinJSBridgeReady', this.onBridgeReady);
+          }
+        }else{
+          this.onBridgeReady();
+        }
+      },
       conPay() {
         let that = this;
         console.log('支付请求');
@@ -120,25 +174,10 @@
             jsApiList: ['chooseWXPay','onMenuShareAppMessage'] // 必填，需要使用的JS接口列表，这里只写支付的
           });
 
-          console.log(res.pay.appid, res.pay.timestamp, res.pay.nonce_str, res.packageValue, res.pay.sign)
+          // console.log(res.pay.appid, res.pay.timestamp, res.pay.nonce_str, res.packageValue, res.pay.sign)
           wx.ready(function(){
             console.log('进入了 wx.ready')
             console.log(res)
-//             let a = 'http://www.youdingsoft.com/templates/h5/index.html?token=0#/prepayOrder?orn=20180202000384924799'
-//             wx.onMenuShareAppMessage({
-//               title: '12333', // 分享标题
-//               desc: '分享描述', // 分享描述
-//               link: a, // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
-//               imgUrl: 'http://www.youdingsoft.com/templates/h5/static/img/logo.50ae579.png', // 分享图标
-//               type: '', // 分享类型,music、video或link，不填默认为link
-//               dataUrl: '', // 如果type是music或video，则要提供数据链接，默认为空
-//               success: function () {
-// // 用户确认分享后执行的回调函数
-//               },
-//               cancel: function () {
-// // 用户取消分享后执行的回调函数
-//               }
-//             });
             let paysi = res.pay.sign.toUpperCase();
             console.log(paysi)
             wx.chooseWXPay({
@@ -186,8 +225,10 @@
         console.log('当前地址'+location.href)
         console.log('发起微信支付。。。')
         if (this.val == 2) {
-          //微信支付调取
-          this.conPay()
+          //微信支付调取1
+          // this.conPay()
+          //微信支付调取2
+          this.callPay();
         } else if (this.val == 1) {
           this.$createDialog({
             type: 'alert',
