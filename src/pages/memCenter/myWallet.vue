@@ -17,7 +17,7 @@
               <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#arrow-right"></use>
             </svg>
           </router-link>
-          <router-link tag="li" to="/earn" class="wallet-item clearfix">
+          <li class="wallet-item clearfix">
             <div class="item-left fl">
               <h5>总收益</h5>
               <p>￥100.00</p>
@@ -25,8 +25,8 @@
             <svg class="fr">
               <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#arrow-right"></use>
             </svg>
-          </router-link>
-          <router-link tag="li" to="/deposit" class="wallet-item clearfix">
+          </li>
+          <li class="wallet-item clearfix">
             <div class="item-left fl">
               <h5>历史提现</h5>
               <p>￥100.00</p>
@@ -34,7 +34,7 @@
             <svg class="fr">
               <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#arrow-right"></use>
             </svg>
-          </router-link>
+          </li>
         </ul>
       </div>
       <div class="button-wrap">

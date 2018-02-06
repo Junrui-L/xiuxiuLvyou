@@ -202,6 +202,10 @@
     </div>
       <!--<cube-button @click="showDialog">show dialog</cube-button>-->
     <div class="footer">拉到底了~<br/>可以尝试搜索看看</div>
+    <router-link to="/memberCenter">
+      <cube-button>个人中心</cube-button>
+
+    </router-link>
     <!--<alert-tip v-if="showAlert" :showHide="showAlert" @closeTip="closeTip" :alertText="alertText"></alert-tip>-->
   </div>
 </template>

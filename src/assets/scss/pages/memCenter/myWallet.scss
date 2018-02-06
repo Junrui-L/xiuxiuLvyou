@@ -26,7 +26,6 @@
       }
     }
 
-
   }
 
   .container {
@@ -37,12 +36,12 @@
       padding: px2rem(10px) 0;
       border-bottom: 1px solid $color-body-bg;
       position: relative;
-     .item-left >h5 {
+      .item-left > h5 {
         line-height: px2rem(28px);
         @include font-dpr(16px);
         color: $color-black;
       }
-      .item-left >p {
+      .item-left > p {
         line-height: px2rem(20px);
         @include font-dpr(14px);
         color: $color-black-secondary;
@@ -53,15 +52,13 @@
         right: 0;
         fill: $color-gray-secondary;
         width: px2rem(16px);
-        height:px2rem(16px);
+        height: px2rem(16px);
         vertical-align: text-top;
       }
     }
-
-
   }
 
-  .button-wrap  {
+  .button-wrap {
     position: fixed;
     left: 0;
     bottom: 0;
@@ -72,8 +69,5 @@
       @include setButton(100%, px2rem(44px), $color-red, $white, 0)
     }
   }
-
-
-
 
 }

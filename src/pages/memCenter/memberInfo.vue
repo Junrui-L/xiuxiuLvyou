@@ -80,7 +80,7 @@
           </div>
         </li>
         <li class="head-item clearfix">
-          <div class="item-wrapper clearfix">
+          <router-link to="/setContact" class="item-wrapper clearfix">
             <span class="title">手机号码</span>
             <span class="txt fr">
             15117001826
@@ -88,10 +88,10 @@
                 <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#arrow-right"></use>
             </svg>
             </span>
-          </div>
+          </router-link>
         </li>
         <li class="head-item clearfix">
-          <div class="item-wrapper clearfix">
+          <router-link to="/myQrcode" class="item-wrapper clearfix">
             <span class="title">推广二维码</span>
             <span class="txt fr">
 
@@ -99,7 +99,7 @@
                 <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#arrow-right"></use>
             </svg>
             </span>
-          </div>
+          </router-link>
         </li>
       </ul>
 

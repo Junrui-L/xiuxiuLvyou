@@ -1,0 +1,50 @@
+.myQrcode {
+
+.qr-code {
+  @include setSize(100%, px2rem(360px));
+  position: relative;
+  background: $white;
+  img {
+    @include center;
+    @include setSize(px2rem(198px), px2rem(198px));
+
+  }
+}
+
+  h3 {
+    padding: 0 px2rem(20px);
+    margin-top: px2rem(12px);
+    height: px2rem(30px);
+    line-height: px2rem(30px);
+    color: $color-black-secondary;
+    @include font-dpr(14px);
+
+  }
+
+  p {
+    padding: 0 px2rem(20px);
+    @include font-dpr(13px);
+    color: $color-black;
+    line-height: 1.3;
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+}

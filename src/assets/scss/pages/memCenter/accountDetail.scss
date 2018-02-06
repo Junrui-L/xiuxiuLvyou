@@ -1,0 +1,94 @@
+.accountDetail {
+  height: 100%;
+
+  .header-wrap {
+    padding: px2rem(18px) px2rem(24px);
+    background: $white;
+      @include setSize(100%, px2rem(127px));
+
+    .pay-tit {
+      text-align: center;
+      font-size: 0;
+
+      .xiu {
+        display: inline-block;
+        margin-right: px2rem(10px);
+        @include setSize(px2rem(28px), px2rem(28px));
+        @include font-dpr(16px);
+        line-height: px2rem(28px);
+        background: $color-red;
+        color: $white;
+        border-radius: 50%;
+      }
+      .tit {
+        display: inline-block;
+        height: px2rem(28px);
+        //@include setSize(px2rem(100px), px2rem(28px));
+        @include font-dpr(16px);
+        line-height: px2rem(28px);
+        color: $color-black;
+
+      }
+
+    }
+      .money {
+        text-align: center;
+        height: px2rem(50px);
+        line-height: px2rem(50px);
+        @include font-dpr(28px);
+        color: $color-black;
+      }
+      .money-txt {
+        text-align: center;
+        height: px2rem(20px);
+        line-height: px2rem(20px);
+        @include font-dpr(14px);
+        opacity: 0.58;
+        color: $color-black;
+      }
+
+
+
+  }
+
+  .pay-info {
+    padding: 0 px2rem(15px);
+    background: $white;
+    .lists-item {
+      @include setSize(100%, px2rem(42px));
+      line-height: px2rem(42px);
+      color: $color-gray-secondary;
+      @include font-dpr(15px);
+      span {
+        color: $color-black;
+      }
+    }
+
+    .type {
+      border-bottom: 1px solid $color-body-bg;
+    }
+  }
+
+
+
+
+  .last-tip {
+    margin-top: px2rem(12px);
+    position: relative;
+    height: px2rem(50px);
+    line-height: px2rem(50px);
+    padding: 0 px2rem(15px);
+    background: $white;
+    @include font-dpr(15px);
+    svg {
+      @include centerTop;
+      right: px2rem(16px);
+      fill: $color-gray-secondary;
+      width: px2rem(16px);
+      height:px2rem(16px);
+      vertical-align: text-top;
+    }
+  }
+
+
+}
