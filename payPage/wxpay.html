@@ -102,8 +102,8 @@
       data: {
         endT: '2018-02-09 11:55:00',
         nowT: '2018-01-09 19:50:00',
-        payOrderDetail: '',
-        userAccount: '',
+        payOrderDetail: {},
+        userAccount: {},
         orderNumber: '',
         configMap: '',
         val: '2',
@@ -136,13 +136,13 @@
               location.href= res.data.redirect;
             }
             console.log(res);
-            this.configMap = res.configMap;
+            this.configMap = res.data.configMap;
             wx.config({
               debug: false,
-              appId: res.configMap.appid,
-              timestamp: res.configMap.timestamp,
-              nonceStr: res.configMap.nonceStr, //随机串
-              signature: res.configMap.signature ,//微信签名
+              appId: res.data.configMap.appid,
+              timestamp: res.data.configMap.timestamp,
+              nonceStr: res.data.configMap.nonceStr, //随机串
+              signature: res.data.configMap.signature ,//微信签名
               jsApiList: ['chooseWXPay'] // 必填，需要使用的JS接口列表，这里只写支付的
             });
           })
@@ -151,22 +151,24 @@
           let _this = this;
           $.post('/siteH5/order.json?act=play',{ordernumber: _this.orderNumber},function(res) {
             console.log('===去支付页返回====')
-            this.userAccount = res.capitalcenter;
-            this.payOrderDetail = res.orderMap;
+            console.log(res)
+            // let resp = JSON.parse(res)
+            _this.userAccount = res.data.capitalcenter;
+            _this.payOrderDetail = res.data.orderMap;
 
-          })
+          }, 'json')
 
         },
         onBridgeReady(){
           let _this = this;;
           let signUrl = location.href;
           $.post('/siteH5/play.json?act=play',{orderNo: _this.orderNumber,url: window.location.href },function(res) {
-            let paysi = res.pay.sign.toUpperCase();
+            let paysi = res.data.pay.sign.toUpperCase();
             WeixinJSBridge.invoke('getBrandWCPayRequest',{
-              "appId" : res.configMap.appid,
-              "timeStamp" : res.pay.timestamp,
-              "nonceStr" : res.pay.nonce_str,
-              "package" : res.packageValue,
+              "appId" : res.data.configMap.appid,
+              "timeStamp" : res.data.pay.timestamp,
+              "nonceStr" : res.data.pay.nonce_str,
+              "package" : res.data.packageValue,
               "signType" : "MD5",
               "paySign" : paysi
             },function(res){
@@ -196,7 +198,7 @@
             })
 
 
-          })
+          },'json')
 
         },
         callPay(){
@@ -214,17 +216,17 @@
         conPay() {
           let _this = this;
           console.log('支付请求');
-          console.log('订单号：' + this.$route.query.orn)
+          console.log('订单号：' + _this.orderNumber)
           let signUrl = location.href;
           $.post('/play.json?act=play',{orderNo: _this.orderNumber,url: window.location.href },function(res) {
             let that = this;
             console.log('===支付参数返回====')
             wx.config({
               debug: false,
-              appId: res.configMap.appid,
-              timestamp: res.configMap.timestamp,
-              nonceStr: res.configMap.nonceStr, //随机串
-              signature: res.configMap.signature ,//微信签名
+              appId: res.data.configMap.appid,
+              timestamp: res.data.configMap.timestamp,
+              nonceStr: res.data.configMap.nonceStr, //随机串
+              signature: res.data.configMap.signature ,//微信签名
               jsApiList: ['chooseWXPay','onMenuShareAppMessage'] // 必填，需要使用的JS接口列表，这里只写支付的
             });
 
@@ -232,12 +234,12 @@
             wx.ready(function(){
               console.log('进入了 wx.ready')
               console.log(res)
-              let paysi = res.pay.sign.toUpperCase();
+              let paysi = res.data.pay.sign.toUpperCase();
               console.log(paysi)
               wx.chooseWXPay({
-                timestamp:res.pay.timestamp,  // 支付签名时间戳，注意微信jssdk中的所有使用timestamp字段均为小写。但最新版的支付后台生成签名使用的timeStamp字段名需大写其中的S字符
-                nonceStr: res.pay.nonce_str, // 支付签名随机串，不长于 32 位
-                package: res.packageValue, // 统一支付接口返回的prepay_id参数值，提交格式如：prepay_id=***）
+                timestamp:res.data.pay.timestamp,  // 支付签名时间戳，注意微信jssdk中的所有使用timestamp字段均为小写。但最新版的支付后台生成签名使用的timeStamp字段名需大写其中的S字符
+                nonceStr: res.data.pay.nonce_str, // 支付签名随机串，不长于 32 位
+                package: res.data.packageValue, // 统一支付接口返回的prepay_id参数值，提交格式如：prepay_id=***）
                 signType: "MD5", // 签名方式，默认为′SHA1′，使用新版支付需传入′MD5′
                 paySign: paysi , // 支付签名
                 success: function (res) {
@@ -273,7 +275,7 @@
             })
 
 
-          })
+          },'json')
         },
         pay() {
           console.log('当前地址'+location.href)
