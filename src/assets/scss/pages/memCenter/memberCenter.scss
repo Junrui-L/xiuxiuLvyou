@@ -2,7 +2,8 @@
 
   .header {
     //@include setSize(100%, px2rem(130px));
-    background: #7e8c8d;
+    background: url(../../assets/img/mecenter_bcimg.png) no-repeat center;
+    background-size: 100%;
 
     .hd {
       padding: px2rem(20px) px2rem(20px) px2rem(10px);
