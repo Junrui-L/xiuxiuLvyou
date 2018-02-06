@@ -6,10 +6,6 @@
         <router-link to="/memberInfo" class="username fl">王大力
 
 
-
-
-
-
           <svg>
             <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#arrow-right"></use>
           </svg>
@@ -48,18 +44,28 @@
         </li>
       </ul>
       <div class="order-list">
-       <div class="order-list-item">
-         <p class="fl h44">出行时间：2017-02-12</p>
-         <p class="fr  h44 orderstate">待向导确认</p>
-         <div class="scenicInfo fl">
-           <img src="/static/img/taiwdy.0cc08bb.png"/>
-           <div class="desc">
-             <p class="title">黄美丽</p>
-             <p class="payway">北京故宫 景点讲解</p>
-             <p class="playway">自由游玩 （抢单定价模式）</p>
-           </div>
-         </div>
-       </div>
+        <div class="order-list-item">
+          <p class="fl h44">出行时间：2017-02-12</p>
+          <p class="fr  h44 orderstate">待向导确认</p>
+          <div class="scenicInfo fl">
+            <img src="/static/img/taiwdy.0cc08bb.png"/>
+            <div class="desc">
+              <p class="title">黄美丽</p>
+              <p class="payway">北京故宫 景点讲解</p>
+              <p class="playway">自由游玩 （抢单定价模式）</p>
+            </div>
+          </div>
+          <div class="order-info fl">
+            <p><span >下单时间</span><span class="fr">2017-05-12 12:15</span></p>
+            <p><span >人数</span><span class="fr">3人</span></p>
+            <p><span >总价</span><span class="fr">300.00元</span></p>
+          </div>
+          <p class="fr">
+            <button class="order-handle-btn">取消订单</button>
+            <button class="order-handle-btn red">取消订单</button>
+            <button class="order-handle-btn">取消订单</button>
+          </p>
+        </div>
       </div>
     </div>
 

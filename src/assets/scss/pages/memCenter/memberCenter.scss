@@ -102,17 +102,43 @@
             float: left;
             text-align: left;
             .title{
-              float: left;
+              @include font-dpr(17px);
             }
             .payway{
               display: block;
-              float: left;
+              margin-top: px2rem(10px);
+              @include font-dpr(14px);
             }
             .playway{
               display: block;
-              float: left;
+              margin-top: px2rem(10px);
+              @include font-dpr(14px);
+              color:$color-gray-secondary;
             }
           }
+        }
+        .order-info{
+          @include font-dpr(12px);
+          color:$color-gray-secondary ;
+          width: 100%;
+          p{
+            margin-top: px2rem(5px);
+          }
+        }
+        .order-handle-btn{
+          margin-top: px2rem(15px);
+          width:px2rem(68px);
+          height: px2rem(25px);
+          color: #666666;
+          border-radius: 2px;
+          outline: none;
+          background-color: transparent;
+          border:  1px solid #DEDEDE;
+        }
+        .order-handle-btn.red{
+          background-color: $color-red;
+          color: $white;
+          border:  1px solid $color-red;
         }
       }
     }
