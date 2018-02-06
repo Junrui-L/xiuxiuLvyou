@@ -4,8 +4,6 @@
       <div class="hd">
         <div class="img-wrapper fl"><img src="../../assets/img/taiwdy.png" alt=""></div>
         <router-link to="/memberInfo" class="username fl">王大力
-
-
           <svg>
             <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#arrow-right"></use>
           </svg>
@@ -33,14 +31,17 @@
     </header>
     <div class="order-container">
       <ul class="tab-wrap">
-        <li class="ordertab" :class="currentTab=='all' && 'active' " @click="clickOrderStateTab('all')">全部</li>
-        <li class="ordertab" :class="currentTab=='waitpay'&& 'active'" @click="clickOrderStateTab('waitpay')">待付款</li>
-        <li class="ordertab" :class="currentTab=='doing'&& 'active'" @click="clickOrderStateTab('doing')">进行中</li>
+        <li class="ordertab" :class="currentTab=='all' && 'active' " @click="clickOrderStateTab('all')"><span>全部</span>
+        </li>
+        <li class="ordertab" :class="currentTab=='waitpay'&& 'active'" @click="clickOrderStateTab('waitpay')">
+          <span>待付款</span></li>
+        <li class="ordertab" :class="currentTab=='doing'&& 'active'" @click="clickOrderStateTab('doing')">
+          <span>进行中</span></li>
         <li class="ordertab" :class="currentTab=='waitEvaluate'&& 'active'" @click="clickOrderStateTab('waitEvaluate')">
-          待评价
+          <span> 待评价</span>
         </li>
         <li class="ordertab" :class="currentTab=='haveCancle'&& 'active'" @click="clickOrderStateTab('haveCancle')">
-          已取消
+          <span>已取消</span>
         </li>
       </ul>
       <div class="order-list">
@@ -56,9 +57,9 @@
             </div>
           </div>
           <div class="order-info fl">
-            <p><span >下单时间</span><span class="fr">2017-05-12 12:15</span></p>
-            <p><span >人数</span><span class="fr">3人</span></p>
-            <p><span >总价</span><span class="fr">300.00元</span></p>
+            <p><span>下单时间</span><span class="fr">2017-05-12 12:15</span></p>
+            <p><span>人数</span><span class="fr">3人</span></p>
+            <p><span>总价</span><span class="fr">300.00元</span></p>
           </div>
           <p class="fr">
             <button class="order-handle-btn">取消订单</button>

@@ -1,6 +1,13 @@
 <template>
   <div class="favorites">
-    我的收藏
+    <ul class="tab-wrap">
+      <li class="tab-item" :class="currentTab=='guide' && 'active' " @click="clickTabItem('guide')"><span>向导</span></li>
+      <li class="tab-item" :class="currentTab=='playway'&& 'active'" @click="clickTabItem('playway')"><span>玩法</span>
+      </li>
+      <li class="tab-item" :class="currentTab=='scenic'&& 'active'" @click="clickTabItem('scenic')"><span>景点</span></li>
+    </ul>
+
+    <!--我的收藏-->
   </div>
 </template>
 
@@ -9,7 +16,7 @@
     name: "my-favorites",
     data() {
       return {
-        currentTab: '',// 当前选择的Tab,
+        currentTab: 'playway',// 当前选择的Tab,
         guideList: [],// 向导列表
         playwayList: [],//玩法列表
         scenicList: [],//景点列表
@@ -28,6 +35,10 @@
       getScenicList() {
 
       },
+      // 点击tabitem
+      clickTabItem(tabName) {
+        this.currentTab = tabName
+      }
     }
   }
 </script>

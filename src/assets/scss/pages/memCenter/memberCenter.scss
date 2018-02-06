@@ -101,44 +101,44 @@
             margin-left: px2rem(10px);
             float: left;
             text-align: left;
-            .title{
+            .title {
               @include font-dpr(17px);
             }
-            .payway{
+            .payway {
               display: block;
               margin-top: px2rem(10px);
               @include font-dpr(14px);
             }
-            .playway{
+            .playway {
               display: block;
               margin-top: px2rem(10px);
               @include font-dpr(14px);
-              color:$color-gray-secondary;
+              color: $color-gray-secondary;
             }
           }
         }
-        .order-info{
+        .order-info {
           @include font-dpr(12px);
-          color:$color-gray-secondary ;
+          color: $color-gray-secondary;
           width: 100%;
-          p{
+          p {
             margin-top: px2rem(5px);
           }
         }
-        .order-handle-btn{
+        .order-handle-btn {
           margin-top: px2rem(15px);
-          width:px2rem(68px);
+          width: px2rem(68px);
           height: px2rem(25px);
           color: #666666;
           border-radius: 2px;
           outline: none;
           background-color: transparent;
-          border:  1px solid #DEDEDE;
+          border: 1px solid #DEDEDE;
         }
-        .order-handle-btn.red{
+        .order-handle-btn.red {
           background-color: $color-red;
           color: $white;
-          border:  1px solid $color-red;
+          border: 1px solid $color-red;
         }
       }
     }
@@ -157,7 +157,9 @@
     text-align: center;
     background: #FFFFFF;
   }
-  .ordertab.active {
+  .ordertab.active span {
+    height: 100%;
+    display: inline-block;
     border-bottom: 1px solid #FF5A5F;
     color: #FF5A5F;
   }

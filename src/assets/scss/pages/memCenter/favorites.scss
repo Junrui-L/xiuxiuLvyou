@@ -1,0 +1,21 @@
+.favorites {
+  .tab-wrap {
+    height: px2rem(44px);
+    .tab-item {
+      width: 33.3333%;
+      float: right;
+      height: px2rem(44px);
+      line-height: px2rem(44px);
+      @include font-dpr(12px);
+      vertical-align: middle;
+      text-align: center;
+      background: #FFFFFF;
+    }
+    .tab-item.active span {
+      height: 100%;
+      display: inline-block;
+      border-bottom: 1px solid #FF5A5F;
+      color: #FF5A5F;
+    }
+  }
+}
