@@ -4,6 +4,12 @@
       <div class="hd">
         <div class="img-wrapper fl"><img src="../../assets/img/taiwdy.png" alt=""></div>
         <router-link to="/memberInfo" class="username fl">王大力
+
+
+
+
+
+
           <svg>
             <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#arrow-right"></use>
           </svg>
@@ -31,14 +37,29 @@
     </header>
     <div class="order-container">
       <ul class="tab-wrap">
-        <li>全部</li>
-        <li>待付款</li>
-        <li>进行中</li>
-        <li>待评价</li>
-        <li>已取消</li>
+        <li class="ordertab" :class="currentTab=='all' && 'active' " @click="clickOrderStateTab('all')">全部</li>
+        <li class="ordertab" :class="currentTab=='waitpay'&& 'active'" @click="clickOrderStateTab('waitpay')">待付款</li>
+        <li class="ordertab" :class="currentTab=='doing'&& 'active'" @click="clickOrderStateTab('doing')">进行中</li>
+        <li class="ordertab" :class="currentTab=='waitEvaluate'&& 'active'" @click="clickOrderStateTab('waitEvaluate')">
+          待评价
+        </li>
+        <li class="ordertab" :class="currentTab=='haveCancle'&& 'active'" @click="clickOrderStateTab('haveCancle')">
+          已取消
+        </li>
       </ul>
-      <div class="all-order">
-        全部订单
+      <div class="order-list">
+       <div class="order-list-item">
+         <p class="fl h44">出行时间：2017-02-12</p>
+         <p class="fr  h44 orderstate">待向导确认</p>
+         <div class="scenicInfo fl">
+           <img src="/static/img/taiwdy.0cc08bb.png"/>
+           <div class="desc">
+             <p class="title">黄美丽</p>
+             <p class="payway">北京故宫 景点讲解</p>
+             <p class="playway">自由游玩 （抢单定价模式）</p>
+           </div>
+         </div>
+       </div>
       </div>
     </div>
 
@@ -54,7 +75,7 @@
       return {
         userInfo: {},// 用户信息对象
         staticNum: {},// 统计数字,积分,优惠券
-        currentTab: '',// 当前选中的订单tab
+        currentTab: 'doing',// 当前选中的订单tab
         orderList: [],// 订单列表
       }
     },
@@ -73,8 +94,8 @@
         })
       },
       // 点击订单状态Tab
-      clickOrderStateTab() {
-
+      clickOrderStateTab(currentTab) {
+        this.currentTab = currentTab
       },
       // 取消订单
       caccleOrder(ordernumber) {
@@ -89,7 +110,3 @@
     },
   }
 </script>
-
-<style>
-
-</style>

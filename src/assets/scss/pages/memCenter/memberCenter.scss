@@ -28,7 +28,7 @@
 
       .message {
         position: absolute;
-        top:  px2rem(50px);
+        top: px2rem(50px);
         right: px2rem(20px);
         @include setSize(px2rem(25px), px2rem(25px));
         background: url(../../assets/img/message_white.png) no-repeat center;
@@ -40,7 +40,7 @@
     svg {
       fill: $white;
       width: px2rem(10px);
-      height:px2rem(10px);
+      height: px2rem(10px);
       vertical-align: middle;
     }
 
@@ -65,27 +65,75 @@
       }
     }
 
-
   }
-
 
   .order-container {
     margin-top: px2rem(10px);
-    background: $white  ;
+    .order-list {
+      margin-top: px2rem(10px);
+      .order-list-item {
+        height: px2rem(260px);
+        background-color: #ffffff;
+        box-shadow: 0 0 0 0 #E8E8E8;
+        padding: 0px px2rem(15px);
+        .h44 {
+          height: px2rem(44px);
+          line-height: px2rem(44px);
+          @include font-dpr(12px);
+        }
+        .h44.orderstate {
+          color: #999999;
+        }
+        .scenicInfo {
+          height: px2rem(105px);
+          width: 100%;
+          padding: px2rem(15px) 0px;
+          background: #FBFBFB;
+          img {
+            display: inline-block;
+            float: left;
+            height: px2rem(70px);
+            width: px2rem(70px)
+          }
+          .desc {
+            width: 70%;
+            height: 100%;
+            margin-left: px2rem(10px);
+            float: left;
+            text-align: left;
+            .title{
+              float: left;
+            }
+            .payway{
+              display: block;
+              float: left;
+            }
+            .playway{
+              display: block;
+              float: left;
+            }
+          }
+        }
+      }
+    }
   }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
+  .tab-wrap {
+    height: px2rem(44px);
+  }
+  .ordertab {
+    width: 20%;
+    float: right;
+    height: px2rem(44px);
+    line-height: px2rem(44px);
+    @include font-dpr(12px);
+    vertical-align: middle;
+    text-align: center;
+    background: #FFFFFF;
+  }
+  .ordertab.active {
+    border-bottom: 1px solid #FF5A5F;
+    color: #FF5A5F;
+  }
 
 }
