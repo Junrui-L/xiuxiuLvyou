@@ -8,6 +8,18 @@
       <li class="tab-item" :class="currentTab=='haveuse'&& 'active'" @click="clickTabItem('haveuse')"><span>已使用</span>
       </li>
     </ul>
+    <div class="coupons-wrap">
+      <ul class="coupon-ul">
+        <li class="coupon-item">
+          <div class="info">
+            <p>¥<span>8</span></p>
+            <spn>优惠劵</spn>
+            <p>景区[想]抵扣劵</p>
+            <p>有效时间:2017-02-12</p>
+          </div>
+        </li>
+      </ul>
+    </div>
 
     <!--我的优惠券-->
   </div>
