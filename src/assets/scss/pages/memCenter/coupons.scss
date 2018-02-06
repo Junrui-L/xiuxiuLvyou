@@ -11,12 +11,29 @@
       text-align: center;
       background: #FFFFFF;
     }
-    .tab-item.active span{
+    .tab-item.active span {
       display: inline-block;
       height: 100%;
       border-bottom: 1px solid #FF5A5F;
       color: #FF5A5F;
     }
+  }
+  .coupons-wrap {
+    padding: 0px px2rem(10px);
+    background-color: $white;
+    margin: px2rem(10px) px2rem(10px);
+    .coupon-ul {
+      .coupon-item {
+        border-radius: 5px;
+        height: px2rem(130px);
+        width: 100%;
+        padding-top: px2rem(24px);
+        .info {
+          margin-left: px2rem(24px);
+        }
+      }
+    }
+
   }
 
 }

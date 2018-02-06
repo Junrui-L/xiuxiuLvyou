@@ -45,7 +45,8 @@
         </li>
       </ul>
       <div class="order-list">
-        <div class="order-list-item">
+
+        <div class="order-list-item" v-for="v in orderList">
           <p class="fl h44">出行时间：2017-02-12</p>
           <p class="fr  h44 orderstate">待向导确认</p>
           <div class="scenicInfo fl">
@@ -67,6 +68,7 @@
             <button class="order-handle-btn">取消订单</button>
           </p>
         </div>
+
       </div>
     </div>
 
@@ -83,7 +85,7 @@
         userInfo: {},// 用户信息对象
         staticNum: {},// 统计数字,积分,优惠券
         currentTab: 'doing',// 当前选中的订单tab
-        orderList: [],// 订单列表
+        orderList: [1,2,4,3,4],// 订单列表
       }
     },
     mounted() {
