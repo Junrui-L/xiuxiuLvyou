@@ -1,4 +1,5 @@
 .coupons {
+  background-color: #f3f3f3;
   .tab-wrap {
     height: px2rem(44px);
     .tab-item {
@@ -20,16 +21,75 @@
   }
   .coupons-wrap {
     padding: 0px px2rem(10px);
-    background-color: $white;
-    margin: px2rem(10px) px2rem(10px);
+    margin-top: px2rem(10px);
+    //
+    //margin: px2rem(10px) px2rem(10px);
     .coupon-ul {
       .coupon-item {
         border-radius: 5px;
         height: px2rem(130px);
+        background-color: $white;
         width: 100%;
         padding-top: px2rem(24px);
+        margin-bottom: px2rem(10px);
         .info {
           margin-left: px2rem(24px);
+          .unit {
+            @include font-dpr(16px);
+            color: $color-red;
+          }
+          .tiaojian {
+            line-height: px2rem(35px);
+            vertical-align: middle;
+            @include font-dpr(12px);
+            color: #999999;
+          }
+          .money {
+            @include font-dpr(30px);
+            line-height: px2rem(30px);
+            color: $color-red;
+          }
+          .desc {
+            @include font-dpr(12px);
+            color: $color-red;
+          }
+        }
+        .shuoming {
+          text-align: left;
+          margin-left: px2rem(37px);
+          .name {
+            @include font-dpr(14px);
+            margin-top: px2rem(5px);
+            margin-bottom: px2rem(8px);
+          }
+          .date {
+            @include font-dpr(12px)
+          }
+        }
+        .top-info {
+          height: px2rem(72.6px);
+          border-bottom: 1px solid #FAFAFA;
+          position: relative;
+        }
+        .top-info span.left {
+          display: block;
+          height: px2rem(20px);
+          width: px2rem(20px);
+          background-color: #f3f3f3;
+          position: absolute;
+          border-radius: 50%;
+          bottom: 0px;
+          left: px2rem(-10px);
+        }
+        .top-info span.right {
+          display: block;
+          height: px2rem(20px);
+          width: px2rem(20px);
+          background-color: #f3f3f3;
+          position: absolute;
+          border-radius: 50%;
+          bottom: 0px;
+          right: px2rem(-10px);
         }
       }
     }

@@ -10,12 +10,21 @@
     </ul>
     <div class="coupons-wrap">
       <ul class="coupon-ul">
-        <li class="coupon-item">
-          <div class="info">
-            <p>¥<span>8</span></p>
-            <spn>优惠劵</spn>
-            <p>景区[想]抵扣劵</p>
-            <p>有效时间:2017-02-12</p>
+        <li class="coupon-item" v-for="cou in couponsList">
+          <div class="top-info">
+            <div class="info fl">
+              <p class="unit">¥&nbsp;<span class="money">8</span></p>
+              <span class="desc">优惠劵</span>
+            </div>
+            <div class="shuoming fl">
+              <p class="name">景区[想]抵扣劵</p>
+              <p class="date">有效时间:2017-02-12</p>
+            </div>
+            <span class="left"></span>
+            <span class="right"></span>
+          </div>
+          <div class="info fl">
+            <p class="tiaojian">满100元可用</p>
           </div>
         </li>
       </ul>
@@ -33,7 +42,7 @@
     data() {
       return {
         currentTab: 'outdate',// 当前选择的Tab,
-        couponsList: [],// 优惠券列表
+        couponsList: [1,1,1,1,1,1],// 优惠券列表
         tomake: '',//是否可用(必填00未过期可用，1已过期不可用)
         mapObj: {notuse: 0, outdate: 1, haveuse: ''}
       }
