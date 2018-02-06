@@ -25,9 +25,7 @@
       }
     }
 
-
   }
-
 
   .score-wrap {
 
@@ -39,12 +37,12 @@
       padding: px2rem(15px) 0;
       border-bottom: 1px solid $color-body-bg;
 
-      .item-left >h5 {
+      .item-left > h5 {
         line-height: px2rem(28px);
         @include font-dpr(16px);
         color: $color-black;
       }
-      .item-left >p {
+      .item-left > p {
         line-height: px2rem(20px);
         @include font-dpr(14px);
         color: $gray;
@@ -57,13 +55,6 @@
       }
     }
 
-
-
   }
-
-
-
-
-
 
 }

@@ -8,7 +8,7 @@
       </div>
       <div class="container">
         <ul class="wallet">
-          <router-link tag="li" to="/paid" class="wallet-item clearfix">
+          <router-link tag="li" to="/accountBill" class="wallet-item clearfix">
             <div class="item-left fl">
               <h5>总消费</h5>
               <p>￥100.00</p>
