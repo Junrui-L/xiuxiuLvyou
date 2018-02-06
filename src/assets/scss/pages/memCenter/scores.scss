@@ -1,0 +1,69 @@
+.scores {
+  height: 100%;
+  background: $white;
+  .header-wrap {
+    padding: px2rem(18px) px2rem(24px);
+    .header {
+      padding-top: px2rem(30px);
+      @include setSize(100%, px2rem(127px));
+      border-radius: px2rem(5px);
+      box-shadow: 0 0 12px 0 #E4E4E4;
+      .score {
+        text-align: center;
+        height: px2rem(50px);
+        line-height: px2rem(50px);
+        @include font-dpr(28px);
+        color: $color-black;
+      }
+      .score-txt {
+        text-align: center;
+        height: px2rem(20px);
+        line-height: px2rem(20px);
+        @include font-dpr(14px);
+        opacity: 0.58;
+        color: $color-black;
+      }
+    }
+
+
+  }
+
+
+  .score-wrap {
+
+    padding: px2rem(20px);
+
+    position: relative;
+    .score-item {
+      height: px2rem(72px);
+      padding: px2rem(15px) 0;
+      border-bottom: 1px solid $color-body-bg;
+
+      .item-left >h5 {
+        line-height: px2rem(28px);
+        @include font-dpr(16px);
+        color: $color-black;
+      }
+      .item-left >p {
+        line-height: px2rem(20px);
+        @include font-dpr(14px);
+        color: $gray;
+      }
+
+      .change {
+        line-height: px2rem(42px);
+        @include font-dpr(20px);
+        color: $color-black;
+      }
+    }
+
+
+
+  }
+
+
+
+
+
+
+}

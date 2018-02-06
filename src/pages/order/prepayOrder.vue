@@ -232,7 +232,8 @@
           //微信支付调取2
           // this.callPay();
           //去单独的支付页
-          window.location.href='http://www.youdingsoft.com/templates/h5/wxpay.html'
+          // window.location.href='http://www.youdingsoft.com/templates/h5/wxpay.html'
+          window.location.href='http://www.youdingsoft.com/wxpay.html'
 
         } else if (this.val == 1) {
           this.$createDialog({

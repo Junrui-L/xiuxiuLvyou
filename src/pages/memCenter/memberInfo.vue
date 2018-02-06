@@ -90,6 +90,17 @@
             </span>
           </div>
         </li>
+        <li class="head-item clearfix">
+          <div class="item-wrapper clearfix">
+            <span class="title">推广二维码</span>
+            <span class="txt fr">
+
+            <svg>
+                <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#arrow-right"></use>
+            </svg>
+            </span>
+          </div>
+        </li>
       </ul>
 
   </div>

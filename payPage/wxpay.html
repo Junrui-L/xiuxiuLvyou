@@ -50,6 +50,7 @@
 
   <input type="hidden" id="orderNo" value="20180203000346376683">
   <script src="./js/jquery-2.2.2.js"></script>
+  <script type="text/javascript" src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
   <script src="./js/layer.js"></script>
   <script src="./js/myUtils.js"></script>
   <script src="./js/vue.min.js"></script>
@@ -282,9 +283,9 @@
           console.log('发起微信支付。。。')
           if (this.val == 2) {
             //微信支付调取1
-            // this.conPay()
+            this.conPay()
             //微信支付调取2
-            this.callPay();
+            // this.callPay();
           } else if (this.val == 1) {
             layer.open({
               content: '选择了账号付款'
