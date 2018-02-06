@@ -1,0 +1,79 @@
+.myWallet {
+  height: 100%;
+  background: $white;
+  .header-wrap {
+    padding: px2rem(18px) px2rem(24px);
+    .header {
+      padding-top: px2rem(30px);
+      @include setSize(100%, px2rem(127px));
+      border-radius: px2rem(5px);
+      background: -webkit-gradient(linear, 19% 55%, 0% 100%, from(#FF9F83), to(#F96A7E), color-stop(0.5, #F96A7E));
+      background: linear-gradient(to right, #FF9F83 19%, #F96A7E 55%, #F96A7E 100%);
+      .money {
+        text-align: center;
+        height: px2rem(50px);
+        line-height: px2rem(50px);
+        @include font-dpr(28px);
+        color: $white;
+      }
+      .money-txt {
+        text-align: center;
+        height: px2rem(20px);
+        line-height: px2rem(20px);
+        @include font-dpr(14px);
+        opacity: 0.58;
+        color: $white;
+      }
+    }
+
+
+  }
+
+  .container {
+    padding: px2rem(18px);
+
+    .wallet-item {
+      height: px2rem(68px);
+      padding: px2rem(10px) 0;
+      border-bottom: 1px solid $color-body-bg;
+      position: relative;
+     .item-left >h5 {
+        line-height: px2rem(28px);
+        @include font-dpr(16px);
+        color: $color-black;
+      }
+      .item-left >p {
+        line-height: px2rem(20px);
+        @include font-dpr(14px);
+        color: $color-black-secondary;
+      }
+
+      svg {
+        @include centerTop;
+        right: 0;
+        fill: $color-gray-secondary;
+        width: px2rem(16px);
+        height:px2rem(16px);
+        vertical-align: text-top;
+      }
+    }
+
+
+  }
+
+  .button-wrap  {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    z-index: 999;
+    @include setSize(100%, px2rem(44px));
+    box-shadow: 0 0 12px 0 #E4E4E4;
+    .to-get {
+      @include setButton(100%, px2rem(44px), $color-red, $white, 0)
+    }
+  }
+
+
+
+
+}

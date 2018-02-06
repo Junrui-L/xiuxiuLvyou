@@ -269,11 +269,6 @@
         _this.$refs.silde.refresh()
       }, 1000)
       // this.$refs.slide.refresh()
-
-      let loc =  localStore('orderNum', 'localStorage')
-      loc.set('orn','eeeeee')
-      let a = localStore('orderNum', 'localStorage').get('orn')
-      console.log(a+'活动的')
     },
 
     methods: {
