@@ -13,7 +13,7 @@
               <h5>总消费</h5>
               <p>￥100.00</p>
             </div>
-            <svg class="fr">
+             <svg class="fr">
               <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#arrow-right"></use>
             </svg>
           </router-link>
