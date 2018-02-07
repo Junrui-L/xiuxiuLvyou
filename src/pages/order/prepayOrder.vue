@@ -164,9 +164,9 @@
       conPay() {
         let that = this;
         console.log('支付请求');
-        console.log('订单号：' + this.$route.query.orn)
+        console.log('订单号：' + that.$route.query.orn)
         let signUrl = location.href;
-        payOrderWx(this.$route.query.orn, signUrl).then(res => {
+        payOrderWx(that.$route.query.orn, signUrl).then(res => {
           let that = this;
           console.log('===支付参数返回====')
           wx.config({
@@ -192,12 +192,8 @@
               paySign: paysi , // 支付签名
               success: function (res) {
                 if(res.errMsg == "chooseWXPay:ok"){
-                  // alert("支付成功");
-                  that.$createDialog({
-                    type: 'alert',
-                    title: '支付结果',
-                    content: '支付成功'
-                  }).show()
+                  //支付成功的跳转
+                  that.$router.push({name: 'order',query: {orderNum: that.$route.query.orn}})
                   // window.location.href  = "/hims/weixin/pages/Order_ok.html?access_token=" ;
                 }else{
                   console.log(res.errMsg);

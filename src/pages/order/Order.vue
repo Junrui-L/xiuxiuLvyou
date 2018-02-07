@@ -75,25 +75,25 @@
         <dt class="guide-name">{{orderInfo.username}} <span class="message"></span></dt>
         <dd class="guide-scenic"><span>{{orderInfo.playaddre}}</span><span>{{orderInfo.wfname}}</span></dd>
         <dd class="guide-mode">
-          <template v-if="orderInfo.servicetype == 1">
+          <template v-if="orderInfo.servicetype === 1">
             景点详解
           </template>
-          <template v-else-if="orderInfo.servicetype == 2">
+          <template v-else-if="orderInfo.servicetype === 2">
             带游服务
           </template>
-          <template v-else-if="orderInfo.servicetype == 3">
+          <template v-else-if="orderInfo.servicetype === 3">
             当地游玩
           </template>
-          <template v-else-if="orderInfo.servicetype == 4">
+          <template v-else-if="orderInfo.servicetype === 4">
             专线类型
           </template>
-          <template v-if="orderInfo.tymode == 0">
+          <template v-if="orderInfo.tymode === 0">
             (平分模式)
           </template>
-          <template v-else-if="orderInfo.tymode == 1">
+          <template v-else-if="orderInfo.tymode === 1">
             (固定折扣模式)
           </template>
-          <template v-else-if="orderInfo.tymode == 2">
+          <template v-else-if="orderInfo.tymode === 2">
             (剃分模式)
           </template>
 

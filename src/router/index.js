@@ -29,10 +29,6 @@ const MyWallet = r => require.ensure([], () => r(require('@/pages/memCenter/myWa
 const ScoreRule = r => require.ensure([], () => r(require('@/pages/memCenter/scoreRule')), 'scoreRule')
 const Scores = r => require.ensure([], () => r(require('@/pages/memCenter/scores')), 'scores')
 
-
-
-
-
 Vue.use(Router)
 
 const router =  new Router({
@@ -41,7 +37,7 @@ const router =  new Router({
       path: '/',
       name: 'index',
       component: Home,
-      meta: { keepAlive: true }
+      // meta: { keepAlive: true }
     },
     {
       //搜索

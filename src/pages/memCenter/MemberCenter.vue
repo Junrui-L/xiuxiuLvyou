@@ -76,7 +76,7 @@
 </template>
 
 <script>
-  import {userInfo, cancelOrder} from '../../http/getDate'
+  import {userPersonal, cancelOrder} from '../../http/getDate'
 
   export default {
     name: "member-center",
@@ -90,7 +90,7 @@
       }
     },
     mounted() {
-
+      this.getUserInfo();
     },
     methods: {
       // 获取订单列表
@@ -99,7 +99,7 @@
       },
       // 获取个人信息
       getUserInfo() {
-        userInfo().then(res => {
+        userPersonal().then(res => {
           this.userInfo = res.data
         })
       },
