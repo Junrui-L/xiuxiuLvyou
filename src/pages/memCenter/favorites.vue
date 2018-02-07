@@ -36,18 +36,19 @@
       <ul class="region-list">
         <li class="region" v-for="(item,index) in playwayList">
           <!--<router-link class="nav-link">-->
-            <dl class="clearfix">
-              <dt class="region-img fl">
-                <img src="http://www.youdingsoft.com/fileUploadsmall/20171221222332828838.jpg" alt="">
-              </dt>
-              <dd class="region-detail fl">
-                <div class="region-name"><span>闪电发货水电费华盛顿我饿水电费微微闪电发货水电费华盛顿我饿水电费微微闪电发货水电费华盛顿我饿水电费微微闪电发货水电费华盛顿我饿水电费微微</span></div>
-                <div class="region-price fr"><span>¥4,888</span>起/人</div>
-              </dd>
-            </dl>
-            <div class="region-txt">
-              <p>11111111111}</p>
-            </div>
+          <dl class="clearfix">
+            <dt class="region-img fl">
+              <img src="http://www.youdingsoft.com/fileUploadsmall/20171221222332828838.jpg" alt="">
+            </dt>
+            <dd class="region-detail fl">
+              <div class="region-name"><span>闪电发货水电费华盛顿我饿水电费微微闪电发货水电费华盛顿我饿水电费微微闪电发货水电费华盛顿我饿水电费微微闪电发货水电费华盛顿我饿水电费微微</span>
+              </div>
+              <div class="region-price fr"><span>¥4,888</span>起/人</div>
+            </dd>
+          </dl>
+          <div class="region-txt">
+            <p>11111111111}</p>
+          </div>
           <!--</router-link>-->
         </li>
       </ul>
@@ -55,21 +56,21 @@
 
     <div v-if="currentTab=='scenic'" class="region-wrapper">
       <ul class="region-list">
-        <li class="region" v-for="(item,index) in scenicList" >
+        <li class="region" v-for="(item,index) in scenicList">
           <!--<router-link class="nav-link" :to= "{ name:'guide', query: {scenicId: item.id} }">-->
-            <dl class="clearfix">
-              <dt class="region-img fl">
-                <img src="http://www.youdingsoft.com/fileUploadsmall/20171221222332828838.jpg" alt="">
-              </dt>
-              <dd class="region-detail fl">
-                <h5 class="region-name"><span>1111</span></h5>
-                <div class="region-level">111</div>
-                <div class="region-category"><span>类别：</span>11</div>
-              </dd>
-            </dl>
-            <div class="region-txt">
-              <p>1111</p>
-            </div>
+          <dl class="clearfix">
+            <dt class="region-img fl">
+              <img src="http://www.youdingsoft.com/fileUploadsmall/20171221222332828838.jpg" alt="">
+            </dt>
+            <dd class="region-detail fl">
+              <h5 class="region-name"><span>1111</span></h5>
+              <div class="region-level">111</div>
+              <div class="region-category"><span>类别：</span>11</div>
+            </dd>
+          </dl>
+          <div class="region-txt">
+            <p>1111</p>
+          </div>
           <!--</router-link>-->
         </li>
 
@@ -87,7 +88,7 @@
       return {
         currentTab: 'playway',// 当前选择的Tab,
         guideList: [1, 2, 2, 2, 2, 2],// 向导列表
-        playwayList: [1,1,1,1,1,1],//玩法列表
+        playwayList: [1, 1, 1, 1, 1, 1],//玩法列表
         scenicList: [1, 1, 1, 1, 1, 1, 1, 1],//景点列表
       }
     },
@@ -107,6 +108,13 @@
       // 点击tabitem
       clickTabItem(tabName) {
         this.currentTab = tabName
+        if (tabName === 'guide') {
+          this.getGuideList()
+        } else if (tabName === 'playway') {
+          this.getPlaywayList()
+        } else if (tabName === 'scenic') {
+          this.getScenicList()
+        }
       }
     }
   }
