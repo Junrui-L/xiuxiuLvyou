@@ -85,7 +85,8 @@
         userInfo: {},// 用户信息对象
         staticNum: {},// 统计数字,积分,优惠券
         currentTab: 'doing',// 当前选中的订单tab
-        orderList: [1,2,4,3,4],// 订单列表
+        orderList: [1, 2, 4, 3, 4],// 订单列表
+        tabMap: {'all': '', 'waitpay': '', 'doing': '', 'waitEvaluate': '', 'haveCancle': ''}
       }
     },
     mounted() {
@@ -105,6 +106,7 @@
       // 点击订单状态Tab
       clickOrderStateTab(currentTab) {
         this.currentTab = currentTab
+        this.tabMap[currentTab]
       },
       // 取消订单
       caccleOrder(ordernumber) {
