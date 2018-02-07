@@ -105,11 +105,13 @@
         })
 
       },
+      accoutPay() {
+
+      },
       onBridgeReady(){
         let that = this;
         let signUrl = location.href;
         payOrderWx(this.$route.query.orn, signUrl).then(res => {
-
           let paysi = res.pay.sign.toUpperCase();
           WeixinJSBridge.invoke('getBrandWCPayRequest',{
             "appId" : res.configMap.appid,
@@ -227,13 +229,12 @@
         console.log('当前地址'+location.href)
         console.log('发起微信支付。。。')
         if (this.val == 2) {
-          //微信支付调取1
-          // this.conPay()
+          //微信sdk支付调取1
+          this.conPay()
           //微信支付调取2
           // this.callPay();
           //去单独的支付页
           // window.location.href='http://www.youdingsoft.com/templates/h5/wxpay.html'
-          window.location.href='http://www.youdingsoft.com/wxpay.html'
 
         } else if (this.val == 1) {
           this.$createDialog({
