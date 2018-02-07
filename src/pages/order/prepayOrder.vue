@@ -22,17 +22,25 @@
     </div>
     <div class="wx-pay">微信支付 <span class="check-count fr"><pay-radio v-model="val" value="2"
                                                                      @change="getVal"></pay-radio></span></div>
-    <div class="all-pay"><span>查看全部支付方式 </span></div>
-    <!--<SwitchOption name="注册 "></SwitchOption>-->
+    <!--<div class="all-pay"><span>查看全部支付方式 </span></div>-->
     <div class="sure-pay">
       <button class="pay-btn" @click="pay">确认支付 <span>￥ {{payOrderDetail.orderSumPrice}}元</span></button>
     </div>
+    <cube-popup type="code-popup"   ref="codePopup">
+      <div class="code-wrap">
+        <span class="close" @click="hidepoup"></span>
+        <h5>请输入交易密码</h5>
+        <input class="code-input" maxlength="6" type="password" v-model="tradeCode" />
+        <button class="surePay" :disabled="canAccountPay" @click="accoutSurePay">确认</button>
+      </div>
+
+    </cube-popup>
   </div>
 </template>
 
 <script type="text/ecmascript-6">
   import {mapState, mapMutations} from 'vuex'
-  import {payOrder, payOrderWx, payConfigWx } from '../../http/getDate'
+  import {payOrder,payOrderAccount, payOrderWx, payConfigWx } from '../../http/getDate'
   import TimeCount from '../../components/timeCountDown.vue'
   import PayRadio from '../../components/payRadio.vue'
   import {localStore} from '../../config/myUtils'
@@ -46,8 +54,9 @@
         orderNumber: '',
         configMap: '',
         val: '2',
-        isdisabled: true,
-        ischecked: false
+        tradeCode: '',
+        canWxPay:false,
+        canAccountPay: false,
       }
     },
     components: {
@@ -105,8 +114,51 @@
         })
 
       },
+      showpoup() {
+        this.$refs.codePopup.show();
+      },
+      hidepoup() {
+        this.$refs.codePopup.hide();
+      },
+      accoutSurePay(){
+        if(this.tradeCode.length === 6) {
+          this.canAccountPay = true;
+          this.accoutPay();
+        } else if (this.tradeCode == ''){
+          this.$createDialog({
+            type: 'alert',
+            title: '提示',
+            content: '请输入支付密码'
+          }).show()
+        } else {
+          this.$createDialog({
+            type: 'alert',
+            title: '提示',
+            content: '支付密码输入不正确'
+          }).show()
+        }
+      },
       accoutPay() {
+        console.log('===去支付====')
+        payOrderAccount(this.$route.query.orn, this.tradeCode).then(res => {
+          console.log('===去支付页返回====')
+          console.log(res);
+          this.canAccountPay = false;
+          if(res.msg) {
+            this.$createDialog({
+              type: 'alert',
+              title: '提示',
+              content: res.msg
+            }).show()
+          } else {
+            this.$createDialog({
+              type: 'alert',
+              title: '提示',
+              content: '支付成功'
+            }).show()
+          }
 
+        })
       },
       onBridgeReady(){
         let that = this;
@@ -223,8 +275,9 @@
       },
       pay() {
         console.log('当前地址'+location.href)
-        console.log('发起微信支付。。。')
+
         if (this.val == 2) {
+          console.log('发起微信支付。。。')
           //微信sdk支付调取1
           this.conPay()
           //微信支付调取2
@@ -233,12 +286,8 @@
           // window.location.href='http://www.youdingsoft.com/templates/h5/wxpay.html'
 
         } else if (this.val == 1) {
-          this.$createDialog({
-            type: 'alert',
-            title: '支付选项',
-            content: '选择了账号支付'
-          }).show()
-
+         console.log('选择了账号余额支付。。')
+          this.showpoup();
         }
 
       },

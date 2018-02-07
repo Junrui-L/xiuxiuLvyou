@@ -1,100 +1,220 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<!DOCTYPE html>
 <html>
-	<head>
-		<title>成为向导</title>
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" type="text/css" href="../css/scss/regguide.css">
+    <link rel="stylesheet" type="text/css" href="../css/scss/layer_rem.css">
+    <script src="../js/flexible.js"></script>
 
-		<meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
-		<meta http-equiv="description" content="this is my page">
-		<meta http-equiv="content-type" content="text/html; charset=UTF-8">
-		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
-    
-		<!--<link rel="stylesheet" type="text/css" href="./styles.css">-->
-		<style>
-        /*320px布局*/
-        html{font-size: 100px;}
-        body{font-size: 0.14rem;/*实际相当于14px*/}
-        body{
-            padding:0;
-            margin:0;
-        }
-        .div2{
-            font-size:0.14rem;
-        }
-        .div3{
-            width:3rem;
-            height:3rem;
-            
-            border:1px solid #000;
-            box-sizing:border-box;
-        }
-        .div4{
-            margin-top:0.1rem;
-            width:2rem;
-            height:2rem;
-            
-            border:1px solid #000;
-            box-sizing:border-box;
-        }
-        .img1{
-            width:3.2rem;
-        }
-    </style>
-	</head>
+</head>
+<body>
+<div class="register">
+    <div class="pay-tit"><span class="xiu">咻</span> <span class="tit">注册咻咻向导</span></div>
+    <div class="input-wrapper">
+        <input type="tel" id="phone" class="input-txt phone" maxlength="11" placeholder="请输入手机号码" name="phone">
+    </div>
+    <div class="input-wrapper verify">
+        <input type="tel" id="verifyCode" class="input-txt verify-code" maxlength="4" placeholder="请输入验证码"
+               name="verifyCode"/>
+        <button class="getCode" id="sendCode">获取验证码</button>
+    </div>
+    <div class="input-wrapper">
+        <input type="password" id="loginPwd" class="input-txt phone" maxlength="18" placeholder="请输入登录蜜码"
+               name="loginPwd">
+    </div>
+    <div class="input-wrapper">
+        <input type="password" id="tradePwd" class="input-txt phone" maxlength="6" placeholder="请输入交易蜜码"
+               name="tradePwd">
+    </div>
+    <button class="to-register active" id="toRegister">确定</button>
+    <div class="service clearfix" onclick="agreement()">
+        <!--<label class="ui-check checked "><input type="checkbox" id="checkService" /></label>-->
+        注册即代表同意<a class="agreement" href="#">《咻咻服务协议》</a></div>
+</div>
+<script src="../js/jquery.min.js"></script>
+<script src="../js/layer.js"></script>
+<script>
+    $(function () {
+        var $phone = $('#phone');
+        var $code = $('#sendCode')
+        var $verifyCode = $('#verifyCode');
+        var $loginP = $('#loginPwd')
+        var $tradeP = $('#tradePwd')
+        var $register = $('#toRegister');
+        //发验证码
+        $code.click(function () {
+            if ($phone.val() == '') {
+                layer.open({
+                    content: '手机号不能为空！'
+                    , skin: 'msg'
+                    , time: 2 //2秒后自动关闭
+                });
+                return false
+            } else if ($phone.val().length < 11) {
+                layer.open({
+                    content: '请输入正确的手机号！'
+                    , skin: 'msg'
+                    , time: 2 //2秒后自动关闭
+                });
+                return false
+            } else {
+                var count = 60, timer;
+                $.ajax({
+                    url: '/siteH5/user.json?act=sendCode',
+                    data: {'mobile': $phone.val()},
+                    method: 'POST',
+                    dataType: 'json',
+                    success: function (data) {
+                        if (data.code == 200) {
+                            layer.open({
+                                content: '短信发送成功！'
+                                , skin: 'msg'
+                                , time: 2 //2秒后自动关闭
+                            });
 
-	<script>
-	function sendCode(){
-		
-		var codeImg = document.getElementById("codeImg")
-		codeImg.src="/siteH5/user.json?act=sendCode&mobile="+document.getElementById("mobile").value;
-	}
+                            timer = setInterval(countDown, 1000);
+
+                            function countDown() {
+                                count--
+                                $code.html(count + '秒');
+                                $code.attr('disabled', true);
+                                if (count === 0) {
+                                    $code.html('重新获取');
+                                    clearInterval(timer);
+                                    $code.attr('disabled', false);
+                                }
+                            }
+                        } else if (data.code == "201") {
+                            layer.open({
+                                content: data.msg,
+                                skin: 'msg',
+                                time: 2 //2秒后自动关闭
+                            });
+                        } else if (data.code == "error") {
+                            layer.open({
+                                content: data.msg,
+                                skin: 'msg',
+                                time: 2 //2秒后自动关闭
+                            });
+                        }
+                    },
+                    error: function (data) {
+                        layer.open({
+                            content: '短信发送失败！接口异常',
+                            skin: 'msg',
+                            time: 2 //2秒后自动关闭
+                        });
+                    }
+                });
+
+
+            }
+
+
+        })
+        //注册
+        $register.click(function () {
+            console.log($phone.val())
+            if($phone.val() == '') {
+                layer.open({
+                    content: '手机号码不能为空',
+                    skin: 'msg',
+                    time: 2 //2秒后自动关闭
+                });
+            }else if($phone.val().length !== 11) {
+                console.log(typeof $phone.val())
+                layer.open({
+                    content: '手机号码不填写不正确',
+                    skin: 'msg',
+                    time: 2 //2秒后自动关闭
+                });
+            }else if($verifyCode.val() == '') {
+                layer.open({
+                    content: '验证码不能为空',
+                    skin: 'msg',
+                    time: 2 //2秒后自动关闭
+                });
+            }else if($verifyCode.val().length !== 4) {
+                layer.open({
+                    content: '验证码不填写不正确',
+                    skin: 'msg',
+                    time: 2 //2秒后自动关闭
+                });
+            }else if($loginP.val() == '') {
+                layer.open({
+                    content: '登录蜜码不能为空',
+                    skin: 'msg',
+                    time: 2 //2秒后自动关闭
+                });
+            }else if($loginP.val().length < 6) {
+                layer.open({
+                    content: '登录密码填写不正确',
+                    skin: 'msg',
+                    time: 2 //2秒后自动关闭
+                });
+            }else if($tradeP.val() == '') {
+                layer.open({
+                    content: '交易蜜码不能为空',
+                    skin: 'msg',
+                    time: 2 //2秒后自动关闭
+                });
+            }else if($tradeP.val().length !== 6) {
+                layer.open({
+                    content: '交易密码填写不正确',
+                    skin: 'msg',
+                    time: 2 //2秒后自动关闭
+                });
+            } else if ($phone.val() !== '' && $verifyCode.val() !== '' && $loginP.val() !== '' && $tradeP.val() !== '') {
+
+                $.ajax({
+                    url: '/siteH5/user.json?act=regGuide',
+                    data: {
+                        'mobile': $phone.val(),
+                        'veCode': $verifyCode.val(),
+                        'loginPassword': $loginP.val(),
+                        'moneyPassword': $tradeP.val()
+
+                    },
+                    method: 'POST',
+                    dataType: 'json',
+                    success: function (data) {
+                        if (data.code == 200) {
+                            layer.open({
+                                content: '注册向导成功'
+                                , btn: '确定'
+                                , yes: function (index) {
+                                    layer.close(index);
+                                }
+                            })
+                        } else if (data.code == "201") {
+                            layer.open({
+                                content: data.msg,
+                                skin: 'msg',
+                                time: 2 //2秒后自动关闭
+                            });
+                        }
+                    },
+                    error: function (data) {
+                        layer.open({
+                            content: '注册失败！接口异常',
+                            skin: 'msg',
+                            time: 2 //2秒后自动关闭
+                        });
+                    }
+                });
+
+            } else {
+                layer.open({
+                    content: '请填写完整的注册信息',
+                    skin: 'msg',
+                    time: 2 //2秒后自动关闭
+                });
+            }
+
+        });
+    })
 
 </script>
-	<BODY>
-		<form  action="/siteH5/user.json">
-			<input name="act" type="hidden" value="regGuide" />
-			<TABLE>
-				<TR>
-					<TD>
-						手机号码
-					</TD>
-					<TD>
-						<input name="mobile" id="mobile" />
-						<input type="button" onclick="sendCode()" value="发送验证码" />
-					</TD>
-				</TR>
-				<TR>
-					<TD>
-						验证码
-					</TD>
-					<TD>
-						<input name="veCode" />
-						<img id="codeImg" />
-					</TD>
-				</TR>
-				<TR>
-					<TD>
-						登陆密码
-					</TD>
-					<TD>
-						<input name="loginPassword" />
-					</TD>
-				</TR>
-				<TR>
-					<TD>
-						支付密码
-					</TD>
-					<TD>
-						<input name="moneyPassword" />
-					</TD>
-				</TR>
-				<TR>
-					<TD>
-					</TD>
-					<TD>
-						<input type="submit" />
-					</TD>
-				</TR>
-			</TABLE>
-		</form>
-	</body>
+</body>
 </html>

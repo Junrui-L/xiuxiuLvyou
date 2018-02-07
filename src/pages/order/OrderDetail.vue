@@ -129,7 +129,7 @@
 
 <script>
   import {mapState, mapMutations} from 'vuex'
-  import {userInfo,loadYhj, initOrder, loadOrder, creatOrder} from '../../http/getDate'
+  import {initOrder, loadOrder, creatOrder} from '../../http/getDate'
   import {peopleNum} from '../../config/datajs'
   import {localStore} from '../../config/myUtils'
   import SwitchOption from  '../../components/switchOption.vue'
@@ -183,17 +183,12 @@
       }
     },
     mounted() {
-      /*获取用户个人信息*/
-      // userInfo().then(res=> {
-      //   console.log('---个人信息返回----')
+      /*获取优惠券的信息*/
+      // loadYhj(1).then(res => {
+      //   console.log('-------加载优惠券返回--------');
       //   console.log(res)
-      //   // this.linkman = res.
+      //
       // })
-      loadYhj(1).then(res => {
-        console.log('-------加载优惠券返回--------');
-        console.log(res)
-
-      })
       this.mpPicker = this.$createPicker({
         title: '门票数量',
         data: [peopleNum],

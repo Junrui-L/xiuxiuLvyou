@@ -63,10 +63,12 @@
         </router-link>
       </li>
       <li class="nav-item fl">
-        <router-link class="nav-link" to="oneStepGuide">
+        <!--<router-link class="nav-link" to="/">-->
+        <a class="nav-link" @click="tip">
           <img class="nav-img" src="../assets/img/home_one_xhdpi.png" alt="">
           <p class="nav-tit">一键选导</p>
-        </router-link>
+        </a>
+        <!--</router-link>-->
       </li>
     </ul>
     <div class="hot-spots">
@@ -333,11 +335,17 @@
       },
 
       showDialog() {
-        console.log('xxxx')
         this.$createDialog({
           type: 'alert',
           title: 'Alert',
           content: 'dialog content'
+        }).show()
+      },
+      tip() {
+        this.$createDialog({
+          type: 'alert',
+          title: '温馨提示',
+          content: '暂未开放，敬请期待！'
         }).show()
       },
       getImgUrl(url, mode) {

@@ -105,4 +105,66 @@
     }
   }
 
+/*输入交易密码弹窗*/
+  .cube-code-popup .cube-popup-mask {
+    overflow: hidden;
+    background-color: #25262d;
+    opacity: .75;
+  }
+
+  .cube-code-popup .code-wrap{
+    padding: px2rem(20px);
+    width:  px2rem(320px);
+    background: $white;
+    border-radius: px2rem(6px);
+    position: relative;
+    .close {
+      position: absolute;
+      top: px2rem(10px);
+      right: px2rem(10px);
+      @include setSize(px2rem(35px), px2rem(35px));
+      &:before, &:after {
+        content: '';
+        position: absolute;
+        top:  px2rem(15px);
+        right: px2rem(3px);
+        @include setSize(px2rem(20px), 3px);
+        background: #000;
+        @include transform(rotate(45deg));
+      }
+      &:after {
+        @include transform(rotate(135deg));
+      }
+
+    }
+
+    h5 {
+      @include font-dpr(15px);
+      text-align: center;
+      line-height: px2rem(30px);
+      color: $color-black-secondary;
+
+    }
+
+    .code-input {
+      display: block;
+      width: 100%;
+      margin: px2rem(10px) auto px2rem(30px);
+      padding: px2rem(10px);
+      line-height: px2rem(20px);
+      @include font-dpr(16px);
+      border: 1px solid $color-gray-primary;
+      color: $color-black;
+      text-align: center;
+      border-radius: px2rem(3px);
+    }
+
+    .surePay {
+      display: block;
+      margin: 0 auto;
+      @include setButton(px2rem(200px), px2rem(40px), $white, $color-red, px2rem(8px))
+    }
+
+  }
+
 }

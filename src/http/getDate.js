@@ -15,6 +15,9 @@ export const userLogin = (phone, password) => $http.post('/siteH5/user.json?act=
   loginPassword: password
 });
 
+
+
+//景区信息
 /**
  *获取首页数据
  * ok
@@ -127,6 +130,7 @@ export const playlistDetail = (playId, accountId) => $http.get('/siteH5/guide.js
   accountId: accountId
 });
 
+//订单
 /**
  *
  * 初始化订单
@@ -151,34 +155,6 @@ export const initOrder = (godate, accountId, playId, tripsnum, packageid, source
 
 export const loadOrder = () => $http.get('/siteH5/order.json?act=loadOrder', {});
 
-/**
- *
- * 未使用的优惠券
- * */
-
-export const loadYhj = (make) => $http.get('/siteH5/order.json?act=loadyhj', {
-  tomake: make
-});
-
-/**
- *
- * 加载过期优惠券
-
- * */
-
-export const loadOveryhj = (areasn) => $http.get('/siteH5/order.json?act=loadOveryhj', {
-  areasn: areasn
-});
-
-/**
- *
- * 加载已使用的优惠券
-
- * */
-
-export const loadmakeyhj = (areasn) => $http.get('/siteH5/order.json?act=loadmakeyhj', {
-  areasn: areasn
-});
 
 /**
  *
@@ -218,7 +194,7 @@ export const creatOrder = (godate,
 
 /**
  *
- *订单加载信息
+ *订单详细信息
  * */
 export const orderDetail = (num) => $http.post('/siteH5/order.json?act=details', {
   ordernumber: num
@@ -235,7 +211,7 @@ export const payOrder = (num) => $http.post('/siteH5/order.json?act=play', {
 
 /**
  *
- *账号余额付款信息
+ *账号余额付款
  * */
 export const payOrderAccount = (orn, pwd) => $http.post('/siteH5/play.json?act=capitalPlay', {
   ordernumber: orn,
@@ -245,12 +221,13 @@ export const payOrderAccount = (orn, pwd) => $http.post('/siteH5/play.json?act=c
 
 /**
  *
- *微信付款加载微信参数信息
+ *微信付款加载微信参数
  * */
 export const payOrderWx = (num, payUrl) => $http.post('/siteH5/play.json?act=play', {
-  orderNo: num,
+  ordernumber: num,
   url: payUrl
 });
+
 /**
  *
  *微信js-sdk加载参数信息
@@ -259,6 +236,7 @@ export const payOrderWx = (num, payUrl) => $http.post('/siteH5/play.json?act=pla
 export const payConfigWx = (singnurl) => $http.get('/wxwebsite/wxconfig.json?generalid=""', {
   url: singnurl
 });
+
 
 
 /**
@@ -279,15 +257,7 @@ export const cancelOrder = (areasn) => $http.get('/siteH5/order.json?act=cancel'
 
 
 
-/**
- *
- *优惠劵列表
-
- * */
-export const getCouponsList = (tomake) => $http.get('/siteH5/user.json?act=loadyhj', {
-  tomake
-});
-
+//个人中心
 
 /**
  * 用户个人信息
@@ -314,6 +284,15 @@ export const changePersonal = (dict, val) => $http.get('/siteH5/user.json?act=up
 export const userPerDetail = (dict, val) => $http.get('/siteH5/user.json?act=dails', {
   dict: dict,
   val : val
+});
+
+/**
+ *
+ *优惠劵列表
+
+ * */
+export const getCouponsList = (tomake) => $http.get('/siteH5/user.json?act=loadyhj', {
+  tomake
 });
 
 
