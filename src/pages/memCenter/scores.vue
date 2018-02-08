@@ -48,15 +48,25 @@
 </template>
 
 <script>
+  import {userScores} from '../../http/getDate'
   export default {
     name: "scores",
     data() {
-      return {}
+      return {
+        pageNo: 1,
+        ScoreList: []
+      }
     },
     mounted(){
-
+      this.getScore();
     },
     methods: {
+      getScore() {
+        userScores(this.pageNo).then(res => {
+            console.log(res)
+            this.ScoreList = res.list;
+        })
+      }
 
     }
   }
