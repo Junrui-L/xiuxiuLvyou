@@ -69,4 +69,48 @@
 
   }
 
+  .account-detail {
+    position: fixed;
+    z-index: 100;
+    left: 0;
+    top: 0;
+    width: 100%;
+    //@include setSize(100%, px2rem(44px));
+    //background: #fff;
+
+
+    .head_bak {
+      @include setSize(100%, px2rem(44px));
+      background: $white;
+      position: relative;
+      .head_goback {
+        @include centerTop;
+        left: px2rem(25px);
+        @include setSize(px2rem(30px), px2rem(30px));
+        line-height: px2rem(44px);
+        //margin-left: px2rem(25px);
+        svg {
+          fill: $color-black;
+          @include setSize(px2rem(20px), px2rem(20px));
+        }
+      }
+
+      .title_head {
+        @include center;
+        width: 50%;
+        color: $color-black;
+        text-align: center;
+        .title_text{
+          @include font-dpr(14px);
+          text-align: center;
+          font-weight: bold;
+        }
+      }
+
+    }
+
+
+  }
+
+
 }

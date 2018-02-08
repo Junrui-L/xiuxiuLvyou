@@ -22,6 +22,7 @@
 @import "components/checkBox";
 @import "components/raidoBox";
 @import "components/payRaido";
+@import "components/accountDetail";
 //@import "components/buttons";
 ////@import "components/icon";
 //@import "components/input";
@@ -62,7 +63,7 @@
 /*用户个人中心*/
 @import "pages/memCenter/memberCenter";
 @import "pages/memCenter/accountBill";
-@import "pages/memCenter/accountDetail";
+
 @import "pages/memCenter/coupons";
 @import "pages/memCenter/favorites";
 @import "pages/memCenter/memberInfo";

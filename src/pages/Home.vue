@@ -88,7 +88,7 @@
                 <img :src="basePath + item.cityimg" alt="">
               </dt>
               <dd class="spot-name">{{item.name}}</dd>
-              <dd class="spot-guide">{{item.guidecout ? item.guidecout : 0}}位向导</dd>
+              <!--<dd class="spot-guide">{{item.guidecout ? item.guidecout : 0}}位向导</dd>-->
             </dl>
         </HoriSlider>
       </div>
@@ -148,7 +148,7 @@
               <img :src="basePath + item.img" alt="">
             </dt>
             <dd class="spot-name">{{item.name}}</dd>
-            <dd class="spot-guide">{{item.guidecout ? item.guidecout : 0}}位向导</dd>
+            <!--<dd class="spot-guide">{{item.guidecout ? item.guidecout : 0}}位向导</dd>-->
           </dl>
         </HoriSlider>
 
@@ -281,9 +281,11 @@
       ...mapMutations(['GET_USERINFO','RECORD_ADDRESS' ,'BASE_ORDER']),
 
       async initHome() {
-        await userLogin('15118252171', '123456').then(res=> {
-          console.log(res)
-        })
+        // await userLogin('15118252171', '123456').then(res=> {
+        //   console.log('---登录----')
+        //   console.log(res)
+        // })
+
         await homeData().then(res => {
           console.log(res);
           console.log(this.basePath);

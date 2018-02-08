@@ -17,7 +17,8 @@ Vue.filter('imgUrl', (url, mode) => {
   }
 })
 //时间过滤， fmtDate('yyyy,MM,dd')
-Vue.filter('fmtDate', (date, fmt) => {
+Vue.filter('fmtDate', (data, fmt) => {
+    var date = new Date(data);
     var o = {
       'M+': date.getMonth() + 1, // 月份
       'd+': date.getDate(), // 日

@@ -307,24 +307,38 @@ export const userUpdateMobile = (dict, val) => $http.get('/siteH5/user.json?act=
  *
  * */
 
-export const userQrcode = (dict, val) => $http.get('/siteH5/user.json?act=expandedCode', {
-  dict: dict,
-  val: val
+export const userQrcode = () => $http.get('/siteH5/user.json?act=expandedCode', {
 });
-
 
 //用户账户信息
 /**
- * 用户账户信息
+ * 用户账户余额信息
  *
  * */
 
-export const userAccounts = () => $http.get('/siteH5/siteapp/capital.json?act=capital', {});
+export const userAccounts = () => $http.get('siteapp/capital.json?act=capital', {});
 
+/**
+ * 用户账户积分信息
+ *
+ * */
+
+
+export const userScores = (page) => $http.get('/siteH5/user.json?act=pointList', {
+  page: page
+});
 
 /**
  * 用户账单列表
- *
+ * "ordernumber":"20180110100001076230583",//账变编号
+ "lastBlance":100.00,//账变后余额
+ "currentBlance":300.00,//当前余额
+ "profitLossMoney":200,//账变金额
+ "type":1,//账变类别
+ "accountId":1001,//向导id
+ "created_at":账变时间,//账变编号
+ "title":"余额支付向导（李三）",//账变内容说明
+ "typeicon":"/url/sdf/sdf.jpg"//账变图标地址
  * */
 
 export const userBill = (page, type) => $http.get('/siteapp/capital.json?act=seachProfitloss', {

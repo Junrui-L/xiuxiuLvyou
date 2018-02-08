@@ -4,7 +4,7 @@
         <div class="service-area clearfix">
           <span class="title fl">个人头像</span>
           <div class="img-wrapper fr">
-            <img src="../../assets/img/taiwdy.png" alt="">
+            <img :src="userInfo.headimgurl" alt="">
             <!--<svg>-->
               <!--<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#arrow-right"></use>-->
             <!--</svg>-->
@@ -15,7 +15,7 @@
           <div class="item-wrapper clearfix">
             <span class="title">自我介绍</span>
             <span class="txt fr">
-            我是一个导游导游啊啊啊啊啊
+              {{userInfo.nickname}}
             <svg>
                 <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#arrow-right"></use>
             </svg>
@@ -39,7 +39,7 @@
           <div class="item-wrapper clearfix">
             <span class="title">真实姓名</span>
             <span class="txt fr">
-            张小龙
+            {{ userInfo.userName || '--'}}
             <svg>
                 <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#arrow-right"></use>
             </svg>
@@ -50,7 +50,9 @@
           <div class="item-wrapper clearfix">
             <span class="title">个人性别</span>
             <span class="txt fr">
-            男
+            <template v-if="userInfo.sex == 1">男</template>
+            <template v-if="userInfo.sex == 2">女</template>
+            <template v-if="userInfo.sex == 0">未知</template>
             <svg>
                 <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#arrow-right"></use>
             </svg>
@@ -61,7 +63,7 @@
           <div class="item-wrapper clearfix">
             <span class="title">出生日期</span>
             <span class="txt fr">
-            1980-10-11
+            {{userInfo.birthDate || '未设置'}}
             <svg>
                 <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#arrow-right"></use>
             </svg>
@@ -72,7 +74,10 @@
           <div class="item-wrapper clearfix">
             <span class="title">身份认证</span>
             <span class="txt fr">
-            未上传
+              <template v-if="userInfo.status == 0">未验证</template>
+              <template v-if="userInfo.status == 1">审核中</template>
+              <template v-if="userInfo.status == 2">已认证</template>
+
             <svg>
                 <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#arrow-right"></use>
             </svg>
@@ -83,7 +88,7 @@
           <router-link to="/setContact" class="item-wrapper clearfix">
             <span class="title">手机号码</span>
             <span class="txt fr">
-            15117001826
+            {{userInfo.mobile || '未设置'}}
             <svg>
                 <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#arrow-right"></use>
             </svg>
@@ -107,15 +112,19 @@
 </template>
 
 <script>
+    import {userPerDetail, userLogin} from '../../http/getDate'
     export default {
-        name: "member-info",
+        name: 'member-info',
         data() {
           return {
-
+            userInfo: {}
           }
         },
         mounted() {
-
+          userPerDetail().then(res => {
+            console.log(res)
+            this.userInfo = res.visitor;
+          })
         },
         methods: {
 

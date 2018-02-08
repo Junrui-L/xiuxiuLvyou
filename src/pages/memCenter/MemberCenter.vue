@@ -3,7 +3,7 @@
     <header class="header">
       <div class="hd">
         <div class="img-wrapper fl"><img :src="userInfo.headimgurl" alt=""></div>
-        <router-link to="/memberInfo" class="username fl">{{userInfo.userName || '无'}}
+        <router-link to="/memberInfo" class="username fl">{{userInfo.userName || '--'}}
           <svg>
             <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#arrow-right"></use>
           </svg>
@@ -76,7 +76,7 @@
 </template>
 
 <script>
-  import {userPersonal, cancelOrder, getMyOrderList} from '../../http/getDate'
+  import {userLogin, userPersonal, cancelOrder, getMyOrderList} from '../../http/getDate'
 
   export default {
     name: "member-center",
@@ -91,8 +91,12 @@
       }
     },
     mounted() {
-      this.getUserInfo();
-      this.getOrderList()
+      userLogin('15118252171', '123456').then(res=> {
+        console.log('---登录----')
+        console.log(res)
+        this.getUserInfo();
+        this.getOrderList()
+      })
     },
     methods: {
       // 获取订单列表
