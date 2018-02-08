@@ -385,4 +385,4 @@ export const withdraw = (userBankId, money, fundpassword) => $http.get('/siteapp
  * page 第几页(不可为空,每页只查出25条))
  *
  * */
-export const getMyOrderList = (data) => $http.get('/siteapp/capital.json?act=withdrawals', data);
+export const getMyOrderList = (data) => $http.get('/siteH5/order.json?act=list', data);

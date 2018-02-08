@@ -52,15 +52,15 @@
           <div class="scenicInfo fl">
             <img src="/static/img/taiwdy.0cc08bb.png"/>
             <div class="desc">
-              <p class="title">黄美丽</p>
+              <p class="title">{{v.username}}</p>
               <p class="payway">{{v.wfname}}</p>
-              <p class="playway">自由游玩 （抢单定价模式）</p>
+              <p class="playway">{{v.orderMode}}</p>
             </div>
           </div>
           <div class="order-info fl">
-            <p><span>下单时间</span><span class="fr">2017-05-12 12:15</span></p>
-            <p><span>人数</span><span class="fr">3人</span></p>
-            <p><span>总价</span><span class="fr">300.00元</span></p>
+            <p><span>下单时间</span><span class="fr">{{v.created_at}}</span></p>
+            <p><span>人数</span><span class="fr">{{v.tripsnum}}人</span></p>
+            <p><span>总价</span><span class="fr">{{v.orderSumPrice}}元</span></p>
           </div>
           <p class="fr">
             <button class="order-handle-btn">取消订单</button>
