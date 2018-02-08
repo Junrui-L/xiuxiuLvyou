@@ -152,7 +152,7 @@
   }
   .ordertab {
     width: 20%;
-    float: right;
+    float: left;
     height: px2rem(44px);
     line-height: px2rem(44px);
     @include font-dpr(12px);
@@ -163,7 +163,7 @@
   .ordertab.active span {
     height: 100%;
     display: inline-block;
-    border-bottom: 1px solid #FF5A5F;
+    border-bottom: 2px solid #FF5A5F;
     color: #FF5A5F;
   }
 

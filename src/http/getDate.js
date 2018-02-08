@@ -16,7 +16,6 @@ export const userLogin = (phone, password) => $http.post('/siteH5/user.json?act=
 });
 
 
-
 //景区信息
 /**
  *获取首页数据
@@ -238,7 +237,6 @@ export const payConfigWx = (singnurl) => $http.get('/wxwebsite/wxconfig.json?gen
 });
 
 
-
 /**
  *
  *修改订单状态
@@ -256,15 +254,13 @@ export const cancelOrder = (areasn) => $http.get('/siteH5/order.json?act=cancel'
 });
 
 
-
 //个人中心
 
 /**
  * 用户个人信息
  *
  * */
-export const userPersonal = () => $http.get('/siteH5/user.json?act=personal', {
-});
+export const userPersonal = () => $http.get('/siteH5/user.json?act=personal', {});
 
 
 /**
@@ -273,7 +269,7 @@ export const userPersonal = () => $http.get('/siteH5/user.json?act=personal', {
  * */
 export const changePersonal = (dict, val) => $http.get('/siteH5/user.json?act=update', {
   dict: dict,
-  val : val
+  val: val
 });
 
 /**
@@ -283,7 +279,7 @@ export const changePersonal = (dict, val) => $http.get('/siteH5/user.json?act=up
 
 export const userPerDetail = (dict, val) => $http.get('/siteH5/user.json?act=dails', {
   dict: dict,
-  val : val
+  val: val
 });
 
 /**
@@ -303,7 +299,7 @@ export const getCouponsList = (tomake) => $http.get('/siteH5/user.json?act=loady
 
 export const userUpdateMobile = (dict, val) => $http.get('/siteH5/user.json?act=updatemobile', {
   dict: dict,
-  val : val
+  val: val
 });
 
 /**
@@ -313,9 +309,8 @@ export const userUpdateMobile = (dict, val) => $http.get('/siteH5/user.json?act=
 
 export const userQrcode = (dict, val) => $http.get('/siteH5/user.json?act=expandedCode', {
   dict: dict,
-  val : val
+  val: val
 });
-
 
 
 //用户账户信息
@@ -324,8 +319,7 @@ export const userQrcode = (dict, val) => $http.get('/siteH5/user.json?act=expand
  *
  * */
 
-export const userAccounts = () => $http.get('/siteH5/siteapp/capital.json?act=capital', {
-});
+export const userAccounts = () => $http.get('/siteH5/siteapp/capital.json?act=capital', {});
 
 
 /**
@@ -335,7 +329,7 @@ export const userAccounts = () => $http.get('/siteH5/siteapp/capital.json?act=ca
 
 export const userBill = (page, type) => $http.get('/siteapp/capital.json?act=seachProfitloss', {
   page: page,
-  type : type
+  type: type
 });
 
 /**
@@ -343,18 +337,14 @@ export const userBill = (page, type) => $http.get('/siteapp/capital.json?act=sea
  *
  * */
 
-export const userBanks = () => $http.get('/siteapp/capital.json?act=loadUserBank', {
-
-});
+export const userBanks = () => $http.get('/siteapp/capital.json?act=loadUserBank', {});
 
 /**
  * 初始添加银行卡
  *
  * */
 
-export const initAddBank = () => $http.get('/siteapp/capital.json?act=initAddBank', {
-
-});
+export const initAddBank = () => $http.get('/siteapp/capital.json?act=initAddBank', {});
 
 /**
  *新增银行卡
@@ -387,3 +377,12 @@ export const withdraw = (userBankId, money, fundpassword) => $http.get('/siteapp
   money: money,
   fundpassword: fundpassword
 });
+
+
+/**
+ * 订单列表
+ * status 订单状态(不可为空，1.待付款，2出行中，3.待评价，4。取消/已完成)
+ * page 第几页(不可为空,每页只查出25条))
+ *
+ * */
+export const getMyOrderList = (data) => $http.get('/siteapp/capital.json?act=withdrawals', data);

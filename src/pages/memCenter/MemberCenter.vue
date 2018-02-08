@@ -2,8 +2,8 @@
   <div class="memberCenter">
     <header class="header">
       <div class="hd">
-        <div class="img-wrapper fl"><img src="../../assets/img/taiwdy.png" alt=""></div>
-        <router-link to="/memberInfo" class="username fl">王大力
+        <div class="img-wrapper fl"><img :src="userInfo.headimgurl" alt=""></div>
+        <router-link to="/memberInfo" class="username fl">{{userInfo.userName || '无'}}
           <svg>
             <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#arrow-right"></use>
           </svg>
@@ -12,19 +12,19 @@
       </div>
       <ul class="mem-wrap clearfix">
         <router-link tag="li" to="/scores" class="mem-item fl">
-          <div>11000</div>
+          <div>{{userInfo.tourismScore || 0}}</div>
           <p>积分</p>
         </router-link>
         <router-link tag="li" to="/coupons" class="mem-item fl">
-          <div>0</div>
+          <div>{{userInfo.yhjcount || 0}}</div>
           <p>优惠券</p>
         </router-link>
         <router-link tag="li" to="/favorites" class="mem-item fl">
-          <div>6</div>
+          <div>{{userInfo.collect || 0}}</div>
           <p>收藏</p>
         </router-link>
         <router-link tag="li" to="/myWallet" class="mem-item fl">
-          <div>100.00</div>
+          <div>{{userInfo.userName || 0}}</div>
           <p>钱包</p>
         </router-link>
       </ul>
@@ -47,13 +47,13 @@
       <div class="order-list">
 
         <div class="order-list-item" v-for="v in orderList">
-          <p class="fl h44">出行时间：2017-02-12</p>
-          <p class="fr  h44 orderstate">待向导确认</p>
+          <p class="fl h44">出行时间：{{v.godate}}</p>
+          <p class="fr  h44 orderstate">{{v.status}}</p>
           <div class="scenicInfo fl">
             <img src="/static/img/taiwdy.0cc08bb.png"/>
             <div class="desc">
               <p class="title">黄美丽</p>
-              <p class="payway">北京故宫 景点讲解</p>
+              <p class="payway">{{v.wfname}}</p>
               <p class="playway">自由游玩 （抢单定价模式）</p>
             </div>
           </div>
@@ -76,7 +76,7 @@
 </template>
 
 <script>
-  import {userPersonal, cancelOrder} from '../../http/getDate'
+  import {userPersonal, cancelOrder, getMyOrderList} from '../../http/getDate'
 
   export default {
     name: "member-center",
@@ -86,27 +86,32 @@
         staticNum: {},// 统计数字,积分,优惠券
         currentTab: 'doing',// 当前选中的订单tab
         orderList: [1, 2, 4, 3, 4],// 订单列表
-        tabMap: {'all': '', 'waitpay': '', 'doing': '', 'waitEvaluate': '', 'haveCancle': ''}
+        tabMap: {'all': 0, 'waitpay': 1, 'doing': 2, 'waitEvaluate': 3, 'haveCancle': 4},
+        page: 1
       }
     },
     mounted() {
       this.getUserInfo();
+      this.getOrderList()
     },
     methods: {
       // 获取订单列表
       getOrderList() {
-
+        getMyOrderList({page: this.page, status: this.tabMap[this.currentTab]}).then(res => {
+          this.orderList = res.list
+        })
       },
       // 获取个人信息
       getUserInfo() {
         userPersonal().then(res => {
-          this.userInfo = res.data
+          this.userInfo = res
         })
       },
       // 点击订单状态Tab
       clickOrderStateTab(currentTab) {
         this.currentTab = currentTab
-        this.tabMap[currentTab]
+        this.page = 1
+        this.getOrderList()
       },
       // 取消订单
       caccleOrder(ordernumber) {
