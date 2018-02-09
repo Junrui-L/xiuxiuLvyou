@@ -546,7 +546,7 @@
         this.showLoading = false
       },
       getmenuList(val) {
-        
+
         cityArea(val).then(res => {
           console.log(res);
           this.areaList = JSON.parse(JSON.stringify(res));
