@@ -48,7 +48,7 @@
 
         <div class="order-list-item" v-for="v in orderList">
           <p class="fl h44">出行时间：{{v.godate}}</p>
-          <p class="fr  h44 orderstate">{{v.status}}</p>
+          <p class="fr  h44 orderstate">{{v.status | orderStateText}}</p>
           <div class="scenicInfo fl">
             <img src="/static/img/taiwdy.0cc08bb.png"/>
             <div class="desc">

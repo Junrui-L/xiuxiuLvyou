@@ -10,6 +10,7 @@ const Guide = r => require.ensure([], () => r(require('@/pages/guide/Guide')), '
 const GuideDetail = r => require.ensure([], () => r(require('@/pages/guide/GuideDetail')), 'guideDetail')
 const Search = r => require.ensure([], () => r(require('@/pages/search/Search')), 'search')
 const SearchList = r => require.ensure([], () => r(require('@/pages/search/SearchList')), 'searchList')
+const SearchContentList = r => require.ensure([], () => r(require('@/pages/search/SearchContentList')), 'SearchContentList')
 //订单
 const OrderDetail = r => require.ensure([], () => r(require('@/pages/order/OrderDetail')), 'orderDetail')
 const Order = r => require.ensure([], () => r(require('@/pages/order/Order')), 'order')
@@ -30,7 +31,7 @@ const Scores = r => require.ensure([], () => r(require('@/pages/memCenter/scores
 
 Vue.use(Router)
 
-const router =  new Router({
+const router = new Router({
   routes: [
     {
       path: '/',
@@ -42,14 +43,19 @@ const router =  new Router({
       //搜索
       path: '/search',
       name: 'search',
-      component: Search
+      component: Search,
+      children: [{
+        path: ':id',
+        component: SearchContentList,
+        meta: {keepAlive: true}
+      }]
     },
     {
       //景区列表
       path: '/searchList',
       name: 'searchList',
       component: SearchList,
-      meta: { keepAlive: true }
+      meta: {keepAlive: true}
     },
     {
       //景区列表
@@ -60,14 +66,14 @@ const router =  new Router({
     {
       path: '/scenicDetail',
       name: 'scenicDetail',
-      component:ScenicDetail
+      component: ScenicDetail
     },
     {
       //向导区列表
       path: '/guide',
       name: 'guide',
       component: Guide
-    },{
+    }, {
       //向导区列表
       path: '/guideDetail/:id',
       name: 'guideDetail',
@@ -78,7 +84,7 @@ const router =  new Router({
       path: '/oneStepGuide',
       name: 'oneStepGuide',
       component: OneStepGuide
-    },{
+    }, {
       //等待回应
       path: '/waitResponse',
       name: 'waitResponse',
@@ -162,7 +168,7 @@ const router =  new Router({
       if (from.meta.keepAlive) {
         from.meta.savedPosition = document.body.scrollTop;
       }
-      return { x: 0, y: to.meta.savedPosition ||0}
+      return {x: 0, y: to.meta.savedPosition || 0}
     }
   }
 
