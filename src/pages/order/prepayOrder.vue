@@ -43,7 +43,7 @@
 
 <script type="text/ecmascript-6">
   import {mapState, mapMutations} from 'vuex'
-  import {payOrder,payOrderAccount, payOrderWx, payConfigWx } from '../../http/getDate'
+  import {payOrder,payOrderAccount, payOrderWx, ConfigWx } from '../../http/getDate'
   import TimeCount from '../../components/timeCountDown.vue'
   import PayRadio from '../../components/payRadio.vue'
   import AlertTip from '../../components/alertTip.vue'
@@ -92,7 +92,7 @@
 
         // signUrl = encodeURIComponent(signUrl)
         console.log(`要签名的url ${signUrl}`)
-        payConfigWx(signUrl).then(res => {
+        ConfigWx(signUrl).then(res => {
           console.log(res)
           console.log('===》签名基本参数返回《====')
           if(res.code && res.code == '-1001') {

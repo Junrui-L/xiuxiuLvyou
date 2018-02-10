@@ -217,9 +217,9 @@
         this.tripsnum = this.baseOrder.peopleNum.value
         this.packageid = this.baseOrder.mealType.id
 
-        initOrder(this.godate, this.accountId, this.playId, this.tripsnum, this.packageid, 0, 0).then(res => {
+        initOrder(this.godate, this.accountId, this.playId, this.tripsnum, this.packageid, 0, 0).then(resp => {
           console.log('-------订单初始化返回--------');
-            console.log(res)
+            console.log(resp)
             loadOrder().then(res=> {
               console.log('---下单前订单加载返回-----')
               console.log(res);
@@ -317,14 +317,7 @@
               }).show()
 
             } else {
-              // this.$createDialog({
-              //   type: 'alert',
-              //   title: '温馨提示',
-              //   content: '下单成功请及时付款',
-              //   onClose: () => {
-              //
-              //   }
-              // }).show()
+              //新下的订单号
               let loc =  localStore('orderNum', 'localStorage')
               loc.set('orn', res.data[1])
               self.$router.push({name: 'order',query: {orderNum: res.data[1]}})

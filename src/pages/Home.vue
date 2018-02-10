@@ -45,19 +45,19 @@
     </div>
     <ul class="nav clearfix">
       <li class="nav-item fl">
-        <router-link class="nav-link" :to="{path: '/scenicRegion' , query: { citySn: 120100}}">
+        <router-link class="nav-link" :to="{path: '/scenicRegion' , query: { citySn: locations.areasn }}">
           <img class="nav-img" src="../assets/img/home_jingqu@2x.png" alt="">
           <p class="nav-tit">景区列表</p>
         </router-link>
       </li>
       <li class="nav-item fl">
-        <router-link class="nav-link" :to="{path: '/guide', query: {scenicId: 8 }}">
+        <router-link class="nav-link" :to="{path: '/guide', query: {citySn: locations.areasn || 110100}}">
           <img class="nav-img" src="../assets/img/home_qudao_xhdpi.png" alt="">
           <p class="nav-tit">区导列表</p>
         </router-link>
       </li>
       <li class="nav-item fl">
-        <router-link class="nav-link" :to="{path: '/scenicRegion' , query: { citySn: 120100}}">
+        <router-link class="nav-link" :to="{path: '/guide' , query: { latitude: location.latitude, longitude: location.longitude}}">
           <img class="nav-img" src="../assets/img/home_near@2x.png" alt="">
           <p class="nav-tit">附近向导</p>
         </router-link>
@@ -214,7 +214,7 @@
 
 <script type="text/ecmascript-6">
   import {mapState, mapMutations} from 'vuex'
-  import {homeData, userLogin} from '../http/getDate'
+  import {homeData,getUserArea, userLogin, ConfigWx} from '../http/getDate'
   import HoriSlider from '../components/HoriSlider.vue'
   import Slider from '../components/newSlider.vue'
   import EvaluateStar from '../components/EvaluateStar.vue'
@@ -227,6 +227,7 @@
     data() {
       return {
         // baseUrl: 'http://www.youdingsoft.com',
+        locations: {areasn: 110100},
         bannerSlider: [],
         slider: [],
         hotArea:  [],
@@ -245,7 +246,8 @@
         allowVertical: false,
         initialIndex: 1,
         dotsSlot: false,
-        addItem3: false
+        addItem3: false,
+        configMap: {}
       }
     },
     components: {
@@ -262,22 +264,17 @@
       ]),
     },
     mounted() {
-      // let href = location.href;
-      // console.log(href)
-      // if(href.indexOf('.html#/') > -1) {
-      //   location.href= location.href.replace('.html#/', '.html?a=a#/')
-      // }
       //获取首页数据
       this.initHome();
       var _this=this
       setTimeout(() => {
         _this.$refs.silde.refresh()
       }, 1000)
-      // this.$refs.slide.refresh()
+      this.configWx();
     },
 
     methods: {
-      ...mapMutations(['GET_USERINFO','RECORD_ADDRESS' ,'BASE_ORDER']),
+      ...mapMutations(['GET_USERINFO','USER_AREA','RECORD_ADDRESS' ,'BASE_ORDER']),
 
       async initHome() {
         // await userLogin('15118252171', '123456').then(res=> {
@@ -290,7 +287,7 @@
           console.log(this.basePath);
 
           this.GET_USERINFO({phone: this.basePath,name: '周周'});
-          this.RECORD_ADDRESS({latitude: 2222, longitude: 5555})
+
           let resp = res;
           this.items = resp[1]   //banner
           for(var i of this.items) {
@@ -328,8 +325,59 @@
       clickPage(item, index) {
         // console.log(item, index)
       },
-      closeTip() {
-        this.showAlert = false;
+      configWx(){
+        let signUrl = location.href;
+
+        // signUrl = encodeURIComponent(signUrl)
+        console.log(`要签名的url ${signUrl}`)
+        ConfigWx(signUrl).then(res => {
+          console.log(res)
+          console.log('===》签名基本参数返回《====')
+          if(res.code && res.code == '-1001') {
+            console.log('还么登录,需要授权登录')
+            location.href= res.data.redirect;
+          }
+          console.log(res);
+          this.configMap = res.configMap;
+          wx.config({
+            debug: false,
+            appId: res.configMap.appid,
+            timestamp: res.configMap.timestamp,
+            nonceStr: res.configMap.nonceStr, //随机串
+            signature: res.configMap.signature ,//微信签名
+            jsApiList: ['getLocation'] // 必填，需要使用的JS接口列表，这里只写支付的
+          });
+
+          this.getLocation();
+        })
+      },
+      getLocation(){
+        //获取地理位置
+        let that = this;
+        wx.ready(function(){
+
+          wx.getLocation({
+            type: 'wgs84', // 默认为wgs84的gps坐标，如果要返回直接给openLocation用的火星坐标，可传入'gcj02'
+            success: function (res) {
+              console.log('-----获取当经纬度-----')
+              console.log(res);
+              that.RECORD_ADDRESS({latitude: res.latitude, longitude: res.longitude})
+              // var latitude = res.latitude; // 纬度，浮点数，范围为90 ~ -90
+              // var longitude = res.longitude ; // 经度，浮点数，范围为180 ~ -180。
+              // var speed = res.speed; // 速度，以米/每秒计
+              // var accuracy = res.accuracy; // 位置精度
+              getUserArea(res.latitude, res.longitude).then(res => {
+                console.log('-----获取当前地区-----')
+                  console.log(res);
+                console.log(that.locations);
+                console.log(`当前地区编号${res.areasn}`)
+
+                  that.locations = res;
+                  this.USER_AREA(res);
+              })
+            }
+          });
+        })
       },
       show() {
         console.log('......');

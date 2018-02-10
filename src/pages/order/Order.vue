@@ -3,15 +3,15 @@
     <template v-if="orderInfo.status == 0">
       <div class="header">
         <div class="order-state">
-          已下单待付款
+          已下单待接单
           <svg>
             <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#arrow-right"></use>
           </svg>
         </div>
-        <TimeCount :endTime="endT" :nowTime="nowT" :countCallback="endLog"/>
+        <TimeCountDown :endTime="endT" :nowTime="nowT" :countCallback="endLog"/>
         <div class="btn-topay clearfix">
           <button class="cancel btn fl" @click="cancelOdr">取消定单</button>
-          <button class="confirm btn fr" @click="goPay">去付款</button>
+          <!--<button class="confirm btn fr" @click="goPay">联系导游</button>-->
         </div>
       </div>
     </template>
@@ -19,15 +19,15 @@
     <template v-else-if="orderInfo.status == 1">
       <div class="header">
         <div class="order-state">
-          已接单
+          已接单待付款
           <svg>
             <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#arrow-right"></use>
           </svg>
         </div>
-        <!--<TimeCount :endTime="endT" :nowTime="nowT" :countCallback="endLog"/>-->
+        <TimeCountDown :endTime="endT" :nowTime="nowT" :countCallback="endLog"/>
         <div class="btn-topay clearfix">
-          <button class="backpay btn fl">申请退款</button>
-          <button class="backpay btn fr">确认到达</button>
+          <button class="cancel btn fl" @click="cancelOdr">取消定单</button>
+          <button class="confirm btn fr" @click="goPay">去付款</button>
         </div>
       </div>
     </template>
@@ -47,10 +47,9 @@
       </div>
     </template>
     <template v-else-if="orderInfo.status == 3">
-      汇合中
       <div class="header">
         <div class="order-state">
-          已接单
+          汇合中
           <svg>
             <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#arrow-right"></use>
           </svg>
@@ -63,10 +62,10 @@
       </div>
     </template>
     <template v-else-if="orderInfo.status == 4">
-      已接待
+
       <div class="header">
         <div class="order-state">
-          已接单
+          已接待
           <svg>
             <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#arrow-right"></use>
           </svg>
@@ -79,10 +78,10 @@
       </div>
     </template>
     <template v-else-if="orderInfo.status == 5">
-      出行中
+
       <div class="header">
         <div class="order-state">
-          已接单
+          出行中
           <svg>
             <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#arrow-right"></use>
           </svg>
@@ -95,10 +94,10 @@
       </div>
     </template>
     <template v-else-if="orderInfo.status == 6">
-      行程结束
+
       <div class="header">
         <div class="order-state">
-          已接单
+          行程结束
           <svg>
             <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#arrow-right"></use>
           </svg>
@@ -111,10 +110,10 @@
       </div>
     </template>
     <template v-else-if="orderInfo.status == 7">
-      已评价
+
       <div class="header">
         <div class="order-state">
-          已接单
+          已评价
           <svg>
             <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#arrow-right"></use>
           </svg>
@@ -127,12 +126,12 @@
       </div>
     </template>
     <template v-else-if="orderInfo.status == 8">
-      已完成
+
     </template>
     <template v-else-if="orderInfo.status == 9">
       <div class="header">
         <div class="order-state">
-          已取消
+          已完成
           <svg>
             <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#arrow-right"></use>
           </svg>
@@ -169,7 +168,6 @@
             <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#arrow-right"></use>
           </svg>
         </div>
-        <!--<TimeCount :endTime="endT" :nowTime="nowT" :countCallback="endLog"/>-->
         <div class="btn-topay clearfix">
           <button class="backpay btn fl">申请退款</button>
           <button class="backpay btn fr">确认到达</button>
@@ -177,7 +175,6 @@
       </div>
     </template>
     <template v-else-if="orderInfo.status == 12">
-
       <div class="header">
         <div class="order-state">
           已拒绝
@@ -185,7 +182,6 @@
             <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#arrow-right"></use>
           </svg>
         </div>
-        <!--<TimeCount :endTime="endT" :nowTime="nowT" :countCallback="endLog"/>-->
         <div class="btn-topay clearfix">
           <button class="backpay btn fl">申请退款</button>
           <button class="backpay btn fr">确认到达</button>
@@ -293,8 +289,8 @@
 <script type="text/ecmascript-6">
   import {orderDetail, cancelOrder} from "../../http/getDate";
   import {mapState, mapMutations} from 'vuex'
-  import TimeCount from '../../components/timeCountDown.vue'
-
+  import TimeCountDown from '../../components/timeCountDown.vue'
+  import TimeCountUp from  '../../components/timeCountUp.vue'
   export default {
     data() {
       return {
@@ -305,7 +301,8 @@
       }
     },
     components: {
-      TimeCount
+      TimeCountDown,
+      TimeCountUp
     },
     computed: {
       ...mapState([
