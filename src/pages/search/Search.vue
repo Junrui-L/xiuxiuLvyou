@@ -524,7 +524,7 @@
         })
       },
       toSearch() {
-        this.$router.push('searchList');
+        this.$router.push({path: '/searchList'});
       },
       //获取列表的高度，存入shopListTop
       getListHeight(){

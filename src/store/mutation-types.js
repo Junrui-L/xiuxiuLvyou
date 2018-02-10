@@ -4,6 +4,7 @@
 
 export const GET_USERINFO = 'GET_USERINFO'  //用户信息
 export const RECORD_ADDRESS = 'RECORD_ADDRESS'  //记录地址
+export const USER_AREA = 'USER_AREA'  //记录用户当前位置
 export const BASE_ORDER  = 'BASE_ORDER'      //订单初始信息
 export const SAVE_GUIDE = 'SAVE_GUIDE'      //导游信息
 export const SAVE_PLAY = 'SAVE_PLAY'       //玩法信息

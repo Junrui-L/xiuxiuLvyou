@@ -15,7 +15,6 @@ export const userLogin = (phone, password) => $http.post('/siteH5/user.json?act=
   loginPassword: password
 });
 
-
 //景区信息
 /**
  *获取首页数据
@@ -24,6 +23,15 @@ export const userLogin = (phone, password) => $http.post('/siteH5/user.json?act=
 
 export const homeData = (areasn) => $http.get('/siteH5/index.json?act=index', {
   areasn: areasn
+});
+
+/**
+ * 获取当前位置
+ *
+ * */
+export const getUserArea = (latitude, longitude) => $http.get('/siteH5/index.json?act=loadcity', {
+  latitude: latitude,
+  longitude: longitude
 });
 
 
@@ -79,9 +87,8 @@ export const guideList = (data) => $http.post('/siteH5/guide.json?act=guideslist
  *区域向导列表
  *ok
  * */
-
 export const cityGuideList = (data) => $http.post('/siteH5/guide.json?act=cityguideslist', {
-  scenicspot: data.scenicspotId,
+  city: data.citySn,
   sex: data.sex,
   agetype: data.agetype,
   minprice: data.minprice,
@@ -128,6 +135,16 @@ export const playlistDetail = (playId, accountId) => $http.get('/siteH5/guide.js
   playId: playId,
   accountId: accountId
 });
+
+
+/**
+ * 附近向导
+ *
+ * */
+export const getNearGuide = (latitude, longitude) => $http.get('/siteH5/guide.json?act=fjGuideslist', {
+  latitude: latitude,
+  longitude: longitude
+})
 
 //订单
 /**
@@ -232,7 +249,7 @@ export const payOrderWx = (num, payUrl) => $http.post('/siteH5/play.json?act=pla
  *微信js-sdk加载参数信息
  * 微信初始化用
  * */
-export const payConfigWx = (singnurl) => $http.get('/wxwebsite/wxconfig.json?generalid=""', {
+export const ConfigWx = (singnurl) => $http.get('/wxwebsite/wxconfig.json?generalid=""', {
   url: singnurl
 });
 

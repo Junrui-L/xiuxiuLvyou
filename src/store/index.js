@@ -14,6 +14,7 @@ const state = {
     latitude: '',  // 当前位置纬度
     longitude: '', // 当前位置经度
   },
+  userArea: null, //用户当前城市信息
   userInfo: null, //用户信息
   basePath: 'http://www.youdingsoft.com/', //头像地址
   baseOrder: null,

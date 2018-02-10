@@ -333,10 +333,10 @@
         ConfigWx(signUrl).then(res => {
           console.log(res)
           console.log('===》签名基本参数返回《====')
-          if(res.code && res.code == '-1001') {
-            console.log('还么登录,需要授权登录')
-            location.href= res.data.redirect;
-          }
+          // if(res.code && res.code == '-1001') {
+          //   console.log('还么登录,需要授权登录')
+          //   location.href= res.data.redirect;
+          // }
           console.log(res);
           this.configMap = res.configMap;
           wx.config({

@@ -4,19 +4,9 @@ Created by soft on 2018/1/9
 */
 
 <template>
-    <div class="timer_count_down">
+    <div class="timer_count">
         <div class="titel">{{ countText }}</div>
         <div class="timer" >
-            <!--<div class="box" v-if="theTime.days != 0">-->
-                <!--<div class="spacer"></div>-->
-                <!--<p class="value">{{ theTime.days }}</p>-->
-                <!--<p class="label">days</p>-->
-            <!--</div>-->
-            <!--<div class="box">-->
-                <!--<div class="spacer"></div>-->
-                <!--<p class="value">{{ theTime.hours }}</p>-->
-                <!--<p class="label">hours</p>-->
-            <!--</div>-->
             <div class="box">
                 <p class="value">{{ theTime.minutes }}</p>
             </div>
@@ -43,9 +33,6 @@ Created by soft on 2018/1/9
         },
         props: {
             nowTime: {
-                type: String
-            },
-            endTime: {
                 type: String
             },
             countCallback: {
@@ -108,23 +95,3 @@ Created by soft on 2018/1/9
 <style lang="scss">
     /*引入样式表*/
 </style>
-
-
-/**************************
-COUNTDOWN COMPONENT
-**************************/
-Vue.component('countdown', {
-template: `
-<section class="countdown">
-
-
-</section>
-`,
-
-
-/**************************
-ROOT COMPONENT
-**************************/
-let app = new Vue({
-el: '#app'
-});

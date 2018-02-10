@@ -1,4 +1,4 @@
-.timer_count_down {
+.timer_count {
   padding-bottom: px2rem(16px);
   text-align: center;
   .titel {
@@ -35,6 +35,7 @@
         background: $color-black-secondary;
 
       }
+
       &:after {
         @include centerLeft;
         bottom: px2rem(3px);

@@ -4,6 +4,7 @@
 import  {
   GET_USERINFO,
   RECORD_ADDRESS,
+  USER_AREA,
   BASE_ORDER,
   SAVE_GUIDE,
   SAVE_PLAY,
@@ -28,6 +29,13 @@ export default {
       }) {
       state.location = {latitude, longitude}
       local.set('location',{latitude, longitude})
+  },
+
+  [USER_AREA](state, {
+    area
+  }) {
+    state.userArea = area
+    local.set('userArea',area)
   },
   //选了日期玩法人数的订单
   [BASE_ORDER](state, baseOrder
