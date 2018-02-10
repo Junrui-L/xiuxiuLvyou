@@ -63,7 +63,7 @@
         </router-link>
       </li>
       <li class="nav-item fl">
-        <!--<router-link class="nav-link" to="/">-->
+        <!--<router-link class="nav-link" to="/oneStepGuide">-->
         <a class="nav-link" @click="tip">
           <img class="nav-img" src="../assets/img/home_one_xhdpi.png" alt="">
           <p class="nav-tit">一键选导</p>
@@ -214,7 +214,6 @@
 
 <script type="text/ecmascript-6">
   import {mapState, mapMutations} from 'vuex'
-  import * as types from '../store/mutation-types'
   import {homeData, userLogin} from '../http/getDate'
   import HoriSlider from '../components/HoriSlider.vue'
   import Slider from '../components/newSlider.vue'

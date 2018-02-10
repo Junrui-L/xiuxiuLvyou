@@ -92,3 +92,10 @@
 
 
 }
+.slide-in-enter-active, .slide-in-leave-active {
+  transition: all .5s;
+}
+.slide-in-enter, .slide-in-leave-active {
+  transform: translate3d(3rem, 0, 0);
+  opacity: 0;
+}

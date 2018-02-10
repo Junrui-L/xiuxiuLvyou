@@ -16,14 +16,6 @@
     background:#fff url("../../assets/img/logo.png") no-repeat px2rem(20px) center;
     background-size: px2rem(54px) px2rem(22px);
     z-index: 999;
-    //.logo-img {
-    //  display: block;
-    //  float: left;
-    //  margin-top: px2rem(2px);
-    //  width: px2rem(54px);
-    //  height: px2rem(22px);
-    //  margin-right: px2rem(20px);
-    //}
     .search-input {
       //float: left;
 
@@ -82,7 +74,6 @@
             background-color: $color-red;
           }
         }
-
 
       }
     }
@@ -143,8 +134,9 @@
   /*热门景点*/
   .hot-spots {
     width: 100%;
-    height: px2rem(232px);
+    //height: px2rem(232px);
     padding-top: px2rem(24px);
+    padding-bottom: px2rem(24px);
     margin-bottom: px2rem(10px);
     background: #fff;
     .spots-wrapper, .area-wrapper {

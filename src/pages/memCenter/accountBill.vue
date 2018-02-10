@@ -33,6 +33,7 @@
           <span class="balance fr">余额：{{item.lastBlance}}.00</span>
 
         </div>
+
       </div>
         <!--<router-link to = '/accountDetail' class="bill-item clearfix">-->
           <!--<div class="time fl">-->
@@ -139,6 +140,7 @@
           <!--<span class="balance fr">余额：101.00</span>-->
         <!--</li>-->
       <!--</ul>-->
+      <transition name="slide-in">
       <div class="account-detail" v-show="showDetail">
         <div class='head_bak'>
           <section class="head_goback"  @click="showDetail = false">
@@ -151,8 +153,9 @@
             <span class="title_text">账单详情</span>
           </section>
          </div>
-        <AccountDetail :billDetail = "billChoose"></AccountDetail>
+          <AccountDetail :billDetail = "billChoose"></AccountDetail>
       </div>
+      </transition>
     </div>
 </template>
 

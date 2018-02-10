@@ -33,8 +33,11 @@
         <input class="code-input" maxlength="6" type="password" v-model="tradeCode" />
         <button class="surePay" :disabled="canAccountPay" @click="accoutSurePay">确认</button>
       </div>
-
     </cube-popup>
+    <transition name="tip-scale">
+      <alert-tip v-if="showAlert" :showHide="showAlert" @closeTip="paySuccess" :alertText="alertText"></alert-tip>
+    </transition>
+
   </div>
 </template>
 
@@ -43,6 +46,7 @@
   import {payOrder,payOrderAccount, payOrderWx, payConfigWx } from '../../http/getDate'
   import TimeCount from '../../components/timeCountDown.vue'
   import PayRadio from '../../components/payRadio.vue'
+  import AlertTip from '../../components/alertTip.vue'
   import {localStore} from '../../config/myUtils'
   export default {
     data() {
@@ -53,15 +57,18 @@
         userAccount: '',
         orderNumber: '',
         configMap: '',
-        val: '2',
+        val: '1',
         tradeCode: '',
         canWxPay:false,
         canAccountPay: false,
+        showAlert: false,
+        alertText: ''
       }
     },
     components: {
       TimeCount,
-      PayRadio
+      PayRadio,
+      AlertTip
     },
     computed: {
       ...mapState([
@@ -151,11 +158,10 @@
               content: res.msg
             }).show()
           } else {
-            this.$createDialog({
-              type: 'alert',
-              title: '提示',
-              content: '支付成功'
-            }).show()
+            this.canAccountPay = true;
+            //支付成功
+            this.alertText = '支付成功';
+            this.showAlert = true;
           }
 
         })
@@ -286,14 +292,25 @@
           // window.location.href='http://www.youdingsoft.com/templates/h5/wxpay.html'
 
         } else if (this.val == 1) {
-         console.log('选择了账号余额支付。。')
-          this.showpoup();
+         console.log('选择了账号余额支付。。');
+         //输入支付密码
+         this.showpoup();
         }
+
 
       },
       getVal() {
         console.log('==切换了支付方式==')
         console.log(this.val)
+      },
+      closeTip(){
+        this.showAlert = false;
+        this.AlertTip = '';
+      },
+
+      paySuccess(){
+        // 支付成跳转更新订单状态
+        this.$router.push({name: 'order',query: {orderNum: this.$route.query.orn}});
       }
     }
   }

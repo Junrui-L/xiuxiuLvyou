@@ -249,8 +249,9 @@ export const updateOrder = (areasn) => $http.get('/siteH5/order.json?act=updateS
  *
  *取消订单
  * */
-export const cancelOrder = (areasn) => $http.get('/siteH5/order.json?act=cancel', {
-  areasn: areasn
+export const cancelOrder = (orderNo, status) => $http.get('/siteH5/order.json?act=cancel', {
+  ordernumber: orderNo,
+  status: status
 });
 
 

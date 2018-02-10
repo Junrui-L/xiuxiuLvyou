@@ -56,12 +56,14 @@
           }
         },
       watch: {
-        billDetail() {
+        billDetail(val) {
+
             this.init();
         }
       },
       methods: {
           init() {
+            console.log( this.billDetail)
             this.detail = this.billDetail;
           }
       }

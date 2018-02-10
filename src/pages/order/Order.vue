@@ -1,7 +1,7 @@
 <template>
   <div class="order">
     <template v-if="orderInfo.status == 0">
-      <div class="left-time">
+      <div class="header">
         <div class="order-state">
           已下单待付款
           <svg>
@@ -9,48 +9,188 @@
           </svg>
         </div>
         <TimeCount :endTime="endT" :nowTime="nowT" :countCallback="endLog"/>
-        <div class="btn-topay clearfix" v-if="orderInfo.status == 0">
-          <button class="cancel btn fl">取消定单</button>
-          <button class="confirm btn fr" @click = "goPay">去付款</button>
+        <div class="btn-topay clearfix">
+          <button class="cancel btn fl" @click="cancelOdr">取消定单</button>
+          <button class="confirm btn fr" @click="goPay">去付款</button>
         </div>
       </div>
     </template>
 
     <template v-else-if="orderInfo.status == 1">
-      已接单
+      <div class="header">
+        <div class="order-state">
+          已接单
+          <svg>
+            <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#arrow-right"></use>
+          </svg>
+        </div>
+        <!--<TimeCount :endTime="endT" :nowTime="nowT" :countCallback="endLog"/>-->
+        <div class="btn-topay clearfix">
+          <button class="backpay btn fl">申请退款</button>
+          <button class="backpay btn fr">确认到达</button>
+        </div>
+      </div>
     </template>
     <template v-else-if="orderInfo.status == 2">
-      已付款
+      <div class="header">
+        <div class="order-state">
+          已付款
+          <svg>
+            <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#arrow-right"></use>
+          </svg>
+        </div>
+        <!--<TimeCount :endTime="endT" :nowTime="nowT" :countCallback="endLog"/>-->
+        <div class="btn-topay clearfix">
+          <button class="backpay btn fl">申请退款</button>
+          <button class="backpay btn fr">确认到达</button>
+        </div>
+      </div>
     </template>
     <template v-else-if="orderInfo.status == 3">
       汇合中
+      <div class="header">
+        <div class="order-state">
+          已接单
+          <svg>
+            <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#arrow-right"></use>
+          </svg>
+        </div>
+        <!--<TimeCount :endTime="endT" :nowTime="nowT" :countCallback="endLog"/>-->
+        <div class="btn-topay clearfix">
+          <button class="backpay btn fl">申请退款</button>
+          <button class="backpay btn fr">确认到达</button>
+        </div>
+      </div>
     </template>
     <template v-else-if="orderInfo.status == 4">
       已接待
+      <div class="header">
+        <div class="order-state">
+          已接单
+          <svg>
+            <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#arrow-right"></use>
+          </svg>
+        </div>
+        <!--<TimeCount :endTime="endT" :nowTime="nowT" :countCallback="endLog"/>-->
+        <div class="btn-topay clearfix">
+          <button class="backpay btn fl">申请退款</button>
+          <button class="backpay btn fr">确认到达</button>
+        </div>
+      </div>
     </template>
     <template v-else-if="orderInfo.status == 5">
       出行中
+      <div class="header">
+        <div class="order-state">
+          已接单
+          <svg>
+            <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#arrow-right"></use>
+          </svg>
+        </div>
+        <!--<TimeCount :endTime="endT" :nowTime="nowT" :countCallback="endLog"/>-->
+        <div class="btn-topay clearfix">
+          <button class="backpay btn fl">申请退款</button>
+          <button class="backpay btn fr">确认到达</button>
+        </div>
+      </div>
     </template>
     <template v-else-if="orderInfo.status == 6">
       行程结束
+      <div class="header">
+        <div class="order-state">
+          已接单
+          <svg>
+            <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#arrow-right"></use>
+          </svg>
+        </div>
+        <!--<TimeCount :endTime="endT" :nowTime="nowT" :countCallback="endLog"/>-->
+        <div class="btn-topay clearfix">
+          <button class="backpay btn fl">申请退款</button>
+          <button class="backpay btn fr">确认到达</button>
+        </div>
+      </div>
     </template>
     <template v-else-if="orderInfo.status == 7">
       已评价
+      <div class="header">
+        <div class="order-state">
+          已接单
+          <svg>
+            <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#arrow-right"></use>
+          </svg>
+        </div>
+        <!--<TimeCount :endTime="endT" :nowTime="nowT" :countCallback="endLog"/>-->
+        <div class="btn-topay clearfix">
+          <button class="backpay btn fl">申请退款</button>
+          <button class="backpay btn fr">确认到达</button>
+        </div>
+      </div>
     </template>
     <template v-else-if="orderInfo.status == 8">
       已完成
     </template>
     <template v-else-if="orderInfo.status == 9">
-      已取消
+      <div class="header">
+        <div class="order-state">
+          已取消
+          <svg>
+            <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#arrow-right"></use>
+          </svg>
+        </div>
+        <!--<TimeCount :endTime="endT" :nowTime="nowT" :countCallback="endLog"/>-->
+        <div class="btn-topay clearfix">
+          <button class="backpay btn fl">申请退款</button>
+          <button class="backpay btn fr">确认到达</button>
+        </div>
+      </div>
     </template>
     <template v-else-if="orderInfo.status == 10">
-      退款处理中
+
+      <div class="header">
+        <div class="order-state">
+          退款处理中
+          <svg>
+            <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#arrow-right"></use>
+          </svg>
+        </div>
+        <!--<TimeCount :endTime="endT" :nowTime="nowT" :countCallback="endLog"/>-->
+        <div class="btn-topay clearfix">
+          <button class="backpay btn fl">申请退款</button>
+          <button class="backpay btn fr">确认到达</button>
+        </div>
+      </div>
     </template>
     <template v-else-if="orderInfo.status == 11">
-      已退款
+
+      <div class="header">
+        <div class="order-state">
+          已退款
+          <svg>
+            <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#arrow-right"></use>
+          </svg>
+        </div>
+        <!--<TimeCount :endTime="endT" :nowTime="nowT" :countCallback="endLog"/>-->
+        <div class="btn-topay clearfix">
+          <button class="backpay btn fl">申请退款</button>
+          <button class="backpay btn fr">确认到达</button>
+        </div>
+      </div>
     </template>
     <template v-else-if="orderInfo.status == 12">
-      已拒绝
+
+      <div class="header">
+        <div class="order-state">
+          已拒绝
+          <svg>
+            <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#arrow-right"></use>
+          </svg>
+        </div>
+        <!--<TimeCount :endTime="endT" :nowTime="nowT" :countCallback="endLog"/>-->
+        <div class="btn-topay clearfix">
+          <button class="backpay btn fl">申请退款</button>
+          <button class="backpay btn fr">确认到达</button>
+        </div>
+      </div>
     </template>
 
     <!--<div class="triping hide show">-->
@@ -96,8 +236,6 @@
           <template v-else-if="orderInfo.tymode === 2">
             (剃分模式)
           </template>
-
-
         </dd>
       </dl>
     </div>
@@ -153,7 +291,7 @@
 </template>
 
 <script type="text/ecmascript-6">
-  import {orderDetail} from "../../http/getDate";
+  import {orderDetail, cancelOrder} from "../../http/getDate";
   import {mapState, mapMutations} from 'vuex'
   import TimeCount from '../../components/timeCountDown.vue'
 
@@ -188,9 +326,20 @@
 
         })
       },
-      goPay(){
-        this.$router.push({name: 'prepayOrder',query: {orn: this.orderInfo.ordernumber}})
-        // this.$router.push({name: 'prepayOrder'})
+      goPay() {
+        this.$router.push({name: 'prepayOrder', query: {orn: this.orderInfo.ordernumber}})
+      },
+      cancelOdr() {
+        cancelOrder(this.orderNum, 1).then(res => {
+          console.log(res);
+          if (res.msg) {
+            this.$createDialog({
+              type: 'alert',
+              title: '提示',
+              content: res.msg
+            }).show()
+          }
+        })
       },
       endLog() {
         console.log('.....倒计时结束了.....')

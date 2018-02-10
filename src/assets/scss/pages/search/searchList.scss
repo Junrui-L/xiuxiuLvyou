@@ -50,6 +50,9 @@
       border-radius: px2rem(15px);
       outline: none;
     }
+    input[type=search]::-webkit-search-cancel-button{
+      -webkit-appearance: none;//此处只是去掉默认的小×
+    }
     .delete {
       @include centerTop;
       left: 78%;
@@ -114,6 +117,47 @@
     }
   }
 
+  .search_history {
+    .title_restaurant {
+      padding:0 px2rem(30px);
+      color: $color-black;
+      @include font-dpr(14px);
+      height: px2rem(35px);
+      line-height: px2rem(35px);
+    }
+    .history_list {
+      background: $white;
+      border-bottom: 1px solid $color-body-bg;
+      @include font-dpr(14px);
+      padding:0 px2rem(30px);
+      display: flex;
+      height: px2rem(50px);
+      line-height: px2rem(50px);
+      justify-content: space-between;
+      align-items: center;
+      .history_text {
+        display: inline-block;
+        width: 80%;
+        @include ellipsis;
+
+      }
+
+      .delete_icon {
+        @include setSize(px2rem(20px), px2rem(20px))
+      }
+
+
+
+    }
+    .clear_history {
+      background: $white;
+      color: $color-blue;
+      @include font-dpr(14px);
+      height: px2rem(50px);
+      line-height: px2rem(50px);
+      text-align: center;
+    }
+  }
 
 
 

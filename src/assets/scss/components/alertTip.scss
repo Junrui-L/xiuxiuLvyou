@@ -1,7 +1,7 @@
 @keyframes tipMove{
-  0%   { transform: scale(1) }
+  0%   { transform: scale(.3) }
   35%  { transform: scale(.8) }
-  70%  { transform: scale(1.1) }
+  70%  { transform: scale(1.2) }
   100% { transform: scale(1) }
 }
 .alet_container{
@@ -11,12 +11,11 @@
   right: 0;
   bottom: 0;
   z-index: 200;
-  background: rgba(255, 12, 23, .5);
+  background: rgba(5, 5, 5, .8);
 }
 .tip_text_container{
   @include center;
   width: 80%;
-  //animation: tipMove .4s ;
   background-color: #fff;
   border: 1px;
   padding-top: px2rem(20px);
@@ -24,30 +23,35 @@
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  border: 1px;
-  border-radius: px2rem(15px);
+  border-radius: px2rem(5px);
+  //animation: tipMove .4s ;
   .tip_icon{
-    @include setSize(px2rem(45px), px2rem(45px));
+    @include setSize(px2rem(55px), px2rem(55px));
     border: 3px solid #f8cb86;
     border-radius: 50%;
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
+    background-color: $color-red;
     span:nth-of-type(1){
-      @include setSize(px2rem(3px), px2rem(20px));
-      background-color: #f8cb86;
+      @include setSize(px2rem(15px), px2rem(28px));
+      border-right: 3px solid $white;
+      border-bottom: 3px solid $white;
+      background-color: $color-red;
+      @include transform(rotate(45deg));
+
     }
-    span:nth-of-type(2){
-      @include setSize(px2rem(5px), px2rem(5px));
-      border: 1px;
-      border-radius: 50%;
-      margin-top: .2rem;
-      background-color: #f8cb86;
-    }
+    //span:nth-of-type(2){
+    //  @include setSize(px2rem(5px), px2rem(5px));
+    //  border: 1px;
+    //  border-radius: 50%;
+    //  margin-top: .2rem;
+    //  background-color: #f8cb86;
+    //}
   }
   .tip_text{
-    line-height: .9rem;
+    line-height: px2rem(35px);
     text-align: center;
     margin-top: px2rem(20px);
     padding: 0 .4rem;
@@ -57,13 +61,22 @@
   .confrim{
     @include font-dpr(16px);
     font-weight: bold;
-    margin-top: px2rem(30px);
-    background-color: #4cd964;
+    margin-top: px2rem(20px);
+    color: $white;
+    background-color: $color-red;
     width: 100%;
     text-align: center;
-    line-height: 1.8rem;
+    line-height: px2rem(55px);
     border: 1px;
-    border-bottom-left-radius: 0.25rem;
-    border-bottom-right-radius: 0.25rem;
+    border-bottom-left-radius: px2rem(5px);
+    border-bottom-right-radius: px2rem(5px);
   }
+}
+
+.tip-scale-enter-active, .tip-scale-leave-active {
+  transition: all .5s;
+}
+.tip-scale-enter, .tip-scale-leave-active {
+  transform: translate3d(2rem, 0, 0);
+  opacity: 0;
 }
