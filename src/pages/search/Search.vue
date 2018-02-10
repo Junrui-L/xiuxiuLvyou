@@ -14,79 +14,27 @@
     <!-- 切换按钮 -->
     <section class="change_show_type" ref="chooseType">
       <div>
-        <span :class='{activity_show: changeShowType =="area"}' @click="changeShowType='area'">区域</span>
+        <span :class='{activity_show: changeShowType =="area"}' @click="changeType('area')">区域</span>
       </div>
       <div>
-        <span :class='{activity_show: changeShowType =="spots"}' @click="changeShowType='spots'">景点</span>
+        <span :class='{activity_show: changeShowType =="spots"}' @click="changeType('spots')">景点</span>
       </div>
     </section>
-    <div class="area_content" v-if="changeShowType == 'area'">
+
+    <div class="area_content">
       <div class="menu_container">
         <section class="area_left wrapper_menu" id="wrapper_menu" ref="wrapperMenu">
           <ul class="menu-wrap">
-            <li v-for="(item, index) in areaList" :key="index" :class="{active_ia: index == menuIndex}"
-                @click="chooseMenu(index)">
-                {{ item.name }}
-            </li>
-          </ul>
-        </section>
-
-        <router-view></router-view>
-
-        <!--<section class="area_right" ref="menuList">-->
-        <!--<ul class="area-menu">-->
-        <!--<li class="area-wrapper">-->
-
-        <!--<section class="single_commodity sub-cate">-->
-        <!--<h3 class="sub_title type_title">热门</h3>-->
-        <!--<ul class="spots clearfix">-->
-        <!--<li class="spots-item fl" v-for=" (n, index) in area.children " :key="index">-->
-        <!--<router-link class="nav-link" :to="{path: '/scenicRegion' , query: { citySn: n.areasn}}">-->
-        <!--<img v-lazy="baseUrl + n.cityimg" alt="">-->
-        <!--<p>{{ n.name }}</p>-->
-        <!--</router-link>-->
-        <!--</li>-->
-        <!--</ul>-->
-        <!--</section>-->
-        <!--</li>-->
-        <!--</ul>-->
-        <!--</section>-->
-
-      </div>
-    </div>
-    <!-- 区域景点 -->
-    <div class="spots_content"
-         v-if="changeShowType == 'spots'">
-      <div class="menu_container">
-        <section class="area_left wrapper_menu" id="wrapper_menu" ref="wrapperMenu">
-          <ul class="menu-wrap">
-            <li v-for="(item, index) in areaList" :key="index" :class="{active_ia: index == menuIndex}"
+            <li v-for="(item, index) in showList" :key="index" :class="{active_ia: index == menuIndex}"
                 @click="chooseMenu(index)">
               {{ item.name }}
             </li>
           </ul>
         </section>
-
         <router-view></router-view>
-
-        <!--<section class="area_right" ref="menuList">-->
-        <!--<ul class="area-menu">-->
-        <!--<li class="area-wrapper">-->
-
-        <!--<section class="single_commodity sub-cate">-->
-        <!--<h3 class="sub_title type_title">热门</h3>-->
-        <!--<ul class="spots clearfix">-->
-        <!--<li class="spots-item fl" v-for=" (n, index) in areaList " :key="index">-->
-        <!--<img :src="baseUrl + n.cityimg" alt="">-->
-        <!--<p>{{n.name}}</p>-->
-        <!--</li>-->
-        <!--</ul>-->
-        <!--</section>-->
-        <!--</li>-->
-        <!--</ul>-->
-        <!--</section>-->
       </div>
     </div>
+
     <!-- 评价 -->
     <section class="business_rating" v-show="changeShowType == 'rating'">
       <div class="total_evaluate clear">
@@ -118,8 +66,8 @@
         menuIndex: 0, //已选菜单索引值，默认为0
         menuIndexChange: true,//解决选中index时，scroll监听事件重复判断设置index的bug
         shopListTop: [], //省列表的高度集合
-        areaList: [],
-        area: [],
+        areaList: [], //区域列表
+        spotsList: [], //景点列表
         windowHeight: '',
         commodity: [ // 商品
           {
@@ -506,7 +454,7 @@
               }
             ]
           }
-        ]
+        ],
       }
     },
     components: {
@@ -520,6 +468,17 @@
     },
     beforeDestroy () {
 //            window.removeEventListener('resize', this.watchHei, false);
+    },
+    computed: {
+      //右侧应该显示的列表
+      'showList': function () {
+        if (this.changeShowType === 'area') {
+          return this.areaList
+        } else if (this.changeShowType === 'spots') {
+          // todo 需要修改
+          return this.areaList
+        }
+      }
     },
     watch: { // 注意！！！！   watch对于对象来说deep=true也只能监控对象原有属性，新增加的无效！！！！
       // 监听showMe变化，在DOM更新后执行nextTick
@@ -545,20 +504,19 @@
         this.getCitySpots('110100');
         this.showLoading = false
       },
+      changeType(str){
+        this.changeShowType = str
+        this.menuIndex = 0
+      },
       getmenuList(val) {
-
         cityArea(val).then(res => {
           console.log(res);
           this.areaList = JSON.parse(JSON.stringify(res));
-          console.log(this.areaList)
-          this.area = res[0]
+//          this.area = res[0]
           //获取全国景区列表
           // this.citySenic = res.cityMap;
           // this.senicList = res.scenicspotList;
-
         })
-
-
       },
       getCitySpots (sn) {
         cityScenicspots(sn).then(res => {
@@ -608,9 +566,9 @@
           })
         })
       },
-      //点击左侧食品列表标题，相应列表移动到最顶层
+      // todo 需要根据changeShowType 分别判断进入区域和景点 点击左侧食品列表标题，相应列表移动到最顶层
       chooseMenu(index){
-        this.$router.push({ path: `/search/${this.areaList[index].areasn}`})
+        this.$router.replace({path: `/search/${this.areaList[index].areasn}`})
         this.menuIndex = index;
         //menuIndexChange解决运动时listenScroll依然监听的bug
 //        this.menuIndexChange = false;

@@ -72,6 +72,10 @@
     margin-top: px2rem(10px);
     .order-list {
       margin-top: px2rem(10px);
+      .no_data_text{
+        @include font-dpr(12px);
+        text-align: center;
+      }
       .order-list-item {
         height: px2rem(260px);
         background-color: #ffffff;

@@ -320,7 +320,7 @@
         console.log('获取了首页数据')
       },
       goSearch() {
-        this.$router.push({path: '/search'})
+        this.$router.push({path: '/search/110000'}) //
       },
       changePage(current) {
         // console.log('当前轮播图序号为:' + current)

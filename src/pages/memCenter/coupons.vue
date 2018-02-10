@@ -9,14 +9,15 @@
       </li>
     </ul>
     <div class="coupons-wrap">
+      <p class="no_data_text" v-if="couponsList.length===0">暂无数据</p>
       <ul class="coupon-ul">
         <li class="coupon-item" v-for="cou in couponsList">
           <div class="top-info">
-            <div class="info fl">
-              <p class="unit">¥&nbsp;<span class="money">8</span></p>
-              <span class="desc">优惠劵</span>
+            <div class="info fl change" :class="currentTab=='notuse' ? 'red' : '' ">
+              <p class="unit">¥&nbsp;<span class="money red">8</span></p>
+              <span class="desc red">优惠劵</span>
             </div>
-            <div class="shuoming fl">
+            <div class="shuoming fl" :class="currentTab!='notuse' ? 'nouseful' : '' ">
               <p class="name">景区[想]抵扣劵</p>
               <p class="date">有效时间:2017-02-12</p>
             </div>
@@ -29,7 +30,6 @@
         </li>
       </ul>
     </div>
-
     <!--我的优惠券-->
   </div>
 </template>
@@ -44,14 +44,14 @@
         currentTab: 'outdate',// 当前选择的Tab,
         couponsList: [1,1,1,1,1,1],// 优惠券列表
         tomake: '',//是否可用(必填00未过期可用，1已过期不可用)
-        mapObj: {notuse: 0, outdate: 1, haveuse: ''}
+        mapObj: {notuse: 0, outdate: 1, haveuse: 2}
       }
     },
     methods: {
       // 获取优惠券列表
       getCouponsList() {
         getCouponsList(this.tomake).then(res => {
-          this.couponsList = res.data
+          //this.couponsList = res.data
         })
       },
       // 切换Tab
