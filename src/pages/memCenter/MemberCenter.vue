@@ -45,7 +45,7 @@
         </li>
       </ul>
       <div class="order-list">
-
+        <p class="no_data_text" v-if="orderList.length===0">暂无数据</p>
         <div class="order-list-item" v-for="v in orderList">
           <p class="fl h44">出行时间：{{v.godate}}</p>
           <p class="fr  h44 orderstate">{{v.status | orderStateText}}</p>
@@ -127,6 +127,7 @@
       toPay() {
 
       }
+      // TODO 滑动到底部加载下一页
     },
   }
 </script>

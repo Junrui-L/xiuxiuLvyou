@@ -47,7 +47,7 @@ const router = new Router({
       children: [{
         path: ':id',
         component: SearchContentList,
-        meta: {keepAlive: true}
+        // meta: {keepAlive: true}
       }]
     },
     {
