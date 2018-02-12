@@ -1,4 +1,13 @@
 .favorites {
+  .select-title {
+    .header-title {
+      @include font-dpr(18px);
+      line-height: px2rem(44px);
+      vertical-align: middle;
+      display: inline-block;
+      height: px2rem(44px);
+    }
+  }
   .tab-wrap {
     height: px2rem(44px);
     .tab-item {

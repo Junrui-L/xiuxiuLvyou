@@ -1,5 +1,12 @@
 <template>
   <div class="favorites">
+    <header>
+      <HeadTop go-back='true' :headBg="headBg">
+        <div slot="select-title" class="select-title" >
+          <span class="header-title">我的收藏</span>
+        </div>
+      </HeadTop>
+    </header>
     <ul class="tab-wrap">
       <li class="tab-item" :class="currentTab=='guide' && 'active' " @click="clickTabItem('guide')"><span>向导</span></li>
       <li class="tab-item" :class="currentTab=='playway'&& 'active'" @click="clickTabItem('playway')"><span>玩法</span>
@@ -82,15 +89,21 @@
 </template>
 
 <script>
+  import HeadTop from '../../components/HeadTop.vue'
+
   export default {
     name: "my-favorites",
     data() {
       return {
+        headBg: true,
         currentTab: 'playway',// 当前选择的Tab,
         guideList: [1, 2, 2, 2, 2, 2],// 向导列表
         playwayList: [1, 1, 1, 1, 1, 1],//玩法列表
         scenicList: [1, 1, 1, 1, 1, 1, 1, 1],//景点列表
       }
+    },
+    components: {
+      HeadTop
     },
     methods: {
       // 获取向导列表

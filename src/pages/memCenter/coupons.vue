@@ -1,5 +1,13 @@
 <template>
   <div class="coupons">
+    <header>
+      <HeadTop go-back='true' :headBg="headBg">
+        <div slot="select-title" class="select-title" >
+          <span class="header-title">我的优惠券</span>
+        </div>
+      </HeadTop>
+    </header>
+
     <ul class="tab-wrap">
       <li class="tab-item" :class="currentTab=='notuse' && 'active' " @click="clickTabItem('notuse')"><span>未使用</span>
       </li>
@@ -36,16 +44,21 @@
 
 <script>
   import {getCouponsList} from '../../http/getDate'
+  import HeadTop from '../../components/HeadTop.vue'
 
   export default {
     name: "coupons",
     data() {
       return {
+        headBg: true,
         currentTab: 'outdate',// 当前选择的Tab,
-        couponsList: [1,1,1,1,1,1],// 优惠券列表
+        couponsList: [1, 1, 1, 1, 1, 1],// 优惠券列表
         tomake: '',//是否可用(必填00未过期可用，1已过期不可用)
         mapObj: {notuse: 0, outdate: 1, haveuse: 2}
       }
+    },
+    components: {
+      HeadTop
     },
     methods: {
       // 获取优惠券列表
