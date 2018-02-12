@@ -72,7 +72,7 @@
     margin-top: px2rem(10px);
     .order-list {
       margin-top: px2rem(10px);
-      .no_data_text{
+      .no_data_text {
         @include font-dpr(12px);
         text-align: center;
       }
@@ -81,7 +81,7 @@
         background-color: #ffffff;
         box-shadow: 0 0 0 0 #E8E8E8;
         padding: 0px px2rem(15px);
-        margin-bottom:px2rem(10px);
+        margin-bottom: px2rem(10px);
         .h44 {
           height: px2rem(44px);
           line-height: px2rem(44px);
@@ -169,6 +169,13 @@
     display: inline-block;
     border-bottom: 2px solid #FF5A5F;
     color: #FF5A5F;
+  }
+  .load-more {
+    height: px2rem(16px);
+    line-height: px2rem(16px);
+    @include font-dpr(16px);
+    text-align: center;
+    margin-bottom: px2rem(10px);
   }
 
 }

@@ -68,8 +68,10 @@
             <button class="order-handle-btn">取消订单</button>
           </p>
         </div>
-
       </div>
+
+      <p class="load-more" v-show="!nomore" @click="loadMore">加载更多</p>
+      <p class="load-more" v-show="nomore">没有更多了</p>
     </div>
 
   </div>
@@ -87,11 +89,12 @@
         currentTab: 'doing',// 当前选中的订单tab
         orderList: [1, 2, 4, 3, 4],// 订单列表
         tabMap: {'all': 0, 'waitpay': 1, 'doing': 2, 'waitEvaluate': 3, 'haveCancle': 4},
-        page: 1
+        page: 1,
+        nomore: false
       }
     },
     mounted() {
-      userLogin('15118252171', '123456').then(res=> {
+      userLogin('15118252171', '123456').then(res => {
         console.log('---登录----')
         console.log(res)
         this.getUserInfo();
@@ -115,6 +118,7 @@
       clickOrderStateTab(currentTab) {
         this.currentTab = currentTab
         this.page = 1
+        this.nomore = false
         this.getOrderList()
       },
       // 取消订单
@@ -126,8 +130,18 @@
       // 去付款
       toPay() {
 
+      },
+      // 加载更多
+      loadMore() {
+        this.page++
+        getMyOrderList({page: this.page, status: this.tabMap[this.currentTab]}).then(res => {
+          if (res.list.length === 0) {
+            this.nomore = true
+          } else {
+            this.orderList.push(...res.list)
+          }
+        })
       }
-      // TODO 滑动到底部加载下一页
     },
   }
 </script>
