@@ -3,6 +3,7 @@ import Router from 'vue-router'
 
 //分页面异步加载文件
 const Home = r => require.ensure([], () => r(require('@/pages/Home')), 'home')
+const Login = r => require.ensure([], () => r(require('@/pages/memCenter/Login')), 'login')
 //景区景点
 const ScenicRegion = r => require.ensure([], () => r(require('@/pages/scenicRegion/ScenicRegion')), 'scenicRegion')
 const ScenicDetail = r => require.ensure([], () => r(require('@/pages/scenicRegion/ScenicDetail')), 'scenicDetail')
@@ -37,6 +38,12 @@ const router = new Router({
       path: '/',
       name: 'index',
       component: Home,
+      // meta: { keepAlive: true }
+    },
+    {
+      path: '/login',
+      name: 'login',
+      component: Login,
       // meta: { keepAlive: true }
     },
     {

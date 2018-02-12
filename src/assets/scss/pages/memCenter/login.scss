@@ -1,0 +1,65 @@
+.login {
+  padding: px2rem(30px) px2rem(20px);
+  .pay-tit {
+    text-align: center;
+    font-size: 0;
+    margin-bottom: px2rem(30px);
+    .xiu {
+      display: inline-block;
+      margin-right: px2rem(10px);
+      @include setSize(px2rem(28px), px2rem(28px));
+      @include font-dpr(16px);
+      line-height: px2rem(28px);
+      background: $color-red;
+      color: $white;
+      border-radius: 50%;
+    }
+    .tit {
+      display: inline-block;
+      height: px2rem(28px);
+      //@include setSize(px2rem(100px), px2rem(28px));
+      @include font-dpr(16px);
+      line-height: px2rem(28px);
+      color: $color-black;
+
+    }
+
+  }
+  .input-area {
+    margin-bottom: px2rem(30px);
+  }
+  .input-wrapper {
+
+    line-height: px2rem(44px);
+    border-bottom: 1px solid $color-body-bg;
+    background: $white;
+  }
+
+  .input-txt {
+    @include setSize(100%, px2rem(44px));
+    border: 0;
+    @include font-dpr(14px);
+    color: $color-black;
+    padding:px2rem(10px) px2rem(15px) px2rem(10px) px2rem(44px);
+  }
+  .phone {
+    background: $white url(../../assets/img/phone.png) no-repeat px2rem(14px) center;
+    background-size: px2rem(16px) px2rem(22px);
+  }
+
+  .pwd {
+    background: $white url(../../assets/img/password.png) no-repeat px2rem(14px) center;
+    background-size: px2rem(16px) px2rem(22px);
+  }
+
+
+  .to-register {
+    @include setButton(100%, px2rem(44px), $white, $gray, px2rem(3px));
+  }
+
+  button.active {
+    @include setButton(100%, px2rem(44px), $white, $color-red, px2rem(3px));
+  }
+
+}
+

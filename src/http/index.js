@@ -66,9 +66,9 @@ export default ((url = '', data = {}) => {
                     })
                     .then(function (response) {
                       // console.log(response.data)
-                        if (response.data.code == 1010) {
-                            console.log('没有权限')
-                            // router.push({ path: '/login' })
+                        if (response.data.code == 1101) {
+                            console.log('登录超时')
+                            router.push({ path: '/login' })
                         } else if (response.data.code == 200) {
                           console.log('接口200正常返回')
                             resolve(response.data.data)
@@ -94,7 +94,8 @@ export default ((url = '', data = {}) => {
                       // console.log(response.data)
                         if (response.data.code == 1101) {
                             console.log('登录超时')
-                          location.href= response.data.redirect;
+                            router.push({path:'/login'})
+                          // location.href= response.data.redirect;
                         } else if (response.data.code == 200) {
                             console.log('接口200正常返回')
                             resolve(response.data.data)

@@ -1,0 +1,65 @@
+.cancel_box {
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  z-index: 100;
+  .mask {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background-color: #25262d;
+    opacity: .4;
+  }
+  .cancel-wraper {
+    @include center;
+    width: 80%;
+    border-radius: px2rem(5px);
+    max-width: 100%;
+    text-align: center;
+  }
+  .cancel_container {
+    background: $white;
+    border-radius: px2rem(5px);
+    .title {
+      @include setSize(100%, px2rem(45px));
+
+      line-height: px2rem(45px);
+      @include font-dpr(14px);
+      color: $color-black;
+
+    }
+
+    .cancel_input {
+      padding: px2rem(10px) 0;
+      border-bottom: 1px solid $color-black-secondary ;
+      .cancel_txt {
+        padding: px2rem(10px);
+        width: 80%;
+        border: none;
+        margin: 0 auto;
+        border: 1px solid $color-black-secondary;
+        @include font-dpr(14px);
+        border-radius: px2rem(5px);
+      }
+    }
+
+    .confirm_btn {
+      @include setButton(50%, px2rem(45px), $color-black, $white, 0);
+
+      @include font-dpr(14px);
+    }
+
+    .confirm {
+      @include setButton(50%, px2rem(45px), $color-red, $white, 0);
+      border-left: 1px solid $color-black-secondary;
+    }
+  }
+
+
+
+
+
+}

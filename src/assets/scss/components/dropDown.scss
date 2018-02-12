@@ -17,10 +17,9 @@
     z-index: 1000;
     .iv-dropDown-nav{
       float: left;
-      @include setSize(75%, px2rem(44px));
+      width: 75%;
       line-height:  px2rem(44px);
       text-align: center;
-
       position: relative;
       z-index: 100;
       border-bottom:1px solid $gray;
@@ -30,27 +29,28 @@
       li{
         @include flex(1);
         @include ellipsis();
-
+        @include font-dpr(14px);
+        line-height: px2rem(44px);
         position: relative;
-        padding: 0 12px;
+        padding: 0 px2rem(12px);
         &.cur{
           color : $orange;
           &:after{
-            border-color:transparent transparent transparent $orange;
+            border-color:$orange transparent transparent transparent;
           }
         }
 
         &:after{
           position: absolute;
-          bottom: 2px;
-          right: 4px;
+          top: 50%;
+          right: px2rem(3px);
           content: '';
           display: block;
           width: 0;
-          border-width: 6px;
+          border-width: px2rem(6px);
           border-style:solid;
-          border-color:transparent transparent transparent $gray;
-          @include transform(rotate(45deg));
+          border-color:$gray transparent  transparent  transparent ;
+          //@include transform(rotate(45deg));
         }
         &:before{
           content: '';
@@ -72,25 +72,26 @@
       width: 25%;
       line-height: px2rem(44px);
       text-align: center;
+      border-bottom:1px solid $gray;
       position: relative;
+      @include font-dpr(14px);
       &.cur{
         color : $orange;
         &:after{
-          border-color:transparent transparent transparent $orange;
+          border-color:$orange transparent transparent transparent ;
         }
       }
 
       &:after{
         position: absolute;
-        bottom: 2px;
-        right: 4px;
+        top: 50%;
+        right: px2rem(3px);
         content: '';
         display: block;
         width: 0;
-        border-width: 6px;
+        border-width: px2rem(6px);
         border-style:solid;
-        border-color:transparent transparent transparent $gray;
-        @include transform(rotate(45deg));
+        border-color:$gray transparent transparent transparent ;
       }
       &:before{
         content: '';

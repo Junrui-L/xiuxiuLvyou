@@ -44,7 +44,7 @@
       <switch-option name="开启团游" @update:value="onGroup" :value="istuan == 0 ? false : true"></switch-option>
     </div>
     <div class="notify group-notify">
-      <p>导游优惠模式：固定折扣模式，7，8z折</p>
+      <p>导游优惠模式：固定折扣模式，7，8折</p>
       <p>注意：团游必须有2个订单才生效，价格由最终团游数决定。而差价会在旅行结束后退到您的个人账户中。</p>
     </div>
     <div class="tickets">

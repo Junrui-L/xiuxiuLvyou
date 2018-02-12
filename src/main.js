@@ -2,7 +2,6 @@
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 import Vue from 'vue'
 import App from './App'
-import router from './router'
 import store from './store/index'
 import http from './http'               //请求数据
 import './config/setView'               //不同dpr手机兼容
@@ -18,6 +17,7 @@ Vue.use(Cube);
 
 import './config/filter' //过滤器
 window.createAPI = Cube.createAPI;
+import router from './router'
 //vue-lasyload or with options
 Vue.use(VueLazyload, {
   preLoad: 1.3,

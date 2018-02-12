@@ -58,7 +58,7 @@
           </div>
         </div>
         <div class="btn-wrapper" v-show="proShow">
-          <button class="re fl" @click="resetCon">取消</button>
+          <button class="re fl" @click="resetCon">重置</button>
           <button class="sure fr" @click="sureProSelect">确定</button>
         </div>
       </div>

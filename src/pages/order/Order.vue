@@ -1,6 +1,6 @@
 <template>
   <div class="order">
-    <template v-if="orderInfo.status == 0">
+    <template v-if="orderInfo.status == 9">
       <div class="header">
         <div class="order-state">
           已下单待接单
@@ -10,8 +10,8 @@
         </div>
         <TimeCountDown :endTime="endT" :nowTime="nowT" :countCallback="endLog"/>
         <div class="btn-topay clearfix">
-          <button class="cancel btn fl" @click="cancelOdr">取消定单</button>
-          <!--<button class="confirm btn fr" @click="goPay">联系导游</button>-->
+          <button class="cancel btn fl" @click="showCancel = true">取消定单</button>
+          <button class="confirm btn fr" @click="waitGuide">联系向导</button>
         </div>
       </div>
     </template>
@@ -56,8 +56,8 @@
         </div>
         <!--<TimeCount :endTime="endT" :nowTime="nowT" :countCallback="endLog"/>-->
         <div class="btn-topay clearfix">
-          <button class="backpay btn fl">申请退款</button>
-          <button class="backpay btn fr">确认到达</button>
+          <button class="backpay btn fl">已接待</button>
+          <button class="backpay btn fr">已出行</button>
         </div>
       </div>
     </template>
@@ -65,15 +65,14 @@
 
       <div class="header">
         <div class="order-state">
-          已接待
+          已接待准备出行中
           <svg>
             <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#arrow-right"></use>
           </svg>
         </div>
         <!--<TimeCount :endTime="endT" :nowTime="nowT" :countCallback="endLog"/>-->
         <div class="btn-topay clearfix">
-          <button class="backpay btn fl">申请退款</button>
-          <button class="backpay btn fr">确认到达</button>
+          <button class="backpay btn fr">已出行</button>
         </div>
       </div>
     </template>
@@ -88,8 +87,8 @@
         </div>
         <!--<TimeCount :endTime="endT" :nowTime="nowT" :countCallback="endLog"/>-->
         <div class="btn-topay clearfix">
-          <button class="backpay btn fl">申请退款</button>
-          <button class="backpay btn fr">确认到达</button>
+
+          <button class="backpay btn fr">出行结束</button>
         </div>
       </div>
     </template>
@@ -103,9 +102,10 @@
           </svg>
         </div>
         <!--<TimeCount :endTime="endT" :nowTime="nowT" :countCallback="endLog"/>-->
-        <div class="btn-topay clearfix">
+        <div class="btn-triped clearfix">
           <button class="backpay btn fl">申请退款</button>
-          <button class="backpay btn fr">确认到达</button>
+          <button class="onemore btn ">再游一场</button>
+          <button class="evalu btn fr">评价</button>
         </div>
       </div>
     </template>
@@ -121,25 +121,28 @@
         <!--<TimeCount :endTime="endT" :nowTime="nowT" :countCallback="endLog"/>-->
         <div class="btn-topay clearfix">
           <button class="backpay btn fl">申请退款</button>
-          <button class="backpay btn fr">确认到达</button>
+          <button class="backpay btn fr">再游一场</button>
         </div>
       </div>
     </template>
     <template v-else-if="orderInfo.status == 8">
-
+      <div class="header">
+        <div class="order-state">
+          行程已完成
+        </div>
+        <div class="btn-triped btn-topay clearfix">
+          <button class="backpay btn fl">申请退款</button>
+          <button class="backpay btn fr">再游一场</button>
+        </div>
+      </div>
     </template>
     <template v-else-if="orderInfo.status == 9">
       <div class="header">
         <div class="order-state">
-          已完成
-          <svg>
-            <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#arrow-right"></use>
-          </svg>
+          已取消
         </div>
-        <!--<TimeCount :endTime="endT" :nowTime="nowT" :countCallback="endLog"/>-->
-        <div class="btn-topay clearfix">
-          <button class="backpay btn fl">申请退款</button>
-          <button class="backpay btn fr">确认到达</button>
+        <div class="btn-triped  clearfix">
+          <button class="backpay btn ">重新下单</button>
         </div>
       </div>
     </template>
@@ -169,8 +172,7 @@
           </svg>
         </div>
         <div class="btn-topay clearfix">
-          <button class="backpay btn fl">申请退款</button>
-          <button class="backpay btn fr">确认到达</button>
+          <button class="backpay btn ">重新下单</button>
         </div>
       </div>
     </template>
@@ -184,7 +186,6 @@
         </div>
         <div class="btn-topay clearfix">
           <button class="backpay btn fl">申请退款</button>
-          <button class="backpay btn fr">确认到达</button>
         </div>
       </div>
     </template>
@@ -283,26 +284,32 @@
       <li class="check-item clearfix">团游优惠 <span class="group-count fr">团游优惠埃里克健身卡收代理费开数据库费啦jflsf啥地方</span></li>
     </ul>
     <div class="foot-blank"></div>
+    <CancelBox v-if="showCancel" confirmText="请输入取消原因" :showCancelBox = "showCancel" @closeTip = ' shows '  @confirmCancel="cancelOdr"></CancelBox>
+
   </div>
 </template>
 
 <script type="text/ecmascript-6">
-  import {orderDetail, cancelOrder} from "../../http/getDate";
+  import {orderDetail, updateOrder,cancelOrder} from "../../http/getDate";
   import {mapState, mapMutations} from 'vuex'
   import TimeCountDown from '../../components/timeCountDown.vue'
   import TimeCountUp from  '../../components/timeCountUp.vue'
+  import CancelBox from '../../components/cancelBox.vue'
   export default {
     data() {
       return {
         orderNum: this.$route.query.orderNum,
         endT: '2018-01-31 21:55:00',
         nowT: '2018-01-09 19:50:00',
-        orderInfo: ''
+        orderInfo: '',
+        cancelR: '',
+        showCancel: false
       }
     },
     components: {
       TimeCountDown,
-      TimeCountUp
+      TimeCountUp,
+      CancelBox
     },
     computed: {
       ...mapState([
@@ -323,11 +330,24 @@
 
         })
       },
+      waitGuide(){
+        this.$createDialog({
+          type: 'alert',
+          title: '提示',
+          content: '请等待向导接单'
+        }).show()
+      },
       goPay() {
         this.$router.push({name: 'prepayOrder', query: {orn: this.orderInfo.ordernumber}})
       },
-      cancelOdr() {
-        cancelOrder(this.orderNum, 1).then(res => {
+      shows(msg){
+        this.showCancel = false;
+        // console.log(this.showCancel)
+
+      },
+      cancelOdr(msg) {
+        this.showCancel = false;
+        cancelOrder(this.orderNum, msg).then(res => {
           console.log(res);
           if (res.msg) {
             this.$createDialog({
@@ -335,6 +355,31 @@
               title: '提示',
               content: res.msg
             }).show()
+          } else {
+            this.$createDialog({
+              type: 'alert',
+              title: '提示',
+              content: '取消成功'
+            }).show()
+          }
+        })
+      },
+      updateOrder(state) {
+        updateOrder(this.orderNum, state).then(res => {
+          if (res.msg) {
+            this.$createDialog({
+              type: 'alert',
+              title: '提示',
+              content: res.msg
+            }).show()
+          } else {
+            console.log('状态修改成功，刷新当前页面！')
+            // this.$createDialog({
+            //   type: 'alert',
+            //   title: '提示',
+            //   content: '状态修改成功'
+            // }).show()
+            this.$router.go(0)
           }
         })
       },

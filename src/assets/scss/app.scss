@@ -14,6 +14,7 @@
 @import "components/evaluateStar";
 @import "components/headTop";
 @import "components/alertTip";
+@import "components/cancelBox";
 @import "components/dropDown";
 @import "components/timerCountDown";
 @import "components/swiper";
@@ -62,6 +63,7 @@
 
 /*用户个人中心*/
 @import "pages/memCenter/memberCenter";
+@import "pages/memCenter/login";
 @import "pages/memCenter/accountBill";
 
 @import "pages/memCenter/coupons";

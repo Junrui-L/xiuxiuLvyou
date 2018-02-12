@@ -250,13 +250,14 @@
 </template>
 
 <script type="text/ecmascript-6">
+    import Vue from 'vue'
     import {mapState, mapMutations} from 'vuex'
     import {guideDetails, playlistDetail, loadPackage} from '../../http/getDate'
     import HeadTop from '../../components/HeadTop.vue'
     import EvaluateStar from '../../components/EvaluateStar.vue'
     import DatePicker from '../../components/date-picker'
     import {peopleNum} from '../../config/datajs'
-    import Vue from 'vue'
+
     createAPI(Vue, DatePicker, ['select', 'cancel'], false)
     let  peoledata = peopleNum
     export default {
@@ -379,6 +380,8 @@
           },
           selecTimetHandle(selectedVal, selectedIndex, selectedText) {
             this.travalDate = {value: selectedVal.join('-'), txt: selectedText.join('')}
+            console.log(this.travalDate )
+
             this.priceList(this.travalDate.value, this.scenicspot, this.accountId )
           },
           selectMealHandle(selectedVal, selectedIndex, selectedText) {

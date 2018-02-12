@@ -90,7 +90,7 @@
         text-overflow: ellipsis;
         -webkit-box-orient: vertical;
         -webkit-line-clamp: 2;/*第2行出现省略号*/
-
+        line-height: px2rem(20px);
       }
 
     }
