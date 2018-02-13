@@ -313,7 +313,7 @@
           ...mapMutations(['GET_USERINFO','RECORD_ADDRESS' ,'BASE_ORDER','SAVE_GUIDE','SAVE_PLAY','SAVE_PRICEPACKAGE']),
           getData() {
             guideDetails(this.scenicspot, this.accountId).then( res=> {
-              console.log('----景区向导玩法详情-------')
+              console.log('----景区id查找向导玩法详情-------')
               console.log(res);
 
               this.plays = res.play;
@@ -332,7 +332,7 @@
           },
           playListDetail(playId, accountId){
             playlistDetail(playId, accountId).then(res => {
-              console.log('--------其他玩法详情------------')
+              console.log('--------向导玩法id查找玩法详情------------')
               console.log(res);
               this.plays = res.play;
               this.guide = res.guide;

@@ -216,7 +216,6 @@
   import {mapState, mapMutations} from 'vuex'
   import {homeData,getUserArea, userLogin, ConfigWx} from '../http/getDate'
   import HoriSlider from '../components/HoriSlider.vue'
-  import Slider from '../components/newSlider.vue'
   import EvaluateStar from '../components/EvaluateStar.vue'
   import AlertTip from '../components/alertTip.vue'
   import Swiper from '../components/Swiper.vue'
@@ -252,7 +251,6 @@
     },
     components: {
       HoriSlider,
-      Slider,
       EvaluateStar,
       AlertTip,
       Swiper,

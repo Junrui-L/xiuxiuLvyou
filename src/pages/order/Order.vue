@@ -1,6 +1,6 @@
 <template>
   <div class="order">
-    <template v-if="orderInfo.status == 9">
+    <template v-if="orderInfo.status == 0">
       <div class="header">
         <div class="order-state">
           已下单待接单
@@ -31,22 +31,22 @@
         </div>
       </div>
     </template>
-    <template v-else-if="orderInfo.status == 2">
+   <!-- <template v-else-if="orderInfo.status == 2">
       <div class="header">
         <div class="order-state">
-          已付款
+          已付款汇合中
           <svg>
             <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#arrow-right"></use>
           </svg>
         </div>
-        <!--<TimeCount :endTime="endT" :nowTime="nowT" :countCallback="endLog"/>-->
+        &lt;!&ndash;<TimeCount :endTime="endT" :nowTime="nowT" :countCallback="endLog"/>&ndash;&gt;
         <div class="btn-topay clearfix">
-          <button class="backpay btn fl">申请退款</button>
-          <button class="backpay btn fr">确认到达</button>
+          <button class="backpay btn fl">已接待</button>
+          <button class="backpay btn fr">已出行</button>
         </div>
       </div>
-    </template>
-    <template v-else-if="orderInfo.status == 3">
+    </template>-->
+    <template v-else-if="orderInfo.status == 2 || orderInfo.status == 3">
       <div class="header">
         <div class="order-state">
           汇合中
@@ -56,8 +56,8 @@
         </div>
         <!--<TimeCount :endTime="endT" :nowTime="nowT" :countCallback="endLog"/>-->
         <div class="btn-topay clearfix">
-          <button class="backpay btn fl">已接待</button>
-          <button class="backpay btn fr">已出行</button>
+          <button class="backpay btn fl" @click="updateOrder(orderNum, 4)">已接待</button>
+          <button class="backpay btn fr" @click="updateOrder(orderNum, 5)">已出行</button>
         </div>
       </div>
     </template>
@@ -72,7 +72,7 @@
         </div>
         <!--<TimeCount :endTime="endT" :nowTime="nowT" :countCallback="endLog"/>-->
         <div class="btn-topay clearfix">
-          <button class="backpay btn fr">已出行</button>
+          <button class="backpay btn fr"  @click="updateOrder(orderNum, 5)">已出行</button>
         </div>
       </div>
     </template>
@@ -88,7 +88,7 @@
         <!--<TimeCount :endTime="endT" :nowTime="nowT" :countCallback="endLog"/>-->
         <div class="btn-topay clearfix">
 
-          <button class="backpay btn fr">出行结束</button>
+          <button class="backpay btn fr" @click="updateOrder(orderNum, 6)">出行结束</button>
         </div>
       </div>
     </template>
