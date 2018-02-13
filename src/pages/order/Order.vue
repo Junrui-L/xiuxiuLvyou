@@ -56,8 +56,8 @@
         </div>
         <!--<TimeCount :endTime="endT" :nowTime="nowT" :countCallback="endLog"/>-->
         <div class="btn-topay clearfix">
-          <button class="backpay btn fl" @click="updateOrder(orderNum, 4)">已接待</button>
-          <button class="backpay btn fr" @click="updateOrder(orderNum, 5)">已出行</button>
+          <button class="backpay btn fl" @click="updateOrder(4)">已接待</button>
+          <button class="backpay btn fr" @click="updateOrder(5)">已出行</button>
         </div>
       </div>
     </template>
@@ -72,12 +72,11 @@
         </div>
         <!--<TimeCount :endTime="endT" :nowTime="nowT" :countCallback="endLog"/>-->
         <div class="btn-topay clearfix">
-          <button class="backpay btn fr"  @click="updateOrder(orderNum, 5)">已出行</button>
+          <button class="backpay btn fr"  @click="updateOrder(5)">已出行</button>
         </div>
       </div>
     </template>
     <template v-else-if="orderInfo.status == 5">
-
       <div class="header">
         <div class="order-state">
           出行中
@@ -88,7 +87,7 @@
         <!--<TimeCount :endTime="endT" :nowTime="nowT" :countCallback="endLog"/>-->
         <div class="btn-topay clearfix">
 
-          <button class="backpay btn fr" @click="updateOrder(orderNum, 6)">出行结束</button>
+          <button class="backpay btn fr" @click="updateOrder(6)">出行结束</button>
         </div>
       </div>
     </template>
@@ -105,7 +104,7 @@
         <div class="btn-triped clearfix">
           <button class="backpay btn fl">申请退款</button>
           <button class="onemore btn ">再游一场</button>
-          <button class="evalu btn fr">评价</button>
+          <button class="evalu btn fr" @click="router.push({name: 'comment'})">评价</button>
         </div>
       </div>
     </template>
@@ -121,7 +120,7 @@
         <!--<TimeCount :endTime="endT" :nowTime="nowT" :countCallback="endLog"/>-->
         <div class="btn-topay clearfix">
           <button class="backpay btn fl">申请退款</button>
-          <button class="backpay btn fr">再游一场</button>
+          <button class="backpay btn fr" @click="tripMore">再游一场</button>
         </div>
       </div>
     </template>
@@ -382,6 +381,9 @@
             this.$router.go(0)
           }
         })
+      },
+      tripMore(){
+        this.$router.push({name: 'scenicDetail', query: {playId: this.orderInfo.playid, accountId: this.orderInfo.accountid}})
       },
       endLog() {
         console.log('.....倒计时结束了.....')

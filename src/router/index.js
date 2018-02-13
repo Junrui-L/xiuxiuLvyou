@@ -15,6 +15,7 @@ const SearchContentList = r => require.ensure([], () => r(require('@/pages/searc
 //订单
 const OrderDetail = r => require.ensure([], () => r(require('@/pages/order/OrderDetail')), 'orderDetail')
 const Order = r => require.ensure([], () => r(require('@/pages/order/Order')), 'order')
+const Comment = r => require.ensure([], () => r(require('@/pages/order/Comment')), 'comment')
 const PrepayOrder = r => require.ensure([], () => r(require('@/pages/order/PrepayOrder')), 'prepayOrder')
 const OneStepGuide = r => require.ensure([], () => r(require('@/pages/oneStepGuide/OneStepGuide')), 'oneStepGuide')
 const WaitResponse = r => require.ensure([], () => r(require('@/pages/oneStepGuide/WaitResponse')), 'waitResponse')
@@ -71,6 +72,7 @@ const router = new Router({
       component: ScenicRegion
     },
     {
+      //景区向导玩法
       path: '/scenicDetail',
       name: 'scenicDetail',
       component: ScenicDetail
@@ -98,15 +100,22 @@ const router = new Router({
       component: WaitResponse
     },
     {
-      //订单详情
+      //订单详情Comment
       path: '/orderDetail',
       name: 'orderDetail',
       component: OrderDetail
-    }, {
+    },
+    {
       //订单预览
       path: '/order',
       name: 'order',
       component: Order
+    },
+    {
+      //订单评论
+      path: '/comment',
+      name: 'comment',
+      component: Comment
     },
     {
       //下单预支付

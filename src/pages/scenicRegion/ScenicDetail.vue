@@ -266,7 +266,7 @@
                 headBg: false,
                 scenicspot: this.$route.query.scenicspot, // 景点
                 accountId: this.$route.query.accountId,  //向导
-                playId: '',
+                playId: this.$route.query.playId,        //玩法id
                 guide: '',
                 plays:'',
                 mpPackelist: [],
@@ -290,8 +290,14 @@
           ]),
         },
         mounted() {
+          if(this.$route.query.scenicspot) {
+            console.log('从景区id来的')
+            this.getData()
+          } else if(this.$route.query.playId){
+            console.log('从玩法id来的')
+            this.playListDetail()
 
-         this.getData()
+          }
 
           this.peoplePicker = this.$createPicker({
             title: '出行人数',
@@ -330,8 +336,8 @@
 
             })
           },
-          playListDetail(playId, accountId){
-            playlistDetail(playId, accountId).then(res => {
+          playListDetail(){
+            playlistDetail(this.playId, this.accountId).then(res => {
               console.log('--------向导玩法id查找玩法详情------------')
               console.log(res);
               this.plays = res.play;
@@ -340,6 +346,11 @@
               this.playlist=res.playlist
               this.pricePackelist=res.pricePackelist//套餐
               this.priceRanges=res.priceRanges
+              console.log(this.pricePackelist);
+              this.playId = res.play.id; //向导Id
+              console.log(res.guide)
+              this.SAVE_GUIDE(res.guide);
+              this.SAVE_PLAY(res.play)
 
             })
           },

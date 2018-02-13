@@ -258,8 +258,9 @@ export const ConfigWx = (singnurl) => $http.get('/wxwebsite/wxconfig.json?genera
  *
  *修改订单状态
  * */
-export const updateOrder = (areasn) => $http.get('/siteH5/order.json?act=updateStatus', {
-  areasn: areasn
+export const updateOrder = (orderNo, status) => $http.get('/siteH5/order.json?act=updateStatus', {
+  ordernumber: orderNo,
+  status: status
 });
 
 /**
