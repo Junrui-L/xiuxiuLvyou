@@ -54,7 +54,7 @@
             <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#arrow-right"></use>
           </svg>
         </div>
-        <!--<TimeCount :endTime="endT" :nowTime="nowT" :countCallback="endLog"/>-->
+        <TimeCountUp :startTime="start"  :countCallback="endLog"/>
         <div class="btn-topay clearfix">
           <button class="backpay btn fl" @click="updateOrder(4)">已接待</button>
           <button class="backpay btn fr" @click="updateOrder(5)">已出行</button>
@@ -298,7 +298,8 @@
     data() {
       return {
         orderNum: this.$route.query.orderNum,
-        endT: '2018-01-31 21:55:00',
+        start: '2018-02-22 21:55:00',
+        endT: '2018-02-28 21:55:00',
         nowT: '2018-01-09 19:50:00',
         orderInfo: '',
         cancelR: '',

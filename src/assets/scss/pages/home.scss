@@ -192,7 +192,12 @@
     background: #fff;
     .recom-wrapper {
       width: 100%;
+      overflow: hidden;
       padding-top: px2rem(10px);
+      .cube-slide .cube-slide-group .cube-slide-item {
+        height: auto;
+        text-align: left;
+      }
       .ads-img{
         width: 100%;
         height: px2rem(210px);
@@ -231,9 +236,11 @@
 
 
       .guide-recom {
+        width: 100%;
         padding:0 px2rem(15px);
         height: px2rem(130px);
         .guide-intro {
+          width: 100%;
           padding: px2rem(10px);
           background: #F9F9F9;
           border-radius: px2rem(2px);
@@ -254,7 +261,8 @@
 
           .guide-txt {
             margin-top: px2rem(10px);
-            line-height: 1.5;
+            height: px2rem(32px);
+            line-height: px2rem(15px);
             @include cliptxt(2);
 
             //display: -webkit-box ;
@@ -265,7 +273,7 @@
           }
         }
 
-        .swiper-pagination {
+        .cube-slide-dots {
           width: px2rem(3px);
           height: px2rem(3px);
           border-radius: 100%;

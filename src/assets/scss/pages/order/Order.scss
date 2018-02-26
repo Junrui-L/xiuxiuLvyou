@@ -44,11 +44,12 @@
       padding-bottom: px2rem(18px);
       text-align: center;
       border-bottom: 1px solid $color-body-bg;
-      .btn {
-        border: 1px solid $color-gray-secondary;
-      }
+
     }
 
+    .btn {
+      border: 1px solid $color-gray-secondary;
+    }
     .btn-triped {
       width: px2rem(315px);
       margin: 0 auto;

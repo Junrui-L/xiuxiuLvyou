@@ -1,6 +1,6 @@
 /**
-Created by soft on 2018/1/9
-时间格式 2018-01-09 20:00:00
+    Created by soft on 2018/1/9
+    时间格式   2018-01-09 20:00:00
 */
 
 <template>
@@ -23,7 +23,7 @@ Created by soft on 2018/1/9
 
         data() {
             return {
-                deadline: '2018/01/15 18:00:00',   //这里设置日期倒计时间
+                deadline: '2018/02/26 18:00:00',   //这里设置日期倒计时间
                 days: '00',
                 hours: '00',
                 minutes: '00',
@@ -32,7 +32,7 @@ Created by soft on 2018/1/9
             };
         },
         props: {
-            nowTime: {
+          endTime: {
                 type: String
             },
             countCallback: {
