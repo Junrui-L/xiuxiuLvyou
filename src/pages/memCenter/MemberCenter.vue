@@ -24,7 +24,7 @@
           <p>收藏</p>
         </router-link>
         <router-link tag="li" to="/myWallet" class="mem-item fl">
-          <div>{{userInfo.userName || 0}}</div>
+          <div>{{ count.accountBalance }}</div>
           <p>钱包</p>
         </router-link>
       </ul>
@@ -78,7 +78,7 @@
 </template>
 
 <script>
-  import {userLogin, userPersonal, cancelOrder, getMyOrderList} from '../../http/getDate'
+  import {userLogin, userAccounts ,userPersonal, cancelOrder, getMyOrderList} from '../../http/getDate'
 
   export default {
     name: "member-center",
@@ -90,16 +90,16 @@
         orderList: [1, 2, 4, 3, 4],// 订单列表
         tabMap: {'all': 0, 'waitpay': 1, 'doing': 2, 'waitEvaluate': 3, 'haveCancle': 4},
         page: 1,
-        nomore: false
+        nomore: false,
+        count: 0 //账号余额
       }
     },
     mounted() {
-      userLogin('15118252171', '123456').then(res => {
         console.log('---登录----')
-        console.log(res)
+
         this.getUserInfo();
         this.getOrderList()
-      })
+        this.getAccount();
     },
     methods: {
       // 获取订单列表
@@ -112,6 +112,12 @@
       getUserInfo() {
         userPersonal().then(res => {
           this.userInfo = res
+        })
+      },
+      //获取账号余额
+      getAccount() {
+        userAccounts().then(res => {
+          this.count = res.capital;
         })
       },
       // 点击订单状态Tab

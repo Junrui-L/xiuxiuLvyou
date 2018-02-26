@@ -103,8 +103,13 @@
         </a>
       </h3>
       <div class="recom-wrapper">
-        <Banner swipeid="swipe02" :autoplay="1000" paginationDirection="right">
-          <div class="swiper-slide " slot="swiper-con" v-for="(item,index) in hotLine">
+        <cube-slide
+          ref="silde2"
+          :initial-index="initialIndex"
+          :loop="loop"
+          :auto-play="false"
+        >
+          <cube-slide-item v-for="(item,index) in hotLine" :key="index">
             <div class="tours-img"><img class="ads-img" src="../assets/img/home_ads.jpg" alt=""></div>
             <dl class="abstract clearfix">
               <dt class="tours-title">
@@ -122,13 +127,40 @@
                     {{item.dails.username}}
                   </dt>
                   <dd class="guide-txt">
-                   算计打开了打发的，当台湾导游多年，每年夏天都带家人到垦丁，行驶在太平洋边上，国境之南，风吹沙当台湾导游多年，每年夏天都带家人到垦丁，行驶在太平洋边上，国境之南，风吹沙
+                    算计打开了打发的，当台湾导游多年，每年夏天都带家人到垦丁，行驶在太平洋边上，国境之南，风吹沙当台湾导游多年，每年夏天都带家人到垦丁，行驶在太平洋边上，国境之南，风吹沙
                   </dd>
                 </dl>
               </div>
             </div>
-          </div>
-        </Banner>
+          </cube-slide-item>
+        </cube-slide>
+        <!--<Banner swipeid="swipe02" :autoplay="1000" paginationDirection="right">-->
+          <!--<div class="swiper-slide " slot="swiper-con" v-for="(item,index) in hotLine">-->
+            <!--<div class="tours-img"><img class="ads-img" src="../assets/img/home_ads.jpg" alt=""></div>-->
+            <!--<dl class="abstract clearfix">-->
+              <!--<dt class="tours-title">-->
+                <!--{{ item.name }}-->
+              <!--</dt>-->
+              <!--<dd class="tours-price fr"><span>￥4877</span>起/人</dd>-->
+              <!--<dd class="tours-guide">6位中文向导导可服务</dd>-->
+            <!--</dl>-->
+            <!--<div class="guide-recom">-->
+
+              <!--<div class="cube-slide-item guide-intro">-->
+                <!--<dl>-->
+                  <!--<dt class="guide-tit clearfix">-->
+                    <!--<img class="guide-img fl" v-lazy="basePath + item.dails.userImg" alt="">-->
+                    <!--{{item.dails.username}}-->
+                  <!--</dt>-->
+                  <!--<dd class="guide-txt">-->
+                   <!--算计打开了打发的，当台湾导游多年，每年夏天都带家人到垦丁，行驶在太平洋边上，国境之南，风吹沙当台湾导游多年，每年夏天都带家人到垦丁，行驶在太平洋边上，国境之南，风吹沙-->
+                  <!--</dd>-->
+                <!--</dl>-->
+              <!--</div>-->
+            <!--</div>-->
+          <!--</div>-->
+
+        <!--</Banner>-->
       </div>
 
     </div>
@@ -266,7 +298,8 @@
       this.initHome();
       var _this=this
       setTimeout(() => {
-        _this.$refs.silde.refresh()
+        _this.$refs.silde.refresh();
+        _this.$refs.silde2.refresh();
       }, 1000)
       this.configWx();
     },

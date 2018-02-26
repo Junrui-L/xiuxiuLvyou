@@ -58,11 +58,11 @@
           }
         },
         mounted(){
-          userLogin('15118252171', '123456').then(res=> {
-            console.log('---登录----')
+          // userLogin('15118252171', '123456').then(res=> {
+          //   console.log('---登录----')
             this.getAccount();
 
-          })
+          // })
 
 
         },

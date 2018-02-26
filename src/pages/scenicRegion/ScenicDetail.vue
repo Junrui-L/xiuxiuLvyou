@@ -35,15 +35,15 @@
         </div>
         <div class="region-detail-nav">
             <ul class="nav-title">
-                <li class="nav-item active"><span>价格说明</span></li>
-                <li class="nav-item">玩法概述</li>
-                <li class="nav-item">预订须知</li>
-                <li class="nav-item">游客评价</li>
+                <li class="nav-item" :class="{'active': navItem == 'price'}" @click="changeNav('price', '.price-package')">价格说明</li>
+                <li class="nav-item" :class="{'active': navItem == 'play'}" @click="changeNav('play', '.play-methods')">玩法概述</li>
+                <li class="nav-item" :class="{'active': navItem == 'order'}" @click="changeNav('order', '.order-tips')">预订须知</li>
+                <li class="nav-item" :class="{'active': navItem == 'evaluation'}" @click="changeNav('evaluation', '.tourist-eval')">游客评价</li>
             </ul>
         </div>
         <div class="detail-desc">
             <div class="price-package">
-                <section><h3 class="tite">价格套餐</h3></section>
+                <section><h3 class="tite">价格说明</h3></section>
 
                 <ul class="list-wrapper">
 
@@ -277,7 +277,8 @@
                 travalDate: '',
                 mealType: '',
                 peopleNum: '',
-                newPricePackelist:[]
+                newPricePackelist:[],
+                navItem: 'price'
             }
         },
         components: {
@@ -438,6 +439,14 @@
             console.log('去下一步')
             // 更新初步订单到数据仓库
 
+          },
+          changeNav(item, itemDetail){
+            this.navItem = item;
+            let  scrollItem = document.querySelector(itemDetail);
+            let  total = scrollItem.offsetTop;
+            console.log('距离顶部高度' + total);
+            document.body.scrollTop = total;
+            document.documentElement.scrollTop = total
           },
           getImgUrl(url, mode) {
             let baseUrl = this.basePath;

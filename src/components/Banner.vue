@@ -5,12 +5,11 @@
       <slot name="swiper-con"></slot>
     </div>
     <!-- 分页器 -->
-    <div :class="{'swiper-pagination':pagination}" :style="{'text-align':paginationDirection}"></div>
+    <div class="swiper-pagination" :style="{'text-align':paginationDirection}"></div>
   </div>
 </template>
 <script>
   import '../assets/lib/swiper/js/swiper.js';
-
   export default {
     props: {
       swipeid: {
