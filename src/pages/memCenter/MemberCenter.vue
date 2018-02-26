@@ -4,6 +4,7 @@
       <div class="hd">
         <div class="img-wrapper fl"><img :src="userInfo.headimgurl" alt=""></div>
         <router-link to="/memberInfo" class="username fl">{{userInfo.userName || '--'}}
+
           <svg>
             <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#arrow-right"></use>
           </svg>
@@ -24,7 +25,7 @@
           <p>收藏</p>
         </router-link>
         <router-link tag="li" to="/myWallet" class="mem-item fl">
-          <div>{{userInfo.userName || 0}}</div>
+          <div>{{userInfo.accountBalance || 0}}</div>
           <p>钱包</p>
         </router-link>
       </ul>
@@ -63,9 +64,11 @@
             <p><span>总价</span><span class="fr">{{v.orderSumPrice}}元</span></p>
           </div>
           <p class="fr">
-            <button class="order-handle-btn">取消订单</button>
-            <button class="order-handle-btn red">取消订单</button>
-            <button class="order-handle-btn">取消订单</button>
+            <button class="order-handle-btn" v-if="v.status===0">取消订单</button>
+            <button class="order-handle-btn red" v-if="v.status===1">去付款</button>
+            <button class="order-handle-btn red" v-if="v.status===3 || v.status===5">联系向导</button>
+            <button class="order-handle-btn" v-if="v.status===6">去评价</button>
+            <button class="order-handle-btn" v-if="v.status===9">重新下单</button>
           </p>
         </div>
       </div>
@@ -78,13 +81,20 @@
 </template>
 
 <script>
-  import {userLogin, userPersonal, cancelOrder, getMyOrderList} from '../../http/getDate'
+  import {userLogin, userPersonal, cancelOrder, getMyOrderList, userAccounts} from '../../http/getDate'
 
   export default {
     name: "member-center",
     data() {
       return {
-        userInfo: {},// 用户信息对象
+        userInfo: {  // 用户信息对象
+          headimgurl: '',
+          userName: '',
+          tourismScore: 0,
+          yhjcount: 0,
+          collect: 0,
+          accountBalance: 0,
+        },
         staticNum: {},// 统计数字,积分,优惠券
         currentTab: 'doing',// 当前选中的订单tab
         orderList: [1, 2, 4, 3, 4],// 订单列表
@@ -99,19 +109,33 @@
         console.log(res)
         this.getUserInfo();
         this.getOrderList()
+        this.queryWallet()
       })
     },
     methods: {
       // 获取订单列表
       getOrderList() {
         getMyOrderList({page: this.page, status: this.tabMap[this.currentTab]}).then(res => {
-          this.orderList = res.list
+          if (res.list.length === 0) {
+            if (this.page !== 1) {
+              this.nomore = true
+            }
+          } else {
+            this.orderList = res.list
+            if (res.list.length < 25) {
+              this.nomore = true
+            }
+          }
         })
       },
       // 获取个人信息
       getUserInfo() {
         userPersonal().then(res => {
-          this.userInfo = res
+          this.userInfo.headimgurl = res.headimgurl
+          this.userInfo.userName = res.userName
+          this.userInfo.tourismScore = res.tourismScore
+          this.userInfo.yhjcount = res.yhjcount
+          this.userInfo.collect = res.collect
         })
       },
       // 点击订单状态Tab
@@ -124,11 +148,21 @@
       // 取消订单
       caccleOrder(ordernumber) {
         cancelOrder().then({ordernumber, status: 2}).then(res => {
-
+          this.$createDialog({
+            type: 'alert',
+            title: '提示',
+            content: '取消成功'
+          }).show()
+        })
+      },
+      // 查询钱包
+      queryWallet(){
+        userAccounts().then(res => {
+          this.userInfo.accountBalance = res.capital.accountBalance
         })
       },
       // 去付款
-      toPay() {
+      toPay(orderid) {
 
       },
       // 加载更多
@@ -136,9 +170,14 @@
         this.page++
         getMyOrderList({page: this.page, status: this.tabMap[this.currentTab]}).then(res => {
           if (res.list.length === 0) {
-            this.nomore = true
+            if (this.page !== 1) {
+              this.nomore = true
+            }
           } else {
             this.orderList.push(...res.list)
+            if (res.list.length < 25) {
+              this.nomore = true
+            }
           }
         })
       }
