@@ -30,14 +30,6 @@
               <img :src="item.img">
             </a>
           </cube-slide-item>
-
-          <!--<div>-->
-            <!--<cube-slide-item v-for="item in items">-->
-              <!--<a :href="item.url">-->
-                <!--<img :src="item.img" alt="">-->
-              <!--</a>-->
-            <!--</cube-slide-item>-->
-          <!--</div>-->
         </cube-slide>
 
       </div>
@@ -51,13 +43,13 @@
         </router-link>
       </li>
       <li class="nav-item fl">
-        <router-link class="nav-link" :to="{path: '/guide', query: {citySn: locations.areasn || 110100}}">
+        <router-link class="nav-link" :to="{path: '/cityGuide', query: {citySn: locations.areasn || 110100}}">
           <img class="nav-img" src="../assets/img/home_qudao_xhdpi.png" alt="">
           <p class="nav-tit">区导列表</p>
         </router-link>
       </li>
       <li class="nav-item fl">
-        <router-link class="nav-link" :to="{path: '/guide' , query: { latitude: location.latitude, longitude: location.longitude}}">
+        <router-link class="nav-link" :to="{path: '/NearGuide' , query: { latitude: location.latitude, longitude: location.longitude}}">
           <img class="nav-img" src="../assets/img/home_near@2x.png" alt="">
           <p class="nav-tit">附近向导</p>
         </router-link>
@@ -296,7 +288,10 @@
     mounted() {
       //获取首页数据
       this.initHome();
-      var _this=this
+      let _this=this;
+      this.$nextTick(() => {
+
+      })
       setTimeout(() => {
         _this.$refs.silde.refresh();
         _this.$refs.silde2.refresh();
@@ -376,7 +371,7 @@
             timestamp: res.configMap.timestamp,
             nonceStr: res.configMap.nonceStr, //随机串
             signature: res.configMap.signature ,//微信签名
-            jsApiList: ['getLocation'] // 必填，需要使用的JS接口列表，这里只写支付的
+            jsApiList: ['getLocation'] // 必填，需要使用的JS接口列表，这里只写获取地理位置
           });
 
           this.getLocation();

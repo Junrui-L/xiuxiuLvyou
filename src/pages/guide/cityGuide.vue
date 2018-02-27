@@ -3,14 +3,14 @@
 <template>
   <div class="Guide">
     <header ref="uiHeader">
-      <HeadTop go-back='true' :headBg="headBg">
+      <HeadTop go-back='true' :headBg="headBgs">
         <div slot="select-title" class="select-title" @click="showCityPicker">
           <span class="cityname ">{{scenicInfo.name}}</span>
         </div>
       </HeadTop>
-      <img class="head-img" v-if="scenicInfo.scenicimg" :src="baseUrl + scenicInfo.scenicimg" alt="">
+      <img class="head-img" :src="basePath + scenicInfo.cityimg" alt="">
     </header>
-    <drop-down :dropDownData="dropDownData" :selectCallback="selectCallback" ></drop-down>
+    <drop-down :dropDownData="dropDownData" :selectCallback="selectCallback"></drop-down>
     <div class="guide-wrapper">
       <ul class="guide-list">
         <li class="guide">
@@ -135,12 +135,11 @@
 </template>
 
 <script type="text/ecmascript-6">
+  import {mapState, mapMutations} from 'vuex'
   import {cityGuideList, guideDetails} from '../../http/getDate'
   import HeadTop from '../../components/HeadTop.vue'
   import {throttle} from '../../config/myUtils'
   import DropDown from '../../components/DropDown.vue'
-
-
   import {provinceList, cityList, areaList} from '../../config/datajs'
 
   const cityData = provinceList
@@ -154,10 +153,10 @@
     data() {
       return {
         baseUrl: 'http://www.youdingsoft.com',
-        headBg: false,
-        scenicId: this.$route.query.scenicId,
-        city: '北京',
+        headBgs: false,
+        scenicId: this.$route.query.citySn,
         scenicInfo: '',
+        guidesList: [],
         dropDownData: [
           {
             name: '导游类型',
@@ -189,7 +188,7 @@
           }
         ],
         sendData: {  // 景区导游列表请求参数
-          city: '',
+          citySn: '',
           sex: '',
           agetype: '',
           minprice: '',
@@ -204,6 +203,11 @@
       HeadTop,
       DropDown,
     },
+    computed: {
+      ...mapState([
+        'basePath', 'location', 'userInfo', 'baseOrder'
+      ]),
+    },
     mounted() {
       this.cityPicker = this.$createCascadePicker({
         title: '选择城市',
@@ -211,18 +215,18 @@
         onSelect: this.selectHandle,
         onCancel: this.cancelHandle
       })
-      this.sendData.city = 110100
+
+      this.sendData.citySn = this.$route.query.citySn;
+      console.log(this.sendData);
       this.getGuideList(this.sendData);
 
       // window.addEventListener('scroll', throttle(() => {
-      //     console.log('--------------')
       //     let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-      //     let headHeight = this.$refs.uiHeader.offsetHeight;
-      //     if( scrollTop > headHeight) {
-      //         console.log(headHeight)
-      //         this.headBg = true;
+      //     if( scrollTop > 300) {
+      //         console.log(this.headBgs);
+      //         this.headBgs = true;
       //     } else {
-      //         this.headBg = false;
+      //         this.headBgs = false;
       //     }
       // },150))
 
@@ -240,15 +244,14 @@
 
         // this.city = selectedText[1];
         // this.cityValue = selectedVal[1];
+        this.sendData.citySn = selectedVal[1];
+        console.log(this.sendData);
+        this.getGuideList(this.sendData);
         // this.getSpotsList(this.cityValue);
 
       },
       cancelHandle() {
         console.log('取消了')
-      },
-      getScrollY() {
-        console.log(window.pageYOffset || document.documentElement.scrollTop)
-        return window.pageYOffset || document.documentElement.scrollTop;
       },
       // 选择dropwodn的回调函数 cbData:[{type:'sex',value:1,name:'性别'}]
       selectCallback(cbData) {
@@ -262,7 +265,7 @@
         cityGuideList(data).then(res => {
           console.log('区导列表返回。。。。。')
           console.log(res);
-          this.scenicInfo = res.scenicspotMap;
+          this.scenicInfo = res.cityMap;
 
         })
       }
