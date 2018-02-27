@@ -34,122 +34,6 @@
             </p>
           </div>
         </li>
-        <!--<li class="guide">-->
-          <!--<div class="guide-t clearfix">-->
-            <!--<div class="guide-img fl">-->
-              <!--<img src="../../assets/img/tttt.png" alt="">-->
-            <!--</div>-->
-            <!--<div class="guide-detail fl"-->
-                 <!--@click="$router.push({name: 'scenicDetail',  query: {scenicspot: 4, accountId: 1}})">-->
-              <!--<h5 class="guide-name"><span>丁大力</span></h5>-->
-              <!--<div class="region-level"><span>服务100人</span> | <span>2种玩法 </span></div>-->
-              <!--<div class="guide-star"><span>类别：</span>历史古迹、历史博物馆</div>-->
-            <!--</div>-->
-            <!--<button class="guide-order fl" @click="$router.push({name: 'guideDetail',  params: {id: 33}})">找Ta预订-->
-            <!--</button>-->
-          <!--</div>-->
-          <!--<div class="guide-txt">-->
-            <!--<p>-->
-              <!--这是一块神奇的大陆，欧扎加拉圣诞节来看啥地这是一块神奇的大陆，欧扎加拉圣诞节来看啥地-->
-              <!--这是一块神奇的大陆，欧扎加拉圣诞节来看啥地方了卡收到积分跑文件发了-->
-            <!--</p>-->
-          <!--</div>-->
-        <!--</li>-->
-        <!--<li class="guide">-->
-          <!--<div class="guide-t clearfix">-->
-            <!--<div class="guide-img fl">-->
-              <!--<img src="../../assets/img/tttt.png" alt="">-->
-            <!--</div>-->
-            <!--<div class="guide-detail fl">-->
-              <!--<h5 class="guide-name"><span>刘美玲</span></h5>-->
-              <!--<div class="region-level"><span>服务100人</span> | <span>2种玩法 </span></div>-->
-              <!--<div class="guide-star"><span>类别：</span>历史古迹、历史博物馆</div>-->
-            <!--</div>-->
-            <!--<button class="guide-order fl">找Ta预订</button>-->
-          <!--</div>-->
-          <!--<div class="guide-txt">-->
-            <!--<p>-->
-              <!--这是一块神奇的大陆，欧扎加拉圣诞节来看啥地这是一块神奇的大陆，欧扎加拉圣诞节来看啥地-->
-              <!--这是一块神奇的大陆，欧扎加拉圣诞节来看啥地方了卡收到积分跑文件发了-->
-            <!--</p>-->
-          <!--</div>-->
-        <!--</li>-->
-        <!--<li class="guide">-->
-          <!--<div class="guide-t clearfix">-->
-            <!--<div class="guide-img fl">-->
-              <!--<img src="../../assets/img/tttt.png" alt="">-->
-            <!--</div>-->
-            <!--<div class="guide-detail fl">-->
-              <!--<h5 class="guide-name"><span>丁大力</span></h5>-->
-              <!--<div class="region-level"><span>服务100人</span> | <span>2种玩法 </span></div>-->
-              <!--<div class="guide-star"><span>类别：</span>历史古迹、历史博物馆</div>-->
-            <!--</div>-->
-            <!--<button class="guide-order fl">找Ta预订</button>-->
-          <!--</div>-->
-          <!--<div class="guide-txt">-->
-            <!--<p>-->
-              <!--这是一块神奇的大陆，欧扎加拉圣诞节来看啥地这是一块神奇的大陆，欧扎加拉圣诞节来看啥地-->
-              <!--这是一块神奇的大陆，欧扎加拉圣诞节来看啥地方了卡收到积分跑文件发了-->
-            <!--</p>-->
-          <!--</div>-->
-        <!--</li>-->
-        <!--<li class="guide">-->
-          <!--<div class="guide-t clearfix">-->
-            <!--<div class="guide-img fl">-->
-              <!--<img src="../../assets/img/tttt.png" alt="">-->
-            <!--</div>-->
-            <!--<div class="guide-detail fl">-->
-              <!--<h5 class="guide-name"><span>丁大力</span></h5>-->
-              <!--<div class="region-level"><span>服务100人</span> | <span>2种玩法 </span></div>-->
-              <!--<div class="guide-star"><span>类别：</span>历史古迹、历史博物馆</div>-->
-            <!--</div>-->
-            <!--<button class="guide-order fl">找Ta预订</button>-->
-          <!--</div>-->
-          <!--<div class="guide-txt">-->
-            <!--<p>-->
-              <!--这是一块神奇的大陆，欧扎加拉圣诞节来看啥地这是一块神奇的大陆，欧扎加拉圣诞节来看啥地-->
-              <!--这是一块神奇的大陆，欧扎加拉圣诞节来看啥地方了卡收到积分跑文件发了-->
-            <!--</p>-->
-          <!--</div>-->
-        <!--</li>-->
-        <!--<li class="guide">-->
-          <!--<div class="guide-t clearfix">-->
-            <!--<div class="guide-img fl">-->
-              <!--<img src="../../assets/img/tttt.png" alt="">-->
-            <!--</div>-->
-            <!--<div class="guide-detail fl">-->
-              <!--<h5 class="guide-name"><span>丁大力</span></h5>-->
-              <!--<div class="region-level"><span>服务100人</span> | <span>2种玩法 </span></div>-->
-              <!--<div class="guide-star"><span>类别：</span>历史古迹、历史博物馆</div>-->
-            <!--</div>-->
-            <!--<button class="guide-order fl">找Ta预订</button>-->
-          <!--</div>-->
-          <!--<div class="guide-txt">-->
-            <!--<p>-->
-              <!--这是一块神奇的大陆，欧扎加拉圣诞节来看啥地这是一块神奇的大陆，欧扎加拉圣诞节来看啥地-->
-              <!--这是一块神奇的大陆，欧扎加拉圣诞节来看啥地方了卡收到积分跑文件发了-->
-            <!--</p>-->
-          <!--</div>-->
-        <!--</li>-->
-        <!--<li class="guide">-->
-          <!--<div class="guide-t clearfix">-->
-            <!--<div class="guide-img fl">-->
-              <!--<img src="../../assets/img/tttt.png" alt="">-->
-            <!--</div>-->
-            <!--<div class="guide-detail fl">-->
-              <!--<h5 class="guide-name"><span>丁大力</span></h5>-->
-              <!--<div class="region-level"><span>服务100人</span> | <span>2种玩法 </span></div>-->
-              <!--<div class="guide-star"><span>类别：</span>历史古迹、历史博物馆</div>-->
-            <!--</div>-->
-            <!--<button class="guide-order fl">找Ta预订</button>-->
-          <!--</div>-->
-          <!--<div class="guide-txt">-->
-            <!--<p>-->
-              <!--这是一块神奇的大陆，欧扎加拉圣诞节来看啥地这是一块神奇的大陆，欧扎加拉圣诞节来看啥地-->
-              <!--这是一块神奇的大陆，欧扎加拉圣诞节来看啥地方了卡收到积分跑文件发了-->
-            <!--</p>-->
-          <!--</div>-->
-        <!--</li>-->
       </ul>
     </div>
   </div>
@@ -179,7 +63,7 @@
         scenicId: this.$route.query.scenicId,
         city: '北京',
         scenicInfo: '',
-        guidesList: [],
+        guidesList: [], //向导集合
         dropDownData: [
           {
             name: '导游类型',

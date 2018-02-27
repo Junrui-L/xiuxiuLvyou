@@ -266,7 +266,7 @@
           console.log('区导列表返回。。。。。')
           console.log(res);
           this.scenicInfo = res.cityMap;
-
+          this.guidesList = res.list;
         })
       }
 
