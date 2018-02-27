@@ -1,5 +1,4 @@
 /*Created by soft on 2018/1/3 */
-
 <template>
   <div class="Guide">
     <header ref="uiHeader">
@@ -10,125 +9,32 @@
       </HeadTop>
       <img class="head-img" v-if="scenicInfo.scenicimg" :src="baseUrl + scenicInfo.scenicimg" alt="">
     </header>
-    <drop-down :dropDownData="dropDownData" :selectCallback="selectCallback" ></drop-down>
+    <drop-down :dropDownData="dropDownData" :selectCallback="selectCallback"></drop-down>
     <div class="guide-wrapper">
       <ul class="guide-list">
-        <li class="guide">
+
+        <li class="guide" v-for="gu in guideslist">
           <div class="guide-t clearfix">
             <div class="guide-img fl">
-              <img src="../../assets/img/tttt.png" alt="">
+              <img :src="gu.userimg" alt="">
             </div>
             <div class="guide-detail fl"
-                 @click="$router.push({name: 'scenicDetail',  query: {scenicspot: 4, accountId: 1}})">
-              <h5 class="guide-name"><span>丁大力</span></h5>
-              <div class="region-level"><span>服务100人</span> | <span>2种玩法 </span></div>
-              <div class="guide-star"><span>类别：</span>历史古迹、历史博物馆</div>
+                 @click="$router.push({name: 'scenicDetail',  query: {scenicspot: scenicInfo.id, accountId:gu.id}})">
+              <h5 class="guide-name"><span>{{gu.username}}</span></h5>
+              <div class="region-level"><span>服务{{gu.fwcount}}人</span> | <span>{{gu.wfcount}}种玩法 </span></div>
+              <div class="guide-star"><span>类别：</span>{{gu.servicetype}}</div>
             </div>
-            <button class="guide-order fl" @click="$router.push({name: 'guideDetail',  params: {id: 33}})">找Ta预订
+            <button class="guide-order fl" @click="$router.push({name: 'guideDetail',  params: {id: gu.id}})">找Ta预订
+
             </button>
           </div>
           <div class="guide-txt">
             <p>
-              这是一块神奇的大陆，欧扎加拉圣诞节来看啥地这是一块神奇的大陆，欧扎加拉圣诞节来看啥地
-              这是一块神奇的大陆，欧扎加拉圣诞节来看啥地方了卡收到积分跑文件发了
+              {{gu.signature}}
             </p>
           </div>
         </li>
-        <li class="guide">
-          <div class="guide-t clearfix">
-            <div class="guide-img fl">
-              <img src="../../assets/img/tttt.png" alt="">
-            </div>
-            <div class="guide-detail fl">
-              <h5 class="guide-name"><span>刘美玲</span></h5>
-              <div class="region-level"><span>服务100人</span> | <span>2种玩法 </span></div>
-              <div class="guide-star"><span>类别：</span>历史古迹、历史博物馆</div>
-            </div>
-            <button class="guide-order fl">找Ta预订</button>
-          </div>
-          <div class="guide-txt">
-            <p>
-              这是一块神奇的大陆，欧扎加拉圣诞节来看啥地这是一块神奇的大陆，欧扎加拉圣诞节来看啥地
-              这是一块神奇的大陆，欧扎加拉圣诞节来看啥地方了卡收到积分跑文件发了
-            </p>
-          </div>
-        </li>
-        <li class="guide">
-          <div class="guide-t clearfix">
-            <div class="guide-img fl">
-              <img src="../../assets/img/tttt.png" alt="">
-            </div>
-            <div class="guide-detail fl">
-              <h5 class="guide-name"><span>丁大力</span></h5>
-              <div class="region-level"><span>服务100人</span> | <span>2种玩法 </span></div>
-              <div class="guide-star"><span>类别：</span>历史古迹、历史博物馆</div>
-            </div>
-            <button class="guide-order fl">找Ta预订</button>
-          </div>
-          <div class="guide-txt">
-            <p>
-              这是一块神奇的大陆，欧扎加拉圣诞节来看啥地这是一块神奇的大陆，欧扎加拉圣诞节来看啥地
-              这是一块神奇的大陆，欧扎加拉圣诞节来看啥地方了卡收到积分跑文件发了
-            </p>
-          </div>
-        </li>
-        <li class="guide">
-          <div class="guide-t clearfix">
-            <div class="guide-img fl">
-              <img src="../../assets/img/tttt.png" alt="">
-            </div>
-            <div class="guide-detail fl">
-              <h5 class="guide-name"><span>丁大力</span></h5>
-              <div class="region-level"><span>服务100人</span> | <span>2种玩法 </span></div>
-              <div class="guide-star"><span>类别：</span>历史古迹、历史博物馆</div>
-            </div>
-            <button class="guide-order fl">找Ta预订</button>
-          </div>
-          <div class="guide-txt">
-            <p>
-              这是一块神奇的大陆，欧扎加拉圣诞节来看啥地这是一块神奇的大陆，欧扎加拉圣诞节来看啥地
-              这是一块神奇的大陆，欧扎加拉圣诞节来看啥地方了卡收到积分跑文件发了
-            </p>
-          </div>
-        </li>
-        <li class="guide">
-          <div class="guide-t clearfix">
-            <div class="guide-img fl">
-              <img src="../../assets/img/tttt.png" alt="">
-            </div>
-            <div class="guide-detail fl">
-              <h5 class="guide-name"><span>丁大力</span></h5>
-              <div class="region-level"><span>服务100人</span> | <span>2种玩法 </span></div>
-              <div class="guide-star"><span>类别：</span>历史古迹、历史博物馆</div>
-            </div>
-            <button class="guide-order fl">找Ta预订</button>
-          </div>
-          <div class="guide-txt">
-            <p>
-              这是一块神奇的大陆，欧扎加拉圣诞节来看啥地这是一块神奇的大陆，欧扎加拉圣诞节来看啥地
-              这是一块神奇的大陆，欧扎加拉圣诞节来看啥地方了卡收到积分跑文件发了
-            </p>
-          </div>
-        </li>
-        <li class="guide">
-          <div class="guide-t clearfix">
-            <div class="guide-img fl">
-              <img src="../../assets/img/tttt.png" alt="">
-            </div>
-            <div class="guide-detail fl">
-              <h5 class="guide-name"><span>丁大力</span></h5>
-              <div class="region-level"><span>服务100人</span> | <span>2种玩法 </span></div>
-              <div class="guide-star"><span>类别：</span>历史古迹、历史博物馆</div>
-            </div>
-            <button class="guide-order fl">找Ta预订</button>
-          </div>
-          <div class="guide-txt">
-            <p>
-              这是一块神奇的大陆，欧扎加拉圣诞节来看啥地这是一块神奇的大陆，欧扎加拉圣诞节来看啥地
-              这是一块神奇的大陆，欧扎加拉圣诞节来看啥地方了卡收到积分跑文件发了
-            </p>
-          </div>
-        </li>
+
       </ul>
     </div>
   </div>
@@ -139,7 +45,6 @@
   import HeadTop from '../../components/HeadTop.vue'
   import {throttle} from '../../config/myUtils'
   import DropDown from '../../components/DropDown.vue'
-
 
   import {provinceList, cityList, areaList} from '../../config/datajs'
 
@@ -197,7 +102,8 @@
           todaytuan: '',
           isbuyticket: '',
           isshuttle: ''
-        }
+        },
+        guideslist: []//向导集合
       }
     },
     components: {
@@ -232,15 +138,16 @@
         this.cityPicker.show()
       },
       selectHandle(selectedVal, selectedIndex, selectedText) {
+
         // this.$createDialog({
         //   type: 'warn',
         //   content: `Selected Item: <br/> - value: ${selectedVal.join(', ')} <br/> - index: ${selectedIndex.join(', ')} <br/> - text: ${selectedText.join(' ')}`,
         //   icon: 'cubeic-alert'
         // }).show()
 
-        // this.city = selectedText[1];
-        // this.cityValue = selectedVal[1];
-        // this.getSpotsList(this.cityValue);
+         this.city = selectedText[1];
+         this.cityValue = selectedVal[1];
+         this.getSpotsList(this.cityValue);
 
       },
       cancelHandle() {
@@ -252,7 +159,6 @@
       },
       // 选择dropwodn的回调函数 cbData:[{type:'sex',value:1,name:'性别'}]
       selectCallback(cbData) {
-        console.error(JSON.stringify(cbData))
         cbData.forEach(item => {
           this.sendData[item.type] = item.value
         })
@@ -260,10 +166,8 @@
       },
       getGuideList(data) {
         guideList(data).then(res => {
-          console.log('区导列表返回。。。。。')
-          console.log(res);
           this.scenicInfo = res.scenicspotMap;
-
+          this.guideslist = res.guideslist
         })
       }
 
