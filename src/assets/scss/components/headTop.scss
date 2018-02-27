@@ -88,6 +88,18 @@
     }
 
   }
+
+  .spotname {
+    max-width: 100%;
+    display: inline-block;
+    margin: 0 auto;
+    line-height: px2rem(44px);
+    padding-left: px2rem(30px);
+    padding-right: px2rem(30px);
+    background: url(../../assets/img/nav_map@2x.png) no-repeat px2rem(8px) center;
+    background-size: px2rem(18px) px2rem(22px);
+    @include ellipsis;
+  }
 }
 /*呼叫对话框*/
 .message {

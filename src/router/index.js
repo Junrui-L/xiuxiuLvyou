@@ -8,6 +8,8 @@ const Login = r => require.ensure([], () => r(require('@/pages/memCenter/Login')
 const ScenicRegion = r => require.ensure([], () => r(require('@/pages/scenicRegion/ScenicRegion')), 'scenicRegion')
 const ScenicDetail = r => require.ensure([], () => r(require('@/pages/scenicRegion/ScenicDetail')), 'scenicDetail')
 const Guide = r => require.ensure([], () => r(require('@/pages/guide/Guide')), 'guide')
+const CityGuide = r => require.ensure([], () => r(require('@/pages/guide/cityGuide')), 'cityGuide')
+const NearGuide = r => require.ensure([], () => r(require('@/pages/guide/nearGuide')), 'nearGuide')
 const GuideDetail = r => require.ensure([], () => r(require('@/pages/guide/GuideDetail')), 'guideDetail')
 const Search = r => require.ensure([], () => r(require('@/pages/search/Search')), 'search')
 const SearchList = r => require.ensure([], () => r(require('@/pages/search/SearchList')), 'searchList')
@@ -82,7 +84,20 @@ const router = new Router({
       path: '/guide',
       name: 'guide',
       component: Guide
-    }, {
+    },
+    {
+      //区域向导列表
+      path: '/cityGuide',
+      name: 'cityGuide',
+      component: CityGuide
+    },
+    {
+      //附近向导列表
+      path: '/nearGuide',
+      name: 'nearGuide',
+      component: NearGuide
+    },
+    {
       //向导区列表
       path: '/guideDetail/:id',
       name: 'guideDetail',

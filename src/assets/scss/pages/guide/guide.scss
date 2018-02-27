@@ -100,7 +100,8 @@
     .guide-order {
       @include centerTop;
       border: none;
-      @include setButton(px2rem(84px), px2rem(30px), #FF5A5F, #fff2f2, 2px)
+      @include setButton(px2rem(84px), px2rem(30px), #FF5A5F, #fff2f2, 2px);
+      @include font-dpr(13px);
     }
 
   }
