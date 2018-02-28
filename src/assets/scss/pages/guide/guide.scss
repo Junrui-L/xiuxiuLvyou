@@ -16,7 +16,13 @@
     .guide-list {
       padding:0 px2rem(10px);
       background: #fff;
-
+      .noGuide {
+        height: px2rem(30px);
+        line-height: px2rem(30px);
+        text-align: center;
+        @include font-dpr(13px);
+        color: $color-gray-primary;
+      }
     }
 
     .guide {

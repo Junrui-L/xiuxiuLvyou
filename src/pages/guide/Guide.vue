@@ -1,5 +1,4 @@
 /*Created by soft on 2018/1/3 */
-
 <template>
   <div class="Guide">
     <header ref="uiHeader">
@@ -13,24 +12,23 @@
     <drop-down :dropDownData="dropDownData" :selectCallback="selectCallback" ></drop-down>
     <div class="guide-wrapper">
       <ul class="guide-list">
-        <li class="guide" v-for="item in guidesList">
+        <li  v-if="guidesList.length == 0" class="noGuide">暂无向导</li>
+        <li v-else class="guide" v-for="item in guidesList"  @click="$router.push({name: 'scenicDetail',  query: {scenicspot: scenicId, accountId: item.id}})">
           <div class="guide-t clearfix">
             <div class="guide-img fl">
               <img :src="item.userimg" alt="用户头像"/>
             </div>
-            <div class="guide-detail fl"
-                 @click="$router.push({name: 'scenicDetail',  query: {scenicspot: scenicId, accountId: item.id}})">
+            <div class="guide-detail fl">
               <h5 class="guide-name"><span>{{item.username}}</span></h5>
               <div class="region-level"><span>服务{{item.fwcount}}人</span> | <span>{{item.wfcount}}种玩法 </span></div>
               <div class="guide-star"><span>类别：</span>历史古迹、历史博物馆</div>
             </div>
             <!--<button class="guide-order fl" @click="$router.push({name: 'guideDetail',  params: {id: 33}})">找Ta预订-->
-            <button class="guide-order fl" >找Ta预订
-            </button>
+            <button class="guide-order fl" >找Ta预订 </button>
           </div>
           <div class="guide-txt">
             <p>
-              {{item.signature}}
+              {{ item.signature }}
             </p>
           </div>
         </li>

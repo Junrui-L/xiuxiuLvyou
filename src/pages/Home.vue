@@ -25,9 +25,9 @@
           @change="changePage"
           @click="clickPage">
 
-          <cube-slide-item v-for="(item, index) in items" :key="index">
+          <cube-slide-item v-for="(item, index) in banners" :key="index">
             <a :href="item.url">
-              <img :src="item.img">
+              <img :src="basePath + item.img">
             </a>
           </cube-slide-item>
         </cube-slide>
@@ -75,19 +75,21 @@
       </h3>
       <div class="spots-wrapper slider-wrapper">
           <HoriSlider class="spots-list" ref="hotSpots">
-            <dl class="spot fl" v-for="item in slider">
-              <dt class="spot-img">
-                <img :src="basePath + item.cityimg" alt="">
-              </dt>
-              <dd class="spot-name">{{item.name}}</dd>
-              <!--<dd class="spot-guide">{{item.guidecout ? item.guidecout : 0}}位向导</dd>-->
-            </dl>
+            <div class="spot fl" v-for="item in hotSpotse">
+              <router-link  :to="{path: '/scenicRegion' , query: { citySn: item.areasn }}">
+                <div class="spot-img">
+                  <img :src="basePath + item.cityimg" alt="">
+                </div>
+                <div class="spot-name">{{item.name}}</div>
+                <!--<dd class="spot-guide">{{item.guidecout ? item.guidecout : 0}}位向导</dd>-->
+              </router-link>
+            </div>
         </HoriSlider>
       </div>
     </div>
     <div class="recommended-tours">
       <h3 class="title">
-        <span>精选推荐路线</span>
+        <span>精选推荐专线</span>
         <a href="" class="more-link fr">查看更多
           <svg>
             <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#arrow-right"></use>
@@ -107,52 +109,26 @@
               <dt class="tours-title">
                 {{ item.name }}
               </dt>
-              <dd class="tours-price fr"><span>￥4877</span>起/人</dd>
-              <dd class="tours-guide">6位中文向导导可服务</dd>
+              <dd class="tours-price fr"><span>￥{{item.dails.minprice}}</span>起/人</dd>
+              <!--<dd class="tours-guide">6位中文向导导可服务</dd>-->
             </dl>
             <div class="guide-recom">
 
               <div class="cube-slide-item guide-intro">
                 <dl>
                   <dt class="guide-tit clearfix">
-                    <img class="guide-img fl" v-lazy="basePath + item.dails.userImg" alt="">
+                    <img class="guide-img fl" :src="item.dails.userImg" alt="">
                     {{item.dails.username}}
                   </dt>
                   <dd class="guide-txt">
-                    算计打开了打发的，当台湾导游多年，每年夏天都带家人到垦丁，行驶在太平洋边上，国境之南，风吹沙当台湾导游多年，每年夏天都带家人到垦丁，行驶在太平洋边上，国境之南，风吹沙
+                    {{item.dails.signature}}
+                    <!--算计打开了打发的，当台湾导游多年，每年夏天都带家人到垦丁，行驶在太平洋边上，国境之南，风吹沙当台湾导游多年，每年夏天都带家人到垦丁，行驶在太平洋边上，国境之南，风吹沙-->
                   </dd>
                 </dl>
               </div>
             </div>
           </cube-slide-item>
         </cube-slide>
-        <!--<Banner swipeid="swipe02" :autoplay="1000" paginationDirection="right">-->
-          <!--<div class="swiper-slide " slot="swiper-con" v-for="(item,index) in hotLine">-->
-            <!--<div class="tours-img"><img class="ads-img" src="../assets/img/home_ads.jpg" alt=""></div>-->
-            <!--<dl class="abstract clearfix">-->
-              <!--<dt class="tours-title">-->
-                <!--{{ item.name }}-->
-              <!--</dt>-->
-              <!--<dd class="tours-price fr"><span>￥4877</span>起/人</dd>-->
-              <!--<dd class="tours-guide">6位中文向导导可服务</dd>-->
-            <!--</dl>-->
-            <!--<div class="guide-recom">-->
-
-              <!--<div class="cube-slide-item guide-intro">-->
-                <!--<dl>-->
-                  <!--<dt class="guide-tit clearfix">-->
-                    <!--<img class="guide-img fl" v-lazy="basePath + item.dails.userImg" alt="">-->
-                    <!--{{item.dails.username}}-->
-                  <!--</dt>-->
-                  <!--<dd class="guide-txt">-->
-                   <!--算计打开了打发的，当台湾导游多年，每年夏天都带家人到垦丁，行驶在太平洋边上，国境之南，风吹沙当台湾导游多年，每年夏天都带家人到垦丁，行驶在太平洋边上，国境之南，风吹沙-->
-                  <!--</dd>-->
-                <!--</dl>-->
-              <!--</div>-->
-            <!--</div>-->
-          <!--</div>-->
-
-        <!--</Banner>-->
       </div>
 
     </div>
@@ -167,13 +143,15 @@
       </h3>
       <div class="area-wrapper slider-wrapper">
         <HoriSlider class="spots-list" ref="hotArea">
-          <dl class="spot fl" v-for="item in hotArea">
-            <dt class="spot-img">
+          <div class="spot fl" v-for="item in hotArea">
+            <router-link  :to="{path: '/scenicRegion' , query: { citySn: item.areasn }}">
+            <div class="spot-img">
               <img :src="basePath + item.img" alt="">
-            </dt>
-            <dd class="spot-name">{{item.name}}</dd>
+            </div>
+            <div class="spot-name">{{item.areaname}}</div>
             <!--<dd class="spot-guide">{{item.guidecout ? item.guidecout : 0}}位向导</dd>-->
-          </dl>
+            </router-link>
+          </div>
         </HoriSlider>
 
       </div>
@@ -251,14 +229,13 @@
       return {
         // baseUrl: 'http://www.youdingsoft.com',
         locations: {areasn: 110100},
-        bannerSlider: [],
-        slider: [],
+        hotSpotse: [],
         hotArea:  [],
         hotLine: [],
         guideRecom: [],
         showAlert: false,
         alertText: '',
-        items: [
+        banners: [
         ],
         swiperid: '',
         loop: true,
@@ -315,12 +292,7 @@
           this.GET_USERINFO({phone: this.basePath,name: '周周'});
 
           let resp = res;
-          this.items = resp[1]   //banner
-          for(var i of this.items) {
-            // console.log(i)
-            i.img = this.basePath + i.img
-          }
-
+          this.banners = resp[1]   //banner图
 
           this.hotArea = resp[3]; //热门区域
 
@@ -328,13 +300,13 @@
             this.$refs.hotArea.init();
           }, 20)
 
-          this.slider = resp[4]; //热门景点
+          this.hotSpotse = resp[4]; //热门景点
           setTimeout(() => {
             this.$refs.hotSpots.init();
           }, 20)
 
 
-          this.hotLine = resp[5];
+          this.hotLine = resp[5];  //热门路线
           // console.log(resp[5])
         }).catch(err => {
 
