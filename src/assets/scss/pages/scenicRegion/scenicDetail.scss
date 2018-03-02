@@ -162,7 +162,7 @@
 
       border-bottom: 1px solid $color-body-bg;
       .list-item {
-
+        width: 100%;
         .item-tit {
           padding: 0 px2rem(20px);
           @include setSize(100%, px2rem(60px));
@@ -202,6 +202,7 @@
     }
 
     .price-desc {
+      width: 100%;
       padding: px2rem(10px) px2rem(20px);
       line-height: 1.3;
       @include font-dpr(14px);
@@ -230,10 +231,12 @@
         max-height: 100%;
       }
     }
+
     .img-container:nth-of-type(2n) {
       float: left;
 
     }
+
     .img-container:nth-of-type(2n+1) {
       float: right;
     }

@@ -1,7 +1,5 @@
 <template>
   <div class="guide_detail">
-    <HeadTop go-back='true' :headBg="headBg">
-    </HeadTop>
     <div class="guide-info clearfix">
       <ul class="guide-name fl">
         <li class="name">{{guideInfo.userName}} <span>{{guideInfo.agetype}}</span><span>{{guideInfo.signature}}</span></li>
@@ -63,7 +61,7 @@
         <h3 class="tite">向导其他玩法</h3>
         <ul class="methos-wrapper">
           <li class="methods" v-for="item in playList">
-            <router-link class="nav-link" to="scenicRegion">
+            <router-link class="nav-link" :to="{name: 'scenicDetail',  query: {scenicspot: item.scenicspotid, accountId: item.accountid}}">
               <dl class="clearfix">
                 <dt class="method-img fl">
                   <img :src="getImgUrl(item.ywimg)" alt="">
@@ -112,9 +110,25 @@
           <span class="favarate">收藏</span>
           <span class="chat">咨询</span>
         </div>
-        <button class="order-btn fr" @click="toOrder">找我预订</button>
+        <button class="order-btn fr" @click="showChoosPopup">找我预约</button>
       </div>
     </div>
+    <cube-popup type="plays-popup"  :center="false" ref="choosePopup">
+      <div class="plays-content">
+        <i class="close" @click="hideChoosePopup"></i>
+        <h3 class="head-tit">
+         选择玩法
+        </h3>
+        <ul class="choose-wrap">
+          <li class="choose-item clearfix" v-for="item in playList" @click="$router.push({name: 'scenicDetail',  query: {scenicspot: item.scenicspotid, accountId: item.accountid}})">{{ item.wfname }} <span class="fr">
+                <svg>
+                     <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#arrow-right"></use>
+                </svg>
+              </span>
+          </li>
+        </ul>
+      </div>
+    </cube-popup>
   </div>
 </template>
 
@@ -125,7 +139,6 @@
   export default {
     data() {
       return {
-        headBg: true,
         clipInroduce: true,
         guideInfo: [],
         playList: []
@@ -151,8 +164,11 @@
       EvaluateStar
     },
     mounted() {
-      console.log(this.$route.params.id)
-        this.getGuideHome(8)
+        //请求当前导游详情，玩法列表
+        // this.getGuideHome(this.$route.query.id)
+        this.getGuideHome(1)
+
+
     },
     methods: {
       getGuideHome(guideId) {
@@ -163,6 +179,14 @@
           this.playList = res.playlist;
           console.log(this.playList)
         })
+      },
+      showChoosPopup() {
+        const component = this.$refs.choosePopup
+        component.show()
+      },
+      hideChoosePopup() {
+        const component = this.$refs.choosePopup;
+        component.hide();
       },
       toOrder(){
         this.$router.push({path: '/orderDetail', query: {guideId: this.$route.params.id}})

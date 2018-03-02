@@ -14,7 +14,7 @@
     <div class="guide-wrapper">
       <ul class="guide-list">
         <li v-if="guidesList.length == 0" class="noGuide">暂无向导</li>
-        <li v-else class="guide" v-for="item in guidesList"  @click="$router.push({name: 'guideDetail',  params: {id: item.id}})">
+        <li v-else class="guide" v-for="item in guidesList"  @click="$router.push({path: '/guideDetail',  query: {id:item.visitorid}})">
           <div class="guide-t clearfix">
             <div class="guide-img fl">
               <img :src="item.userimg" alt="用户头像"/>
@@ -120,7 +120,8 @@
         onCancel: this.cancelHandle
       })
 
-      this.sendData.citySn = this.$route.query.citySn;
+      // this.sendData.citySn = this.$route.query.citySn;
+      this.sendData.citySn = 440100;
       console.log(this.sendData);
       this.getGuideList(this.sendData);
 

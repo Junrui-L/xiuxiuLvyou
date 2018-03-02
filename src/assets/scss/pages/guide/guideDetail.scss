@@ -1,6 +1,6 @@
 .guide_detail {
   width: 100%;
-  padding-top: px2rem(40px);
+  //padding-top: px2rem(40px);
   padding-bottom: px2rem(80px);
   .guide-info {
     background: $white;
@@ -258,8 +258,58 @@
       @include setButton(px2rem(168px), px2rem(46px), $white, $color-red , px2rem(4px))
     }
   }
+/*选择向导玩法*/
 
+  .plays-content {
+    padding: px2rem(20px);
+    @include setSize(100%, px2rem(350px));
+    overflow: scroll;
+    background: $white;
+    position: relative;
+    .close {
+      position: absolute;
+      top: px2rem(10px);
+      right: px2rem(10px);
+      @include setSize(px2rem(30px), px2rem(30px));
+      &:before, &:after {
+        content: '';
+        position: absolute;
+        top: px2rem(15px);
+        left: 0;
+        @include transform(rotate(45deg));
+        @include setSize(px2rem(30px), 2px);
+        background: $color-black;
+      }
 
+      &:after {
+        @include transform(rotate(135deg));
+      }
+    }
+
+    .head-tit {
+      height: px2rem(30px);
+      line-height: px2rem(30px);
+      color: $color-black;
+      @include font-dpr(13px)
+    }
+
+    .choose-item {
+      @include setSize(100%, px2rem(50px));
+      line-height: px2rem(50px);
+      @include font-dpr(14px);
+      border-bottom: 1px solid $color-body-bg;
+      color: $color-black-secondary;
+      span {
+        color: $color-black;
+      }
+      svg {
+        fill: $color-gray-secondary;
+        width: px2rem(16px);
+        height:px2rem(16px);
+        vertical-align: text-bottom;
+      }
+    }
+  }
 
 
 }

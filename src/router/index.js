@@ -99,7 +99,7 @@ const router = new Router({
     },
     {
       //向导区列表
-      path: '/guideDetail/:id',
+      path: '/guideDetail',
       name: 'guideDetail',
       component: GuideDetail
     },
