@@ -13,7 +13,7 @@
     <div class="guide-wrapper">
       <ul class="guide-list">
         <li  v-if="guidesList.length == 0" class="noGuide">暂无向导</li>
-        <li v-else class="guide" v-for="item in guidesList"  @click="$router.push({name: 'scenicDetail',  query: {scenicspot: scenicId, accountId: item.id}})">
+        <li v-else class="guide" v-for="item in guidesList"  @click="$router.push({name: 'scenicDetail',  query: {scenicspot: scenicId, accountId: 1}})">
           <div class="guide-t clearfix">
             <div class="guide-img fl">
               <img :src="item.userimg" alt="用户头像"/>
@@ -120,16 +120,15 @@
       this.getGuideList(this.sendData);
 
       // window.addEventListener('scroll', throttle(() => {
-      //     console.log('--------------')
-      //     let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-      //     let headHeight = this.$refs.uiHeader.offsetHeight;
-      //     if( scrollTop > headHeight) {
-      //         console.log(headHeight)
-      //         this.headBg = true;
-      //     } else {
-      //         this.headBg = false;
-      //     }
-      // },150))
+      window.addEventListener('scroll', throttle(() => {
+
+        let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+        if( scrollTop > 300) {
+          this.headBg = true;
+        } else {
+          this.headBg = false;
+        }
+      },250))
 
     },
     methods: {

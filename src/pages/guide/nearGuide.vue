@@ -2,140 +2,57 @@
 
 <template>
   <div class="Guide">
-    <header ref="uiHeader">
-      <HeadTop go-back='true' :headBg="headBg">
-        <div slot="select-title" class="select-title" @click="showCityPicker">
-          <span class="cityname ">{{scenicInfo.name}}</span>
-        </div>
-      </HeadTop>
-      <img class="head-img" v-if="scenicInfo.scenicimg" :src="baseUrl + scenicInfo.scenicimg" alt="">
-    </header>
-    <drop-down :dropDownData="dropDownData" :selectCallback="selectCallback" ></drop-down>
+    <!--<drop-down :dropDownData="dropDownData" :selectCallback="selectCallback" ></drop-down>-->
     <div class="guide-wrapper">
       <ul class="guide-list">
-        <li class="guide">
+        <li v-if="guidesList.length == 0" class="noGuide">附近暂无向导</li>
+        <li v-else class="guide" v-for="item in guidesList"  @click="$router.push({name: 'scenicDetail',  query: {scenicspot: scenicId, accountId: item.id}})">
           <div class="guide-t clearfix">
             <div class="guide-img fl">
-              <img src="../../assets/img/tttt.png" alt="">
-            </div>
-            <div class="guide-detail fl"
-                 @click="$router.push({name: 'scenicDetail',  query: {scenicspot: 4, accountId: 1}})">
-              <h5 class="guide-name"><span>丁大力</span></h5>
-              <div class="region-level"><span>服务100人</span> | <span>2种玩法 </span></div>
-              <div class="guide-star"><span>类别：</span>历史古迹、历史博物馆</div>
-            </div>
-            <button class="guide-order fl" @click="$router.push({name: 'guideDetail',  params: {id: 33}})">找Ta预订
-            </button>
-          </div>
-          <div class="guide-txt">
-            <p>
-              这是一块神奇的大陆，欧扎加拉圣诞节来看啥地这是一块神奇的大陆，欧扎加拉圣诞节来看啥地
-              这是一块神奇的大陆，欧扎加拉圣诞节来看啥地方了卡收到积分跑文件发了
-            </p>
-          </div>
-        </li>
-        <li class="guide">
-          <div class="guide-t clearfix">
-            <div class="guide-img fl">
-              <img src="../../assets/img/tttt.png" alt="">
+              <img :src="item.userimg" alt="用户头像"/>
             </div>
             <div class="guide-detail fl">
-              <h5 class="guide-name"><span>刘美玲</span></h5>
-              <div class="region-level"><span>服务100人</span> | <span>2种玩法 </span></div>
+              <h5 class="guide-name"><span>{{item.username}}</span></h5>
+              <div class="region-level"><span>服务{{item.fwcount}}人</span> | <span>{{item.wfcount}}种玩法 </span></div>
               <div class="guide-star"><span>类别：</span>历史古迹、历史博物馆</div>
             </div>
-            <button class="guide-order fl">找Ta预订</button>
+            <!--<button class="guide-order fl" @click="$router.push({name: 'guideDetail',  params: {id: 33}})">找Ta预订-->
+            <button class="guide-order fl" >找Ta预订 </button>
           </div>
           <div class="guide-txt">
             <p>
-              这是一块神奇的大陆，欧扎加拉圣诞节来看啥地这是一块神奇的大陆，欧扎加拉圣诞节来看啥地
-              这是一块神奇的大陆，欧扎加拉圣诞节来看啥地方了卡收到积分跑文件发了
+              {{ item.signature }}
             </p>
           </div>
         </li>
-        <li class="guide">
-          <div class="guide-t clearfix">
-            <div class="guide-img fl">
-              <img src="../../assets/img/tttt.png" alt="">
-            </div>
-            <div class="guide-detail fl">
-              <h5 class="guide-name"><span>丁大力</span></h5>
-              <div class="region-level"><span>服务100人</span> | <span>2种玩法 </span></div>
-              <div class="guide-star"><span>类别：</span>历史古迹、历史博物馆</div>
-            </div>
-            <button class="guide-order fl">找Ta预订</button>
-          </div>
-          <div class="guide-txt">
-            <p>
-              这是一块神奇的大陆，欧扎加拉圣诞节来看啥地这是一块神奇的大陆，欧扎加拉圣诞节来看啥地
-              这是一块神奇的大陆，欧扎加拉圣诞节来看啥地方了卡收到积分跑文件发了
-            </p>
-          </div>
-        </li>
-        <li class="guide">
-          <div class="guide-t clearfix">
-            <div class="guide-img fl">
-              <img src="../../assets/img/tttt.png" alt="">
-            </div>
-            <div class="guide-detail fl">
-              <h5 class="guide-name"><span>丁大力</span></h5>
-              <div class="region-level"><span>服务100人</span> | <span>2种玩法 </span></div>
-              <div class="guide-star"><span>类别：</span>历史古迹、历史博物馆</div>
-            </div>
-            <button class="guide-order fl">找Ta预订</button>
-          </div>
-          <div class="guide-txt">
-            <p>
-              这是一块神奇的大陆，欧扎加拉圣诞节来看啥地这是一块神奇的大陆，欧扎加拉圣诞节来看啥地
-              这是一块神奇的大陆，欧扎加拉圣诞节来看啥地方了卡收到积分跑文件发了
-            </p>
-          </div>
-        </li>
-        <li class="guide">
-          <div class="guide-t clearfix">
-            <div class="guide-img fl">
-              <img src="../../assets/img/tttt.png" alt="">
-            </div>
-            <div class="guide-detail fl">
-              <h5 class="guide-name"><span>丁大力</span></h5>
-              <div class="region-level"><span>服务100人</span> | <span>2种玩法 </span></div>
-              <div class="guide-star"><span>类别：</span>历史古迹、历史博物馆</div>
-            </div>
-            <button class="guide-order fl">找Ta预订</button>
-          </div>
-          <div class="guide-txt">
-            <p>
-              这是一块神奇的大陆，欧扎加拉圣诞节来看啥地这是一块神奇的大陆，欧扎加拉圣诞节来看啥地
-              这是一块神奇的大陆，欧扎加拉圣诞节来看啥地方了卡收到积分跑文件发了
-            </p>
-          </div>
-        </li>
-        <li class="guide">
-          <div class="guide-t clearfix">
-            <div class="guide-img fl">
-              <img src="../../assets/img/tttt.png" alt="">
-            </div>
-            <div class="guide-detail fl">
-              <h5 class="guide-name"><span>丁大力</span></h5>
-              <div class="region-level"><span>服务100人</span> | <span>2种玩法 </span></div>
-              <div class="guide-star"><span>类别：</span>历史古迹、历史博物馆</div>
-            </div>
-            <button class="guide-order fl">找Ta预订</button>
-          </div>
-          <div class="guide-txt">
-            <p>
-              这是一块神奇的大陆，欧扎加拉圣诞节来看啥地这是一块神奇的大陆，欧扎加拉圣诞节来看啥地
-              这是一块神奇的大陆，欧扎加拉圣诞节来看啥地方了卡收到积分跑文件发了
-            </p>
-          </div>
-        </li>
+        <!--<li class="guide">-->
+          <!--<div class="guide-t clearfix">-->
+            <!--<div class="guide-img fl">-->
+              <!--<img src="../../assets/img/tttt.png" alt="">-->
+            <!--</div>-->
+            <!--<div class="guide-detail fl"-->
+                 <!--@click="$router.push({name: 'scenicDetail',  query: {scenicspot: 4, accountId: 1}})">-->
+              <!--<h5 class="guide-name"><span>丁大力</span></h5>-->
+              <!--<div class="region-level"><span>服务100人</span> | <span>2种玩法 </span></div>-->
+            <!--</div>-->
+            <!--<button class="guide-order fl" @click="$router.push({name: 'guideDetail',  params: {id: 33}})">找Ta预订-->
+            <!--</button>-->
+          <!--</div>-->
+          <!--<div class="guide-txt">-->
+            <!--<p>-->
+              <!--这是一块神奇的大陆，欧扎加拉圣诞节来看啥地这是一块神奇的大陆，欧扎加拉圣诞节来看啥地-->
+              <!--这是一块神奇的大陆，欧扎加拉圣诞节来看啥地方了卡收到积分跑文件发了-->
+            <!--</p>-->
+          <!--</div>-->
+        <!--</li>-->
+
       </ul>
     </div>
   </div>
 </template>
 
 <script type="text/ecmascript-6">
-  import {cityGuideList, guideDetails} from '../../http/getDate'
+  import { getNearGuide , guideDetails} from '../../http/getDate'
   import HeadTop from '../../components/HeadTop.vue'
   import {throttle} from '../../config/myUtils'
   import DropDown from '../../components/DropDown.vue'
@@ -153,10 +70,7 @@
   export default {
     data() {
       return {
-        baseUrl: 'http://www.youdingsoft.com',
-        headBg: false,
-        scenicId: this.$route.query.scenicId,
-        city: '北京',
+
         scenicInfo: '',
         dropDownData: [
           {
@@ -188,16 +102,11 @@
             ]
           }
         ],
-        sendData: {  // 景区导游列表请求参数
-          city: '',
-          sex: '',
-          agetype: '',
-          minprice: '',
-          maxprice: '',
-          todaytuan: '',
-          isbuyticket: '',
-          isshuttle: ''
-        }
+        locations: {  // 当前经纬度
+          latitude: '',
+          longitude: ''
+        },
+        guidesList: []
       }
     },
     components: {
@@ -211,20 +120,9 @@
         onSelect: this.selectHandle,
         onCancel: this.cancelHandle
       })
-      this.sendData.city = 110100
-      this.getGuideList(this.sendData);
-
-      // window.addEventListener('scroll', throttle(() => {
-      //     console.log('--------------')
-      //     let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-      //     let headHeight = this.$refs.uiHeader.offsetHeight;
-      //     if( scrollTop > headHeight) {
-      //         console.log(headHeight)
-      //         this.headBg = true;
-      //     } else {
-      //         this.headBg = false;
-      //     }
-      // },150))
+      this.locations.latitude = this.$route.query.latitude;
+      this.locations.longitude = this.$route.query.longitude;
+      this.getGuideList();
 
     },
     methods: {
@@ -258,13 +156,19 @@
         })
         this.getGuideList(this.sendData)
       },
-      getGuideList(data) {
-        cityGuideList(data).then(res => {
-          console.log('区导列表返回。。。。。')
-          console.log(res);
-          this.scenicInfo = res.scenicspotMap;
+      getGuideList() {
+        if( this.locations.latitude != '' && this.locations.longitud != '') {
+          getNearGuide(this.locations.latitude, this.locations.longitude).then(res => {
+            console.log('区导列表返回。。。。。')
+            console.log(res);
+            this.scenicInfo = res.scenicspotMap;
 
-        })
+          })
+          // this.getNearGuide(this.locations.latitude, this.locations.longitude);
+        } else {
+
+        }
+
       }
 
     }

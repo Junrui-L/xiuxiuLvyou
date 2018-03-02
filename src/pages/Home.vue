@@ -371,7 +371,7 @@
                 console.log(`当前地区编号${res.areasn}`)
 
                   that.locations = res;
-                  this.USER_AREA(res);
+                  that.USER_AREA(res);
               })
             }
           });

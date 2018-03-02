@@ -152,7 +152,7 @@
     },
     mounted() {
       console.log(this.$route.params.id)
-        this.getGuideHome(1)
+        this.getGuideHome(8)
     },
     methods: {
       getGuideHome(guideId) {

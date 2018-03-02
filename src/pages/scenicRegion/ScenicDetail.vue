@@ -47,7 +47,7 @@
 
                 <ul class="list-wrapper">
 
-                   <li class="list-item" v-for="item in pricePackelist"><div class="item-tit">{{item.name}}<span class="fr">￥{{item.price}}
+                   <li class="list-item" v-for="item in pricePackelist" @click="showPanPrice = !showPanPrice"><div class="item-tit">{{item.name}}<span class="fr" :class="{'up': showPanPrice}">￥{{item.price}}
                      <template v-if="item.unit == 1">
                         元/天
                       </template>
@@ -62,17 +62,20 @@
                       </template>
                    </span>
                    </div>
-                       <div class="price-desc">
-                           价格说明：{{item.explanation}}<br/>
-                           油费服务里程数： {{item.sericelongkm}}Km<br/>
-                           异地住宿费：{{item.ydzs_price}}/晚<br/>
-                           服务超时费{{item.overtime_price}}元/小时，服务超里费{{item.overkm_price}}/公里
+                     <trans-pan>
+                       <div class="price-desc" v-show="showPanPrice">
+                         价格说明：{{item.explanation}}<br/>
+                         油费服务里程数： {{item.sericelongkm}}Km<br/>
+                         异地住宿费：{{item.ydzs_price}}/晚<br/>
+                         服务超时费{{item.overtime_price}}元/小时，服务超里费{{item.overkm_price}}/公里
                        </div>
+                     </trans-pan>
+
                    </li>
                 </ul>
                 <h4 class="tite sub-title">门票套餐</h4>
                 <ul class="list-wrapper">
-                    <li class="list-item" v-for="item in mpPackelist"><div class="item-tit">{{item.name}} <span class="fr">￥{{item.price}}
+                    <li class="list-item" v-for="item in mpPackelist" @click="showPanTicket = !showPanTicket"><div class="item-tit">{{item.name}} <span class="fr" :class="{'up': showPanTicket}">￥{{item.price}}
                       <template v-if="item.unit == 1">
                         元/天
                       </template>
@@ -86,12 +89,15 @@
                         单/次
                       </template>
                     </span></div>
-                        <div class="price-desc">
-                            价格说明：{{item.remark}}<br/>
-                            <!--油费服务里程数： 10Km<br/>-->
-                            <!--异地住宿费：30/晚<br/>-->
-                            <!--服务超时费10元/小时，服务超里费10/公里-->
+                      <trans-pan>
+                        <div class="price-desc" v-show="showPanTicket">
+                          价格说明：{{item.remark}}<br/>
+                          <!--油费服务里程数： 10Km<br/>-->
+                          <!--异地住宿费：30/晚<br/>-->
+                          <!--服务超时费10元/小时，服务超里费10/公里-->
                         </div>
+                      </trans-pan>
+
                     </li>
                     <!--<li class="list-item" ><div class="item-tit">故宫学生票一张  <span class="fr">￥20</span></div></li>-->
                 </ul>
@@ -117,29 +123,38 @@
                 <section><h3 class="tite">预订须知</h3></section>
                 <ul class="list-wrapper">
                     <li class="list-item" >
-                        <div class="item-tit">向导提醒预订须知 <span class="fr"></span></div>
-                        <div class="price-desc">
+                        <div class="item-tit"  @click="showPanGuide = !showPanGuide"   >向导提醒预订须知 <span class="fr" :class="{'up': showPanGuide}"></span></div>
+                        <trans-pan>
+                          <div class="price-desc" v-show="showPanGuide">
                             {{plays.xdtx}}
-                        </div>
+                          </div>
+                        </trans-pan>
+
                     </li>
                     <li class="list-item" >
-                        <div class="item-tit">平台提醒预订须知 <span class="fr"></span></div>
-                        <div class="price-desc">
-                            价格说明：价格包含讲解费，车费<br/>
-                            油费服务里程数： 10Km<br/>
-                            异地住宿费：30/晚<br/>
-                            服务超时费10元/小时，服务超里费10/公里
+                        <div class="item-tit" @click="showPanPlant = !showPanPlant">平台提醒预订须知 <span class="fr" :class="{'up': showPanPlant}"></span></div>
+                      <trans-pan>
+                        <div class="price-desc" v-show="showPanPlant">
+                          价格说明：价格包含讲解费，车费<br/>
+                          油费服务里程数： 10Km<br/>
+                          异地住宿费：30/晚<br/>
+                          服务超时费10元/小时，服务超里费10/公里
                         </div>
+                      </trans-pan>
+
                     </li>
-                    <li class="list-item" >
-                        <div class="item-tit">退订政策 <span class="fr"></span></div>
-                        <div class="price-desc hide">
-                            价格说明：价格包含讲解费，车费<br/>
-                            油费服务里程数： 10Km<br/>
-                            异地住宿费：30/晚<br/>
-                            服务超时费10元/小时，服务超里费10/公里
-                        </div>
-                    </li>
+                  <li class="list-item" >
+                    <div class="item-tit" @click="showPanPoilcy = !showPanPoilcy" >退订政策 <span class="fr" :class="{'up': showPanPoilcy}"></span></div>
+                    <trans-pan>
+                      <div class="price-desc"  v-show="showPanPoilcy">
+                        价格说明：价格包含讲解费，车费<br/>
+                        油费服务里程数： 10Km<br/>
+                        异地住宿费：30/晚<br/>
+                        服务超时费10元/小时，服务超里费10/公里
+                      </div>
+                    </trans-pan>
+
+                  </li>
                 </ul>
             </div>
             <div class="tourist-eval">
@@ -257,7 +272,7 @@
     import EvaluateStar from '../../components/EvaluateStar.vue'
     import DatePicker from '../../components/date-picker'
     import {peopleNum} from '../../config/datajs'
-
+    import TransPan from  '../../components/transitionPanel'
     createAPI(Vue, DatePicker, ['select', 'cancel'], false)
     let  peoledata = peopleNum
     export default {
@@ -278,12 +293,18 @@
                 mealType: '',
                 peopleNum: '',
                 newPricePackelist:[],
-                navItem: 'price'
+                navItem: 'price',
+                showPanPrice: false,  //各说明的详情下拉展示隐藏
+                showPanTicket: false,
+                showPanGuide: false,
+                showPanPlant: false,
+                showPanPoilcy: false,
             }
         },
         components: {
             HeadTop,
-            EvaluateStar
+            EvaluateStar,
+            TransPan
         },
         computed: {
           ...mapState([
