@@ -2,7 +2,7 @@
     <div class="myWallet">
       <div class="header-wrap">
         <div class="header">
-          <h3 class="money">{{count.accountBalance}}.00</h3>
+          <h3 class="money">{{count.accountBalance}}</h3>
           <div class="money-txt">余额账户（元）</div>
         </div>
       </div>
@@ -58,13 +58,8 @@
           }
         },
         mounted(){
-          // userLogin('15118252171', '123456').then(res=> {
-          //   console.log('---登录----')
+            console.log('---登录----')
             this.getAccount();
-
-          // })
-
-
         },
         methods: {
           getAccount() {

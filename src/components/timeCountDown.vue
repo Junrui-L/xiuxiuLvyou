@@ -23,18 +23,15 @@
 
         data() {
             return {
-                deadline: '2018/02/26 18:00:00',   //这里设置日期倒计时间
                 days: '00',
                 hours: '00',
                 minutes: '00',
-                seconds: '00',
-                expired: false
+                seconds: '00'
+
             };
         },
         props: {
-          endTime: {
-                type: String
-            },
+          endTime: '',
             countCallback: {
                 type: Function,
                 default() { }
@@ -53,7 +50,7 @@
             // Countdown loop
                 let time = setInterval(() => {
 
-            // Difference between the 2 dates
+
                         let now = new Date().getTime(),
                             diff = countDownDate - now,
 
@@ -67,7 +64,6 @@
             // Check for time expiration
                     if (diff < 0) {
                         clearInterval(time);
-                        this.expired = true;
                         this.countCallback();
                         return
                     } else {
@@ -75,7 +71,6 @@
                         this.hours = (thours < 10) ? '0' + thours : thours;
                         this.minutes = (tminutes < 10) ? '0' + tminutes : tminutes;
                         this.seconds = (tseconds < 10) ? '0' + tseconds : tseconds;
-//                        countDownDate -= 1000;
                     }
                 }, 1000);
 
@@ -87,11 +82,11 @@
                     seconds: this.seconds
                 };
             }
-        }
+        },
+        methods:{
+
+        },
     }
 
 </script>
 
-<style lang="scss">
-    /*引入样式表*/
-</style>

@@ -51,7 +51,7 @@
   export default {
     data() {
       return {
-        endT: '2018-02-09 11:55:00',
+        endT: '',
         nowT: '2018-01-09 19:50:00',
         payOrderDetail: '',
         userAccount: '',
@@ -82,6 +82,9 @@
     mounted() {
       // this.configWx();
       this.preOrderLoad();
+      //倒计时在当前时间上加上15分钟
+      let now = new Date().getTime();
+      this.endT = new Date(now + 1000 * 60 * 15).getTime();
     },
     methods: {
       endLog() {

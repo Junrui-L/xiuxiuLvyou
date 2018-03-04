@@ -18217,8 +18217,10 @@ export const areaList = {
   ]
 }
 
-export const peopleNum =  [{ num: 1, text: '1人' }, { num: 2, text: '2人' }, { num: 3, text: '3人' }, { num: 3, text: '4人' },
+export const peopleNum =  [
+  { num: 1, text: '1人' }, { num: 2, text: '2人' }, { num: 3, text: '3人' }, { num: 3, text: '4人' },
   { num: 5, text: '5人' }, { num: 6, text: '6人' }, { num: 7, text: '7人' }, { num: 8, text: '8人' },
   { num: 9, text: '9人' }, { num: 10, text: '10人' }, { num: 11, text: '11人' }, { num: 12, text: '12人' },
-  { num: 13, text: '13人' }, { num: 14, text: '14人' }, { num: 15, text: '15人' }, { num: 16, text: '16人' }
+  { num: 13, text: '13人' }, { num: 14, text: '14人' }, { num: 15, text: '15人' }, { num: 16, text: '16人' },
+  { num: 17, text: '17人' }, { num: 18, text: '18人' }, { num: 19, text: '19人' }, { num: 20, text: '20人' }
 ]

@@ -471,17 +471,21 @@
           },
           getImgUrl(url, mode) {
             let baseUrl = this.basePath;
-            let dUrl = url.split('/')[1];
-            switch (mode) {
-              case 'small':
-                return baseUrl + 'fileUploadsmall/' + dUrl;
-              case 'middle':
-                return baseUrl + 'fileUploadmedium/' + dUrl;
-              case 'orgin':
-                return baseUrl + 'fileUpload/' + dUrl;
-              default:
-                return baseUrl + 'fileUpload/' + dUrl
-            }
+            // if(url&& mode&& url.indexOf('/')>0){
+              let dUrl = url.split('/')[1];
+              switch (mode) {
+                case 'small':
+                  return baseUrl + 'fileUploadsmall/' + dUrl;
+                case 'middle':
+                  return baseUrl + 'fileUploadmedium/' + dUrl;
+                case 'orgin':
+                  return baseUrl + 'fileUpload/' + dUrl;
+                default:
+                  return baseUrl + 'fileUpload/' + dUrl
+              }
+            // }else{
+            //   return baseUrl + url;
+            // }
           }
         }
     }

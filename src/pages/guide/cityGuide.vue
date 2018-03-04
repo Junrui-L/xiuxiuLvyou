@@ -120,8 +120,8 @@
         onCancel: this.cancelHandle
       })
 
-      // this.sendData.citySn = this.$route.query.citySn;
-      this.sendData.citySn = 440100;
+      this.sendData.citySn = this.$route.query.citySn;
+      // this.sendData.citySn = 440100;
       console.log(this.sendData);
       this.getGuideList(this.sendData);
 

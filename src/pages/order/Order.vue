@@ -72,7 +72,7 @@
         </div>
         <!--<TimeCount :endTime="endT" :nowTime="nowT" :countCallback="endLog"/>-->
         <div class="btn-topay clearfix">
-          <button class="backpay btn fr"  @click="updateOrder(5)">已出行</button>
+          <button class="backpay btn"  @click="updateOrder(5)">已出行</button>
         </div>
       </div>
     </template>
@@ -87,7 +87,7 @@
         <!--<TimeCount :endTime="endT" :nowTime="nowT" :countCallback="endLog"/>-->
         <div class="btn-topay clearfix">
 
-          <button class="backpay btn fr" @click="updateOrder(6)">出行结束</button>
+          <button class="backpay btn" @click="updateOrder(6)">出行结束</button>
         </div>
       </div>
     </template>
@@ -103,8 +103,8 @@
         <!--<TimeCount :endTime="endT" :nowTime="nowT" :countCallback="endLog"/>-->
         <div class="btn-triped clearfix">
           <button class="backpay btn fl">申请退款</button>
-          <button class="onemore btn ">再游一场</button>
-          <button class="evalu btn fr" @click="router.push({name: 'comment'})">评价</button>
+          <button class="onemore btn " @click="$router.push({path : '/scenicDetail',query: {playId:orderInfo.playid, accountId: orderInfo.accountid}})">再游一场</button>
+          <button class="evalu btn fr" @click="$router.push({name: 'comment'})">评价</button>
         </div>
       </div>
     </template>
@@ -299,7 +299,7 @@
       return {
         orderNum: this.$route.query.orderNum,
         start: '2018-02-22 21:55:00',
-        endT: '2018-02-28 21:55:00',
+        endT: '2018-03-05 21:55:00',
         nowT: '2018-01-09 19:50:00',
         orderInfo: '',
         cancelR: '',
@@ -314,10 +314,14 @@
     computed: {
       ...mapState([
         'basePath', 'userInfo', 'baseOrder', 'guideInfo', 'play', 'pricePackage'
-      ])
+      ]),
     },
     mounted() {
       this.getOrderInfo();
+      //倒计时在当前时间上加上15分钟
+      let now = new Date().getTime();
+      this.endT = new Date(now + 1000 * 60 * 15).getTime();
+
     },
     methods: {
       ...mapMutations(['ORDER_DETAIL']),
@@ -327,7 +331,6 @@
           this.orderInfo = res.order
           this.ORDER_DETAIL(res.order);
           // this.orderInfo = res.orderMap;
-
         })
       },
       waitGuide(){

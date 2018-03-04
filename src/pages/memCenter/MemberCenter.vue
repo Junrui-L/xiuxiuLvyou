@@ -64,17 +64,25 @@
             <p><span>总价</span><span class="fr">{{v.orderSumPrice}}元</span></p>
           </div>
           <p class="fr">
-            <button class="order-handle-btn" v-if="v.status===0">取消订单</button>
-            <button class="order-handle-btn red" v-if="v.status===1">去付款</button>
-            <button class="order-handle-btn red" v-if="v.status===3 || v.status===5">联系向导</button>
+            <button class="order-handle-btn" v-if="v.status===0" @click="cancleOrder(v)" >取消订单</button>
+            <button class="to-pay" v-if="v.status===1">
+              <router-link :to="{path: '/order' , query: { orderNum: v.ordernumber}}">去付款</router-link>
+            </button>
+            <button class="order-handle-btn red" v-if="v.status===2|| v.status===3|| v.status===4 ||v.status===5 ">联系向导</button>
             <button class="order-handle-btn" v-if="v.status===6">去评价</button>
-            <button class="order-handle-btn" v-if="v.status===9">重新下单</button>
+            <button class="order-handle-btn" v-if="v.status===9">
+              <router-link :to="{path : '/scenicDetail',query: {playId:v.playid,accountId: v.accountId}}">
+              重新下单
+              </router-link>
+            </button>
           </p>
         </div>
       </div>
+      <div v-if="orderList.length!== 0">
+        <p class="load-more" v-show="!nomore" @click="loadMore">加载更多</p>
+        <p class="load-more" v-show="nomore">没有更多了</p>
+      </div>
 
-      <p class="load-more" v-show="!nomore" @click="loadMore">加载更多</p>
-      <p class="load-more" v-show="nomore">没有更多了</p>
     </div>
 
   </div>
@@ -104,24 +112,24 @@
       }
     },
     mounted() {
-      userLogin('15118252171', '123456').then(res => {
         console.log('---登录----')
-        console.log(res)
         this.getUserInfo();
         this.getOrderList()
         this.queryWallet()
-      })
     },
     methods: {
       // 获取订单列表
       getOrderList() {
         getMyOrderList({page: this.page, status: this.tabMap[this.currentTab]}).then(res => {
           if (res.list.length === 0) {
-            if (this.page !== 1) {
+            if (this.page > 1) {
               this.nomore = true
+            } else {
+              this.orderList = res.list;
             }
           } else {
-            this.orderList = res.list
+            this.orderList = res.list;
+            console.log(this.orderList)
             if (res.list.length < 25) {
               this.nomore = true
             }
@@ -138,6 +146,23 @@
           this.userInfo.collect = res.collect
         })
       },
+      // 取消订单
+      cancleOrder(obj){
+        this.$createDialog({
+          type: 'confirm',
+          title: '取消订单',
+          content: '确定取消该订单吗？',
+          confirmBtn: {
+            text: '确定',
+            active: true,
+            disabled: false,
+            href: 'javascript:;'
+          },
+          onConfirm: () => {
+            this.caccleOrder(obj.ordernumber)
+          }
+        }).show()
+      },
       // 点击订单状态Tab
       clickOrderStateTab(currentTab) {
         this.currentTab = currentTab
@@ -147,12 +172,13 @@
       },
       // 取消订单
       caccleOrder(ordernumber) {
-        cancelOrder().then({ordernumber, status: 2}).then(res => {
+        cancelOrder(ordernumber,2).then(res => {
           this.$createDialog({
             type: 'alert',
             title: '提示',
             content: '取消成功'
           }).show()
+          this.$router.go(0)
         })
       },
       // 查询钱包
@@ -160,10 +186,6 @@
         userAccounts().then(res => {
           this.userInfo.accountBalance = res.capital.accountBalance
         })
-      },
-      // 去付款
-      toPay(orderid) {
-
       },
       // 加载更多
       loadMore() {

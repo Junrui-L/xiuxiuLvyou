@@ -133,19 +133,29 @@
         }
         .order-handle-btn {
           margin-top: px2rem(15px);
-          width: px2rem(68px);
-          height: px2rem(25px);
-          color: #666666;
-          border-radius: 2px;
+          @include setButton(px2rem(75px), px2rem(25px), $color-black-secondary, $white, px2rem(3px));
+          @include font-dpr(14px);
           outline: none;
           @include font-dpr(12px);
-          background-color: transparent;
           border: 1px solid #DEDEDE;
         }
-        .order-handle-btn.red {
+        .red {
           background-color: $color-red;
           color: $white;
-          border: 1px solid $color-red;
+          border: none;
+        }
+
+        .to-pay {
+          margin-top: px2rem(15px);
+          @include setButton(px2rem(75px), px2rem(25px), $color-black-secondary, $color-red, px2rem(3px));
+          @include font-dpr(14px);
+          outline: none;
+          @include font-dpr(12px);
+          background-color: $color-red;
+          border: 1px solid #DEDEDE;
+          a {
+            color: $white;
+          }
         }
       }
     }

@@ -22,8 +22,7 @@
           :threshold="threshold"
           :speed="speed"
           :allow-vertical="allowVertical"
-          @change="changePage"
-          @click="clickPage">
+         >
 
           <cube-slide-item v-for="(item, index) in banners" :key="index">
             <a :href="item.url">
@@ -206,10 +205,10 @@
     </div>
       <!--<cube-button @click="showDialog">show dialog</cube-button>-->
     <div class="footer">拉到底了~<br/>可以尝试搜索看看</div>
-    <router-link to="/memberCenter">
-      <cube-button>个人中心</cube-button>
+    <!--<router-link to="/memberCenter">-->
+      <!--<cube-button>个人中心</cube-button>-->
 
-    </router-link>
+    <!--</router-link>-->
     <!--<alert-tip v-if="showAlert" :showHide="showAlert" @closeTip="closeTip" :alertText="alertText"></alert-tip>-->
   </div>
 </template>
@@ -280,17 +279,8 @@
       ...mapMutations(['GET_USERINFO','USER_AREA','RECORD_ADDRESS' ,'BASE_ORDER']),
 
       async initHome() {
-        // await userLogin('15118252171', '123456').then(res=> {
-        //   console.log('---登录----')
-        //   console.log(res)
-        // })
-
         await homeData().then(res => {
           console.log(res);
-          console.log(this.basePath);
-
-          this.GET_USERINFO({phone: this.basePath,name: '周周'});
-
           let resp = res;
           this.banners = resp[1]   //banner图
 
@@ -329,12 +319,7 @@
         // signUrl = encodeURIComponent(signUrl)
         console.log(`要签名的url ${signUrl}`)
         ConfigWx(signUrl).then(res => {
-          console.log(res)
           console.log('===》签名基本参数返回《====')
-          // if(res.code && res.code == '-1001') {
-          //   console.log('还么登录,需要授权登录')
-          //   location.href= res.data.redirect;
-          // }
           console.log(res);
           this.configMap = res.configMap;
           wx.config({

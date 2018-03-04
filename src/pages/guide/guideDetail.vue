@@ -120,7 +120,8 @@
          选择玩法
         </h3>
         <ul class="choose-wrap">
-          <li class="choose-item clearfix" v-for="item in playList" @click="$router.push({name: 'scenicDetail',  query: {scenicspot: item.scenicspotid, accountId: item.accountid}})">{{ item.wfname }} <span class="fr">
+          <li v-if="playList.length == 0" class="no-play">暂未发布玩法</li>
+          <li v-else class="choose-item clearfix" v-for="item in playList" @click="$router.push({name: 'scenicDetail',  query: {scenicspot: item.scenicspotid, accountId: item.accountid}})">{{ item.wfname }} <span class="fr">
                 <svg>
                      <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#arrow-right"></use>
                 </svg>
@@ -165,8 +166,8 @@
     },
     mounted() {
         //请求当前导游详情，玩法列表
-        // this.getGuideHome(this.$route.query.id)
-        this.getGuideHome(1)
+        this.getGuideHome(this.$route.query.id)
+        // this.getGuideHome(1)
 
 
     },

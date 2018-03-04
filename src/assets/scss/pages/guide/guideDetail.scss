@@ -292,7 +292,13 @@
       color: $color-black;
       @include font-dpr(13px)
     }
-
+    .no-play {
+      @include setSize(100%, px2rem(60px));
+      line-height: px2rem(60px);
+      @include font-dpr(15px);
+      text-align: center;
+      color: $color-gray-secondary;
+    }
     .choose-item {
       @include setSize(100%, px2rem(50px));
       line-height: px2rem(50px);

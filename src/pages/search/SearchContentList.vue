@@ -6,8 +6,10 @@
           <h3 class="sub_title type_title">热门</h3>
           <ul class="spots clearfix">
             <li class="spots-item fl" v-for=" (n, index) in areaList " :key="index">
+              <router-link  :to="{path: '/cityGuide' , query: { citySn: n.areasn }}">
               <img :src="baseUrl + n.cityimg" alt="">
               <p>{{n.name}}</p>
+              </router-link>
             </li>
           </ul>
         </section>
