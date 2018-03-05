@@ -23,8 +23,8 @@
         <p>接单量</p>
       </li>
       <li class="date-item fl">
-        <strong>89%</strong>
-        <p>回复率</p>
+        <strong>{{guideInfo.assess || 0}}</strong>
+        <p>评价数</p>
       </li>
 
     </ul>
@@ -58,7 +58,7 @@
       </div>
 
       <div class="other-playmethos">
-        <h3 class="tite">向导其他玩法</h3>
+        <h3 class="tite">向导玩法</h3>
         <ul class="methos-wrapper">
           <li class="methods" v-for="item in playList">
             <router-link class="nav-link" :to="{name: 'scenicDetail',  query: {scenicspot: item.scenicspotid, accountId: item.accountid}}">
@@ -78,28 +78,6 @@
               </div>
             </router-link>
           </li>
-          <!--<li class="methods" >-->
-            <!--<router-link class="nav-link" to="scenicRegion">-->
-              <!--<dl class="clearfix">-->
-                <!--<dt class="method-img fl">-->
-                  <!--<img src="../../assets/img/tttt.png" alt="">-->
-                <!--</dt>-->
-                <!--<dd class="method-detail fl">-->
-                  <!--<div class="method-desc">这是一块神奇的大陆，欧扎加拉圣诞节来看啥地这是一块神奇的大陆，欧扎加拉圣诞节来看啥地-->
-                    <!--这是一块神奇的大陆，欧扎加拉圣诞节来看啥地方了卡收</div>-->
-                  <!--<div class="method-price">￥4997起/人</div>-->
-                <!--</dd>-->
-              <!--</dl>-->
-              <!--<div class="method-txt">-->
-                <!--<p>-->
-                  <!--这是一块神奇的大陆，欧扎加拉圣诞节来看啥地这是一块神奇的大陆，欧扎加拉圣诞节来看啥地-->
-
-                  <!--这是一块神奇的大陆，欧扎加拉圣诞节来看啥地方了卡收到积分跑文件发了啊打发-->
-                <!--</p>-->
-              <!--</div>-->
-            <!--</router-link>-->
-          <!--</li>-->
-
         </ul>
       </div>
 

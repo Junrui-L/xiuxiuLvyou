@@ -48,23 +48,25 @@
       <div class="order-list">
         <p class="no_data_text" v-if="orderList.length===0">暂无数据</p>
         <div class="order-list-item" v-for="v in orderList">
-          <p class="fl h44">出行时间：{{v.godate}}</p>
-          <p class="fr  h44 orderstate">{{v.status | orderStateText}}</p>
-          <div class="scenicInfo fl">
-            <img src="/static/img/taiwdy.0cc08bb.png"/>
-            <div class="desc">
-              <p class="title">{{v.username}}</p>
-              <p class="payway">{{v.wfname}}</p>
-              <p class="playway">{{v.orderMode}}</p>
+          <div class="order-item" @click="$router.push({path: '/order' , query: { orderNum: v.ordernumber}})">
+            <p class="fl h44">出行时间：{{v.godate}}</p>
+            <p class="fr  h44 orderstate">{{v.status | orderStateText}}</p>
+            <div class="scenicInfo fl">
+              <img :src="basePath + v.orderplayImg"/>
+              <div class="desc">
+                <p class="title">{{v.username}}</p>
+                <p class="payway">{{v.wfname}}</p>
+                <p class="playway">{{v.orderMode}}</p>
+              </div>
+            </div>
+            <div class="order-info fl">
+              <p><span>下单时间</span><span class="fr">{{v.created_at}}</span></p>
+              <p><span>人数</span><span class="fr">{{v.tripsnum}}人</span></p>
+              <p><span>总价</span><span class="fr">{{v.orderSumPrice}}元</span></p>
             </div>
           </div>
-          <div class="order-info fl">
-            <p><span>下单时间</span><span class="fr">{{v.created_at}}</span></p>
-            <p><span>人数</span><span class="fr">{{v.tripsnum}}人</span></p>
-            <p><span>总价</span><span class="fr">{{v.orderSumPrice}}元</span></p>
-          </div>
-          <p class="fr">
             <button class="order-handle-btn" v-if="v.status===0" @click="cancleOrder(v)" >取消订单</button>
+            <div class="fr">
             <button class="to-pay" v-if="v.status===1">
               <router-link :to="{path: '/order' , query: { orderNum: v.ordernumber}}">去付款</router-link>
             </button>
@@ -75,7 +77,7 @@
               重新下单
               </router-link>
             </button>
-          </p>
+          </div>
         </div>
       </div>
       <div v-if="orderList.length!== 0">
@@ -89,6 +91,7 @@
 </template>
 
 <script>
+  import {mapState, mapMutations} from 'vuex'
   import {userLogin, userPersonal, cancelOrder, getMyOrderList, userAccounts} from '../../http/getDate'
 
   export default {
@@ -110,6 +113,11 @@
         page: 1,
         nomore: false
       }
+    },
+    computed: {
+      ...mapState([
+        'basePath','userInfo'
+      ]),
     },
     mounted() {
         console.log('---登录----')

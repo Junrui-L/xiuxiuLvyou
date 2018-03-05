@@ -131,7 +131,7 @@
         </div>
         <div class="btn-triped btn-topay clearfix">
           <button class="backpay btn fl">申请退款</button>
-          <button class="backpay btn fr">再游一场</button>
+          <button class="backpay btn fr" @click="tripMore">再游一场</button>
         </div>
       </div>
     </template>
@@ -141,7 +141,7 @@
           已取消
         </div>
         <div class="btn-triped  clearfix">
-          <button class="backpay btn ">重新下单</button>
+          <button class="backpay btn " @click="tripMore">重新下单</button>
         </div>
       </div>
     </template>
@@ -188,41 +188,15 @@
         </div>
       </div>
     </template>
-
-    <!--<div class="triping hide show">-->
-    <!--<button class=" btn">出行中</button>-->
-    <!--</div>-->
-    <!--<div class="cancel-order hide">-->
-    <!--<button class="btn">重新下单</button>-->
-    <!--</div>-->
-    <!--<div class="trip-end hide show">-->
-    <!--<button class="btn">旅行结束</button>-->
-    <!--</div>-->
-    <!--<div class="btn-triped">-->
-    <!--<button class="backpay btn fl">申请退款</button>-->
-    <!--<button class="onemore btn ">再游一场</button>-->
-    <!--<button class="evalu btn fr">评价</button>-->
-    <!--</div>-->
     <div class="guide-info clearfix">
       <div class="guide-img fl">
-        <img src="../../assets/img/taiwdy.png" alt="">
+        <img :src="basePath + orderInfo.orderplayImg" alt="">
       </div>
       <dl class="guide-detail fl">
         <dt class="guide-name">{{orderInfo.username}} <span class="message"></span></dt>
         <dd class="guide-scenic"><span>{{orderInfo.playaddre}}</span><span>{{orderInfo.wfname}}</span></dd>
         <dd class="guide-mode">
-          <template v-if="orderInfo.servicetype === 1">
-            景点详解
-          </template>
-          <template v-else-if="orderInfo.servicetype === 2">
-            带游服务
-          </template>
-          <template v-else-if="orderInfo.servicetype === 3">
-            当地游玩
-          </template>
-          <template v-else-if="orderInfo.servicetype === 4">
-            专线类型
-          </template>
+          {{ orderInfo.servicetype | servicetypeText}}
           <template v-if="orderInfo.tymode === 0">
             (平分模式)
           </template>
@@ -255,6 +229,13 @@
             <p class="price-num">￥{{orderInfo.packagePrice}} X {{ orderInfo.tripsnum}}</p>
           </div>
         </li>
+        <li class="price-item meal-n clearfix">
+          <span class="fl">门票套餐</span>
+          <div class="price fr">
+            <p>{{orderInfo.ticketpackage}}</p>
+            <p class="price-num">￥{{orderInfo.ticketpackageprice}} X {{ orderInfo.ticketpackagecount}}</p>
+          </div>
+        </li>
         <li class="price-item coupon clearfix">
           <span class="fl">优惠券</span>
           <div class="price fr">
@@ -272,10 +253,10 @@
       <li class="check-item">订单号 <span class="fr">{{orderInfo.ordernumber}}</span></li>
       <li class="check-item">订单时间 <span class="fr">{{orderInfo.created_at}}</span></li>
       <li class="check-item" v-if="orderInfo.playmoneyType != null">支付方式 <span class="fr">
-          <template v-if="orderInfo.playmoneyType == 1">
+          <template v-if="orderInfo.playmoneyType == 0">
               余额支付
             </template>
-            <template v-else-if="orderInfo.playmoneyType == 2">
+            <template v-else-if="orderInfo.playmoneyType == 1">
               微信支付
             </template>
 
@@ -299,7 +280,7 @@
       return {
         orderNum: this.$route.query.orderNum,
         start: '2018-02-22 21:55:00',
-        endT: '2018-03-05 21:55:00',
+        endT: '',
         nowT: '2018-01-09 19:50:00',
         orderInfo: '',
         cancelR: '',
@@ -318,17 +299,15 @@
     },
     mounted() {
       this.getOrderInfo();
-      //倒计时在当前时间上加上15分钟
-      let now = new Date().getTime();
-      this.endT = new Date(now + 1000 * 60 * 15).getTime();
-
     },
     methods: {
       ...mapMutations(['ORDER_DETAIL']),
       getOrderInfo() {
         orderDetail(this.orderNum).then(res => {
           console.log(res)
-          this.orderInfo = res.order
+          this.orderInfo = res.order;
+          let creatT = new Date(res.order.created_at).getTime();
+          this.endT = new Date(creatT + 1000 * 60 * 30).getTime();
           this.ORDER_DETAIL(res.order);
           // this.orderInfo = res.orderMap;
         })
@@ -364,6 +343,11 @@
               title: '提示',
               content: '取消成功'
             }).show()
+
+            setTimeout(()=> {
+              this.$router.go(0);
+
+            }, 1000)
           }
         })
       },
@@ -377,11 +361,6 @@
             }).show()
           } else {
             console.log('状态修改成功，刷新当前页面！')
-            // this.$createDialog({
-            //   type: 'alert',
-            //   title: '提示',
-            //   content: '状态修改成功'
-            // }).show()
             this.$router.go(0)
           }
         })

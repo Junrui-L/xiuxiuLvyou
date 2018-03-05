@@ -114,7 +114,7 @@
     },
     mounted() {
       this.cityPicker = this.$createCascadePicker({
-        title: '选择城市',
+        title: '选择区域',
         data: cityData,
         onSelect: this.selectHandle,
         onCancel: this.cancelHandle
@@ -141,19 +141,9 @@
         this.cityPicker.show()
       },
       selectHandle(selectedVal, selectedIndex, selectedText) {
-        // this.$createDialog({
-        //   type: 'warn',
-        //   content: `Selected Item: <br/> - value: ${selectedVal.join(', ')} <br/> - index: ${selectedIndex.join(', ')} <br/> - text: ${selectedText.join(' ')}`,
-        //   icon: 'cubeic-alert'
-        // }).show()
-
-        // this.city = selectedText[1];
-        // this.cityValue = selectedVal[1];
         this.sendData.citySn = selectedVal[1];
         console.log(this.sendData);
         this.getGuideList(this.sendData);
-        // this.getSpotsList(this.cityValue);
-
       },
       cancelHandle() {
         console.log('取消了')

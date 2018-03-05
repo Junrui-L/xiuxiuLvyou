@@ -8,7 +8,7 @@
                 <!--<span class="cityname ">北京北北</span>-->
               <!--</div>-->
             </HeadTop>
-            <img  class="head-img" :src="getImgUrl(plays.wfImg)" alt="">
+            <img  class="head-img" :src="basePath + plays.wfImg" alt="">
         </header>
         <div class="main-content">
             <div class="head-wrapper">
@@ -17,19 +17,22 @@
                 <ul class="tips clearfix">
                     <li class="tip fl">景点带游</li>
                     <li class="tip fl">美景拍摄</li>
-                    <li class="tip fl">历史古迹</li>
+                    <!--<li class="tip fl">历史古迹</li>-->
                 </ul>
             </div>
 
             <div class="guide-wrapper clearfix">
-                <div class="guide-img fl">
+                <div class="guide-content" @click="$router.push({path: '/guideDetail',  query: {id: guide.visitorId}})">
+                  <div class="guide-img fl">
                     <img :src="guide.userImg" alt="">
-                </div>
-                <div class="guide-detail fl">
+                  </div>
+                  <div class="guide-detail fl">
                     <h5 class="guide-name"><span>{{guide.userName}}</span></h5>
                     <div class="guide-level"><span>服务{{guide.fwcount}}人</span> | <span>{{guide.wfcount}}种玩法 </span></div>
                     <EvaluateStar :code="guide.level"></EvaluateStar>
+                  </div>
                 </div>
+
                 <a class="guide-order fl" href="tel:22222"></a>
             </div>
         </div>
@@ -106,17 +109,14 @@
                 <section><h3 class="tite">玩法概述</h3></section>
                 <div class="methods-desc">
                   {{plays.wfjs}}
-                    <!--还可以通过HTML标签上的id或者class来生成扩展实例构造器，Vue.extend里的代码是一样的，只是在挂载的时候，-->
-                    <!--还可以通过HTML标签上的id或者class来生成扩展实例构造器，Vue.extend里的代码是一样的，只是在挂载的时候，-->
-                    <!--我们用类似jquery的选择器的方法，来进行挂载就可以了。-->
-                    <!--我们用类似jquery的选择器的方法，来进行挂载就可以了。-->
+
                 </div>
                 <h4 class="tite sub-title">游玩图片</h4>
                 <ul class="img-wrapper clearfix">
-                    <li class="img-container"><img :src="getImgUrl(plays.ywImg)" alt=""></li>
-                    <li class="img-container"><img src="../../assets/img/home_list-1.jpg" alt=""></li>
-                    <li class="img-container"><img src="../../assets/img/home_list-1.jpg" alt=""></li>
-                    <li class="img-container"><img src="../../assets/img/home_list-1.jpg" alt=""></li>
+                    <li class="img-container"><img :src="basePath + plays.ywImg" alt=""></li>
+                    <!--<li class="img-container"><img src="../../assets/img/home_list-1.jpg" alt=""></li>-->
+                    <!--<li class="img-container"><img src="../../assets/img/home_list-1.jpg" alt=""></li>-->
+                    <!--<li class="img-container"><img src="../../assets/img/home_list-1.jpg" alt=""></li>-->
                 </ul>
             </div>
             <div class="order-tips">
@@ -186,7 +186,7 @@
 
                             <dl class="clearfix">
                                 <dt class="method-img fl">
-                                    <img :src="getImgUrl(item.wfimg)" alt="">
+                                    <img :src="basePath + plays.wfImg" alt="">
                                 </dt>
                                 <dd class="method-detail fl">
                                     <div class="method-desc">{{item.wfjs}}</div>
@@ -219,12 +219,12 @@
             <i class="close" @click="hideChoosePopup"></i>
 
             <div class="head-wrapper">
-              <h3 class="region-name">北京故宫-颐和园 <span>可团游</span></h3>
-              <div class="region-adress">北京   <span>景点详解</span></div>
+              <h3 class="region-name">{{plays.serviceCity}}-{{plays.scenicspot}} <span>可团游</span></h3>
+              <div class="region-adress">{{plays.serviceCity}}   <span>{{plays.wfname}}</span></div>
               <ul class="tips clearfix">
                 <li class="tip fl">景点带游</li>
                 <li class="tip fl">美景拍摄</li>
-                <li class="tip fl">历史古迹</li>
+                <!--<li class="tip fl">历史古迹</li>-->
               </ul>
             </div>
             <ul class="choose-wrap">
@@ -415,7 +415,7 @@
             this.travalDate = {value: selectedVal.join('-'), txt: selectedText.join('')}
             console.log(this.travalDate )
 
-            this.priceList(this.travalDate.value, this.scenicspot, this.accountId )
+            this.priceList(this.travalDate.value, this.scenicspot, this.plays.id )
           },
           selectMealHandle(selectedVal, selectedIndex, selectedText) {
             this.mealType = {type:selectedText[0],id: selectedVal[0]};

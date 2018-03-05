@@ -46,7 +46,6 @@
       padding: px2rem(18px) 0;
       text-align: center;
       border-bottom: 1px solid $color-body-bg;
-
     }
 
     .btn {
@@ -97,7 +96,10 @@
     background: $white;
     .guide-img {
       @include setSize(px2rem(80px), px2rem(80px));
+      position: relative;
       img {
+        @include centerTop;
+        left: 0;
         display: block;
         width: 100%;
         max-height: 100%;

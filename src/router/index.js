@@ -71,7 +71,8 @@ const router = new Router({
       //景区列表
       path: '/scenicRegion',
       name: 'scenicRegion',
-      component: ScenicRegion
+      component: ScenicRegion,
+      meta: {keepAlive: true}
     },
     {
       //景区向导玩法
@@ -89,7 +90,8 @@ const router = new Router({
       //区域向导列表
       path: '/cityGuide',
       name: 'cityGuide',
-      component: CityGuide
+      component: CityGuide,
+      meta: {keepAlive: true}
     },
     {
       //附近向导列表

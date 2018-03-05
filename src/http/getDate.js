@@ -190,7 +190,7 @@ export const creatOrder = (godate,
                            limkman,
                            linkPhone,
                            require,
-                           yhjId) => $http.get('/siteH5/order.json?act=create', {
+                           yhjId) => $http.post('/siteH5/order.json?act=create', {
   godate: godate,
   accountId: accountId,
   playId: playId,
@@ -316,10 +316,17 @@ export const getCouponsList = (tomake) => $http.get('/siteH5/user.json?act=loady
  *
  * */
 
-export const userUpdateMobile = (dict, val) => $http.get('/siteH5/user.json?act=updatemobile', {
-  dict: dict,
-  val: val
+export const userUpdateMobile = (veCode, mobile) => $http.post('/siteH5/user.json?act=updatemobile', {
+  veCode: veCode,
+  mobile: mobile
 });
+
+/**
+ * 发送验证码
+ * */
+export const getVeryCode = (mobile) => $http.post('siteH5/user.json?act=sendCode',{
+  mobile: mobile
+})
 
 /**
  * 用户推广二维码

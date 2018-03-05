@@ -80,7 +80,7 @@
           </svg>
         </span>
       </li>
-      <li class="contact-phone">
+      <li class="contact-phone" @click="$router.push({path: '/setContact' , query: { orderNum: v.ordernumber}})">
         电话
         <span class="contact-txt fr">
           {{linkPhone}}

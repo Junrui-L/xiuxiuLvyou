@@ -27,7 +27,7 @@
       mounted() {
         userQrcode().then(res => {
           console.log(res)
-          // this.codeInfo = res.codeMap;
+          this.codeInfo = res.codeMap;
         })
       },
       methods: {

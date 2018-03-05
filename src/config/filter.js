@@ -39,6 +39,7 @@ Vue.filter('fmtDate', (data, fmt) => {
   return fmt;
 })
 
+//订单状态
 Vue.filter('orderStateText', state => {
   const orderStateMap = {
     0: '已下单',
@@ -56,4 +57,24 @@ Vue.filter('orderStateText', state => {
     12: '已拒绝'
   }
   return orderStateMap[state]
+})
+//服务类别
+Vue.filter('servicetypeText', state => {
+  const servicetypeMap = {
+    1: '景点详解',
+    2: '带游服务',
+    3: '当地游玩',
+    4: '专线类型',
+  }
+  return servicetypeMap[state]
+})
+
+//佣金模式
+Vue.filter('tymodeText', state => {
+  const tymodeMap = {
+    0: '(平分模式)',
+    1: '(固定折扣模式)',
+    2: '(剃分模式)'
+  }
+  return tymodeMap[state]
 })

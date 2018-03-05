@@ -8,7 +8,7 @@
         <img src="../../assets/img/taiwdy.png" alt="">
       </div>
       <ul class="order-detail fl">
-        <li class="order-item order-price">￥ {{payOrderDetail.orderSumPrice}}.00</li>
+        <li class="order-item order-price">￥ {{payOrderDetail.orderSumPrice}}</li>
         <li class="order-item order-number">订单号：{{payOrderDetail.ordernumber}}</li>
         <li class="order-item order-content">{{payOrderDetail.orderdoc}}</li>
         <li class="order-item order-mode">{{payOrderDetail.orderdoc}}</li>
@@ -52,7 +52,7 @@
     data() {
       return {
         endT: '',
-        nowT: '2018-01-09 19:50:00',
+        nowT: '',
         payOrderDetail: '',
         userAccount: '',
         orderNumber: '',
@@ -189,6 +189,7 @@
                 title: '支付结果',
                 content: '支付成功'
               }).show()
+
             }else if(res.err_msg == "get_brand_wcpay_request:cancel"){
               that.$createDialog({
                 type: 'alert',
@@ -254,7 +255,9 @@
               success: function (res) {
                 if(res.errMsg == "chooseWXPay:ok"){
                   //支付成功的跳转
-                  that.$router.push({name: 'order',query: {orderNum: that.$route.query.orn}})
+                  that.alertText = '支付成功';
+                  that.showAlert = true;
+                  // that.$router.push({name: 'order',query: {orderNum: that.$route.query.orn}})
                   // window.location.href  = "/hims/weixin/pages/Order_ok.html?access_token=" ;
                 }else{
                   console.log(res.errMsg);

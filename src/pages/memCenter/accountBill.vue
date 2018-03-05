@@ -30,7 +30,7 @@
               <template v-if="item.type == 7">其他</template>
             </p>
           </div>
-          <span class="balance fr">余额：{{item.lastBlance}}.00</span>
+          <span class="balance fr">余额：{{item.lastBlance}}</span>
 
         </div>
 

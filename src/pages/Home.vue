@@ -75,7 +75,7 @@
       <div class="spots-wrapper slider-wrapper">
           <HoriSlider class="spots-list" ref="hotSpots">
             <div class="spot fl" v-for="item in hotSpotse">
-              <router-link  :to="{path: '/scenicRegion' , query: { citySn: item.areasn }}">
+              <router-link  :to="{path: '/guide' , query: { scenicId: item.modulekey }}">
                 <div class="spot-img">
                   <img :src="basePath + item.cityimg" alt="">
                 </div>

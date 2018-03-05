@@ -13,20 +13,9 @@
         </div>
         <div class="head-item ">
           <div class="item-wrapper clearfix">
-            <span class="title">自我介绍</span>
+            <span class="title">昵称</span>
             <span class="txt fr">
               {{userInfo.nickname}}
-            <svg>
-                <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#arrow-right"></use>
-            </svg>
-            </span>
-          </div>
-        </div>
-        <div class="head-item ">
-          <div class="item-wrapper clearfix">
-            <span class="title">个人生活照</span>
-            <span class="txt fr">
-            已上传
             <svg>
                 <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#arrow-right"></use>
             </svg>

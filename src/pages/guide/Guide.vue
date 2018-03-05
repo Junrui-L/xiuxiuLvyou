@@ -9,11 +9,11 @@
       </HeadTop>
       <img class="head-img" v-if="scenicInfo.scenicimg" :src="baseUrl + scenicInfo.scenicimg" alt="">
     </header>
-    <drop-down :dropDownData="dropDownData" :selectCallback="selectCallback" ></drop-down>
+    <drop-down :dropDownData = "dropDownData" :selectCallback="selectCallback" ></drop-down>
     <div class="guide-wrapper">
       <ul class="guide-list">
         <li  v-if="guidesList.length == 0" class="noGuide">暂无向导</li>
-        <li v-else class="guide" v-for="item in guidesList"  @click="$router.push({name: 'scenicDetail',  query: {scenicspot: scenicId, accountId: 1}})">
+        <li v-else class="guide" v-for="item in guidesList"  @click="$router.push({name: 'scenicDetail',  query: {scenicspot: scenicId, accountId: item.visitorid}})">
           <div class="guide-t clearfix">
             <div class="guide-img fl">
               <img :src="item.userimg" alt="用户头像"/>
