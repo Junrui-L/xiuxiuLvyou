@@ -6,7 +6,7 @@
         <li class="certification">
           <span>导游已认证</span>
           <span>{{servicetype}}</span>
-          <span>英语{{guideInfo.englishLevel}}</span>
+          <span>英语{{guideInfo.englishLevel}}级</span>
         </li>
       </ul>
       <div class="img-wrapper fr">
@@ -57,14 +57,14 @@
         </div>
       </div>
 
-      <div class="other-playmethos">
+      <div class="other-playmethos" v-if="playList.length > 0">
         <h3 class="tite">向导玩法</h3>
         <ul class="methos-wrapper">
           <li class="methods" v-for="item in playList">
             <router-link class="nav-link" :to="{name: 'scenicDetail',  query: {scenicspot: item.scenicspotid, accountId: item.accountid}}">
               <dl class="clearfix">
                 <dt class="method-img fl">
-                  <img :src="getImgUrl(item.ywimg)" alt="">
+                  <img :src="basePath + item.ywimg" alt="">
                 </dt>
                 <dd class="method-detail fl">
                   <div class="method-desc">{{item.wfjs}}</div>
@@ -112,6 +112,7 @@
 </template>
 
 <script type="text/ecmascript-6">
+  import {mapState, mapMutations} from 'vuex'
   import {guideHome} from '../../http/getDate'
   import HeadTop from '../../components/HeadTop.vue'
   import EvaluateStar from '../../components/EvaluateStar.vue'
@@ -124,6 +125,9 @@
       }
     },
     computed: {
+      ...mapState([
+        'basePath','location','userInfo', 'baseOrder','guideInfo','play'
+      ]),
       servicetype: function(){
         let type = this.guideInfo.servicetype
         if(type == 1) {
@@ -146,7 +150,6 @@
         //请求当前导游详情，玩法列表
         this.getGuideHome(this.$route.query.id)
         // this.getGuideHome(1)
-
 
     },
     methods: {
