@@ -7,7 +7,9 @@
     .guide-img {
       @include setSize(px2rem(80px), px2rem(80px));
       border-radius: 50%;
+      position: relative;
       img {
+        @include center;
         display: block;
         width: 100%;
         max-height: 100%;
@@ -88,6 +90,14 @@
   .tickets {
     padding: 0 px2rem(18px);
     background: $white;
+    .play-days {
+      width: px2rem(100px);
+      background: $color-white;
+      border: none;
+      @include font-dpr(15px);
+      text-align: right;
+      color: $color-gray-primary;
+    }
     .tickit-m, .tickit-n {
       @include setSize(100%, px2rem(60px));
       line-height: px2rem(60px);
@@ -121,6 +131,9 @@
     .contact-txt {
       @include font-dpr(14px);
       color: $color-gray-primary;
+      .contact-input {
+        text-align: right;
+      }
       svg {
         fill: $color-gray-secondary;
         width: px2rem(16px);

@@ -178,6 +178,7 @@ export const loadOrder = () => $http.get('/siteH5/order.json?act=loadOrder', {})
  * */
 
 export const creatOrder = (godate,
+                           playDay,
                            accountId,
                            playId,
                            tripsnum,
@@ -192,6 +193,7 @@ export const creatOrder = (godate,
                            require,
                            yhjId) => $http.post('/siteH5/order.json?act=create', {
   godate: godate,
+  playDay: playDay,
   accountId: accountId,
   playId: playId,
   tripsnum: tripsnum,

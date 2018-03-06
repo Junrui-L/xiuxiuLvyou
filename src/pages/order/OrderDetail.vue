@@ -48,6 +48,11 @@
       <p>注意：团游必须有2个订单才生效，价格由最终团游数决定。而差价会在旅行结束后退到您的个人账户中。</p>
     </div>
     <div class="tickets">
+      <div class="tickit-m" >游玩天数
+        <span class="tickit-txt fr" >
+          <input class="play-days" v-model="playday" placeholder="请输入天数" maxlength="3" max="99" type="number" pattern="[0-9]*">
+        </span>
+      </div>
       <div class="tickit-m" @click="showmpPackgePicker">门票套餐
         <span class="tickit-txt fr" >
           {{mpPackage.mpPackageName == '' ? '请选择门票套餐' : mpPackage.mpPackageName}}
@@ -74,13 +79,10 @@
       <li class="contact-name">
         联系人
         <span class="contact-txt fr">
-          {{linkman}}
-            <svg>
-            <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#arrow-right"></use>
-          </svg>
+          <input class="contact-input" type="text" maxlength="8" v-model="linkman" placeholder="请输入姓名" />
         </span>
       </li>
-      <li class="contact-phone" @click="$router.push({path: '/setContact' , query: { orderNum: v.ordernumber}})">
+      <li class="contact-phone" @click="$router.push({path: '/setContact'})">
         电话
         <span class="contact-txt fr">
           {{linkPhone}}
@@ -137,6 +139,7 @@
     data() {
       return {
         godate: '',
+        playday: '', //出游天数
         accountId: this.$route.query.guideId,
         playId: this.$route.query.playId,
         tripsnum: '',
@@ -167,19 +170,25 @@
       total: function () {
 
         if(this.mpPackage.mpPackagePrice != '') {
-          this.mpPackage.mpPackagePrice = this.mpPackage.mpPackagePrice
+          this.mpPackage.mpPackagePrice = parseInt(this.mpPackage.mpPackagePrice)
         } else {
           this.mpPackage.mpPackagePrice = 0
         }
 
         if(this.mpPackagecount != '') {
-          this.mpPackagecount == this.mpPackagecount
+          this.mpPackagecount = parseInt(this.mpPackagecount)
         } else {
           this.mpPackagecount = 0
         }
+
+        if(this.playday != '') {
+          this.playday = parseInt(this.playday)
+          }
         console.log('...门票套餐价...门票套餐价')
         console.log(this.pricePackage.price, this.baseOrder.peopleNum.value, this.mpPackage.mpPackagePrice, this.mpPackagecount);
-        return parseInt(this.pricePackage.price )* parseInt(this.baseOrder.peopleNum.value) + parseInt(this.mpPackage.mpPackagePrice) * parseInt(this.mpPackagecount)
+        if(this.playday != '') {
+          return parseInt(this.pricePackage.price )* parseInt(this.baseOrder.peopleNum.value)* parseInt(this.playday)  + parseInt(this.mpPackage.mpPackagePrice) * parseInt(this.mpPackagecount)
+        }
       }
     },
     mounted() {
@@ -224,7 +233,7 @@
               console.log('---下单前订单加载返回-----')
               console.log(res);
               this.mpPackList = res.mpPackelist;
-              this.linkman = res.visitor.nickname;
+              this.linkman = res.visitor.userName;
               this.linkPhone = res.visitor.mobile;
               this.GET_USERINFO(res.visitor)
               let mpdata = [];
@@ -249,16 +258,24 @@
         this.mpPackage.mpPackageName = t[0];
       },
       newOrder() {
-        if(this.mpPackage.mpPackageName == '') {
+        // if(this.mpPackage.mpPackageName == '') {
+        //   this.$createToast({
+        //     txt: '请选择门票套餐',
+        //     type: 'error',
+        //     mask: true,
+        //     time: 2000
+        //   }).show();
+        // } else if(this.mpPackagecount == '') {
+        //   this.$createToast({
+        //     txt: '请选择门票套餐数量',
+        //     type: 'error',
+        //     mask: true,
+        //     time: 2000
+        //   }).show();
+        // } else
+        if(this.playday < 1) {
           this.$createToast({
-            txt: '请选择门票套餐',
-            type: 'error',
-            mask: true,
-            time: 2000
-          }).show();
-        } else if(this.mpPackagecount == '') {
-          this.$createToast({
-            txt: '请选择门票套餐数量',
+            txt: '请填写游玩天数',
             type: 'error',
             mask: true,
             time: 2000
@@ -288,6 +305,7 @@
           // console.log(this.mpPackage.mpPackageId)
           creatOrder(
             this.godate,
+            this.playday,
             this.accountId,
             this.playId,
             this.tripsnum,
@@ -320,7 +338,7 @@
               //新下的订单号
               let loc =  localStore('orderNum', 'localStorage')
               loc.set('orn', res.data[1])
-              self.$router.push({name: 'order',query: {orderNum: res.data[1]}})
+              self.$router.replace({name: 'order',query: {orderNum: res.data[1]}})
             }
 
           })

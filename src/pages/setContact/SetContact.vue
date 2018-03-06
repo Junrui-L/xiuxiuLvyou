@@ -1,12 +1,12 @@
 <template>
   <div class="set_contact">
-    <h1 class="title">设置联系方式</h1>
+    <h1 class="title">设置联系手机</h1>
     <div class="input-wrapper"><input class="phone" type="tel" maxlength="11" v-model="phone" placeholder="请输入手机号">
       <i v-if="phone != ''" class="delete" @click="clearPhone"></i>
       <button class="btn-txt" @click="sendCode" :disabled="isDisabled">{{ btnText }}</button>
     </div>
     <div class="input-wrapper"><input class="verify-code"  maxlength="6" type="tel" v-model="verifyCode" placeholder="请输入验证码"/>
-      <button v-show="noRecive" class="btn-txt">没有收到?</button>
+      <!--<button v-show="noRecive" class="btn-txt">没有收到?</button>-->
     </div>
     <div class="save-wrapper"><button class="save-btn" @click="setPhone">保存</button></div>
   </div>
@@ -48,8 +48,21 @@
                 content: '请输入正确的手机号'
               }).show()
             } else {
+              //获取验证码
               getVeryCode(this.phone).then(res => {
-                console.log(res)
+                if(res.msg) {
+                  this.$createDialog({
+                    type: 'alert',
+                    title: '提示',
+                    content: res.msg
+                  }).show()
+                } else {
+                  this.$createDialog({
+                    type: 'alert',
+                    title: '提示',
+                    content: res.data
+                  }).show()
+                }
               })
               let  settime = () => {
                 if (countdown === 0) {
@@ -93,6 +106,15 @@
             }else if(reg.test(this.phone)){
               userUpdateMobile(this.phone, this.verifyCode).then(res => {
                 console.log(res)
+                if(res.msg) {
+                  this.$createDialog({
+                    type: 'alert',
+                    title: '提示',
+                    content: res.msg
+                  }).show()
+                } else {
+                  window.location.href = 'http://www.baidu.com'
+                }
               })
             }
 

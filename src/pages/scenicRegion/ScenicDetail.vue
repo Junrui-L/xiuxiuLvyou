@@ -15,8 +15,9 @@
                 <h3 class="region-name">{{plays.serviceCity}}-{{plays.scenicspot}} <span v-show="plays.sfzcty == 1">可团游</span></h3>
                 <div class="region-adress">{{plays.serviceCity}}   <span>{{plays.wfname}}</span></div>
                 <ul class="tips clearfix">
-                    <li class="tip fl">景点带游</li>
-                    <li class="tip fl">美景拍摄</li>
+                    <li class="tip fl" v-for="word in getStr(plays.wfbq)">{{word}}</li>
+                    <!--<li class="tip fl">景点带游</li>-->
+                    <!--<li class="tip fl">美景拍摄</li>-->
                     <!--<li class="tip fl">历史古迹</li>-->
                 </ul>
             </div>
@@ -112,12 +113,18 @@
 
                 </div>
                 <h4 class="tite sub-title">游玩图片</h4>
-                <ul class="img-wrapper clearfix">
-                    <li class="img-container"><img :src="basePath + plays.ywImg" alt=""></li>
+                <template v-for="(img, index) in playImgs">
+                  <h5 class="img-doc"> {{img.imgdoc}} </h5>
+                  <ul class="img-wrapper clearfix">
+                    <li class="img-container" v-for="i in getStr(img.imgs)">
+                      <img :src="basePath + i" alt="">
+                    </li>
                     <!--<li class="img-container"><img src="../../assets/img/home_list-1.jpg" alt=""></li>-->
                     <!--<li class="img-container"><img src="../../assets/img/home_list-1.jpg" alt=""></li>-->
                     <!--<li class="img-container"><img src="../../assets/img/home_list-1.jpg" alt=""></li>-->
-                </ul>
+                  </ul>
+               </template>
+
             </div>
             <div class="order-tips">
                 <section><h3 class="tite">预订须知</h3></section>
@@ -135,10 +142,7 @@
                         <div class="item-tit" @click="showPanPlant = !showPanPlant">平台提醒预订须知 <span class="fr" :class="{'up': showPanPlant}"></span></div>
                       <trans-pan>
                         <div class="price-desc" v-show="showPanPlant">
-                          价格说明：价格包含讲解费，车费<br/>
-                          油费服务里程数： 10Km<br/>
-                          异地住宿费：30/晚<br/>
-                          服务超时费10元/小时，服务超里费10/公里
+                          咻咻向导平台为游客和向导提供正规交易保障，请一切涉及到旅游出行的预订，务必通过平台交易。一切未经平台发生的交易行为，均将不受平台保护。
                         </div>
                       </trans-pan>
 
@@ -147,10 +151,14 @@
                     <div class="item-tit" @click="showPanPoilcy = !showPanPoilcy" >退订政策 <span class="fr" :class="{'up': showPanPoilcy}"></span></div>
                     <trans-pan>
                       <div class="price-desc"  v-show="showPanPoilcy">
-                        价格说明：价格包含讲解费，车费<br/>
-                        油费服务里程数： 10Km<br/>
-                        异地住宿费：30/晚<br/>
-                        服务超时费10元/小时，服务超里费10/公里
+                        （1）预订当天出行：付款后15分钟内全额退款，付款30分钟内收取15%服务费，付款60分钟内收取50%服务费，超过60分钟将扣取订单金额100%;<br/>
+                        （2）预定第二天出行：付款后1小时内全额退款，付款3小时内收取15%服务费，付款5小时内收取50%服务费，超过5小时将扣取订单金额100%<br/>
+                        （3）预定离出行5天内：出发24小时内扣除金额100%,1-2天内取消预定扣除订单金额50%；2-3天扣除20%，3天以上全额退款。<br/>
+                        （4）预定离出行10天内：出发2天内扣除金额100%,2-4天内取消预定扣除订单金额50%；4-8天扣除20%，8天以上全额退款。<br/>
+                        （5）预定离出行大于10天：出发4天内扣除金额100%,4-8天内取消预定扣除订单金额50%；8-10天扣除20%，10天以上全额退款。<br/>
+                        （6） 代订类服务退订说明<br/>
+                          a.如代订类服务产生退订，则按照第三方退订政策执行，达人需提供代订证明。若未实际支付，则代订费用全部退还；<br/>
+                          b.由于不可抗力因素产生退订，请联系客服，协商处理。
                       </div>
                     </trans-pan>
 
@@ -179,10 +187,10 @@
                     </ul>
                 </div>
             </div>
-            <div class="other-playmethos">
+            <div class="other-playmethos" v-if="otherPlays.length > 0">scenicspot: scenicId, accountId: item.visitorid
                 <section><h3 class="tite">向导其他玩法</h3></section>
                 <ul class="methos-wrapper">
-                    <li class="methods" v-for="item in playlist"  @click="$router.push({name: 'scenicDetail',  query: {playId: 5, accountId: 1}})">
+                    <li class="methods" v-for="item in otherPlays "  @click="$router.push({name: 'scenicDetail',  query: {scenicspot: item.scenicspotid, accountId: item.accountid}})">
 
                             <dl class="clearfix">
                                 <dt class="method-img fl">
@@ -283,7 +291,8 @@
                 accountId: this.$route.query.accountId,  //向导
                 playId: this.$route.query.playId,        //玩法id
                 guide: '',
-                plays:'',
+                plays:'',  //当前玩法详情
+                playImgs: [], //游玩的图片
                 mpPackelist: [],
                 playlist: [],
                 pricePackelist: [], //套餐
@@ -310,6 +319,13 @@
           ...mapState([
             'basePath','location','userInfo', 'baseOrder','guideInfo','play'
           ]),
+          otherPlays: function () {
+            //过滤当前显示的玩法
+            let others = this.playlist;
+            return others.filter(item => {
+              return item.id != this.plays.id
+            })
+          }
         },
         mounted() {
           if(this.$route.query.scenicspot) {
@@ -345,14 +361,13 @@
               console.log(res);
 
               this.plays = res.play;
+              this.playImgs = res.ywImgs;
               this.guide = res.guide;
               this.mpPackelist= res.mpPackelist
               this.playlist=res.playlist
               this.pricePackelist=res.pricePackelist//套餐
               this.priceRanges=res.priceRanges
-              console.log(this.pricePackelist);
               this.playId = res.play.id; //向导Id
-              console.log(res.guide)
               this.SAVE_GUIDE(res.guide);
               this.SAVE_PLAY(res.play)
 
@@ -373,7 +388,7 @@
               console.log(res.guide)
               this.SAVE_GUIDE(res.guide);
               this.SAVE_PLAY(res.play)
-
+              // console.log(this.otherPlays)
             })
           },
           priceList(godate, accountId, playId) {
@@ -469,23 +484,14 @@
             document.body.scrollTop = total;
             document.documentElement.scrollTop = total
           },
-          getImgUrl(url, mode) {
-            let baseUrl = this.basePath;
-            // if(url&& mode&& url.indexOf('/')>0){
-              let dUrl = url.split('/')[1];
-              switch (mode) {
-                case 'small':
-                  return baseUrl + 'fileUploadsmall/' + dUrl;
-                case 'middle':
-                  return baseUrl + 'fileUploadmedium/' + dUrl;
-                case 'orgin':
-                  return baseUrl + 'fileUpload/' + dUrl;
-                default:
-                  return baseUrl + 'fileUpload/' + dUrl
-              }
-            // }else{
-            //   return baseUrl + url;
-            // }
+          getStr(str) {
+            if( str && str != ''){
+              let strList = str.split(';');
+              return strList;
+              } else {
+              return [];
+            }
+
           }
         }
     }

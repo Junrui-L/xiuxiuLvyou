@@ -8,9 +8,10 @@
             <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#arrow-right"></use>
           </svg>
         </div>
-        <TimeCountDown :endTime="endT" :nowTime="nowT" :countCallback="endLog"/>
+        <!--<TimeCountDown :endTime="endT" :nowTime="nowT" :countCallback="endLog"/>-->
+
         <div class="btn-topay clearfix">
-          <button class="cancel btn fl" @click="showCancel = true">取消定单</button>
+          <button class="cancel btn fl" @click="showCancel = true">取消订单</button>
           <button class="confirm btn fr" @click="waitGuide">联系向导</button>
         </div>
       </div>
@@ -26,26 +27,11 @@
         </div>
         <TimeCountDown :endTime="endT" :nowTime="nowT" :countCallback="endLog"/>
         <div class="btn-topay clearfix">
-          <button class="cancel btn fl" @click="cancelOdr">取消定单</button>
+          <button class="cancel btn fl" @click="cancelOdr">取消订单</button>
           <button class="confirm btn fr" @click="goPay">去付款</button>
         </div>
       </div>
     </template>
-   <!-- <template v-else-if="orderInfo.status == 2">
-      <div class="header">
-        <div class="order-state">
-          已付款汇合中
-          <svg>
-            <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#arrow-right"></use>
-          </svg>
-        </div>
-        &lt;!&ndash;<TimeCount :endTime="endT" :nowTime="nowT" :countCallback="endLog"/>&ndash;&gt;
-        <div class="btn-topay clearfix">
-          <button class="backpay btn fl">已接待</button>
-          <button class="backpay btn fr">已出行</button>
-        </div>
-      </div>
-    </template>-->
     <template v-else-if="orderInfo.status == 2 || orderInfo.status == 3">
       <div class="header">
         <div class="order-state">
@@ -213,10 +199,11 @@
       <h3 class="title">订单信息</h3>
       <ul class="order-list">
         <li class="info-item">联系人 <span class="fr">{{orderInfo.limkman}}</span></li>
-        <li class="info-item">联系电话 <span class="fr">{{orderInfo.linkPhone}}</span></li>
+        <li class="info-item" @click="">联系电话 <span class="fr">{{orderInfo.linkPhone}}</span></li>
         <li class="info-item">游玩日期 <span class="fr">{{ orderInfo.godate }}</span></li>
+        <li class="info-item">游玩天数 <span class="fr">{{ orderInfo.playDay }}</span></li>
         <li class="info-item">出行人数 <span class="fr">{{ orderInfo.tripsnum}} 人</span></li>
-        <li class="info-item">是否团游 <span class="fr">{{orderInfo.sfty == 1 ? '是' : '否'}}（{{ orderInfo.tripsnum}}人）</span>
+        <li class="info-item">是否团游 <span class="fr">{{orderInfo.sfty == 1 ? '是' : '否'}}</span>
         </li>
       </ul>
     </div>
@@ -261,7 +248,11 @@
             </template>
 
         </span></li>
-      <li class="check-item clearfix">团游优惠 <span class="group-count fr">团游优惠埃里克健身卡收代理费开数据库费啦jflsf啥地方</span></li>
+      <template v-if="orderInfo.sfty == 0">
+        <li class="check-item clearfix"  v-if="orderInfo.status == 0 || orderInfo.status == 1 || orderInfo.status == 2 || orderInfo.status == 3 || orderInfo.status == 4" > 团游优惠 <span class="group-count fr">团正在确认中，出行后将会统计团友人数和价格。</span></li>
+        <li class="check-item clearfix"  v-if="orderInfo.status == 5 " > 团游优惠 <span class="group-count fr">总共8人游，打8折 共优惠60元（100*3*0.2）\n订单完成后将会按优惠价格自动返到个人账户中</span></li>
+        <li class="check-item clearfix"  v-if="orderInfo.status == 6 || orderInfo.status == 7 || orderInfo.status == 8 " > 团游优惠 <span class="group-count fr">总共8人游，打8折 共优惠60元（100*3*0.2）\n订单完成后将会按优惠价格自动返到个人账户中</span></li>
+      </template>
     </ul>
     <div class="foot-blank"></div>
     <CancelBox v-if="showCancel" confirmText="请输入取消原因" :showCancelBox = "showCancel" @closeTip = ' shows '  @confirmCancel="cancelOdr"></CancelBox>

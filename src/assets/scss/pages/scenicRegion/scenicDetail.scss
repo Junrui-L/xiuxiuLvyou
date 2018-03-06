@@ -173,6 +173,7 @@
             color: $color-red;
             padding-right: px2rem(20px);
             position: relative;
+
             &:after {
               content: '';
               position: absolute;
@@ -183,8 +184,6 @@
               border-right: 2px solid $gray;
               @include transform(rotate(45deg));
             }
-
-
           }
 
           span.up:after {
@@ -217,6 +216,13 @@
     @include font-dpr(14px);
   }
 
+  .img-doc {
+    height: px2rem(28px);
+    line-height: px2rem(28px);
+    padding: 0 px2rem(20px);
+    @include font-dpr(13px);
+    color: $color-black-secondary;
+  }
   .img-wrapper {
     width: 100%;
     padding: 0 px2rem(20px);
@@ -225,6 +231,7 @@
       width: px2rem(165px);
       padding: 35% 0 0;
       position: relative;
+      margin-bottom: px2rem(6px);
       img {
         @include center;
         width: 100%;
@@ -343,7 +350,7 @@
     position: fixed;
     left: 0;
     bottom: 0;
-    z-index: 2;
+    z-index: 100;
     @include setSize(100%, px2rem(80px));
     padding: px2rem(17px) px2rem(20px);
     background: $white;

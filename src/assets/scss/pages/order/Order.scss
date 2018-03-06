@@ -19,6 +19,11 @@
 
     }
 
+    .tips {
+      line-height: 1.5;
+      @include font-dpr(14px);
+      color: $color-black-secondary;
+    }
     .btn {
       @include setButton(px2rem(95px), px2rem(35px), $color-black, $white, px2rem(3px));
       @include font-dpr(14px);
@@ -210,6 +215,7 @@
     }
 
     .group-count {
+      display: block;
       width: px2rem(220px);
     }
 

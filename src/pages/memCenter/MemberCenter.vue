@@ -2,12 +2,14 @@
   <div class="memberCenter">
     <header class="header">
       <div class="hd">
+        <router-link to="/memberInfo">
         <div class="img-wrapper fl"><img :src="userInfo.headimgurl" alt=""></div>
-        <router-link to="/memberInfo" class="username fl">{{userInfo.userName || '--'}}
+        <span to="/memberInfo" class="username fl">{{userInfo.userName || '--'}}
 
           <svg>
             <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#arrow-right"></use>
           </svg>
+        </span>
         </router-link>
         <div class="message"></div>
       </div>

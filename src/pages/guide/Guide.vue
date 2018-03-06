@@ -21,7 +21,7 @@
             <div class="guide-detail fl">
               <h5 class="guide-name"><span>{{item.username}}</span></h5>
               <div class="region-level"><span>服务{{item.fwcount}}人</span> | <span>{{item.wfcount}}种玩法 </span></div>
-              <div class="guide-star"><span>类别：</span>历史古迹、历史博物馆</div>
+              <!--<div class="guide-star"><span>类别：</span>历史古迹、历史博物馆</div>-->
             </div>
             <!--<button class="guide-order fl" @click="$router.push({name: 'guideDetail',  params: {id: 33}})">找Ta预订-->
             <button class="guide-order fl" >找Ta预订 </button>
@@ -109,17 +109,10 @@
       DropDown,
     },
     mounted() {
-      this.cityPicker = this.$createCascadePicker({
-        title: 'City Picker',
-        data: cityData,
-        onSelect: this.selectHandle,
-        onCancel: this.cancelHandle
-      })
       this.sendData.scenicspotId = this.$route.query.scenicId;
       console.log(this.sendData);
       this.getGuideList(this.sendData);
 
-      // window.addEventListener('scroll', throttle(() => {
       window.addEventListener('scroll', throttle(() => {
 
         let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
@@ -132,28 +125,6 @@
 
     },
     methods: {
-      showCityPicker() {
-        this.cityPicker.show()
-      },
-      selectHandle(selectedVal, selectedIndex, selectedText) {
-        // this.$createDialog({
-        //   type: 'warn',
-        //   content: `Selected Item: <br/> - value: ${selectedVal.join(', ')} <br/> - index: ${selectedIndex.join(', ')} <br/> - text: ${selectedText.join(' ')}`,
-        //   icon: 'cubeic-alert'
-        // }).show()
-
-        // this.city = selectedText[1];
-        // this.cityValue = selectedVal[1];
-        // this.getSpotsList(this.cityValue);
-
-      },
-      cancelHandle() {
-        console.log('取消了')
-      },
-      getScrollY() {
-        console.log(window.pageYOffset || document.documentElement.scrollTop)
-        return window.pageYOffset || document.documentElement.scrollTop;
-      },
       // 选择dropwodn的回调函数 cbData:[{type:'sex',value:1,name:'性别'}]
       selectCallback(cbData) {
         console.error(JSON.stringify(cbData))
