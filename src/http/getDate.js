@@ -152,7 +152,7 @@ export const getNearGuide = (latitude, longitude) => $http.get('/siteH5/guide.js
  * 初始化订单
  * */
 
-export const initOrder = (godate, accountId, playId, tripsnum, packageid, source, tipamount) => $http.get('/siteH5/order.json?act=init', {
+export const initOrder = (godate, accountId, playId, tripsnum, packageid, source, tipamount) => $http.post('/siteH5/order.json?act=init', {
   godate: godate,
   accountId: accountId,
   playId: playId,
@@ -269,7 +269,7 @@ export const updateOrder = (orderNo, status) => $http.get('/siteH5/order.json?ac
  *
  *取消订单
  * */
-export const cancelOrder = (orderNo, canceltitle) => $http.get('/siteH5/order.json?act=cancel', {
+export const cancelOrder = (orderNo, canceltitle) => $http.post('/siteH5/order.json?act=cancel', {
   ordernumber: orderNo,
   canceltitle: canceltitle
 });
@@ -326,7 +326,7 @@ export const userUpdateMobile = (veCode, mobile) => $http.post('/siteH5/user.jso
 /**
  * 发送验证码
  * */
-export const getVeryCode = (mobile) => $http.post('siteH5/user.json?act=sendCode',{
+export const getVeryCode = (mobile) => $http.post('/siteH5/user.json?act=sendCode',{
   mobile: mobile
 })
 
@@ -338,13 +338,20 @@ export const getVeryCode = (mobile) => $http.post('siteH5/user.json?act=sendCode
 export const userQrcode = () => $http.get('/siteH5/user.json?act=expandedCode', {
 });
 
+/**
+ * 获取推广列表
+ * */
+export const userExpande = (page) => $http.post('/siteH5/user.json?act=expandedList',{
+  page: page
+})
+
 //用户账户信息
 /**
  * 用户账户余额信息
  *
  * */
 
-export const userAccounts = () => $http.get('siteapp/capital.json?act=capital', {});
+export const userAccounts = () => $http.get('/siteapp/capital.json?act=capital', {});
 
 /**
  * 用户账户积分信息

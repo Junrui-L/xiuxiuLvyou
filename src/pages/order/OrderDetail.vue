@@ -41,16 +41,18 @@
       </ul>
     </div>
     <div class="group-trip">
-      <switch-option name="开启团游" @update:value="onGroup" :value="istuan == 0 ? false : true"></switch-option>
+      <switch-option name="开启团游" :isDisable = "play.sfzcty == 1 ? false : true"  @update:value="onGroup" ></switch-option>
     </div>
     <div class="notify group-notify">
-      <p>导游优惠模式：固定折扣模式，7，8折</p>
+      <!--<p>导游优惠模式：固定折扣模式，7，8折</p>-->
+
       <p>注意：团游必须有2个订单才生效，价格由最终团游数决定。而差价会在旅行结束后退到您的个人账户中。</p>
     </div>
     <div class="tickets">
       <div class="tickit-m" >游玩天数
         <span class="tickit-txt fr" >
-          <input class="play-days" v-model="playday" placeholder="请输入天数" maxlength="3" max="99" type="number" pattern="[0-9]*">
+          {{play.playDay || 1}}天
+          <!--<input class="play-days" v-model="playday" placeholder="请输入天数" maxlength="3" max="99" type="number" pattern="[0-9]*">-->
         </span>
       </div>
       <div class="tickit-m" @click="showmpPackgePicker">门票套餐
@@ -70,10 +72,10 @@
         </span>
       </div>
     </div>
+    <div class="notify tickit-notify" v-if="mpPackage.mpPackageNotice != ''">
 
-    <div class="notify tickit-notify">
-      <p>导游优惠模式：固定折扣模式，7，8z折</p>
-      <p>注意：团游必须有2个订单才生效，价格由最终团游数决定。而差价会在旅行结束后退到您的个人账户中。</p>
+      <p>门票说明：{{mpPackage.mpPackageNotice}}</p>
+      <!--<p>注意：团游必须有2个订单才生效，价格由最终团游数决定。而差价会在旅行结束后退到您的个人账户中。</p>-->
     </div>
     <ul class="contact">
       <li class="contact-name">
@@ -148,6 +150,7 @@
         mpPackage: {
           mpPackageId:'',
           mpPackagePrice: '',
+          mpPackageNotice: '',
           mpPackageName: ''
         },
         mpPackagecount: '',
@@ -181,9 +184,9 @@
           this.mpPackagecount = 0
         }
 
-        if(this.playday != '') {
-          this.playday = parseInt(this.playday)
-          }
+        // if(this.playday != '') {
+          this.playday = parseInt(this.play.playDay)
+          // }
         console.log('...门票套餐价...门票套餐价')
         console.log(this.pricePackage.price, this.baseOrder.peopleNum.value, this.mpPackage.mpPackagePrice, this.mpPackagecount);
         if(this.playday != '') {
@@ -207,8 +210,6 @@
         onSelect: this.selectCountHandle,
         onCancel: this.cancelHandle
       })
-
-
 
       this.initHeOrder();
     },
@@ -240,6 +241,7 @@
               for(let i=0; i<res.mpPackelist.length; i++) {
                 mpdata[i] = {value: res.mpPackelist[i].id, text: res.mpPackelist[i].name}
               }
+              console.log(mpdata)
               this.mpPackgePicker = this.$createPicker({
                 title: '门票套餐',
                 data: [mpdata],
@@ -254,33 +256,13 @@
       },
       selectmpHandle(v, i, t){
         this.mpPackage.mpPackageId = v[0];
-        this.mpPackage.mpPackagePrice = this.mpPackList[i[0]]['price']
+        this.mpPackage.mpPackagePrice = this.mpPackList[i[0]]['price'];
+        this.mpPackage.mpPackageNotice = this.mpPackList[i[0]]['remark'];
         this.mpPackage.mpPackageName = t[0];
       },
       newOrder() {
-        // if(this.mpPackage.mpPackageName == '') {
-        //   this.$createToast({
-        //     txt: '请选择门票套餐',
-        //     type: 'error',
-        //     mask: true,
-        //     time: 2000
-        //   }).show();
-        // } else if(this.mpPackagecount == '') {
-        //   this.$createToast({
-        //     txt: '请选择门票套餐数量',
-        //     type: 'error',
-        //     mask: true,
-        //     time: 2000
-        //   }).show();
-        // } else
-        if(this.playday < 1) {
-          this.$createToast({
-            txt: '请填写游玩天数',
-            type: 'error',
-            mask: true,
-            time: 2000
-          }).show();
-        } else if(this.linkman== ''){
+        console.log(this.linkman)
+       if(this.linkman == '' || this.linkman == null){
           this.$createToast({
             txt: '请填写联系人',
             type: 'error',

@@ -15,11 +15,16 @@
       name: {
         type: String
       },
-      value: null
+      value: null,
+      isDisable: {
+        type: Boolean,
+        default: false
+      }
     },
     data() {
       return {
-        checked: this.value
+        checked: this.value,
+        disables: this.isDisable
       }
     },
     watch: {
@@ -28,8 +33,19 @@
       }
     },
     methods: {
-      clickSwitch: function () {
-        this.checked = !this.checked
+      clickSwitch () {
+        if(!this.isDisable) {
+          this.checked = !this.checked
+        } else {
+          this.$createToast({
+            txt: '该玩不支持团游',
+            type: 'error',
+            mask: true,
+            time: 2000
+          }).show();
+          return
+        }
+
       }
     }
   }

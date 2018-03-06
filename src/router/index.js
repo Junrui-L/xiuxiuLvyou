@@ -32,6 +32,7 @@ const MyQrcode = r => require.ensure([], () => r(require('@/pages/memCenter/myQr
 const MyWallet = r => require.ensure([], () => r(require('@/pages/memCenter/myWallet')), 'myWallet')
 const ScoreRule = r => require.ensure([], () => r(require('@/pages/memCenter/scoreRule')), 'scoreRule')
 const Scores = r => require.ensure([], () => r(require('@/pages/memCenter/scores')), 'scores')
+const ExpandedList = r => require.ensure([], () => r(require('@/pages/memCenter/expandedList')), 'expandedList')
 
 Vue.use(Router)
 
@@ -175,6 +176,11 @@ const router = new Router({
       path: '/myQrcode',
       name: 'myQrcode',
       component: MyQrcode
+    },
+    {
+      path: '/expandedList',
+      name: "expandedList",
+      component: ExpandedList
     },
     {
       path: '/myWallet',

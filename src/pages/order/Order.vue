@@ -199,9 +199,9 @@
       <h3 class="title">订单信息</h3>
       <ul class="order-list">
         <li class="info-item">联系人 <span class="fr">{{orderInfo.limkman}}</span></li>
-        <li class="info-item" @click="">联系电话 <span class="fr">{{orderInfo.linkPhone}}</span></li>
+        <li class="info-item" >联系电话 <span class="fr">{{orderInfo.linkPhone}}</span></li>
         <li class="info-item">游玩日期 <span class="fr">{{ orderInfo.godate }}</span></li>
-        <li class="info-item">游玩天数 <span class="fr">{{ orderInfo.playDay }}</span></li>
+        <li class="info-item">游玩天数 <span class="fr">{{ orderInfo.playDay }} 天</span></li>
         <li class="info-item">出行人数 <span class="fr">{{ orderInfo.tripsnum}} 人</span></li>
         <li class="info-item">是否团游 <span class="fr">{{orderInfo.sfty == 1 ? '是' : '否'}}</span>
         </li>
@@ -256,7 +256,6 @@
     </ul>
     <div class="foot-blank"></div>
     <CancelBox v-if="showCancel" confirmText="请输入取消原因" :showCancelBox = "showCancel" @closeTip = ' shows '  @confirmCancel="cancelOdr"></CancelBox>
-
   </div>
 </template>
 
@@ -337,7 +336,6 @@
 
             setTimeout(()=> {
               this.$router.go(0);
-
             }, 1000)
           }
         })
@@ -357,7 +355,7 @@
         })
       },
       tripMore(){
-        this.$router.push({name: 'scenicDetail', query: {playId: this.orderInfo.playid, accountId: this.orderInfo.accountid}})
+        this.$router.push({name: 'scenicDetail', query: {playId: this.orderInfo.playid, accountId: this.orderInfo.userid}})
       },
       endLog() {
         console.log('.....倒计时结束了.....')

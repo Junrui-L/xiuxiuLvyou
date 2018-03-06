@@ -3,6 +3,27 @@
       <div class="qr-code">
         <img :src="codeInfo.expandedodeUrl" alt="">
       </div>
+      <ul class="expand-wrap clearfix">
+        <li  class="mem-item fl">
+          <div>{{codeInfo.subordinateCout || 0}}</div>
+          <p>推广下级人数</p>
+        </li>
+        <li  class="mem-item fl">
+          <div>{{codeInfo.suboTosuboCout || 0}}</div>
+          <p>下级推广人数</p>
+        </li>
+      </ul>
+        <div class="expand-list clearfix">
+          <router-link to="/expandedList" class="item-wrapper clearfix">
+            <span class="title">进入推广列表</span>
+            <span class="txt fr">
+            <svg>
+                <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#arrow-right"></use>
+            </svg>
+            </span>
+          </router-link>
+        </div>
+
 
       <h3>推广说明</h3>
       <p>

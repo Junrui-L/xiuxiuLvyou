@@ -2,15 +2,15 @@
   <div class="guide_detail">
     <div class="guide-info clearfix">
       <ul class="guide-name fl">
-        <li class="name">{{guideInfo.userName}} <span>{{guideInfo.agetype}}</span><span>{{guideInfo.signature}}</span></li>
+        <li class="name">{{guideInfos.userName}} <span>{{guideInfos.agetype}}</span><span>{{guideInfos.signature}}</span></li>
         <li class="certification">
           <span>导游已认证</span>
           <span>{{servicetype}}</span>
-          <span>英语{{guideInfo.englishLevel}}级</span>
+          <span>英语{{guideInfos.englishLevel}}级</span>
         </li>
       </ul>
       <div class="img-wrapper fr">
-        <img :src="guideInfo.userImg" alt="">
+        <img :src="guideInfos.userImg" alt="">
       </div>
     </div>
     <ul class="guide-date clearfix">
@@ -19,11 +19,11 @@
         <p>浏览量</p>
       </li>
       <li class="date-item fl">
-        <strong>{{guideInfo.fwcount}}</strong>
+        <strong>{{guideInfos.fwcount}}</strong>
         <p>接单量</p>
       </li>
       <li class="date-item fl">
-        <strong>{{guideInfo.assess || 0}}</strong>
+        <strong>{{guideInfos.assess || 0}}</strong>
         <p>评价数</p>
       </li>
 
@@ -32,7 +32,7 @@
       <div class="about">
         <h3>关于我</h3>
         <p class="introduce " :class="{'clipFive': clipInroduce == true}">
-          {{guideInfo.abstract}}
+          {{guideInfos.abstract}}
         </p>
         <span class="see-all" :class="{'hide': clipInroduce == false}"  @click="clipInroduce = false">查看全部</span>
       </div>
@@ -42,8 +42,8 @@
         <div class="all-command">
           <div class="command-tit  clearfix">
 
-            <p class="command-num">全部{{guideInfo.assess}}条评论</p>
-            <EvaluateStar :code="guideInfo.level"></EvaluateStar> {{guideInfo.level}}分
+            <p class="command-num">全部{{guideInfos.assess}}条评论</p>
+            <EvaluateStar :code="guideInfos.level"></EvaluateStar> {{guideInfo.level}}分
             <span class="see-command">查看点评</span>
           </div>
           <ul class="command-tip clearfix">
@@ -64,7 +64,7 @@
             <router-link class="nav-link" :to="{name: 'scenicDetail',  query: {scenicspot: item.scenicspotid, accountId: item.accountid}}">
               <dl class="clearfix">
                 <dt class="method-img fl">
-                  <img :src="basePath + item.ywimg" alt="">
+                  <img :src="basePath + item.wfimg" alt="">
                 </dt>
                 <dd class="method-detail fl">
                   <div class="method-desc">{{item.wfjs}}</div>
@@ -120,7 +120,7 @@
     data() {
       return {
         clipInroduce: true,
-        guideInfo: [],
+        guideInfos: [],
         playList: []
       }
     },
@@ -149,15 +149,13 @@
     mounted() {
         //请求当前导游详情，玩法列表
         this.getGuideHome(this.$route.query.id)
-        // this.getGuideHome(1)
-
     },
     methods: {
       getGuideHome(guideId) {
 
         guideHome(guideId).then(res=> {
-          this.guideInfo = res.guide;
-          console.log(this.guideInfo)
+          this.guideInfos = res.guide;
+          console.log(this.guideInfos)
           this.playList = res.playlist;
           console.log(this.playList)
         })

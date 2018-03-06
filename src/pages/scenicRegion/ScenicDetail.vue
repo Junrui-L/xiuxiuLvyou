@@ -280,6 +280,7 @@
     import EvaluateStar from '../../components/EvaluateStar.vue'
     import DatePicker from '../../components/date-picker'
     import {peopleNum} from '../../config/datajs'
+    import {dateFmt} from '../../config/myUtils'
     import TransPan from  '../../components/transitionPanel'
     createAPI(Vue, DatePicker, ['select', 'cancel'], false)
     let  peoledata = peopleNum
@@ -346,9 +347,13 @@
             onSelect: this.selectpeopleHandle,
             onCancel: this.cancelHandle
           })
+          //获取当前日期
+          let nowTime = new Date();
+          let nowday = dateFmt(nowTime, 'yyyy-MM-dd');
+          let minDay = nowday = nowday.split('-');
           this.datePicker = this.$createDatePicker({
-            min: [2018, 1, 1],
-            max: [2020, 1, 1],
+            min: minDay,
+            max: [2020, 12, 31],
             onSelect: this.selecTimetHandle,
             onCancel: this.cancelHandle
           })

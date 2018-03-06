@@ -1,7 +1,7 @@
 .myQrcode {
 
 .qr-code {
-  @include setSize(100%, px2rem(360px));
+  @include setSize(100%, px2rem(280px));
   position: relative;
   background: $white;
   img {
@@ -11,6 +11,57 @@
   }
 }
 
+  .expand-wrap {
+    background: $color-body-bg;
+    padding: px2rem(20px) px2rem(25px);
+    //@include setSize(100%, px2rem(40px));
+    .mem-item {
+      width: 50%;
+      @include font-dpr(16px);
+      line-height: px2rem(20px);
+      color: $color-black;
+      text-align: center;
+      border-left: 2px solid #676766;
+      p {
+        color: $color-gray-secondary;
+        @include font-dpr(12px)
+      }
+    }
+
+    .mem-item:nth-of-type(1) {
+      border-left: 0;
+    }
+  }
+
+  svg {
+    fill: $color-gray-secondary;
+    width: px2rem(10px);
+    height:px2rem(10px);
+    vertical-align: middle;
+  }
+
+  .expand-list {
+    margin-top: px2rem(15px);
+    @include setSize(100%, px2rem(50px));
+    line-height: px2rem(50px);
+    padding: 0 px2rem(20px);
+    @include font-dpr(14px);
+    color: $color-gray-secondary;
+    background: $color-body-bg;
+    .item-wrapper {
+      display: block;
+      border-bottom: 1px solid $color-body-bg;
+    }
+    .title {
+      color: $color-black;
+    }
+
+    .txt {
+      text-align: right;
+      width: 70%;
+      @include ellipsis;
+    }
+  }
   h3 {
     padding: 0 px2rem(20px);
     margin-top: px2rem(12px);
