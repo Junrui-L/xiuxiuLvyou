@@ -66,8 +66,8 @@
             name: '导游类型',
             value: 'servicetype',
             children: [
-              {name: '景点讲解', value: 1},
-              {name: '带游服务', value: 2}
+              {name: '当地游玩', value: 1},
+              {name: '专线游玩', value: 2}
             ]
           },
           {
