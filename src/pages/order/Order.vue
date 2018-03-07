@@ -269,9 +269,9 @@
     data() {
       return {
         orderNum: this.$route.query.orderNum,
-        start: '2018-02-22 21:55:00',
+        start: '',
         endT: '',
-        nowT: '2018-01-09 19:50:00',
+        nowT: '',
         orderInfo: '',
         cancelR: '',
         showCancel: false
@@ -296,7 +296,7 @@
         orderDetail(this.orderNum).then(res => {
           console.log(res)
           this.orderInfo = res.order;
-          let creatT = new Date(res.order.created_at).getTime();
+          let creatT = new Date(res.order.created_at.replace(/-/g,'/')).getTime();
           this.endT = new Date(creatT + 1000 * 60 * 30).getTime();
           this.ORDER_DETAIL(res.order);
           // this.orderInfo = res.orderMap;

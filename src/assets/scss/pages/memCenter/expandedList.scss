@@ -68,5 +68,11 @@
 
   }
 
+  .load-more {
+    text-align: center;
+    line-height: px2rem(30px);
+    @include font-dpr(14px);
+  }
+
 
 }

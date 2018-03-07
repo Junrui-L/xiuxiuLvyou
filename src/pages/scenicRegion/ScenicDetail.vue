@@ -227,7 +227,7 @@
             <i class="close" @click="hideChoosePopup"></i>
 
             <div class="head-wrapper">
-              <h3 class="region-name">{{plays.serviceCity}}-{{plays.scenicspot}} <span>可团游</span></h3>
+              <h3 class="region-name">{{plays.serviceCity}}-{{plays.scenicspot}} <span v-show="plays.sfzcty == 1">可团游</span></h3>
               <div class="region-adress">{{plays.serviceCity}}   <span>{{plays.wfname}}</span></div>
               <ul class="tips clearfix">
                 <li class="tip fl">景点带游</li>
