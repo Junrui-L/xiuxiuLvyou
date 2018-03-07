@@ -43,7 +43,7 @@
           <div class="command-tit  clearfix">
 
             <p class="command-num">全部{{guideInfos.assess}}条评论</p>
-            <EvaluateStar :code="guideInfos.level"></EvaluateStar> {{guideInfo.level}}分
+            <EvaluateStar :code="guideInfos.level"></EvaluateStar> {{guideInfos.level}}分
             <span class="see-command">查看点评</span>
           </div>
           <ul class="command-tip clearfix">
@@ -129,7 +129,7 @@
         'basePath','location','userInfo', 'baseOrder','guideInfo','play'
       ]),
       servicetype: function(){
-        let type = this.guideInfo.servicetype
+        let type = this.guideInfos.servicetype
         if(type == 1) {
           return '向导服务类型'
         } else if(type == 2) {
@@ -139,7 +139,7 @@
         }
       },
       ability: function () {
-        return this.guideInfo.ability;
+        return this.guideInfos.ability;
       }
     },
     components: {

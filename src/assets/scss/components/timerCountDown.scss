@@ -11,7 +11,7 @@
   .timer {
     margin: 0 auto;
     @include flexJust();
-    @include setSize(px2rem(90px), px2rem(16px));
+    @include setSize(px2rem(100px), px2rem(16px));
     .box{
       @include flex(9);
       background: $color-black-secondary;
@@ -21,6 +21,9 @@
       border-radius: px2rem(3px);
     }
 
+    .tday {
+      line-height: px2rem(16px);
+    }
     .tdot {
       @include flex(5);
       width: px2rem(20px);

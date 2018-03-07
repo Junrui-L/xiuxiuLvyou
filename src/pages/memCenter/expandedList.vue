@@ -3,7 +3,7 @@
       <!--<div class="title">我的推广列表</div>-->
       <template v-for="da in expanList">
         <h3 class="title">
-          <span>{{ da.month }}月</span>
+          <span>{{ da.month | fmt }}</span>
           <!--<a href="" class="more-link fr">查看更多-->
           <!--<svg>-->
           <!--<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#arrow-right"></use>-->
@@ -13,7 +13,9 @@
         <ul class="expan-list per-month">
           <li class="expan-item clearfix" v-for="item in da.data">
             <div class="time fl">
-              {{item.created_at | fmtDate('yyyy-MM-dd')}}
+              <!--{{item.created_at | fmtDate('yyyy-MM-dd')}}-->
+              <p class="date">{{item.created_at | fmtDate('MM-dd')}}</p>
+              <p class="bz">{{item.created_at | fmtDate('hh:mm')}}</p>
             </div>
             <div class="img-wrap fl">
               <img :src="item.headimgurl" alt="">
@@ -120,7 +122,14 @@
               }
             })
           }
-        }
+        },
+      filters: {
+          fmt: function (val) {
+            let a = val.split('');
+            let b = a[0] + a[1] + a[2] + a[3] + '年' + a[4] + a[5] + '月';
+            return b
+          }
+      }
     }
 </script>
 

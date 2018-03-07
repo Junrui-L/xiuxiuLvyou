@@ -147,7 +147,7 @@
         tripsnum: '',
         packageid: '',//套餐id
         mpPackList: '',
-        mpPackage: {
+        mpPackage: {     //门票集合
           mpPackageId:'',
           mpPackagePrice: '',
           mpPackageNotice: '',
@@ -156,7 +156,7 @@
         mpPackagecount: '',
         istuan: 0,
         source: 0,
-        tipmount: 1,
+        tipmount: 0, //小费
         linkman: '',
         linkPhone: '',
         requiretxt: '',

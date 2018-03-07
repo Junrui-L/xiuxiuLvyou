@@ -41,6 +41,16 @@
         @include font-dpr(12px);
         color: $color-gray-primary;
         line-height: px2rem(42px);
+        .date {
+          line-height: px2rem(25px);
+          @include font-dpr(14px);
+        }
+
+        .bz {
+          @include font-dpr(12px);
+          color: $color-gray-primary;
+          line-height: px2rem(18px);
+        }
       }
       .img-wrap {
         margin:0 px2rem(10px);

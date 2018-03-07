@@ -10,7 +10,9 @@
     background: $color-senior-bg;
     .img-wrapper {
       @include setSize(px2rem(80px), px2rem(80px));
+      position: relative;
       img {
+        @include center;
         width: 100%;
         max-height: 100%;
       }

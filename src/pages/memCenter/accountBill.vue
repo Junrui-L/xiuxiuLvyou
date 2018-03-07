@@ -61,6 +61,7 @@
       name: "account-bill",
       data() {
         return {
+          pageNo: 1,
           billList: [],
           showDetail: false,
           billChoose: {}
@@ -76,9 +77,7 @@
       },
       methods: {
         getUserBill() {
-          let pageNo = 1;
-
-          userBill(pageNo, 1).then(res => {
+          userBill(this.pageNo, 1).then(res => {
             console.log(res)
             this.billList = res.list;
           })
@@ -89,6 +88,7 @@
 
         }
       }
+
     }
 
 </script>

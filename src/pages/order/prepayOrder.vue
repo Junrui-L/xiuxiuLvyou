@@ -5,7 +5,7 @@
     </div>
     <div class="order-main clearfix">
       <div class="img-wrapper fl">
-        <img src="../../assets/img/taiwdy.png" alt="">
+        <img :src="basePath + payOrderDetail.orderplayImg" alt="">
       </div>
       <ul class="order-detail fl">
         <li class="order-item order-price">￥ {{payOrderDetail.orderSumPrice}}</li>
@@ -72,7 +72,7 @@
     },
     computed: {
       ...mapState([
-        'orderDetail'
+        'basePath','orderDetail'
       ]),
     },
     created(){
@@ -82,9 +82,6 @@
     mounted() {
       // this.configWx();
       this.preOrderLoad();
-      //倒计时在当前时间上加上15分钟
-      let now = new Date().getTime();
-      this.endT = new Date(now + 1000 * 60 * 15).getTime();
     },
     methods: {
       endLog() {
@@ -120,6 +117,9 @@
           console.log('===去支付页返回====')
           this.userAccount = res.capitalcenter;
           this.payOrderDetail = res.orderMap;
+          //设置支付倒计时
+          let creatT = new Date(res.orderMap.created_at.replace(/-/g,'/')).getTime();
+          this.endT = new Date(creatT + 1000 * 60 * 30).getTime();
 
         })
 
@@ -316,7 +316,7 @@
 
       paySuccess(){
         // 支付成跳转更新订单状态
-        this.$router.push({name: 'order',query: {orderNum: this.$route.query.orn}});
+        this.$router.replace({name: 'order',query: {orderNum: this.$route.query.orn}});
       }
     }
   }

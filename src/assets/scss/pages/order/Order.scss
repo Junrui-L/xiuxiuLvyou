@@ -29,21 +29,22 @@
       @include font-dpr(14px);
     }
     .btn-topay {
-      width: px2rem(200px);
+      width: px2rem(210px);
       margin: 0 auto;
       padding: px2rem(18px) 0;
       border-bottom: 1px solid $color-body-bg;
       text-align: center;
-      .cancel {
-        border: 1px solid $color-gray-secondary;
-        //background: $color-red;
-      }
 
-      .confirm {
-        //background: $color-red;
-        @include setButton(px2rem(95px), px2rem(35px), $white, $color-red, px2rem(3px));
-        @include font-dpr(14px);
-      }
+    }
+
+    .btn {
+      border: 1px solid $color-gray-secondary;
+    }
+
+    .confirm {
+      //background: $color-red;
+      @include setButton(px2rem(95px), px2rem(35px), $white, $color-red, px2rem(3px));
+      @include font-dpr(14px);
     }
 
     .triping, .trip-end {
@@ -53,27 +54,34 @@
       border-bottom: 1px solid $color-body-bg;
     }
 
-    .btn {
-      border: 1px solid $color-gray-secondary;
+
+    .cancel {
+      margin-right: px2rem(15px);
+      border: none;
+      background: $color-red;
+      color: $white;
     }
+
     .btn-triped {
       width: px2rem(315px);
       margin: 0 auto;
       padding: px2rem(18px) 0;
       border-bottom: 1px solid $color-body-bg;
       text-align: center;
-      .onemore {
-        margin-left:px2rem(15px);
-      }
 
-      .backpay, .onemore {
-        border: 1px solid $color-gray-secondary;
-      }
+    }
 
-      .evalu {
-        @include setButton(px2rem(95px), px2rem(35px), $white, $color-red, px2rem(3px));
-        @include font-dpr(14px);
-      }
+    .onemore {
+      margin-left:px2rem(15px);
+    }
+
+    .backpay, .onemore {
+      border: 1px solid $color-gray-secondary;
+    }
+
+    .evalu {
+      @include setButton(px2rem(95px), px2rem(35px), $white, $color-red, px2rem(3px));
+      @include font-dpr(14px);
     }
 
     /*耳朵小圆圈*/

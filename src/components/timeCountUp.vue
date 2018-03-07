@@ -7,6 +7,14 @@ Created by soft on 2018/1/9
   <div class="timer_count">
     <div class="titel">{{ countText }}</div>
     <div class="timer" >
+      <div class="box" v-if="days > 0">
+        <p class="value">{{ theTime.days }}</p>
+      </div>
+      <div class="tday" v-if="days > 0">天</div>
+      <div class="box">
+        <p class="value">{{ theTime.hours }}</p>
+      </div>
+      <div class="tdot"></div>
       <div class="box">
         <p class="value">{{ theTime.minutes }}</p>
       </div>
@@ -23,7 +31,7 @@ Created by soft on 2018/1/9
 
     data() {
       return {
-        start: '2018/01/15 18:00:00',   //这里设置日期倒计时间
+        start: '',   //这里设置日期倒计时间
         days: '00',
         hours: '00',
         minutes: '00',
@@ -32,9 +40,7 @@ Created by soft on 2018/1/9
       };
     },
     props: {
-      startTime: {
-        type: String
-      },
+      startTime:'',
       countCallback: {
         type: Function,
         default() { }

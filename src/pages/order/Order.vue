@@ -25,10 +25,10 @@
             <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#arrow-right"></use>
           </svg>
         </div>
-        <TimeCountDown :endTime="endT" :nowTime="nowT" :countCallback="endLog"/>
+        <TimeCountDown :endTime="endT"  :countCallback="endLog"/>
         <div class="btn-topay clearfix">
           <button class="cancel btn fl" @click="cancelOdr">取消订单</button>
-          <button class="confirm btn fr" @click="goPay">去付款</button>
+          <button class=" btn fr" @click="goPay">去付款</button>
         </div>
       </div>
     </template>
@@ -40,8 +40,9 @@
             <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#arrow-right"></use>
           </svg>
         </div>
-        <TimeCountUp :startTime="start"  :countCallback="endLog"/>
-        <div class="btn-topay clearfix">
+        <TimeCountUp :startTime="payT" countText="汇合已耗时"  :countCallback="endLog"/>
+        <div class="btn-topay btn-triped clearfix">
+          <button class="cancel btn fl" @click="showCancel = true">取消订单</button>
           <button class="backpay btn fl" @click="updateOrder(4)">已接待</button>
           <button class="backpay btn fr" @click="updateOrder(5)">已出行</button>
         </div>
@@ -70,7 +71,7 @@
             <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#arrow-right"></use>
           </svg>
         </div>
-        <!--<TimeCount :endTime="endT" :nowTime="nowT" :countCallback="endLog"/>-->
+        <TimeCountUp :startTime="startGoT" countText="出行已耗时"  :countCallback="endLog"/>
         <div class="btn-topay clearfix">
 
           <button class="backpay btn" @click="updateOrder(6)">出行结束</button>
@@ -86,7 +87,6 @@
             <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#arrow-right"></use>
           </svg>
         </div>
-        <!--<TimeCount :endTime="endT" :nowTime="nowT" :countCallback="endLog"/>-->
         <div class="btn-triped clearfix">
           <button class="backpay btn fl">申请退款</button>
           <button class="onemore btn " @click="$router.push({path : '/scenicDetail',query: {playId:orderInfo.playid, accountId: orderInfo.accountid}})">再游一场</button>
@@ -103,7 +103,6 @@
             <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#arrow-right"></use>
           </svg>
         </div>
-        <!--<TimeCount :endTime="endT" :nowTime="nowT" :countCallback="endLog"/>-->
         <div class="btn-topay clearfix">
           <button class="backpay btn fl">申请退款</button>
           <button class="backpay btn fr" @click="tripMore">再游一场</button>
@@ -140,7 +139,6 @@
             <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#arrow-right"></use>
           </svg>
         </div>
-        <!--<TimeCount :endTime="endT" :nowTime="nowT" :countCallback="endLog"/>-->
         <div class="btn-topay clearfix">
           <button class="backpay btn fl">申请退款</button>
           <button class="backpay btn fr">确认到达</button>
@@ -248,10 +246,10 @@
             </template>
 
         </span></li>
-      <template v-if="orderInfo.sfty == 0">
+      <template v-if="orderInfo.sfty == 1">
         <li class="check-item clearfix"  v-if="orderInfo.status == 0 || orderInfo.status == 1 || orderInfo.status == 2 || orderInfo.status == 3 || orderInfo.status == 4" > 团游优惠 <span class="group-count fr">团正在确认中，出行后将会统计团友人数和价格。</span></li>
-        <li class="check-item clearfix"  v-if="orderInfo.status == 5 " > 团游优惠 <span class="group-count fr">总共8人游，打8折 共优惠60元（100*3*0.2）\n订单完成后将会按优惠价格自动返到个人账户中</span></li>
-        <li class="check-item clearfix"  v-if="orderInfo.status == 6 || orderInfo.status == 7 || orderInfo.status == 8 " > 团游优惠 <span class="group-count fr">总共8人游，打8折 共优惠60元（100*3*0.2）\n订单完成后将会按优惠价格自动返到个人账户中</span></li>
+        <li class="check-item clearfix"  v-if="orderInfo.status == 5 " > 团游优惠 <span class="group-count fr">总共8人游，打{{orderInfo.tyval}}折 共优惠60元（100*3*0.2）订单完成后将会按优惠价格自动返到个人账户中</span></li>
+        <li class="check-item clearfix"  v-if="orderInfo.status == 6 || orderInfo.status == 7 || orderInfo.status == 8 " > 团游优惠 <span class="group-count fr">总共8人游，打{{orderInfo.tyval}}折 共优惠60元（100*3*0.2） 订单完成后将会按优惠价格自动返到个人账户中</span></li>
       </template>
     </ul>
     <div class="foot-blank"></div>
@@ -269,10 +267,11 @@
     data() {
       return {
         orderNum: this.$route.query.orderNum,
-        start: '',
-        endT: '',
-        nowT: '',
-        orderInfo: '',
+        endT: '',  //付款截止时间
+        takeT: '', //向导接单时间
+        payT: '', //付款时间
+        startGoT: '', //开始出发时间
+        orderInfo: '', //订单信息
         cancelR: '',
         showCancel: false
       }
@@ -296,8 +295,20 @@
         orderDetail(this.orderNum).then(res => {
           console.log(res)
           this.orderInfo = res.order;
-          let creatT = new Date(res.order.created_at.replace(/-/g,'/')).getTime();
-          this.endT = new Date(creatT + 1000 * 60 * 30).getTime();
+          let creatT = new Date(res.order.created_at.replace(/-/g,'/')).getTime();  //创建订单时间
+          // this.endT = new Date(creatT + 1000 * 60 * 30).getTime();
+          if(res.order.paytime && res.order.paytime != undefined) {
+            this.payT = new Date(res.order.paytime.replace(/-/g,'/')).getTime()  //付款时间
+          }
+          if(res.order.takeOrderTime && res.order.takeOrderTime != undefined) {
+            let takeorderT = new Date(res.order.takeOrderTime.replace(/-/g,'/')).getTime(); //向导接单时间
+            this.endT = new Date(takeorderT + 1000 * 60 * 30).getTime();
+          }
+          if(res.order.startgoouttime && res.order.startgoouttime != undefined) {
+            this.startGoT = new Date(res.order.startgoouttime.replace(/-/g,'/')).getTime() //开始出行时间
+          }
+
+
           this.ORDER_DETAIL(res.order);
           // this.orderInfo = res.orderMap;
         })
@@ -328,14 +339,19 @@
               content: res.msg
             }).show()
           } else {
-            this.$createDialog({
-              type: 'alert',
-              title: '提示',
-              content: '取消成功'
-            }).show()
-
+            // this.$createDialog({
+            //   type: 'alert',
+            //   title: '提示',
+            //   content: '取消成功'
+            // }).show()
+            this.$createToast({
+              txt: '取消成功',
+              type: 'correct',
+              mask: true,
+              time: 2000
+            }).show();
             setTimeout(()=> {
-              this.$router.go(0);
+              this.getOrderInfo();
             }, 1000)
           }
         })
@@ -350,7 +366,15 @@
             }).show()
           } else {
             console.log('状态修改成功，刷新当前页面！')
-            this.$router.go(0)
+            this.$createToast({
+              txt: '修改行程状态成功',
+              type: 'correct',
+              mask: true,
+              time: 2000
+            }).show();
+            setTimeout(()=> {
+              this.getOrderInfo();
+            }, 1000)
           }
         })
       },
