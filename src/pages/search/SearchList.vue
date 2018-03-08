@@ -150,6 +150,11 @@
         locHistory.set('searchWord',this.searchHistory);
       }
 
+    },
+    beforeRouteLeave(to, from, next) {
+      // 设置下一个路由的 meta
+      to.meta.keepAlive = false; // 让下个页面不缓存，即刷新
+      next();
     }
 
   }
