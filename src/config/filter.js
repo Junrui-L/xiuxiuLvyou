@@ -84,3 +84,22 @@ Vue.filter('tymodeText', state => {
   }
   return tymodeMap[state]
 })
+//距离显示
+Vue.filter('showDistance', val => {
+  if(!val) {
+    return ''
+  } else if(val < 1000) {
+    return val + 'm'
+  } else if(val >= 1000){
+    return val/1000 + 'km'
+  }
+})
+//取消方
+Vue.filter('cancleTxt', val => {
+  const cancelMap = {
+    1: '游客',
+    2: '向导',
+    3: '系统'
+  }
+  return cancelMap[val]
+})

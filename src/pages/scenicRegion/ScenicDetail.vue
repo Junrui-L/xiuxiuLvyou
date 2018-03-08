@@ -349,7 +349,7 @@
           })
           //获取当前日期
           let nowTime = new Date();
-          let nowday = dateFmt(nowTime, 'yyyy-MM-dd');
+          let nowday = dateFmt(nowTime, 'yyyy-M-d');
           let minDay = nowday = nowday.split('-');
           this.datePicker = this.$createDatePicker({
             min: minDay,

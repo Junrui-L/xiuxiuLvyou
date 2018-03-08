@@ -8,27 +8,8 @@
         <dt class="guide-name">{{play.username}}</dt>
         <dd class="guide-scenic"><span>{{play.scenicspot}}</span><span>{{play.wfname}}</span></dd>
         <dd class="guide-mode">
-          <template v-if="play.servicetype == 1">
-            景点详解
-          </template>
-          <template v-else-if="play.servicetype == 2">
-            带游服务
-          </template>
-          <template v-else-if="play.servicetype == 3">
-            当地游玩
-          </template>
-          <template v-else-if="play.servicetype == 4">
-            专线类型
-          </template>
-          <template v-if="play.tytype == 0">
-            (平分模式)
-          </template>
-          <template v-else-if="play.tytype == 1">
-            (固定折扣模式)
-          </template>
-          <template v-else-if="play.tytype == 2">
-            (剃分模式)
-          </template>
+          {{ play.servicetype | servicetypeText }}
+          {{ play.tytype | tymodeText}}
           </dd>
       </dl>
     </header>

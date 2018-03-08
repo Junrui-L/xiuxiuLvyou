@@ -49,26 +49,28 @@
         width: px2rem(180px);
         height: px2rem(25px);
         line-height: px2rem(25px);
-        @include font-dpr(12px);
-        color: $color-gray-primary;
+        @include font-dpr(13px);
+        color: $color-black;
         overflow: hidden;
         white-space: nowrap;
         text-overflow: ellipsis;
+        @include font-dpr(15px);
         span {
-          @include font-dpr(16px);
-          color: $color-black;
+          color: $color-gray-secondary;
         }
       }
 
-      .guide-level {
-        margin: px2rem(8px) 0;
+      .guide-count {
         height: px2rem(20px);
         line-height: px2rem(20px);
-        @include font-dpr(14px);
+        @include font-dpr(13px);
         color: $color-black;
 
       }
 
+      .guide-dis {
+        @include font-dpr(13px)
+      }
       .guide-category {
         line-height: px2rem(20px);
         @include font-dpr(12px);

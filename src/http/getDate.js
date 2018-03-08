@@ -318,7 +318,7 @@ export const getCouponsList = (tomake) => $http.get('/siteH5/user.json?act=loady
  *
  * */
 
-export const userUpdateMobile = (veCode, mobile) => $http.post('/siteH5/user.json?act=updatemobile', {
+export const userUpdateMobile = (mobile, veCode) => $http.post('/siteH5/user.json?act=updatemobile', {
   veCode: veCode,
   mobile: mobile
 });

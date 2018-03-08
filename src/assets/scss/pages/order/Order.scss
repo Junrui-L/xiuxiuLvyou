@@ -62,6 +62,22 @@
       color: $white;
     }
 
+
+    .cancel-info {
+      width: 80%;
+      margin: 0 auto;
+      .cancel-item {
+        //height: px2rem(24px);
+        line-height: px2rem(24px);
+        @include font-dpr(13px);
+        color: $color-black-secondary;
+
+        .cancel-rea {
+          width: 70%;
+          text-align: right;
+        }
+      }
+    }
     .btn-triped {
       width: px2rem(315px);
       margin: 0 auto;
@@ -189,6 +205,9 @@
       border-bottom: 1px solid $color-gray-secondary;
       .price {
         text-align: right;
+        p {
+          height: px2rem(20px);
+        }
       }
 
       .price-num {

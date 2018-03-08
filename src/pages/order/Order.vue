@@ -9,7 +9,6 @@
           </svg>
         </div>
         <!--<TimeCountDown :endTime="endT" :nowTime="nowT" :countCallback="endLog"/>-->
-
         <div class="btn-topay clearfix">
           <button class="cancel btn fl" @click="showCancel = true">取消订单</button>
           <button class="confirm btn fr" @click="waitGuide">联系向导</button>
@@ -27,7 +26,7 @@
         </div>
         <TimeCountDown :endTime="endT"  :countCallback="endLog"/>
         <div class="btn-topay clearfix">
-          <button class="cancel btn fl" @click="cancelOdr">取消订单</button>
+          <button class="cancel btn fl" @click="showCancel = true">取消订单</button>
           <button class=" btn fr" @click="goPay">去付款</button>
         </div>
       </div>
@@ -125,9 +124,20 @@
         <div class="order-state">
           已取消
         </div>
-        <div class="btn-triped  clearfix">
-          <button class="backpay btn " @click="tripMore">重新下单</button>
+        <div>
+          <div class="btn-triped  clearfix">
+            <button class="backpay btn " @click="tripMore">重新下单</button>
+          </div>
+          <ul class="cancel-info">
+            <li class="cancel-item clearfix">取消方 <span class="fr">{{orderInfo.canceltype | cancleTxt}}</span></li>
+            <li class="cancel-item clearfix">取消时间 <span class="fr">{{orderInfo.canceltime}}</span></li>
+            <li class="cancel-item clearfix">取消原因 <span class="cancel-rea fr">{{orderInfo.canceltitle || '其他原因'}}</span></li>
+            <li class="cancel-item clearfix">退款金额 <span class="fr">￥{{orderInfo.refundMoney}}</span></li>
+            <li class="cancel-item clearfix">取消违约费 <span class="fr">￥{{orderInfo.refundMoney}}</span></li>
+          </ul>
+
         </div>
+
       </div>
     </template>
     <template v-else-if="orderInfo.status == 10">
@@ -178,9 +188,10 @@
       </div>
       <dl class="guide-detail fl">
         <dt class="guide-name">{{orderInfo.username}} <span class="message"></span></dt>
-        <dd class="guide-scenic"><span>{{orderInfo.playaddre}}</span><span>{{orderInfo.wfname}}</span></dd>
+        <dd class="guide-scenic"><span>{{orderInfo.playaddre}}</span><span>{{orderInfo.servicetype | servicetypeText }}</span></dd>
         <dd class="guide-mode">
-          {{ orderInfo.servicetype | servicetypeText}}
+          <span> {{orderInfo.wfname}} ({{ orderInfo.orderMode}}) </span>
+          {{orderInfo.tytype | tymodeText }}
           <template v-if="orderInfo.tymode === 0">
             (平分模式)
           </template>
@@ -196,12 +207,12 @@
     <div class="order-info">
       <h3 class="title">订单信息</h3>
       <ul class="order-list">
-        <li class="info-item">联系人 <span class="fr">{{orderInfo.limkman}}</span></li>
-        <li class="info-item" >联系电话 <span class="fr">{{orderInfo.linkPhone}}</span></li>
-        <li class="info-item">游玩日期 <span class="fr">{{ orderInfo.godate }}</span></li>
-        <li class="info-item">游玩天数 <span class="fr">{{ orderInfo.playDay }} 天</span></li>
-        <li class="info-item">出行人数 <span class="fr">{{ orderInfo.tripsnum}} 人</span></li>
-        <li class="info-item">是否团游 <span class="fr">{{orderInfo.sfty == 1 ? '是' : '否'}}</span>
+        <li class="info-item clearfix">联系人 <span class="fr">{{orderInfo.limkman}}</span></li>
+        <li class="info-item clearfix" >联系电话 <span class="fr">{{orderInfo.linkPhone}}</span></li>
+        <li class="info-item clearfix">游玩日期 <span class="fr">{{ orderInfo.godate }}</span></li>
+        <li class="info-item clearfix">游玩天数 <span class="fr">{{ orderInfo.playDay }} 天</span></li>
+        <li class="info-item clearfix">出行人数 <span class="fr">{{ orderInfo.tripsnum}} 人</span></li>
+        <li class="info-item clearfix">是否团游 <span class="fr">{{orderInfo.sfty == 1 ? '是' : '否'}}</span>
         </li>
       </ul>
     </div>
@@ -210,7 +221,7 @@
         <li class="price-item meal-n clearfix">
           <span class="fl">游玩套餐</span>
           <div class="price fr">
-            <p>{{orderInfo.orderdoc}}</p>
+            <p>{{orderInfo.packagename}}</p>
             <p class="price-num">￥{{orderInfo.packagePrice}} X {{ orderInfo.tripsnum}}</p>
           </div>
         </li>
@@ -224,11 +235,20 @@
         <li class="price-item coupon clearfix">
           <span class="fl">优惠券</span>
           <div class="price fr">
-            <p>无</p>
-            <p class="price-num">￥ {{orderInfo.yh_price ? orderInfo.yh_price : 0 }}元</p>
+            <p>{{orderInfo.yhj_name ? orderInfo.yhj_name : '无'}}</p>
+            <p class="price-num">￥ {{orderInfo.yh_price ? orderInfo.yh_price : 0 }}</p>
           </div>
 
         </li>
+        <li class="price-item coupon clearfix">
+          <span class="fl">小 费</span>
+          <div class="price fr">
+            <p> </p>
+            <p class="price-num">￥ {{orderInfo.tipamount ? orderInfo.tipamount : 0 }}</p>
+          </div>
+
+        </li>
+
         <li class="total-pay">
           小计 <span class="total-num fr">￥{{orderInfo.payPrice}}</span>
         </li>
@@ -382,6 +402,7 @@
         this.$router.push({name: 'scenicDetail', query: {playId: this.orderInfo.playid, accountId: this.orderInfo.userid}})
       },
       endLog() {
+        this.getOrderInfo();
         console.log('.....倒计时结束了.....')
       }
     }

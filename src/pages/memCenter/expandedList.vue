@@ -126,8 +126,15 @@
       filters: {
           fmt: function (val) {
             let a = val.split('');
-            let b = a[0] + a[1] + a[2] + a[3] + '年' + a[4] + a[5] + '月';
-            return b
+            for (let i=0; i< a.length; i++) {
+              if(i === 3) {
+                a[i] += '年'
+              }
+              if(i === 5){
+                a[5] += '月'
+              }
+            }
+            return a.join('')
           }
       }
     }

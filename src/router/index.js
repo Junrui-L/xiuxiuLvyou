@@ -121,7 +121,8 @@ const router = new Router({
       //订单详情Comment
       path: '/orderDetail',
       name: 'orderDetail',
-      component: OrderDetail
+      component: OrderDetail,
+      meta: {keepAlive: true}
     },
     {
       //订单预览

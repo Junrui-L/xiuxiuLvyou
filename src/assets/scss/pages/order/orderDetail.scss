@@ -6,14 +6,14 @@
     background: $white;
     .guide-img {
       @include setSize(px2rem(80px), px2rem(80px));
-      border-radius: 50%;
+      //border-radius: 50%;
       position: relative;
       img {
         @include center;
         display: block;
         width: 100%;
         max-height: 100%;
-        border-radius: 50%;
+        //border-radius: 50%;
       }
     }
     .guide-detail {

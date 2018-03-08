@@ -2,50 +2,41 @@
 
 <template>
   <div class="Guide">
-    <!--<drop-down :dropDownData="dropDownData" :selectCallback="selectCallback" ></drop-down>-->
+    <!--<drop-down v-if="guidesList.length != 0" :dropDownData="dropDownData" :selectCallback="selectCallback" ></drop-down>-->
     <div class="guide-wrapper">
       <ul class="guide-list">
+        <!--<li class="guide">-->
+          <!--<div class="guide-t clearfix">-->
+            <!--<div class="guide-img fl">-->
+              <!--<img src="http://img1.jfdown.com/upload/5/kawfodxw.jpg" alt="用户头像"></div>-->
+            <!--<div class="guide-detail fl"><h5 class="guide-name">张小倩<span> ( 当地游玩 )</span></h5>-->
+              <!--<div class="guide-count"><span>种玩法</span> | <span>服务2人 </span></div>-->
+              <!--<div class="guide-dis"><span>距离：</span>{{dis | showDistance}}</div></div>-->
+            <!--<button class="guide-order fl">找Ta预订 </button></div>-->
+          <!--<div class="guide-txt"><p>-->
+          <!--带您玩，带你疯，让你快乐一整天。-->
+        <!--</p></div>-->
+        <!--</li>-->
         <li v-if="guidesList.length == 0" class="noGuide">附近暂无向导</li>
-        <li v-else class="guide" v-for="item in guidesList"  @click="$router.push({name: 'scenicDetail',  query: {scenicspot: scenicId, accountId: item.id}})">
+        <li v-else class="guide" v-for="item in guidesList"  @click="$router.push({path: '/guideDetail',  query: {id: 5}})">
           <div class="guide-t clearfix">
             <div class="guide-img fl">
-              <img :src="item.userimg" alt="用户头像"/>
+              <img :src="item.headimgurl" alt="用户头像"/>
             </div>
             <div class="guide-detail fl">
-              <h5 class="guide-name"><span>{{item.username}}</span></h5>
-              <div class="region-level"><span>服务{{item.fwcount}}人</span> | <span>{{item.wfcount}}种玩法 </span></div>
-              <div class="guide-star"><span>类别：</span>历史古迹、历史博物馆</div>
+              <h5 class="guide-name">{{item.userName}}<span> ( {{item.servicetype | servicetypeText }} )</span></h5>
+              <div class="guide-count"><span>{{item.wfcount}}种玩法</span> | <span>服务{{item.fwcount}}人 </span></div>
+              <div class="guide-dis"><span>距离：</span>{{ item.distance | showDistance}}</div>
             </div>
             <!--<button class="guide-order fl" @click="$router.push({name: 'guideDetail',  params: {id: 33}})">找Ta预订-->
             <button class="guide-order fl" >找Ta预订 </button>
           </div>
           <div class="guide-txt">
             <p>
-              {{ item.signature }}
+              {{ item.abstract }}
             </p>
           </div>
         </li>
-        <!--<li class="guide">-->
-          <!--<div class="guide-t clearfix">-->
-            <!--<div class="guide-img fl">-->
-              <!--<img src="../../assets/img/tttt.png" alt="">-->
-            <!--</div>-->
-            <!--<div class="guide-detail fl"-->
-                 <!--@click="$router.push({name: 'scenicDetail',  query: {scenicspot: 4, accountId: 1}})">-->
-              <!--<h5 class="guide-name"><span>丁大力</span></h5>-->
-              <!--<div class="region-level"><span>服务100人</span> | <span>2种玩法 </span></div>-->
-            <!--</div>-->
-            <!--<button class="guide-order fl" @click="$router.push({name: 'guideDetail',  params: {id: 33}})">找Ta预订-->
-            <!--</button>-->
-          <!--</div>-->
-          <!--<div class="guide-txt">-->
-            <!--<p>-->
-              <!--这是一块神奇的大陆，欧扎加拉圣诞节来看啥地这是一块神奇的大陆，欧扎加拉圣诞节来看啥地-->
-              <!--这是一块神奇的大陆，欧扎加拉圣诞节来看啥地方了卡收到积分跑文件发了-->
-            <!--</p>-->
-          <!--</div>-->
-        <!--</li>-->
-
       </ul>
     </div>
   </div>
@@ -70,7 +61,7 @@
   export default {
     data() {
       return {
-
+        dis: 500,
         scenicInfo: '',
         dropDownData: [
           {
@@ -130,15 +121,6 @@
         this.cityPicker.show()
       },
       selectHandle(selectedVal, selectedIndex, selectedText) {
-        // this.$createDialog({
-        //   type: 'warn',
-        //   content: `Selected Item: <br/> - value: ${selectedVal.join(', ')} <br/> - index: ${selectedIndex.join(', ')} <br/> - text: ${selectedText.join(' ')}`,
-        //   icon: 'cubeic-alert'
-        // }).show()
-
-        // this.city = selectedText[1];
-        // this.cityValue = selectedVal[1];
-        // this.getSpotsList(this.cityValue);
 
       },
       cancelHandle() {
@@ -161,8 +143,7 @@
           getNearGuide(this.locations.latitude, this.locations.longitude).then(res => {
             console.log('区导列表返回。。。。。')
             console.log(res);
-            this.scenicInfo = res.scenicspotMap;
-
+            this.guidesList = res.list;
           })
           // this.getNearGuide(this.locations.latitude, this.locations.longitude);
         } else {
