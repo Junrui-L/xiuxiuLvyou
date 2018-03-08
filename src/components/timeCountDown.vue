@@ -50,7 +50,7 @@
 
 
                         let now = new Date().getTime(),
-                            diff = countDownDate - now,
+                            diff = parseInt(countDownDate) - parseInt(now),
 
             // Time conversion to days, hours, minutes and seconds
                             tdays = Math.floor(diff / (1000 * 60 * 60 * 24)),
