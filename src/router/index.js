@@ -25,6 +25,7 @@ const SetContact = r => require.ensure([], () => r(require('@/pages/setContact/S
 //个人中心页面
 const MemberCenter = r => require.ensure([], () => r(require('@/pages/memCenter/MemberCenter')), 'memberCenter')
 const AccountBill = r => require.ensure([], () => r(require('@/pages/memCenter/accountBill')), 'accountBill')
+const AccountDetail = r => require.ensure([], () => r(require('@/pages/memCenter/accountDetail')), 'accountDetail')
 const Coupons = r => require.ensure([], () => r(require('@/pages/memCenter/coupons')), 'coupons')
 const Favorites = r => require.ensure([], () => r(require('@/pages/memCenter/favorites')), 'favorites')
 const MemberInfo = r => require.ensure([], () => r(require('@/pages/memCenter/memberInfo')), 'memberInfo')
@@ -156,6 +157,11 @@ const router = new Router({
       path: '/accountBill',
       name: 'accountBill',
       component: AccountBill
+    },
+    {
+      path: '/accountDetail',
+      name: 'accountDetail',
+      component: AccountDetail
     },
     {
       path: '/coupons',
