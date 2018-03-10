@@ -150,6 +150,7 @@
         wxUploadImg(arr){
           let length=arr.length
           let that = this;
+          let i=0
           function upload() {
             wx.uploadImage({
               localId: arr[i],
