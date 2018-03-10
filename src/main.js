@@ -34,10 +34,10 @@ Vue.use(VueLazyload, {
 })
 
 Vue.config.productionTip = false
-// if (process.env.NODE_ENV !== 'product'){
-//   let VConsole =  require('vconsole')   //控制台
-//   let vconsole = new VConsole()
-// }
+if (process.env.NODE_ENV !== 'product'){
+  let VConsole =  require('vconsole')   //控制台
+  let vconsole = new VConsole()
+}
 //console.log(http);
 /* eslint-disable no-new */
 new Vue({

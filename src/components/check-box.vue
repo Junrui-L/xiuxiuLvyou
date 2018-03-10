@@ -6,7 +6,7 @@
         {{ checkText }}
       </span>
       <span class="checkbox-label">
-        <slot>{{label}}</slot>
+        <!--<slot>{{label}}</slot>-->
       </span>
     </label>
   </div>

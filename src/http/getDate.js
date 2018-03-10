@@ -463,3 +463,13 @@ export const addCommnet = (data) => $http.post('/siteH5/assess.json?act=assessOr
   types: data.types,
   score: data.score
 })
+
+/**
+ * 获取图片
+ * type: head头像类型,credentials证件类型,image其他图片类型
+ * */
+
+export const getImgPath = (data) => $http.post('/siteH5/user.json?act=loadImgPath', {
+  type: data.type,
+  media_ids: data.media_ids
+})

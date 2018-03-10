@@ -1,0 +1,104 @@
+.comment {
+  height: 100%;
+  padding:px2rem(60px) 0 px2rem(10px);
+  .push {
+    @include setSize(px2rem(60px), px2rem(40px));
+    @include centerTop;
+    right: px2rem(10px);
+    @include font-dpr(14px);
+    line-height: px2rem(40px);
+    text-align: center;
+    color: $color-red;
+  }
+  .container {
+    height: 100%;
+    background: $color-white;
+    .tit {
+      padding: 0 px2rem(15px);
+      height: px2rem(25px);
+      line-height: px2rem(25px);
+      @include font-dpr(13px)
+    }
+  }
+  .stars-wrapper {
+    text-align: center;
+    position: relative;
+    .stars {
+      margin: 0 auto;
+      display:inline-block;
+      position:relative;
+      width: px2rem(200px);
+      height:px2rem(30px);
+      >div{
+        position:absolute;
+        left:0;
+        top:0;
+        white-space:nowrap;
+        overflow:hidden;
+
+        &.back{
+          z-index:2;
+          svg{
+            padding: px2rem(5px);
+            width:px2rem(30px);
+            height:px2rem(30px);
+            fill: #ccc;
+          }
+        }
+        &.front{
+          z-index:3;
+          svg{
+            padding: px2rem(5px);
+            width:px2rem(30px);
+            height:px2rem(30px);
+            fill: #ffaa0c;
+          }
+        }
+      }
+    }
+
+    .scores {
+      @include centerTop;
+      right: px2rem(30px);
+      @include font-dpr(14px);
+      line-height: px2rem(30px);
+    }
+  }
+  .comment-content {
+    padding: px2rem(15px);
+    @include setSize(100%, px2rem(100px));
+    textarea {
+      width: 100%;
+      height: 100%;
+      @include font-dpr(14px);
+      line-height: px2rem(24px);
+      color: $color-black;
+      padding: px2rem(10px);
+    }
+
+  }
+
+  .img-wrap {
+    padding: px2rem(15px);
+
+    .upload {
+      text-align: center;
+      img {
+        @include setSize(px2rem(80px), px2rem(60px));
+        margin-right: px2rem(10px);
+        margin-bottom: px2rem(10px);
+        background: url(../../assets/img/message_white.png) no-repeat center;
+        background-size: 100%;
+      }
+    }
+  }
+
+  .tip-wrapper {
+    padding: px2rem(15px);
+  }
+
+
+
+
+
+}

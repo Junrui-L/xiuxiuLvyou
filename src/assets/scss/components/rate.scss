@@ -1,0 +1,41 @@
+.cube-rate{
+  list-style: none;
+  display: inline-flex;
+  vertical-align: top;
+  flex-wrap: nowrap;
+  max-width: 100%;
+
+}
+.cube-rate-justify {
+  width: 100%;
+  justify-content: space-between
+}
+
+.stars{
+  position:absolute;
+  left:0;
+  top:0;
+  white-space:nowrap;
+  overflow:hidden;
+
+    z-index:2;
+    svg{
+      width:px2rem(30px);
+      height:px2rem(30px);
+      fill: #ccc;
+    }
+
+  .cube-rate-item_active {
+    width:px2rem(30px);
+    height:px2rem(30px);
+    fill: #ffaa0c;
+  }
+  }
+  //.cube-rate-item_active{
+  //  z-index:3;
+  //  svg{
+  //    width:px2rem(30px);
+  //    height:px2rem(30px);
+  //    fill: #ffaa0c;
+  //  }
+  //}

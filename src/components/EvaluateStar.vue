@@ -2,7 +2,7 @@
   <!-- 评价星星 两排星星 设置第二排星星的宽度来达到半颗星星的效果-->
   <div class="yellow_star v-md">
     <div class="back v-md">
-      <svg v-for="n in 5" :key="n" >
+      <svg v-for="n in 5" :key="n">
         <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#rating-star"></use>
       </svg>
     </div>
@@ -12,7 +12,6 @@
       </svg>
     </div>
   </div>
-
 </template>
 
 <script>

@@ -73,9 +73,9 @@
               <router-link :to="{path: '/order' , query: { orderNum: v.ordernumber}}">去付款</router-link>
             </button>
             <button class="order-handle-btn red" v-if="v.status===2|| v.status===3|| v.status===4 ||v.status===5 ">联系向导</button>
-            <button class="order-handle-btn" v-if="v.status===6">去评价</button>
+            <button class="order-handle-btn" v-if="v.status===6" @click="$router.push({path: '/comment' , query: { orderNum: v.ordernumber}})">去评价</button>
             <button class="order-handle-btn" v-if="v.status===9">
-              <router-link :to="{path : '/scenicDetail',query: {playId:v.playid,accountId: v.accountId}}">
+              <router-link :to="{path : '/scenicDetail',query: {playId:v.playid,accountId: v.userid}}">
               重新下单
               </router-link>
             </button>

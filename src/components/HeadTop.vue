@@ -36,8 +36,6 @@
         mounted(){
             //获取用户信息
 //            this.getUserInfo();
-            console.log(this.headBg)
-
         },
         props: ['signinUp', 'headTitle', 'goBack', 'headBg'],
         computed: {},
