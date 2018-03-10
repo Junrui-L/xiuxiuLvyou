@@ -20,7 +20,7 @@
             </div>
             <div class="guide-detail fl">
               <h5 class="guide-name"><span>{{item.username}}</span></h5>
-              <div class="region-level"><span>服务{{item.fwcount}}人</span> | <span>{{item.wfcount}}种玩法 </span></div>
+              <div class="region-level"><span>{{item.wfcount}}种玩法 </span> |<span> 服务{{item.fwcount}}人 </span></div>
               <!--<div class="guide-star"><span>类别：</span>历史古迹、历史博物馆</div>-->
             </div>
             <!--<button class="guide-order fl" @click="$router.push({name: 'guideDetail',  params: {id: 33}})">找Ta预订-->

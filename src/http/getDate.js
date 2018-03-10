@@ -358,7 +358,6 @@ export const userAccounts = () => $http.get('/siteapp/capital.json?act=capital',
  *
  * */
 
-
 export const userScores = (page) => $http.get('/siteH5/user.json?act=pointList', {
   page: page
 });
@@ -435,3 +434,32 @@ export const withdraw = (userBankId, money, fundpassword) => $http.get('/siteapp
  *
  * */
 export const getMyOrderList = (data) => $http.get('/siteH5/order.json?act=list', data);
+
+/**
+ * 玩法下的用户评论
+ * */
+
+export const getAssessPlayList = (data) => $http.post('/siteH5/assess.json?act=assesslistByPlay', {
+  guideId: data.guideId,
+  playId: data.guideId,
+  page: data.page
+})
+/**
+ * 用户个人评论列表
+ * */
+
+export const getAssessUserList = (page) => $http.post('/siteH5/assess.json?act=assesslist', {
+ page: page
+})
+
+/**
+ * 添加用户评论
+ * */
+
+export const addCommnet = (data) => $http.post('/siteH5/assess.json?act=assessOrder', {
+  ordernumber: data.ordernumber,
+  content: data.content,
+  pjImgs: data.pjImgs,
+  types: data.types,
+  score: data.score
+})

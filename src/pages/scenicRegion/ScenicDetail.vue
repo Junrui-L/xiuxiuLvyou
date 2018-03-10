@@ -29,7 +29,7 @@
                   </div>
                   <div class="guide-detail fl">
                     <h5 class="guide-name"><span>{{guide.userName}}</span></h5>
-                    <div class="guide-level"><span>服务{{guide.fwcount}}人</span> | <span>{{guide.wfcount}}种玩法 </span></div>
+                    <div class="guide-level"><span>{{guide.wfcount}}种玩法 </span> | <span>服务{{guide.fwcount}}人</span></div>
                     <EvaluateStar :code="guide.level"></EvaluateStar>
                   </div>
                 </div>
@@ -187,7 +187,7 @@
                     </ul>
                 </div>
             </div>
-            <div class="other-playmethos" v-if="otherPlays.length > 0">scenicspot: scenicId, accountId: item.visitorid
+            <div class="other-playmethos" v-if="otherPlays.length > 0">
                 <section><h3 class="tite">向导其他玩法</h3></section>
                 <ul class="methos-wrapper">
                     <li class="methods" v-for="item in otherPlays "  @click="$router.push({name: 'scenicDetail',  query: {scenicspot: item.scenicspotid, accountId: item.accountid}})">

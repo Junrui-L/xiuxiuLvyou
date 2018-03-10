@@ -138,11 +138,13 @@
       margin-left: px2rem(13px);
       width: px2rem(220px);
       .guide-name {
+        height: px2rem(30px);
         width: 100%;
         line-height: px2rem(30px);
         @include font-dpr(18px);
         color: $color-black;
         position: relative;
+        @include ellipsis;
         .message {
           @include centerTop;
           right: 0;

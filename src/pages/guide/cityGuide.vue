@@ -21,8 +21,8 @@
             </div>
             <div class="guide-detail fl">
               <h5 class="guide-name"><span>{{item.username}}</span></h5>
-              <div class="guide-count"><span>服务{{item.fwcount}}人</span> | <span>{{item.wfcount}}种玩法 </span></div>
-              <div class="guide-dis"><span>类别：</span>历史古迹、历史博物馆</div>
+              <div class="guide-count"><span>{{item.wfcount}}种玩法 </span> |<span> 服务{{item.fwcount}}人 </span></div>
+              <!--<div class="guide-dis"><span>类别：</span>历史古迹、历史博物馆</div>-->
             </div>
             <button class="guide-order fl" >找Ta预订 </button>
           </div>

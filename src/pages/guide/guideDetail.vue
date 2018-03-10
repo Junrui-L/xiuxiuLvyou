@@ -44,7 +44,7 @@
 
             <p class="command-num">全部{{guideInfos.assess}}条评论</p>
             <EvaluateStar :code="guideInfos.level"></EvaluateStar> {{guideInfos.level}}分
-            <span class="see-command">查看点评</span>
+            <span class="see-command" @click="$router.push({path: '/assessList'})">查看点评</span>
           </div>
           <ul class="command-tip clearfix">
             <li class="tip fl">细心周到（1）</li>
@@ -58,17 +58,18 @@
       </div>
 
       <div class="other-playmethos" v-if="playList.length > 0">
-        <h3 class="tite">向导玩法</h3>
+        <h3 class="tite">提供玩法</h3>
         <ul class="methos-wrapper">
           <li class="methods" v-for="item in playList">
-            <router-link class="nav-link" :to="{name: 'scenicDetail',  query: {scenicspot: item.scenicspotid, accountId: item.accountid}}">
+            <router-link class="nav-link" :to="{name: 'scenicDetail',  query: {playId: item.id, accountId: item.accountid}}">
               <dl class="clearfix">
                 <dt class="method-img fl">
                   <img :src="basePath + item.wfimg" alt="">
                 </dt>
                 <dd class="method-detail fl">
-                  <div class="method-desc">{{item.wfjs}}</div>
-                  <div class="method-price">￥{{item.minprice}}起/人</div>
+                  <div class="method-name">{{item.wfname}}</div>
+                  <div class="method-desc"><span>{{item.servicetype | servicetypeText}}</span> {{ item.servicecity}}</div>
+                  <div class="method-tip">类别：<span v-for="i in getStr(item.wfbq)">{{i }}</span></div>
                 </dd>
               </dl>
               <div class="method-txt">
@@ -99,11 +100,22 @@
         </h3>
         <ul class="choose-wrap">
           <li v-if="playList.length == 0" class="no-play">暂未发布玩法</li>
-          <li v-else class="choose-item clearfix" v-for="item in playList" @click="$router.push({name: 'scenicDetail',  query: {scenicspot: item.scenicspotid, accountId: item.accountid}})">{{ item.wfname }} <span class="fr">
+          <li v-else class="choose-item choose-playmethos clearfix" v-for="item in playList" @click="$router.push({name: 'scenicDetail',  query: {playId: item.id, accountId: item.accountid}})">
+            <dl class="clearfix methods">
+              <dt class="method-img fl">
+                <img :src="basePath + item.wfimg" alt="">
+              </dt>
+              <dd class="method-detail fl">
+                <div class="method-name">{{item.wfname}}</div>
+                <div class="method-desc"><span>{{item.servicetype | servicetypeText}}</span> {{ item.servicecity}}</div>
+                <!--<div class="method-tip">类别：<span v-for="i in getStr(item.wfbq)">{{i }}</span></div>-->
+              </dd>
+              <dd class="fr">
                 <svg>
                      <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#arrow-right"></use>
                 </svg>
-              </span>
+              </dd>
+            </dl>
           </li>
         </ul>
       </div>
@@ -171,21 +183,17 @@
       toOrder(){
         this.$router.push({path: '/orderDetail', query: {guideId: this.$route.params.id}})
       },
-      getImgUrl(url, mode) {
-        let baseUrl = 'http://www.youdingsoft.com/';
-        let dUrl = url.split('/')[1];
-        switch (mode) {
-          case 'small':
-            return baseUrl + 'fileUploadsmall/' + dUrl;
-          case 'middle':
-            return baseUrl + 'fileUploadmedium/' + dUrl;
-          case 'orgin':
-            return baseUrl + 'fileUpload/' + dUrl;
-          default:
-            return baseUrl + 'fileUpload/' + dUrl
+      getStr(str) {
+        if( str && str != ''){
+          let strList = str.split(';');
+          return strList;
+        } else {
+          return [];
         }
+
       }
-    },
+
+    }
 
   }
 </script>

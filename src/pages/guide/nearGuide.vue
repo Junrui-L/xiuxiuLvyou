@@ -18,7 +18,7 @@
         <!--</p></div>-->
         <!--</li>-->
         <li v-if="guidesList.length == 0" class="noGuide">附近暂无向导</li>
-        <li v-else class="guide" v-for="item in guidesList"  @click="$router.push({path: '/guideDetail',  query: {id: 5}})">
+        <li v-else class="guide" v-for="item in guidesList"  @click="$router.push({path: '/guideDetail',  query: {id: item.id}})">
           <div class="guide-t clearfix">
             <div class="guide-img fl">
               <img :src="item.headimgurl" alt="用户头像"/>

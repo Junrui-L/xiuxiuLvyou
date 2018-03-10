@@ -63,7 +63,7 @@
       </li>
     </ul>
     <div class="hot-spots">
-      <h3 class="title" @click="show">
+      <h3 class="title">
         <span>热门景点</span>
         <a href="" class="more-link fr">查看更多
           <svg>
@@ -113,7 +113,7 @@
             </dl>
             <div class="guide-recom">
 
-              <div class="cube-slide-item guide-intro">
+              <div class="cube-slide-item guide-intro" @click="$router.push({path: '/guideDetail',  query: {id: item.dails.accountid}})">
                 <dl>
                   <dt class="guide-tit clearfix">
                     <img class="guide-img fl" :src="item.dails.userImg" alt="">
@@ -156,7 +156,7 @@
       </div>
 
     </div>
-    <div class="recommended-guides">
+    <div class="recommended-guides" v-show="false" >
       <h3 class="title">
         <span>推荐向导</span>
         <a href="" class="more-link fr">查看更多
@@ -222,6 +222,7 @@
   import Swiper from '../components/Swiper.vue'
   import Banner from '../components/Banner.vue'
   import {localStore} from '../config/myUtils'
+  let localSn =  localStore('localSn', 'localStorage')
   export default {
     name: 'Home',
     data() {
@@ -265,9 +266,9 @@
       //获取首页数据
       this.initHome();
       let _this=this;
-      this.$nextTick(() => {
-
-      })
+      // this.$nextTick(() => {
+      //
+      // })
       setTimeout(() => {
         _this.$refs.silde.refresh();
         _this.$refs.silde2.refresh();
@@ -356,14 +357,12 @@
                 console.log(`当前地区编号${res.areasn}`)
 
                   that.locations = res;
+                  localSn.set('areaSn', res.areasn);
                   that.USER_AREA(res);
               })
             }
           });
         })
-      },
-      show() {
-        console.log('......');
       },
 
       showDialog() {
@@ -379,20 +378,6 @@
           title: '温馨提示',
           content: '暂未开放，敬请期待！'
         }).show()
-      },
-      getImgUrl(url, mode) {
-        let baseUrl = this.basePath;
-        let dUrl = url.split('/')[1];
-        switch (mode) {
-          case 'small':
-            return baseUrl + 'fileUploadsmall/' + dUrl;
-          case 'middle':
-            return baseUrl + 'fileUploadmedium/' + dUrl;
-          case 'orgin':
-            return baseUrl + 'fileUpload/' + dUrl;
-          default:
-            return baseUrl + 'fileUploadsmall/' + dUrl
-        }
       }
     }
   }

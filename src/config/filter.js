@@ -64,13 +64,21 @@ Vue.filter('orderStateText', state => {
   }
   return orderStateMap[state]
 })
-//服务类别
+//
+/**
+  玩法服务类型 类型状态
+ * 服务类别
+ * */
 Vue.filter('servicetypeText', state => {
   const servicetypeMap = {
-    1: '景点详解',
-    2: '带游服务',
+    1: '景点讲解',
+    2: '景区带导',
     3: '当地游玩',
-    4: '专线类型',
+    4: '一日专线',
+    5: '区内专线',
+    6: '省内专线',
+    7: '多省专线',
+    8: '跨国专线',
   }
   return servicetypeMap[state]
 })

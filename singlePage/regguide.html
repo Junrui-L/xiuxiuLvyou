@@ -31,7 +31,7 @@
   <button  class="to-register active" id="toRegister">确定</button>
   <div class="service clearfix" onclick="agreement()">
     <!--<label class="ui-check checked "><input type="checkbox" id="checkService" /></label>-->
-    注册即代表同意<a class="agreement" href="#">《咻咻服务协议》</a></div>
+    注册即代表同意<a class="agreement" href="http://www.youdingsoft.com/templates/h5/registerSuccess.html">《咻咻服务协议》</a></div>
 </div>
 <script src="js/jquery-2.2.2.js"></script>
 <script src="js/layer.js"></script>
@@ -185,13 +185,14 @@
           success: function (data) {
             $register.attr('disabled', false)
             if (data.code == 200) {
-              layer.open({
-                content: '注册向导成功'
-                , btn: '确定'
-                , yes: function (index) {
-                  layer.close(index);
-                }
-              })
+              // layer.open({
+              //   content: '注册向导成功'
+              //   , btn: '确定'
+              //   , yes: function (index) {
+              //     layer.close(index);
+              //   }
+              // })
+              window.location.href = 'http://www.youdingsoft.com/templates/h5/registerSuccess.html'
             } else if (data.code == "201") {
               layer.open({
                 content: data.msg,

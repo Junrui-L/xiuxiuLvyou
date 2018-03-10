@@ -185,21 +185,31 @@
 
       .method-detail {
         width: px2rem(200px);
-        height: px2rem(75px);
-        color: $color-gray-primary;
-        .method-desc {
-          @include setSize(100%, px2rem(50px));
-          @include font-dpr(16px);
-          @include cliptxt(2);
-          color: $color-black;
+        .method-name {
+          @include font-dpr(15px);
           line-height: px2rem(25px);
+          color: $color-black;
+          @include setSize(100%, px2rem(25px));
+        }
+        .method-desc {
+          @include setSize(100%, px2rem(25px));
+          @include font-dpr(14px);
+          @include cliptxt(2);
+          color: $color-black-secondary;
+          line-height: px2rem(25px);
+          span {
+            padding-right: px2rem(15px);
+          }
         }
 
-        .method-price {
-          text-align: right;
+        .method-tip {
+          text-align: left;
           line-height: px2rem(25px);
-          @include font-dpr(18px);
-          color: $color-red;
+          @include font-dpr(13px);
+          color: $color-black-secondary;
+          span {
+            padding-right: px2rem(10px);
+          }
         }
       }
 
@@ -314,6 +324,72 @@
         height:px2rem(16px);
         vertical-align: text-bottom;
       }
+    }
+    //选择玩法
+    .choose-playmethos {
+      .methods {
+        width: 100%;
+        padding: px2rem(10px);
+        background: $color-body-bg;
+        .method-img {
+          height: px2rem(50px);
+          width: px2rem(80px);
+          margin-right: px2rem(12px);
+          img {
+            width: 100%;
+            max-height: 100%;
+          }
+        }
+
+        .method-detail {
+          width: px2rem(200px);
+          .method-name {
+            @include font-dpr(15px);
+            line-height: px2rem(25px);
+            color: $color-black;
+            @include setSize(100%, px2rem(25px));
+          }
+          .method-desc {
+            @include setSize(100%, px2rem(25px));
+            @include font-dpr(14px);
+            @include cliptxt(2);
+            color: $color-black-secondary;
+            line-height: px2rem(25px);
+            span {
+              padding-right: px2rem(15px);
+            }
+          }
+
+          .method-tip {
+            text-align: left;
+            line-height: px2rem(25px);
+            @include font-dpr(13px);
+            color: $color-black-secondary;
+            span {
+              padding-right: px2rem(10px);
+            }
+          }
+        }
+
+
+        .method-txt {
+          margin-top: px2rem(16px);
+          @include setSize(100%, px2rem(64px));
+          padding: px2rem(10px);
+          background: $color-body-bg;
+          p {
+            line-height: px2rem(22px);
+            width: 100%;
+            @include cliptxt(2);
+            @include font-dpr(14px);
+          }
+        }
+      }
+
+
+
+
+
     }
   }
 

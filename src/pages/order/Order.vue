@@ -132,10 +132,9 @@
             <li class="cancel-item clearfix">取消方 <span class="fr">{{orderInfo.canceltype | cancleTxt}}</span></li>
             <li class="cancel-item clearfix">取消时间 <span class="fr">{{orderInfo.canceltime}}</span></li>
             <li class="cancel-item clearfix">取消原因 <span class="cancel-rea fr">{{orderInfo.canceltitle || '其他原因'}}</span></li>
-            <li class="cancel-item clearfix">退款金额 <span class="fr">￥{{orderInfo.refundMoney}}</span></li>
-            <li class="cancel-item clearfix">取消违约费 <span class="fr">￥{{orderInfo.refundMoney}}</span></li>
+            <li class="cancel-item clearfix">退款金额 <span class="fr">￥{{orderInfo.refundMoney || 0}}</span></li>
+            <li class="cancel-item clearfix">取消违约费 <span class="fr">￥{{orderInfo.kmoney || 0}}</span></li>
           </ul>
-
         </div>
 
       </div>

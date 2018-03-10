@@ -17,7 +17,6 @@ const SearchContentList = r => require.ensure([], () => r(require('@/pages/searc
 //订单
 const OrderDetail = r => require.ensure([], () => r(require('@/pages/order/OrderDetail')), 'orderDetail')
 const Order = r => require.ensure([], () => r(require('@/pages/order/Order')), 'order')
-const Comment = r => require.ensure([], () => r(require('@/pages/order/Comment')), 'comment')
 const PrepayOrder = r => require.ensure([], () => r(require('@/pages/order/PrepayOrder')), 'prepayOrder')
 const OneStepGuide = r => require.ensure([], () => r(require('@/pages/oneStepGuide/OneStepGuide')), 'oneStepGuide')
 const WaitResponse = r => require.ensure([], () => r(require('@/pages/oneStepGuide/WaitResponse')), 'waitResponse')
@@ -34,6 +33,9 @@ const MyWallet = r => require.ensure([], () => r(require('@/pages/memCenter/myWa
 const ScoreRule = r => require.ensure([], () => r(require('@/pages/memCenter/scoreRule')), 'scoreRule')
 const Scores = r => require.ensure([], () => r(require('@/pages/memCenter/scores')), 'scores')
 const ExpandedList = r => require.ensure([], () => r(require('@/pages/memCenter/expandedList')), 'expandedList')
+const Comment = r => require.ensure([], () => r(require('@/pages/memCenter/Comment')), 'comment')
+const AssessList = r => require.ensure([], () => r(require('@/pages/memCenter/assessList')), 'assessList')
+
 
 Vue.use(Router)
 
@@ -119,7 +121,7 @@ const router = new Router({
       component: WaitResponse
     },
     {
-      //订单详情Comment
+      //订单详情
       path: '/orderDetail',
       name: 'orderDetail',
       component: OrderDetail,
@@ -130,12 +132,6 @@ const router = new Router({
       path: '/order',
       name: 'order',
       component: Order
-    },
-    {
-      //订单评论
-      path: '/comment',
-      name: 'comment',
-      component: Comment
     },
     {
       //下单预支付
@@ -203,7 +199,19 @@ const router = new Router({
       path: '/scores',
       name: 'scores',
       component: Scores
-    }
+    },
+    {
+      //订单评论
+      path: '/comment',
+      name: 'comment',
+      component: Comment
+    },
+    {
+      //订单评论
+      path: '/assessList',
+      name: 'assessList',
+      component: AssessList
+    },
 
   ],
   strict: process.env.NODE_ENV !== 'production',

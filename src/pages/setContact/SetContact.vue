@@ -84,7 +84,7 @@
 
           },
           setPhone(){
-            let reg = /^1[34578][0-9]{9}$/;
+            let reg = /^1[345789][0-9]{9}$/;
             if(this.phone == ''){
               this.$createDialog({
                 type: 'alert',
@@ -113,7 +113,16 @@
                     content: res.msg
                   }).show()
                 } else {
-                  window.location.href = 'http://www.baidu.com'
+                  this.$createToast({
+                    txt: '修改手机号码成功',
+                    type: 'correct',
+                    mask: true,
+                    time: 2000
+                  }).show();
+                  setTimeout(()=> {
+                    this.$router.go(-1);
+                  }, 1000)
+
                 }
               })
             }

@@ -6,12 +6,12 @@
       </div>
       <dl class="guide-detail fl">
         <dt class="guide-name">{{play.username}}</dt>
-        <dd class="guide-scenic"><span>{{play.scenicspot}}</span><span>{{play.wfname}}</span></dd>
+        <dd class="guide-scenic"><span>{{play.scenicspot}}</span><span>{{play.servicetype | servicetypeText}}</span></dd>
         <dd class="guide-mode">
-          {{ play.servicetype | servicetypeText }}
-          {{ play.tytype | tymodeText}}
+          {{ play.wfname }}
           </dd>
       </dl>
+
     </header>
     <div class="order-info">
       <h3 class="title">订单信息</h3>

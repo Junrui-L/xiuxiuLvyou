@@ -1,0 +1,78 @@
+.assessList {
+  padding-top: px2rem(50px);
+  //.assess-container {
+  //  padding: px2rem(20px) 0;
+  //}
+  .assess-wrapper {
+    padding: px2rem(15px) px2rem(15px);
+    background: $white;
+    margin-bottom: px2rem(10px);
+    dl {
+      @include setSize(100%, px2rem(28px));
+      position: relative;
+    }
+    .visitor-img {
+      @include setSize(px2rem(28px), px2rem(28px));
+      border-radius: 50%;
+      img {
+        width: 100%;
+        height: 100%;
+        border-radius: 50%;
+      }
+    }
+
+    .user-name {
+      margin-left: px2rem(5px);
+      @include setSize(px2rem(150px), px2rem(28px));
+      line-height: px2rem(28px);
+      @include font-dpr(15px);
+      color: $color-black;
+      @include ellipsis;
+    }
+
+    .evlu-wrap {
+      @include centerTop;
+      right: 0;
+    }
+
+    .time-name {
+      @include setSize(100%, px2rem(25px));
+      line-height: px2rem(25px);
+      @include font-dpr(13px);
+      color: $color-black-secondary;
+    }
+
+    .assess-txt {
+      line-height: px2rem(24px);
+      @include font-dpr(15px);
+      color: $color-black-secondary;
+    }
+
+    .img-wrapper {
+      width: 100%;
+      margin-bottom: px2rem(10px);
+      .img-container {
+        width: px2rem(165px);
+        padding: 35% 0 0;
+        position: relative;
+        margin-bottom: px2rem(6px);
+        img {
+          @include center;
+          width: 100%;
+          max-height: 100%;
+        }
+      }
+
+      .img-container:nth-of-type(2n) {
+        float: right;
+
+      }
+
+      .img-container:nth-of-type(2n+1) {
+        float: left;
+      }
+
+    }
+
+  }
+}
