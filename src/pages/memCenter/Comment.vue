@@ -136,7 +136,6 @@
                 localIds.forEach(li => {
                   that.images.push(li)
                 });
-
                 // this.readImages(currentSize)
                 that.wxUploadImg(localIds);
               },
@@ -145,24 +144,47 @@
               }
             })
 
-          })
+        })
 
         },
-        wxUploadImg(obj){
+        wxUploadImg(arr){
+          let length=arr.length
           let that = this;
+          function upload() {
             wx.uploadImage({
-              localId: obj, // 需要上传的图片的本地ID，由chooseImage接口获得
-              isShowProgressTips: 1, // 默认为1，显示进度提示
+              localId: arr[i],
               success: function (res) {
-                that.mediaId = res.serverId; // 返回图片的服务器端ID
+                i++;
+                that.mediaId.push(res.serverId); // 返回图片的服务器端ID
                 getImgPath({type: 'image', media_ids: res.serverId}).then(res => {
                   console.warn(res)
+                  if (i < length) {
+                    upload();
+                  }
                 })
               },
-              fail: function (error) {
-                console.log(error)
+              fail: function (res) {
+                alert(JSON.stringify(res));
               }
             });
+          }
+          upload();
+
+
+//          let that = this;
+//            wx.uploadImage({
+//              localId: obj, // 需要上传的图片的本地ID，由chooseImage接口获得
+//              isShowProgressTips: 1, // 默认为1，显示进度提示
+//              success: function (res) {
+//                that.mediaId = res.serverId; // 返回图片的服务器端ID
+//                getImgPath({type: 'image', media_ids: res.serverId}).then(res => {
+//                  console.warn(res)
+//                })
+//              },
+//              fail: function (error) {
+//                console.log(error)
+//              }
+//            });
         },
         removeImg(index){
           this.images.splice(index, 1)
