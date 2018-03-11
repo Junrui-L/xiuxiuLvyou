@@ -18,6 +18,7 @@
       <ul class="order-list">
         <li class="info-item">游玩时间 <span class="fr">{{baseOrder.travalDate.txt}}</span></li>
         <li class="info-item">游玩人数 <span class="fr">{{baseOrder.peopleNum.txt}}</span></li>
+        <li class="info-item">游玩天数 <span class="fr"> {{play.playDay || 1}}天</span></li>
         <li class="info-item">价格套餐 <span class="fr">{{pricePackage.name}}/{{pricePackage.price}}元</span></li>
       </ul>
     </div>
@@ -30,12 +31,6 @@
       <p>注意：团游必须有2个订单才生效，价格由最终团游数决定。而差价会在旅行结束后退到您的个人账户中。</p>
     </div>
     <div class="tickets">
-      <div class="tickit-m" >游玩天数
-        <span class="tickit-txt fr" >
-          {{play.playDay || 1}}天
-          <!--<input class="play-days" v-model="playday" placeholder="请输入天数" maxlength="3" max="99" type="number" pattern="[0-9]*">-->
-        </span>
-      </div>
       <div class="tickit-m" @click="showmpPackgePicker">门票套餐
         <span class="tickit-txt fr" >
           {{mpPackage.mpPackageName == '' ? '请选择门票套餐' : mpPackage.mpPackageName}}

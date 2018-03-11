@@ -364,7 +364,8 @@ export const userScores = (page) => $http.get('/siteH5/user.json?act=pointList',
 
 /**
  * 用户账单列表
- * "ordernumber":"20180110100001076230583",//账变编号
+ *
+ "ordernumber":"20180110100001076230583",//账变编号
  "lastBlance":100.00,//账变后余额
  "currentBlance":300.00,//当前余额
  "profitLossMoney":200,//账变金额
@@ -373,6 +374,7 @@ export const userScores = (page) => $http.get('/siteH5/user.json?act=pointList',
  "created_at":账变时间,//账变编号
  "title":"余额支付向导（李三）",//账变内容说明
  "typeicon":"/url/sdf/sdf.jpg"//账变图标地址
+
  * */
 
 export const userBill = (page, type) => $http.get('/siteapp/capital.json?act=seachProfitloss', {
@@ -462,7 +464,7 @@ export const addCommnet = (data) => $http.post('/siteH5/assess.json?act=assessOr
   pjImgs: data.pjImgs,
   types: data.types,
   score: data.score
-})
+}, true)
 
 /**
  * 获取图片

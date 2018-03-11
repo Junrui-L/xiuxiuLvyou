@@ -28,7 +28,7 @@
       display:inline-block;
       position:relative;
       width: px2rem(200px);
-      height:px2rem(30px);
+      height:px2rem(24px);
       >div{
         position:absolute;
         left:0;
@@ -40,8 +40,8 @@
           z-index:2;
           svg{
             padding: px2rem(5px);
-            width:px2rem(30px);
-            height:px2rem(30px);
+            width:px2rem(24px);
+            height:px2rem(24px);
             fill: #ccc;
           }
         }
@@ -49,8 +49,8 @@
           z-index:3;
           svg{
             padding: px2rem(5px);
-            width:px2rem(30px);
-            height:px2rem(30px);
+            width:px2rem(24px);
+            height:px2rem(24px);
             fill: #ffaa0c;
           }
         }
@@ -61,7 +61,7 @@
       @include centerTop;
       right: px2rem(30px);
       @include font-dpr(14px);
-      line-height: px2rem(30px);
+      line-height: px2rem(24px);
     }
   }
   .comment-content {
@@ -83,13 +83,28 @@
 
     .upload {
       text-align: center;
+      position: relative;
+      margin-right: px2rem(10px);
+      margin-bottom: px2rem(10px);
       img {
-        @include setSize(px2rem(80px), px2rem(60px));
-        margin-right: px2rem(10px);
-        margin-bottom: px2rem(10px);
+        @include setSize(px2rem(100px), px2rem(75px));
         background: url(../../assets/img/message_white.png) no-repeat center;
         background-size: 100%;
       }
+
+      .close {
+        position: absolute;
+        right: px2rem(-5px);
+        top: px2rem(-5px);
+        @include setSize(px2rem(20px), px2rem(20px));
+        background: url(../../assets/img/nav_search_delete@2x.png) no-repeat center;
+        background-size: 100%;
+        z-index: 10;
+      }
+    }
+
+    .upload:nth-of-type(3n) {
+      padding-right: 0;
     }
   }
 

@@ -113,7 +113,7 @@
         <div class="order-state">
           行程已完成
         </div>
-        <div class="btn-triped btn-topay clearfix">
+        <div class="btn-topay clearfix">
           <button class="backpay btn fl">申请退款</button>
           <button class="backpay btn fr" @click="tripMore">再游一场</button>
         </div>

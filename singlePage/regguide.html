@@ -3,14 +3,97 @@
 <head>
   <meta charset="UTF-8">
   <title>成为向导</title>
-  <meta name="viewport" content="width=device-width,initial-scale=1.0">
-  <link rel="stylesheet" type="text/css" href="css/regguide.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+  <link rel="stylesheet" type="text/css" href="css/regguide.css?v=1">
   <link rel="stylesheet" type="text/css" href="css/layer_rem.css">
   <script src="js/flexible.js"></script>
+  <script src="js/jquery-2.2.2.js"></script>
+  <script src="js/layer.js"></script>
+  <script>
+    var os = (function () {
+      var ua = navigator.userAgent,
+        isAndroid = /(?:Android)/.test(ua),
+        isPhone = /(?:iPhone)/.test(ua),
+        isWeixin = /(?:MicroMessenger)/.test(ua);
 
+      return {
+        isPhone: isPhone,
+        isAndroid: isAndroid,
+        isWeixin: isWeixin,
+      };
+    })();
+    $(function () {
+      //检查是已经注册
+      checkLoad();
+    })
+
+   function checkLoad() {
+     if(os.isWeixin && os.isAndroid) {
+       console.log('安卓微信')
+       getUrl('android', !os.isAndroid)
+     } else if(os.isWeixin && os.isPhone) {
+       getUrl('ios', !os.isPhone)
+     } else if(!os.isWeixin) {
+       console.log('非微信')
+       if(os.isAndroid) {
+         getUrl('android', os.isAndroid)
+       } else {
+         getUrl('ios', os.isPhone)
+       }
+     }
+   }
+   function getUrl(os, wx) {
+
+       $.ajax({
+         url: '/siteH5/user.json?act=loadRegGuideData&packageName=' + os,
+         data: {},
+         method: 'POST',
+         dataType: 'json',
+         success: function (data) {
+
+           if(data.data.status == 1){
+             //显示已注册向导
+             $('.regis-success').show();
+             $('.ico').html('您已成为向导')
+              if(!wx) {
+                //显示蒙层
+                $('#todown').on('click',function () {
+                  $('#wxtip').show();
+                })
+                $('.close').on('click', function () {
+                  $('#wxtip').hide();
+                })
+
+              } else {
+                if(data.data.apkUrl == '') {
+                  $('#todown').html('暂时无法下载')
+                } else if(data.data.apkUrl != ''){
+                  // location.href = data.apkUrl
+                  $('#todown').attr('href', data.data.apkUrl)
+                }
+              }
+           } else if(data.data.status == 0)  {
+             //开始注册向导
+             $('.register').show();
+           }
+             console.log(data);
+
+
+         },
+         error: function (err) {
+
+           layer.open({
+             content: err,
+             skin: 'msg',
+             time: 2 //2秒后自动关闭
+           });
+         }
+       });
+   }
+  </script>
 </head>
 <body>
-<div class="register">
+<div class="register hide">
   <div class="pay-tit"><span class="xiu">咻</span> <span class="tit">注册咻咻向导</span></div>
   <div class="input-wrapper">
     <input type="tel" id="phone" class="input-txt phone" maxlength="11" placeholder="请输入手机号码" name="phone">
@@ -33,9 +116,20 @@
     <!--<label class="ui-check checked "><input type="checkbox" id="checkService" /></label>-->
     注册即代表同意<a class="agreement" href="http://www.youdingsoft.com/templates/h5/registerSuccess.html">《咻咻服务协议》</a></div>
 </div>
-<script src="js/jquery-2.2.2.js"></script>
-<script src="js/layer.js"></script>
+
+<div class="regis-success hide">
+  <div class="ico">恭喜注册向导成功</div>
+  <a id="todown" href="javascript:;">下载客户端</a>
+</div>
+
+<div id="wxtip">
+  <div class="img-wrap"><img src="img/opinbrow.png" alt="微信打开"/><span id="close" title="关闭" class="close">×</span></div>
+</div>
+
 <script>
+
+
+//注册向导
   $(function () {
     var $phone = $('#phone');
     var $code = $('#sendCode')
@@ -185,14 +279,12 @@
           success: function (data) {
             $register.attr('disabled', false)
             if (data.code == 200) {
-              // layer.open({
-              //   content: '注册向导成功'
-              //   , btn: '确定'
-              //   , yes: function (index) {
-              //     layer.close(index);
-              //   }
-              // })
-              window.location.href = 'http://www.youdingsoft.com/templates/h5/registerSuccess.html'
+              //注册成功
+              $('.register').hide()
+              $('.regis-success').show();
+              $('.ico').html('您已成为向导');
+              //显示下载页
+              checkLoad();
             } else if (data.code == "201") {
               layer.open({
                 content: data.msg,

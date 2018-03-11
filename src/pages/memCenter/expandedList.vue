@@ -1,7 +1,7 @@
 <template>
     <div class="expandedList">
       <!--<div class="title">我的推广列表</div>-->
-      <template v-for="da in expanList">
+      <template v-for="da in expanList" v-if="expanList.length > 0">
         <h3 class="title">
           <span>{{ da.month | fmt }}</span>
           <!--<a href="" class="more-link fr">查看更多-->
@@ -29,10 +29,14 @@
           </li>
         </ul>
       </template>
+      <div v-if="expanList.length === 0">
+        <p class="load-more">暂无推广</p>
+      </div>
       <div v-if="expanList.length!== 0">
         <p class="load-more" v-show="!nomore" @click="loadMore">加载更多</p>
         <p class="load-more" v-show="nomore">没有更多了</p>
       </div>
+
 
     </div>
 </template>

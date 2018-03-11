@@ -1,100 +1,149 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="UTF-8">
-    <title>预约成功</title>
-    <link rel="stylesheet" type="text/css" href="css/regguide.css"/>
-    <script src="js/flexible.js"></script>
-    <style>
-        .ico {
-            width: 100%;
-            padding: 5rem 0 0;
-            font-size: 18px;
-            text-align: center;
-            font-weight: 700;
-            background: url(img/success.png) no-repeat center 2rem;
-            background-size: 2.13333rem;
-            color: #47b34f;
-        }
+  <meta charset="UTF-8">
+  <title>注册向导成功</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+  <link rel="stylesheet" type="text/css" href="css/regguide.css"/>
+  <script src="js/flexible.js"></script>
+  <style>
+    .ico {
+      width: 100%;
+      padding: 5rem 0 0;
+      font-size: 18px;
+      text-align: center;
+      font-weight: 700;
+      background: url(img/success.png) no-repeat center 2rem;
+      background-size: 2.13333rem;
+      color: #47b34f;
+    }
 
-        [data-dpr="2"] .ico {
-            font-size: 36px;
-        }
+    [data-dpr="2"] .ico {
+      font-size: 36px;
+    }
 
-        [data-dpr="3"] .ico {
-            font-size: 54px;
-        }
-        p {
-            height: 1.12rem;
-            line-height: 1.12rem;
-            text-align: center;
-            font-size: 12px;
-            padding-bottom: 0.4rem;
-            border-bottom: 1px dashed #cfcfe7;
-        }
+    [data-dpr="3"] .ico {
+      font-size: 54px;
+    }
 
-        [data-dpr="2"] p {
-            font-size: 24px;
-        }
+    p {
+      height: 1.12rem;
+      line-height: 1.12rem;
+      text-align: center;
+      font-size: 12px;
+      padding-bottom: 0.4rem;
+      border-bottom: 1px dashed #cfcfe7;
+    }
 
-        [data-dpr="3"] p {
-            font-size: 36px;
-        }
+    [data-dpr="2"] p {
+      font-size: 24px;
+    }
 
-        a {
-            display: block;
-            margin: 0.8rem auto;
-            width: 2.93333rem;
-            height: 0.93333rem;
-            line-height: 0.93333rem;
-            text-align: center;
-            font-size: 15px;
-            border: 1px solid #47b34f;
-            border-radius: 5px;
-            color: #47b34f;
-        }
+    [data-dpr="3"] p {
+      font-size: 36px;
+    }
 
-        [data-dpr="2"] a {
-            font-size: 30px;
-        }
+    a {
+      display: block;
+      margin: 0.8rem auto;
+      width: 2.93333rem;
+      height: 0.93333rem;
+      line-height: 0.93333rem;
+      text-align: center;
+      font-size: 15px;
+      border: 1px solid #47b34f;
+      border-radius: 5px;
+      color: #47b34f;
+    }
 
-        [data-dpr="3"] a {
-            font-size: 45px;
-        }
+    [data-dpr="2"] a {
+      font-size: 30px;
+    }
 
-    </style>
+    [data-dpr="3"] a {
+      font-size: 45px;
+    }
+
+    #wxtip {
+      display: none;
+      position: fixed;
+      left: 0;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.8);
+      width: 100%;
+      height: 100%;
+      z-index: 100;
+    }
+
+    #wxtip .img-wrap {
+      text-align: center;
+      margin-top: 10%;
+      padding: 0 5%;
+      position: relative;
+    }
+
+    #wxtip .img-wrap img {
+      width: 100%;
+    }
+    #wxtip .close {
+      color: #fff;
+      padding: 5px;
+      font: bold 30px/54px simsun;
+      text-shadow: 0 1px 0 #ddd;
+      position: absolute;
+      top: 0;
+      left: 5%;
+    }
+  </style>
 </head>
 <body>
 <div class="ico">恭喜注册向导成功</div>
-<a href="javascript:godown();">下载客户端</a>
+<a id="todown" href="javascript:;">下载客户端</a>
+<div id="wxtip">
+  <div class="img-wrap"><img src="img/opinbrow.png" alt="微信打开"/><span id="close" title="关闭" class="close">×</span></div>
+</div>
+<script src="js/jquery-2.2.2.js"></script>
 <script>
   //判断系统
-  var os = (function() {
+  var os = (function () {
     var ua = navigator.userAgent,
       isAndroid = /(?:Android)/.test(ua),
       isPhone = /(?:iPhone)/.test(ua),
       isWeixin = /(?:MicroMessenger)/.test(ua);
 
-      return {
-        isPhone: isPhone,
-        isAndroid : isAndroid,
-        isWeixin : isWeixin,
+    return {
+      isPhone: isPhone,
+      isAndroid: isAndroid,
+      isWeixin: isWeixin,
     };
   })();
-  function godown(){
-    if(os.isWeixin){
-      $("#wxtip").show();//提示在浏览器打开的
-      if(os.isPhone){
-     //提示在Safari打开的
+
+  $(function () {
+    $('#todown').click(function () {
+      if (os.isWeixin) {
+        $("#wxtip").show();//提示在浏览器打开的
+        if (os.isPhone) {
+          //提示在Safari打开的
+        }
       }
-    }
-    else if(os.isPhone){
-      location.href = ''
-    }
-    else if(os.isAndroid){
-      location.href= ''
-    }
-  }
+      else if (os.isPhone) {
+        location.href = ''
+      }
+      else if (os.isAndroid) {
+        location.href = 'http://www.youdingsoft.com/templates/xiuxiuTravel_guide_3100033.apk'
+      }
+    })
+
+
+    $('#close').click(function () {
+      $('#wxtip').hide();
+    })
+  })
+
+
+
 </script>
 </body>
 </html>

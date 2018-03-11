@@ -23,8 +23,9 @@
       <div class="tit">精彩图片</div>
       <div class="img-wrap clearfix">
 
-        <div class="upload fl" v-for="(img, index) in images" :key="index">
-          <img :src="img" alt=""  @click="addImg" />
+        <div class="upload fl" v-for="(img, index) in serverSrc" :key="index">
+          <img :src="basePath + img" alt=""  />
+          <i class="close" @click="removeImg(index)"></i>
         </div>
         <div class="upload fl" v-show="images.length < 9">
           <img src="../../assets/img/upimg.png" alt=""  @click="addImg" />
@@ -37,7 +38,6 @@
         <CheckGroup v-model="checkList">
           <CheckBox v-for="(v,i) in tipTxt" :checkText="v" :label='v' :key='i'></CheckBox>
         </CheckGroup>
-       <span>{{checkList}}</span>
       </div>
     </div>
 
@@ -60,15 +60,15 @@
             configMap: '', //微信sdk初始化参数
             contentTxt: '',
             rateValue:0,
-            max:5,
+            max:10,
             images: [],
             maxSize: 9,
             mediaId: [],
+            serverSrc: [],
             checkList: [],
             tipTxt: [
               '细心周到','热情好客','当地通','幽默开朗','诚信友善'
-            ],
-            code: 5
+            ]
           }
         },
       components: {
@@ -76,6 +76,11 @@
         CheckBox,
         CheckGroup,
         Rate
+      },
+      computed: {
+        ...mapState([
+          'basePath','location','userInfo', 'baseOrder'
+        ])
       },
       mounted(){
         this.configWx();
@@ -90,11 +95,13 @@
               time: 2000
             }).show();
           }
-          // console.log(`发表评论${this.contentTxt}`)
+          console.log(`发表评论${this.contentTxt} 标签 ${this.checkList.join(';')}`);
+          let coImgs = this.serverSrc.join(';');
+          let coTypes = this.checkList.join(';');
           addCommnet({ordernumber:this.orn,
             content: this.contentTxt,
-            pjImgs: '',
-            types: this.checkList.join(';'),
+            pjImgs: coImgs,
+            types: coTypes,
             score: this.rateValue
           }).then(res => {
             console.log(res);
@@ -148,7 +155,7 @@
 
         },
         wxUploadImg(arr){
-          let length=arr.length
+          let length=arr.length;
           let that = this;
           let i=0
           function upload() {
@@ -157,38 +164,26 @@
               success: function (res) {
                 i++;
                 that.mediaId.push(res.serverId); // 返回图片的服务器端ID
+                console.log(res.serverId)
                 getImgPath({type: 'image', media_ids: res.serverId}).then(res => {
-                  console.warn(res)
+                  console.warn(res);
+                  that.serverSrc.push(res.imgpaths);
+                  console.log(that.serverSrc)
                   if (i < length) {
                     upload();
                   }
                 })
               },
               fail: function (res) {
-                alert(JSON.stringify(res));
+                console.log(JSON.stringify(res));
               }
             });
           }
           upload();
 
-
-//          let that = this;
-//            wx.uploadImage({
-//              localId: obj, // 需要上传的图片的本地ID，由chooseImage接口获得
-//              isShowProgressTips: 1, // 默认为1，显示进度提示
-//              success: function (res) {
-//                that.mediaId = res.serverId; // 返回图片的服务器端ID
-//                getImgPath({type: 'image', media_ids: res.serverId}).then(res => {
-//                  console.warn(res)
-//                })
-//              },
-//              fail: function (error) {
-//                console.log(error)
-//              }
-//            });
         },
         removeImg(index){
-          this.images.splice(index, 1)
+          this.serverSrc.splice(index, 1);
         }
 
       }
