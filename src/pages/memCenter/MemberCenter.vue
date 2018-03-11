@@ -50,7 +50,7 @@
       <div class="order-list">
         <p class="no_data_text" v-if="orderList.length===0">暂无数据</p>
         <div class="order-list-item" v-for="v in orderList">
-          <div class="order-item" @click="$router.push({path: '/order' , query: { orderNum: v.ordernumber}})">
+          <div class="order-item clearfix" @click="$router.push({path: '/order' , query: { orderNum: v.ordernumber}})">
             <p class="fl h44">出行时间：{{v.godate}}</p>
             <p class="fr  h44 orderstate">{{v.status | orderStateText}}</p>
             <div class="scenicInfo fl">
@@ -67,8 +67,9 @@
               <p><span>总价</span><span class="fr">{{v.orderSumPrice}}元</span></p>
             </div>
           </div>
-            <button class="order-handle-btn" v-if="v.status===0" @click="cancleOrder(v)" >取消订单</button>
+
             <div class="fr">
+              <button class="order-handle-btn" v-if="v.status===0" @click="cancleOrder(v)" >取消订单</button>
             <button class="to-pay" v-if="v.status===1">
               <router-link :to="{path: '/order' , query: { orderNum: v.ordernumber}}">去付款</router-link>
             </button>

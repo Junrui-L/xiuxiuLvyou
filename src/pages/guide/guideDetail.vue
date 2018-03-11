@@ -44,7 +44,7 @@
 
             <p class="command-num">全部{{guideInfos.assess}}条评论</p>
             <EvaluateStar :code="guideInfos.level"></EvaluateStar> {{guideInfos.level}}分
-            <span class="see-command" @click="$router.push({path: '/assessList'})">查看点评</span>
+            <span class="see-command" @click="$router.push({path: '/assessList',  query: {playId: '', guideId: guideInfos.visitorId}})">查看点评</span>
           </div>
           <ul class="command-tip clearfix">
             <li class="tip fl">细心周到（1）</li>

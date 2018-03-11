@@ -3,6 +3,13 @@
   //.assess-container {
   //  padding: px2rem(20px) 0;
   //}
+  .no-assess {
+    @include setSize(100%, px2rem(30px));
+    line-height: px2rem(30px);
+    text-align: center;
+    @include font-dpr(14px);
+    color: $color-gray-primary;
+  }
   .assess-wrapper {
     padding: px2rem(15px) px2rem(15px);
     background: $white;
@@ -51,6 +58,7 @@
     .img-wrapper {
       width: 100%;
       margin-bottom: px2rem(10px);
+
       .img-container {
         width: px2rem(165px);
         padding: 35% 0 0;
@@ -58,7 +66,7 @@
         margin-bottom: px2rem(6px);
         img {
           @include center;
-          width: 100%;
+          max-width: 100%;
           max-height: 100%;
         }
       }
@@ -74,5 +82,12 @@
 
     }
 
+  }
+  .load-more {
+    height: px2rem(16px);
+    line-height: px2rem(16px);
+    @include font-dpr(16px);
+    text-align: center;
+    margin-bottom: px2rem(10px);
   }
 }

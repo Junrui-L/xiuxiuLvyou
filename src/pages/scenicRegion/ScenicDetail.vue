@@ -171,11 +171,11 @@
                 <div class="all-command">
                     <div class="command-tit  clearfix">
 
-                            <p class="command-num">全部100条评论</p>
-                            <EvaluateStar :code="3"></EvaluateStar> 5分
+                            <p class="command-num">全部{{plays.assessnum}}条评论</p>
+                            <EvaluateStar :code="plays.score/2"></EvaluateStar> {{plays.score}}分
 
 
-                        <span class="see-command">查看点评</span>
+                        <span class="see-command" @click="$router.push({path: '/assessList',  query: {playId: plays.id, guideId: guide.visitorId}})">查看点评</span>
                     </div>
                     <ul class="command-tip clearfix">
                         <li class="tip fl">细心周到（1）</li>

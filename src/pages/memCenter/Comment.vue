@@ -6,7 +6,7 @@
         <span class="title_head black" >发表评价</span>
 
       </div>
-      <div slot="message" class="push fr" @click="pushComment">提交</div>
+      <div slot="message" class="push fr" @click="pushComment"><button class="commit">提交</button></div>
     </HeadTop>
     <div class="container">
       <div class="tit">向导评分</div>
@@ -105,6 +105,26 @@
             score: this.rateValue
           }).then(res => {
             console.log(res);
+            if(res.msg) {
+              this.$createDialog({
+                type: 'alert',
+                title: '提示',
+                content: res.msg
+              }).show()
+            }
+            let reg =JSON.stringify(res);
+            if( reg == "{}") {
+              this.$createToast({
+                txt: '评价成功',
+                type: 'correct',
+                mask: true,
+                time: 2000
+              }).show();
+              setTimeout(() => {
+                this.$router.replace({path: '/memberCenter'})
+              }, 1000)
+
+            }
 
           })
         },

@@ -443,7 +443,7 @@ export const getMyOrderList = (data) => $http.get('/siteH5/order.json?act=list',
 
 export const getAssessPlayList = (data) => $http.post('/siteH5/assess.json?act=assesslistByPlay', {
   guideId: data.guideId,
-  playId: data.guideId,
+  playId: data.playId,
   page: data.page
 })
 /**
@@ -464,7 +464,7 @@ export const addCommnet = (data) => $http.post('/siteH5/assess.json?act=assessOr
   pjImgs: data.pjImgs,
   types: data.types,
   score: data.score
-}, true)
+})
 
 /**
  * 获取图片

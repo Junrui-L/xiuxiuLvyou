@@ -1,6 +1,9 @@
 .comment {
   height: 100%;
   padding:px2rem(60px) 0 px2rem(10px);
+  .head_top {
+    z-index: 10;
+  }
   .push {
     @include setSize(px2rem(60px), px2rem(40px));
     @include centerTop;
@@ -9,6 +12,9 @@
     line-height: px2rem(40px);
     text-align: center;
     color: $color-red;
+    .commit {
+      @include setButton(px2rem(60px), px2rem(40px),$color-red,$white,0)
+    }
   }
   .container {
     height: 100%;
