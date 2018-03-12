@@ -13,7 +13,8 @@
     text-align: center;
     color: $color-red;
     .commit {
-      @include setButton(px2rem(60px), px2rem(40px),$color-red,$white,0)
+      @include setButton(px2rem(70px), px2rem(40px),$color-red,$white,0);
+      @include font-dpr(13px)
     }
   }
   .container {
@@ -29,45 +30,12 @@
   .stars-wrapper {
     text-align: center;
     position: relative;
-    .stars {
-      margin: 0 auto;
-      display:inline-block;
-      position:relative;
-      width: px2rem(200px);
-      height:px2rem(24px);
-      >div{
-        position:absolute;
-        left:0;
-        top:0;
-        white-space:nowrap;
-        overflow:hidden;
-
-        &.back{
-          z-index:2;
-          svg{
-            padding: px2rem(5px);
-            width:px2rem(24px);
-            height:px2rem(24px);
-            fill: #ccc;
-          }
-        }
-        &.front{
-          z-index:3;
-          svg{
-            padding: px2rem(5px);
-            width:px2rem(24px);
-            height:px2rem(24px);
-            fill: #ffaa0c;
-          }
-        }
-      }
-    }
 
     .scores {
       @include centerTop;
       right: px2rem(30px);
       @include font-dpr(14px);
-      line-height: px2rem(24px);
+      line-height: px2rem(30px);
     }
   }
   .comment-content {

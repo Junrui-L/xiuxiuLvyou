@@ -1,4 +1,28 @@
 .accountBill {
+  padding:px2rem(45px) 0 px2rem(10px);
+  .head_top {
+    z-index: 10;
+  }
+  .selects {
+    @include setSize(px2rem(60px), px2rem(40px));
+    @include centerTop;
+    right: px2rem(10px);
+    @include font-dpr(14px);
+    line-height: px2rem(40px);
+    text-align: center;
+    color: $color-red;
+    .select-bill {
+      @include setButton(px2rem(70px), px2rem(40px),$color-red,$white,0);
+      @include font-dpr(13px)
+    }
+  }
+  .no-bill {
+    padding: px2rem(5px);
+    line-height: px2rem(30px);
+    @include font-dpr(15px);
+    color: $color-gray-secondary;
+    text-align: center;
+  }
   .title {
     @include setSize(100%, px2rem(40px));
     padding-left: px2rem(20px);
@@ -69,6 +93,13 @@
 
   }
 
+  .load-more {
+    height: px2rem(16px);
+    line-height: px2rem(16px);
+    @include font-dpr(16px);
+    text-align: center;
+    margin: px2rem(10px);
+  }
   .account-detail {
     position: fixed;
     z-index: 100;

@@ -40,8 +40,7 @@
         <h3 class="tite">游客评价</h3>
 
         <div class="all-command">
-          <div class="command-tit  clearfix">
-
+          <div class="command-tit clearfix">
             <p class="command-num">全部{{guideInfos.assess}}条评论</p>
             <EvaluateStar :code="guideInfos.level"></EvaluateStar> {{guideInfos.level}}分
             <span class="see-command" @click="$router.push({path: '/assessList',  query: {playId: '', guideId: guideInfos.visitorId}})">查看点评</span>

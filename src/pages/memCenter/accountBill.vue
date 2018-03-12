@@ -1,13 +1,17 @@
 <template>
   <div class="accountBill">
+    <HeadTop go-back='true' :headBg="true">
+      <div slot="select-title" class="select-title" >
+
+        <span class="title_head black" >账单</span>
+
+      </div>
+      <div slot="message" class="selects fr" @click="selectPicker.show()"><button class="select-bill">筛选</button></div>
+    </HeadTop>
+    <div class="no-bill" v-if="billList.length === 0">暂无账单</div>
     <template v-for="da in billList">
     <h3 class="title">
       <span>{{ da.month | fmt }}</span>
-      <!--<a href="" class="more-link fr">查看更多-->
-          <!--<svg>-->
-        <!--<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#arrow-right"></use>-->
-      <!--</svg>-->
-      <!--</a>-->
     </h3>
     <div class="bill-list per-month">
       <div class="bill-item clearfix" v-for="(item, index) in da.data" @click="showDet(item)">
@@ -20,21 +24,19 @@
           <img :src="item.typeicon" alt="" />
         </div>
         <div class="money fl">
-          <p class="num">-{{item.profitLossMoney}}</p>
+          <p class="num"> {{ item.type | adderSubtractor('symbol')}}{{item.profitLossMoney}}</p>
           <p class="bz">
-            <template v-if="item.type == 1">出行消费</template>
-            <template v-if="item.type == 2">接单带导收益</template>
-            <template v-if="item.type == 3">团游返折价/退单返款</template>
-            <template v-if="item.type == 4">推广返利</template>
-            <template v-if="item.type == 5">充值入款</template>
-            <template v-if="item.type == 6">提现账单</template>
-            <template v-if="item.type == 7">其他</template>
+            {{ item.type | adderSubtractor('txt')}}
           </p>
         </div>
         <span class="balance fr">余额：{{item.lastBlance}}</span>
       </div>
     </div>
     </template>
+    <div v-if="billList.length!== 0">
+      <p class="load-more" v-show="!nomore" @click="loadMore">加载更多</p>
+      <p class="load-more" v-show="nomore">没有更多了</p>
+    </div>
     <transition name="slide-in">
       <div class="account-detail" v-show="showDetail">
         <div class='head_bak'>
@@ -56,11 +58,18 @@
 
 <script>
   import {userBill, userLogin} from '../../http/getDate'
+  import HeadTop from '../../components/HeadTop.vue'
   import AccountDetail from '../../components/accountDetail.vue'
   export default {
     name: "account-bill",
     data() {
       return {
+        selects:[{value: '',text: '全部类别'},{value: 1,text: '出行消费'},{value: 2,text: '接单带导收益'},
+          {value: 3,text: '团游返折价/退单返款'},{value: 4,text: '推广返利'},
+          {value: 5,text: '充值入款'},{value: 6,text: '提现账单'},
+          {value: 7,text: '其他'}
+        ] ,
+        currentSelect: '',
         pageNo: 1,
         billList: [],
         showDetail: false,
@@ -71,32 +80,48 @@
       }
     },
     components: {
-      AccountDetail
+      AccountDetail,
+      HeadTop
     },
     mounted(){
       console.log('---登录----')
       this.getUserBill();
-
+      this.selectPicker = this.$createPicker({
+        title: '账单类别',
+        data: [this.selects],
+        onSelect: this.selectHandle,
+        onCancel: this.cancelHandle
+      })
     },
     methods: {
       getUserBill() {
-        userBill(this.pageNo, 1).then(res => {
-          console.log(res)
-//          this.billList = res.list;
-
+        userBill(this.pageNo, this.currentSelect).then(res => {
+          console.log(res);
           if (res.list.length === 0) {
             if (this.pageNo > 1) {
               this.nomore = true
             } else {
-              this.billList =this.groupData(res.list);
+              this.billList = this.groupData(res.list);
             }
           } else {
             this.billList = this.groupData(res.list);
+            console.log(this.billList)
             if (res.list.length < 25) {
               this.nomore = true
             }
           }
         })
+      },
+      selectHandle(v, i, t){
+        this.pageNo = 1;
+        this.currentSelect = v[0];
+        this.nomore = false
+        console.log(this.currentSelect);
+        this.getUserBill();
+
+      },
+      cancelHandle(){
+        console.log('取消了')
       },
       groupData(data){
         function getMonth (str) {
@@ -127,6 +152,26 @@
           this.returnArr.push({'month': mo, data: this.monthMap[mo]})
         }
         return this.returnArr;
+      },
+      loadMore(){
+        this.pageNo++
+        userBill(this.pageNo, this.currentSelect).then(res => {
+          console.log(res)
+//          this.billList = res.list;
+
+          if (res.list.length === 0) {
+            if (this.pageNo > 1) {
+              this.nomore = true
+            } else {
+              this.billList =this.groupData(res.list);
+            }
+          } else {
+            this.billList = this.groupData(res.list);
+            if (res.list.length < 25) {
+              this.nomore = true
+            }
+          }
+        })
       },
       showDet(item) {
 //        this.$router.push({path:'/accountDetail', query: {ordernumber:this.billList[index].ordernumber}})

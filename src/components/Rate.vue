@@ -12,10 +12,23 @@
     <slot>
       <!--<cube-rate-item v-for="n in max" :key="n" :index="n"></cube-rate-item>-->
       <div class="stars v-md">
-        <svg v-for="n in max" :key="n" :index="n" class="cube-rate-item" :class="{ 'cube-rate-item_active': n <= tempValue }">
-          <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#rating-star"></use>
-        </svg>
+        <!--<svg v-for="n in max" :key="n" :index="n" class="cube-rate-item" :class="{ 'cube-rate-item_active': n <= tempValue }">-->
+          <!--<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#rating-star"></use>-->
+        <!--</svg>-->
+
+        <div class="back v-md">
+          <svg v-for="n in 5" :key="n">
+            <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#rating-star"></use>
+          </svg>
+        </div>
+        <div class="front v-md" :style="'width:'+ tempValue*100/10+'%;'">
+          <svg v-for="n in 5" :key="n">
+            <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#rating-star"></use>
+          </svg>
+        </div>
       </div>
+
+
     </slot>
   </ul>
 </template>

@@ -111,7 +111,7 @@
         },
         staticNum: {},// 统计数字,积分,优惠券
         currentTab: 'doing',// 当前选中的订单tab
-        orderList: [1, 2, 4, 3, 4],// 订单列表
+        orderList: [],// 订单列表
         tabMap: {'all': 0, 'waitpay': 1, 'doing': 2, 'waitEvaluate': 3, 'haveCancle': 4},
         page: 1,
         nomore: false
