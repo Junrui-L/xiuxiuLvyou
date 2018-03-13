@@ -117,8 +117,10 @@
         this.currentSelect = v[0];
         this.nomore = false
         console.log(this.currentSelect);
+        this.billList = []
+        this.monthMap={}
+        this.returnArr= []
         this.getUserBill();
-
       },
       cancelHandle(){
         console.log('取消了')
