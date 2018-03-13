@@ -475,3 +475,13 @@ export const getImgPath = (data) => $http.post('/siteH5/user.json?act=loadImgPat
   type: data.type,
   media_ids: data.media_ids
 })
+
+/**
+ * 收藏记录 page type 类型(必填)1收藏向导，2收藏玩法，3收藏景区
+ * type: head头像类型,credentials证件类型,image其他图片类型
+ * */
+
+export const getCollectionList = (data) => $http.post('/siteH5/collection.json?act=search', {
+  page: data.page,
+  type: data.type
+})
