@@ -85,10 +85,19 @@
           </router-link>
         </li>
         <li class="head-item clearfix">
+          <router-link to="/setContact" class="item-wrapper clearfix">
+            <span class="title">安全中心</span>
+            <span class="txt fr">
+            <svg>
+                <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#arrow-right"></use>
+            </svg>
+            </span>
+          </router-link>
+        </li>
+        <li class="head-item clearfix">
           <router-link to="/myQrcode" class="item-wrapper clearfix">
             <span class="title">推广二维码</span>
             <span class="txt fr">
-
             <svg>
                 <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#arrow-right"></use>
             </svg>

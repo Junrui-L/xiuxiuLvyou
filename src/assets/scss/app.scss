@@ -66,14 +66,20 @@
 @import "pages/memCenter/memberCenter";
 @import "pages/memCenter/login";
 @import "pages/memCenter/accountBill";
+@import "pages/memCenter/withdrawDeposit";
 
 @import "pages/memCenter/coupons";
 @import "pages/memCenter/favorites";
 @import "pages/memCenter/memberInfo";
 @import "pages/memCenter/myQrcode";
 @import "pages/memCenter/myWallet";
+@import "pages/memCenter/bankCard";
 @import "pages/memCenter/scoreRule";
 @import "pages/memCenter/scores";
 @import "pages/memCenter/expandedList";
 @import "pages/memCenter/assessList";
 @import "pages/memCenter/comment";
+
+@import "pages/memCenter/safeCenter/safeCenter";
+@import "pages/memCenter/safeCenter/loginCode";
+@import "pages/memCenter/safeCenter/tradeCode";

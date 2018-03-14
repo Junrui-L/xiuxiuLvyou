@@ -9,6 +9,16 @@
     @include setSize(px2rem(198px), px2rem(198px));
 
   }
+
+  .tips {
+    width: 100%;
+    @include centerLeft;
+    bottom: px2rem(20px);
+    color: $color-gray-secondary;
+    @include font-dpr(13px);
+    text-align: center;
+  }
+
 }
 
   .expand-wrap {

@@ -25,6 +25,7 @@ const SetContact = r => require.ensure([], () => r(require('@/pages/setContact/S
 const MemberCenter = r => require.ensure([], () => r(require('@/pages/memCenter/MemberCenter')), 'memberCenter')
 const AccountBill = r => require.ensure([], () => r(require('@/pages/memCenter/accountBill')), 'accountBill')
 const AccountDetail = r => require.ensure([], () => r(require('@/pages/memCenter/accountDetail')), 'accountDetail')
+const WithdrawDeposit = r => require.ensure([], () => r(require('@/pages/memCenter/withdrawDeposit')), 'withdrawDeposit')
 const Coupons = r => require.ensure([], () => r(require('@/pages/memCenter/coupons')), 'coupons')
 const Favorites = r => require.ensure([], () => r(require('@/pages/memCenter/favorites')), 'favorites')
 const MemberInfo = r => require.ensure([], () => r(require('@/pages/memCenter/memberInfo')), 'memberInfo')
@@ -33,9 +34,13 @@ const MyWallet = r => require.ensure([], () => r(require('@/pages/memCenter/myWa
 const ScoreRule = r => require.ensure([], () => r(require('@/pages/memCenter/scoreRule')), 'scoreRule')
 const Scores = r => require.ensure([], () => r(require('@/pages/memCenter/scores')), 'scores')
 const ExpandedList = r => require.ensure([], () => r(require('@/pages/memCenter/expandedList')), 'expandedList')
+//评论
 const Comment = r => require.ensure([], () => r(require('@/pages/memCenter/Comment')), 'comment')
 const AssessList = r => require.ensure([], () => r(require('@/pages/memCenter/assessList')), 'assessList')
-
+//设置密码
+const SafeCenter = r => require.ensure([], () => r(require('@/pages/memCenter/safeCenter/safeCenter')), 'safeCenter')
+const LoginCode = r => require.ensure([], () => r(require('@/pages/memCenter/safeCenter/loginCode')), 'loginCode')
+const TradeCode = r => require.ensure([], () => r(require('@/pages/memCenter/safeCenter/tradeCode')), 'tradeCode')
 
 Vue.use(Router)
 
@@ -160,6 +165,17 @@ const router = new Router({
       name: 'accountDetail',
       component: AccountDetail
     },
+    //提现
+    {
+      path: '/accountDetail',
+      name: 'accountDetail',
+      component: AccountDetail
+    },
+    {
+      path: '/withdrawDeposit',
+      name: 'withdrawDeposit',
+      component: WithdrawDeposit
+    },
     {
       path: '/coupons',
       name: 'coupons',
@@ -212,7 +228,24 @@ const router = new Router({
       name: 'assessList',
       component: AssessList
     },
-
+    {
+      //安全中心
+      path: '/safeCenter',
+      name: 'safeCenter',
+      component: SafeCenter
+    },
+    {
+      //设置更改密码
+      path: '/loginCode',
+      name: 'loginCode',
+      component: LoginCode
+    },
+    {
+      //设置交易密码
+      path: '/tradeCode',
+      name: 'tradeCode',
+      component: TradeCode
+    },
   ],
   strict: process.env.NODE_ENV !== 'production',
   scrollBehavior (to, from, savedPosition) {

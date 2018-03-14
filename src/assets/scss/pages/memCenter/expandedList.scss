@@ -1,10 +1,4 @@
 .expandedList {
-  //.title {
-  //  @include setSize(100%, px2rem(36px));
-  //  line-height: px2rem(36px);
-  //  text-align: center;
-  //  @include font-dpr(14px)
-  //}
   .title {
     @include setSize(100%, px2rem(40px));
     padding-left: px2rem(20px);

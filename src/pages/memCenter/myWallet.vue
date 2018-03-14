@@ -38,7 +38,7 @@
         </ul>
       </div>
       <div class="button-wrap">
-        <button class="to-get">去提现</button>
+        <button class="to-get" @click="withDraw">去提现</button>
       </div>
     </div>
 
@@ -66,6 +66,10 @@
             userAccounts().then(res => {
               this.count = res.capital;
             })
+          },
+          withDraw(){
+            console.log('去取钱')
+            this.$router.push({path: '/withdrawDeposit'})
           }
         }
 
