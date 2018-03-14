@@ -1,12 +1,5 @@
 <template>
   <div class="favorites">
-    <header>
-      <HeadTop go-back='true' :headBg="headBg">
-        <div slot="select-title" class="select-title" >
-          <span class="header-title">我的收藏</span>
-        </div>
-      </HeadTop>
-    </header>
     <ul class="tab-wrap">
       <li class="tab-item" :class="currentTab=='guide' && 'active' " @click="clickTabItem('guide')"><span>向导</span></li>
       <li class="tab-item" :class="currentTab=='playway'&& 'active'" @click="clickTabItem('playway')"><span>玩法</span>
@@ -16,7 +9,7 @@
 
     <div v-if="currentTab=='guide'" class="guide-wrapper">
       <ul class="guide-list">
-        <li class="guide" v-for="gui in guideList">
+        <li class="guide" v-for="gui in collectionList">
           <div class="guide-t clearfix">
             <div class="guide-img fl">
               <img src="../../assets/img/tttt.png" alt="">
@@ -41,7 +34,7 @@
 
     <div v-if="currentTab=='playway'" class="playway-wrapper">
       <ul class="region-list">
-        <li class="region" v-for="(item,index) in playwayList">
+        <li class="region" v-for="(item,index) in collectionList">
           <!--<router-link class="nav-link">-->
           <dl class="clearfix">
             <dt class="region-img fl">
@@ -63,7 +56,7 @@
 
     <div v-if="currentTab=='scenic'" class="region-wrapper">
       <ul class="region-list">
-        <li class="region" v-for="(item,index) in scenicList">
+        <li class="region" v-for="(item,index) in collectionList">
           <!--<router-link class="nav-link" :to= "{ name:'guide', query: {scenicId: item.id} }">-->
           <dl class="clearfix">
             <dt class="region-img fl">
@@ -90,6 +83,7 @@
 
 <script>
   import HeadTop from '../../components/HeadTop.vue'
+  import {getCollectionList} from '../../http/getDate'
 
   export default {
     name: "my-favorites",
@@ -97,9 +91,10 @@
       return {
         headBg: true,
         currentTab: 'playway',// 当前选择的Tab,
-        guideList: [1, 2, 2, 2, 2, 2],// 向导列表
-        playwayList: [1, 1, 1, 1, 1, 1],//玩法列表
-        scenicList: [1, 1, 1, 1, 1, 1, 1, 1],//景点列表
+        page:1,
+        type:1,
+        nomore:false,
+        collectionList: [1, 2, 2, 2, 2, 2],// 向导列表
       }
     },
     components: {
@@ -107,26 +102,33 @@
     },
     methods: {
       // 获取向导列表
-      getGuideList() {
-
-      },
-      // 获取玩法列表
-      getPlaywayList() {
-
-      },
-      // 获取景点列表
-      getScenicList() {
-
+      queryList() {
+        getCollectionList({page:this.page,type:this.type}).then(res=>{
+          if (res.list.length === 0) {
+            if (this.pages !== 1) {
+              this.nomore = true
+            }
+          } else {
+            this.collectionList.push(...res.list)
+            if (res.list.length < 25) {
+              this.nomore = true
+            }
+          }
+        })
       },
       // 点击tabitem
       clickTabItem(tabName) {
         this.currentTab = tabName
+        this.page=1
         if (tabName === 'guide') {
-          this.getGuideList()
+          this.type=1
+          this.queryList()
         } else if (tabName === 'playway') {
-          this.getPlaywayList()
+          this.type=2
+          this.queryList()
         } else if (tabName === 'scenic') {
-          this.getScenicList()
+          this.type=3
+          this.queryList()
         }
       }
     }
