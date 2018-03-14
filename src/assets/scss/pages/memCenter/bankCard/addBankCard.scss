@@ -1,0 +1,64 @@
+.addBankCard {
+  height: 100%;
+  padding:px2rem(50px) 0 px2rem(10px);
+  .head_top {
+    z-index: 10;
+  }
+  .addto {
+    @include setSize(px2rem(60px), px2rem(40px));
+    @include centerTop;
+    right: px2rem(10px);
+    @include font-dpr(14px);
+    line-height: px2rem(40px);
+    text-align: center;
+    color: $color-red;
+    .commit {
+      @include setButton(px2rem(70px), px2rem(40px),$color-red,$white,0);
+      @include font-dpr(13px)
+    }
+  }
+  .b-tip {
+    padding-left: px2rem(20px);
+    @include font-dpr(13px);
+    line-height: px2rem(44px);
+    color: $color-black-secondary;
+  }
+  .input-wrapper {
+    padding: px2rem(10px) px2rem(20px);
+    @include setSize(100%, px2rem(55px));
+    @include font-dpr(15px);
+    background: $color-white;
+    position: relative;
+    border-bottom: 1px solid $color-body-bg;
+    .label {
+      width: px2rem(80px);
+      line-height: px2rem(30px);
+      color: $color-black;
+    }
+    input {
+
+      @include setSize(px2rem(240px), px2rem(30px));
+      line-height: px2rem(30px);
+      color: $color-black;
+      border: none;
+      @include font-dpr(14px);
+      border: none;
+    }
+
+  }
+
+  .btn-wrapper {
+    margin-top: px2rem(20px);
+    padding: 0 px2rem(20px);
+
+    .sure-btn {
+      @include setButton(100%, px2rem(45px), $white, $color-gray-secondary, px2rem(5px))
+    }
+
+    .active {
+      @include setButton(100%, px2rem(45px), $white, $color-red, px2rem(5px))
+    }
+  }
+
+
+}

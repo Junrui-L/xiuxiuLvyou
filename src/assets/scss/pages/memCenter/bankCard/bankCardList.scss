@@ -1,0 +1,78 @@
+.bankCard {
+  .bank-list {
+    padding: px2rem(15px) px2rem(10px);
+    .card-item {
+      margin-bottom: px2rem(15px);
+      height: px2rem(110px);
+      padding: px2rem(15px);
+      background: $white;
+      border-radius: px2rem(5px);
+      .img-wrap {
+        @include setSize(px2rem(36px), px2rem(36px));
+        border-radius: 50%;
+        img {
+          width: 100%;
+          height: 100%;
+          border-radius: 50%;
+        }
+
+      }
+      .txt-wrap {
+        margin-left: px2rem(8px);
+        .bankname {
+          @include font-dpr(17px);
+          line-height: px2rem(24px);
+          color: $color-black;
+        }
+
+        .bankcate {
+          @include font-dpr(13px);
+          line-height: px2rem(18px);
+          color: $color-black-secondary;
+        }
+
+        .banknum {
+          @include font-dpr(28px);
+          line-height: px2rem(40px);
+          color: $color-black;
+        }
+      }
+
+    }
+    .card-item:nth-last-of-type(1) {
+      margin-bottom: 0;
+    }
+  }
+
+
+
+  .add-card {
+    @include setSize(100%, px2rem(50px));
+    line-height: px2rem(50px);
+    padding: 0 px2rem(20px);
+    @include font-dpr(14px);
+    background: $white;
+    color: $color-gray-secondary;
+
+    .item-wrapper {
+      display: block;
+      border-bottom: 1px solid $color-body-bg;
+    }
+    .title {
+      color: $color-black;
+    }
+
+    .txt {
+      text-align: right;
+      width: 70%;
+      @include ellipsis;
+    }
+
+    svg {
+      fill: $color-gray-secondary;
+      width: px2rem(10px);
+      height:px2rem(10px);
+      vertical-align: middle;
+    }
+  }
+}

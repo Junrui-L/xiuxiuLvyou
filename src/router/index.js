@@ -41,6 +41,9 @@ const AssessList = r => require.ensure([], () => r(require('@/pages/memCenter/as
 const SafeCenter = r => require.ensure([], () => r(require('@/pages/memCenter/safeCenter/safeCenter')), 'safeCenter')
 const LoginCode = r => require.ensure([], () => r(require('@/pages/memCenter/safeCenter/loginCode')), 'loginCode')
 const TradeCode = r => require.ensure([], () => r(require('@/pages/memCenter/safeCenter/tradeCode')), 'tradeCode')
+//设置银行卡
+const BankCardList = r => require.ensure([], () => r(require('@/pages/memCenter/bankCard/bankCardList')), 'bankCardList')
+const AddBankCard = r => require.ensure([], () => r(require('@/pages/memCenter/bankCard/addBankCard')), 'addBankCard')
 
 Vue.use(Router)
 
@@ -246,6 +249,18 @@ const router = new Router({
       name: 'tradeCode',
       component: TradeCode
     },
+    {
+      //银行卡列表
+      path: '/bankCardList',
+      name: 'bankCardList',
+      component: BankCardList
+    },
+    {
+      //添加新银行卡
+      path: '/addBankCard',
+      name: 'addBankCard',
+      component: AddBankCard
+    }
   ],
   strict: process.env.NODE_ENV !== 'production',
   scrollBehavior (to, from, savedPosition) {

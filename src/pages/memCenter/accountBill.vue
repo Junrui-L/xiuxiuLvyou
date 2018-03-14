@@ -27,9 +27,10 @@
           <p class="num"> {{ item.type | adderSubtractor('symbol')}}{{item.profitLossMoney}}</p>
           <p class="bz">
             {{ item.type | adderSubtractor('txt')}}
+            <!--{{ item.title }}-->
           </p>
         </div>
-        <span class="balance fr">余额：{{item.lastBlance}}</span>
+        <span class="balance fr">余额：{{item.currentBlance}}</span>
       </div>
     </div>
     </template>

@@ -115,20 +115,22 @@ Vue.filter('cancleTxt', val => {
 //账单加减
 Vue.filter('adderSubtractor', (val, mode) => {
   const typeMap = {
-    1: '出行消费',
-    2: '接单带导收益',
-    3: '团游返折价/退单返款',
-    4: '推广返利',
-    5: '充值入款',
-    6: '提现账单',
-    7: '其他'
+    1: '下单扣款',
+    2: '订单入款',
+    3: '订单返款',
+    4: '订单团返',
+    5: '订单退款',
+    6: '提现扣款',
+    7: '优惠现金',
+    8: '充值入款',
+    9: '推广返利'
   }
   if(mode == 'txt') {
     return typeMap[val]
   } else if(mode == 'symbol'){
-    if(val  == 1 || val ==6) {
+    if(val  == 1 || val ==6 ) {
       return '-'
-    } else if(val  == 2 || val ==3 || val  == 4 || val ==5  ) {
+    } else if(val  == 2 || val ==3 || val  == 4 || val ==5 || val ==7 || val ==8 || val == 9) {
       return "+"
     } else {
       return ''

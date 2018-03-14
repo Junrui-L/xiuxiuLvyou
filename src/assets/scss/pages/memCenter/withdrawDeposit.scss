@@ -1,7 +1,7 @@
 .withdrawDeposit {
   padding-top: px2rem(15px);
   .input-wrapper {
-    padding: 0 px2rem(20px);
+    padding: px2rem(10px) px2rem(20px);
     @include setSize(100%, px2rem(55px));
     @include font-dpr(15px);
     background: $color-white;
@@ -9,16 +9,16 @@
     border-bottom: 1px solid $color-body-bg;
     .label {
       width: px2rem(80px);
-      line-height: px2rem(55px);
+      line-height: px2rem(35px);
       color: $color-black;
     }
     input {
-      @include setSize(px2rem(240px), px2rem(55px));
+      @include setSize(px2rem(240px), px2rem(35px));
       line-height: px2rem(55px);
       color: $color-black;
       border: none;
       @include font-dpr(14px);
-      border-bottom: 1px solid $gray;
+       border: 0;
     }
 
   }
