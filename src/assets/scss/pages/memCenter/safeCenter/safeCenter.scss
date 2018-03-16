@@ -1,0 +1,36 @@
+.safeCenter {
+  padding-top: px2rem(15px);
+  .list-item {
+    @include setSize(100%, px2rem(50px));
+    line-height: px2rem(50px);
+    padding: 0 px2rem(20px);
+    @include font-dpr(14px);
+    background: $white;
+    color: $color-gray-secondary;
+
+    .item-wrapper {
+      display: block;
+      border-bottom: 1px solid $color-body-bg;
+    }
+    .title {
+      color: $color-black;
+    }
+
+    .txt {
+      text-align: right;
+      width: 70%;
+      @include ellipsis;
+    }
+
+    svg {
+      fill: $color-gray-secondary;
+      width: px2rem(10px);
+      height:px2rem(10px);
+      vertical-align: middle;
+    }
+  }
+
+
+
+
+}

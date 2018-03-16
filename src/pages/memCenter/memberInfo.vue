@@ -96,7 +96,7 @@
           </router-link>
         </li>
         <li class="head-item clearfix">
-          <router-link to="/setContact" class="item-wrapper clearfix">
+          <router-link to="/safeCenter" class="item-wrapper clearfix">
             <span class="title">安全中心</span>
             <span class="txt fr">
             <svg>

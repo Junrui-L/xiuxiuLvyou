@@ -23,7 +23,7 @@
       </ul>
     </div>
     <div class="group-trip">
-      <switch-option name="开启团游" :isDisable = "play.sfzcty == 1 ? false : true"  @update:value="onGroup" ></switch-option>
+      <switch-option name="开启团游" :isDisable = "pricePackage.sfzcty == 1 ? false : true"  @update:value="onGroup" ></switch-option>
     </div>
     <div class="notify group-notify">
       <!--<p>导游优惠模式：固定折扣模式，7，8折</p>-->

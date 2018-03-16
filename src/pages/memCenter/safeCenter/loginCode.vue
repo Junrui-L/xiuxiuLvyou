@@ -1,5 +1,7 @@
 <template>
-
+  <div class="loginCode">
+    登录蜜码
+  </div>
 </template>
 
 <script>

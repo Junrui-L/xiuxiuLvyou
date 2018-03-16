@@ -44,7 +44,28 @@
       @include font-dpr(14px);
       border: none;
     }
-
+    .tits {
+      width: px2rem(100px);
+      line-height: px2rem(30px);
+      color: $color-black;
+    }
+    .txt {
+      text-align: left;
+      line-height: px2rem(30px);
+      @include setSize(px2rem(200px), px2rem(30px));
+      @include ellipsis;
+    }
+    .gray{
+      color: $color-black-secondary;
+    }
+    svg {
+      @include centerTop;
+      right: px2rem(30px);
+      fill: $color-gray-secondary;
+      width: px2rem(10px);
+      height:px2rem(10px);
+      vertical-align: middle;
+    }
   }
 
   .btn-wrapper {

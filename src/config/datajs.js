@@ -18217,10 +18217,29 @@ export const areaList = {
   ]
 }
 
-export const peopleNum =  [
-  { num: 1, text: '1人' }, { num: 2, text: '2人' }, { num: 3, text: '3人' }, { num: 3, text: '4人' },
-  { num: 5, text: '5人' }, { num: 6, text: '6人' }, { num: 7, text: '7人' }, { num: 8, text: '8人' },
-  { num: 9, text: '9人' }, { num: 10, text: '10人' }, { num: 11, text: '11人' }, { num: 12, text: '12人' },
-  { num: 13, text: '13人' }, { num: 14, text: '14人' }, { num: 15, text: '15人' }, { num: 16, text: '16人' },
-  { num: 17, text: '17人' }, { num: 18, text: '18人' }, { num: 19, text: '19人' }, { num: 20, text: '20人' }
+export const peopleNum = [
+  {num: 1, text: '1人'}, {num: 2, text: '2人'}, {num: 3, text: '3人'}, {num: 3, text: '4人'},
+  {num: 5, text: '5人'}, {num: 6, text: '6人'}, {num: 7, text: '7人'}, {num: 8, text: '8人'},
+  {num: 9, text: '9人'}, {num: 10, text: '10人'}, {num: 11, text: '11人'}, {num: 12, text: '12人'},
+  {num: 13, text: '13人'}, {num: 14, text: '14人'}, {num: 15, text: '15人'}, {num: 16, text: '16人'},
+  {num: 17, text: '17人'}, {num: 18, text: '18人'}, {num: 19, text: '19人'}, {num: 20, text: '20人'}
+]
+
+export const bankNum = [
+  {value: 1, text: '中国建设银行'},
+  {value: 2, text: '中国工商银行'},
+  {value: 3, text: '中国农业银行'},
+  {value: 4, text: '招商银行'},
+  {value: 5, text: '中国银行'},
+  {value: 6, text: '交通银行'},
+  {value: 7, text: '中国民生银行'},
+  {value: 8, text: '北京银行'},
+  {value: 9, text: '上海银行'},
+  {value: 10, text: '中国光大银行'},
+  {value: 11, text: '广发银行'},
+  {value: 12, text: '华夏银行'},
+  {value: 13, text: '中信银行'},
+  {value: 14, text: '中国邮政储蓄银行'},
+  {value: 15, text: '微信'},
+  {value: 16, text: '支付宝'},
 ]

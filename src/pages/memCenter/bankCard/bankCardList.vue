@@ -1,30 +1,31 @@
 <template>
     <div class="bankCard">
       <ul class="bank-list">
-        <router-link tag="li" :to="{path: '/withdrawDeposit'}" class="card-item clearfix">
+        <li v-for="(item, index ) in banksList"  class="card-item clearfix" :key="index">
           <div class="card-wrapper clearfix">
+            <i class="close" @click="deletBanks(item.id)"></i>
             <div class="img-wrap fl">
-              <img src="http://wx.qlogo.cn/mmopen/ViaU7AyviafoibrhnNOpcjn6UyvElL9vlNiaOMZwpSTh4XOk3dWQ6GPiafZAZC0SECOoRAhCU1906rHVBkfdcW94gichiaCwX8WNd4F/132" alt="">
+              <img :src="basePath + item.icon" alt="">
             </div>
-            <div class="txt-wrap fl">
-              <div class="bankname">中国银行</div>
-              <div class="bankcate">储蓄卡</div>
-              <div class="banknum">*** *** *** 333</div>
+            <div class="txt-wrap fl" @click="$router.push({path: '/withdrawDeposit'})">
+              <div class="bankname">{{item.bankname}}</div>
+              <div class="bankcate"></div>
+              <div class="banknum">{{item.accountno}}</div>
             </div>
           </div>
-        </router-link>
-        <router-link tag="li" :to="{path: '/withdrawDeposit'}" class="card-item clearfix">
-          <div class="card-wrapper clearfix">
-            <div class="img-wrap fl">
-              <img src="http://wx.qlogo.cn/mmopen/ViaU7AyviafoibrhnNOpcjn6UyvElL9vlNiaOMZwpSTh4XOk3dWQ6GPiafZAZC0SECOoRAhCU1906rHVBkfdcW94gichiaCwX8WNd4F/132" alt="">
-            </div>
-            <div class="txt-wrap fl">
-              <div class="bankname">中国银行</div>
-              <div class="bankcate">储蓄卡</div>
-              <div class="banknum">*** *** *** 333</div>
-            </div>
-          </div>
-        </router-link>
+        </li>
+        <!--<router-link tag="li" :to="{path: '/withdrawDeposit'}" class="card-item clearfix">-->
+          <!--<div class="card-wrapper clearfix">-->
+            <!--<div class="img-wrap fl">-->
+              <!--<img src="http://wx.qlogo.cn/mmopen/ViaU7AyviafoibrhnNOpcjn6UyvElL9vlNiaOMZwpSTh4XOk3dWQ6GPiafZAZC0SECOoRAhCU1906rHVBkfdcW94gichiaCwX8WNd4F/132" alt="">-->
+            <!--</div>-->
+            <!--<div class="txt-wrap fl">-->
+              <!--<div class="bankname">中国银行</div>-->
+              <!--<div class="bankcate">储蓄卡</div>-->
+              <!--<div class="banknum">*** *** *** 333</div>-->
+            <!--</div>-->
+          <!--</div>-->
+        <!--</router-link>-->
       </ul>
       <div class="add-card list-item">
         <router-link to="/addBankCard" class="item-wrapper clearfix">
@@ -42,18 +43,49 @@
 </template>
 
 <script>
+    import {mapState, mapMutations} from 'vuex'
+    import {userBanks, deletBank} from '../../../http/getDate'
     export default {
         name: "bankCard",
       data(){
         return {
-
+          banksList: []
         }
       },
+      computed:{
+        ...mapState([
+          'basePath'
+        ])
+      },
       mounted(){
-
+        this.getBankList();
       },
       methods: {
-
+        getBankList(){
+          userBanks().then(res => {
+            console.log(res);
+            this.banksList = res.list
+          })
+        },
+        deletBanks(id){
+          deletBank(id).then(res => {
+            if(res.msg) {
+              this.$createDialog({
+                type: 'alert',
+                title: '温馨提示',
+                content: res.msg
+              }).show()
+            }else {
+              this.$createToast({
+                txt: '删除银行卡成功',
+                type: 'correct',
+                mask: true,
+                time: 1000
+              }).show();
+              this.getBankList();
+            }
+          })
+        }
       }
     }
 </script>

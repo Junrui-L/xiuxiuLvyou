@@ -401,7 +401,7 @@ export const initAddBank = () => $http.get('/siteapp/capital.json?act=initAddBan
  *
  * */
 
-export const AddBank = (data) => $http.get('/siteapp/capital.json?act=addUserBank', {
+export const AddBank = (data) => $http.post('/siteapp/capital.json?act=addUserBank', {
   bankId: data.bankId,
   accountName: data.accountName,
   fundpassword: data.fundpassword,
@@ -413,7 +413,7 @@ export const AddBank = (data) => $http.get('/siteapp/capital.json?act=addUserBan
  *
  * */
 
-export const deletBank = (userBankId) => $http.get('/siteapp/capital.json?act=deleteUserBank', {
+export const deletBank = (userBankId) => $http.post('/siteapp/capital.json?act=deleteUserBank', {
   userBankId: userBankId
 });
 
@@ -467,7 +467,7 @@ export const addCommnet = (data) => $http.post('/siteH5/assess.json?act=assessOr
 })
 
 /**
- * 获取图片
+ * 获取微信上传图片地址
  * type: head头像类型,credentials证件类型,image其他图片类型
  * */
 

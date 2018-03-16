@@ -7,6 +7,22 @@
       padding: px2rem(15px);
       background: $white;
       border-radius: px2rem(5px);
+      position: relative;
+      .close {
+        display: block;
+        position: absolute;
+        top:  px2rem(15px);
+        right: px2rem(15px);
+        @include setSize(px2rem(20px), px2rem(20px));
+        border-radius: 50%;
+        background: $color-red;
+        &:before{
+          content: '';
+          @include setSize(px2rem(15px), px2rem(3px));
+          background: $white;
+          @include center;
+        }
+      }
       .img-wrap {
         @include setSize(px2rem(36px), px2rem(36px));
         border-radius: 50%;
@@ -26,11 +42,11 @@
         }
 
         .bankcate {
+          height: px2rem(18px);
           @include font-dpr(13px);
           line-height: px2rem(18px);
           color: $color-black-secondary;
         }
-
         .banknum {
           @include font-dpr(28px);
           line-height: px2rem(40px);

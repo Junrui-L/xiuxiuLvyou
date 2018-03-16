@@ -1,7 +1,7 @@
 <template>
     <div class="accountDetail">
       <div class="header-wrap">
-          <div class="pay-tit"> <span class="xiu">咻</span> <span class="tit">{{detail.title}}</span></div>
+          <div class="pay-tit"> <span class="xiu">咻</span> <span class="tit">{{ detail.type | adderSubtractor('txt')}}</span></div>
           <h3 class="money">{{ detail.type | adderSubtractor('symbol')}}{{detail.profitLossMoney}}</h3>
           <div class="money-txt">交易成功</div>
       </div>

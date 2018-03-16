@@ -1,8 +1,12 @@
 <template>
     <div class="withdrawDeposit">
-      <div class="input-wrapper clearfix">
-        <span class="label fl">银行卡</span>
-        <input class="bankcard fl"  maxlength="18" type="tel" pattern="/n" v-model="bankCard" placeholder="请输入银行卡号"/>
+      <div class="input-wrapper clearfix" @click="$router.push({path: '/bankCardList'})">
+        <span class="tits fl">选择银行卡</span>
+        <span class="txt fr">
+            <svg>
+                <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#arrow-right"></use>
+            </svg>
+        </span>
       </div>
       <div class="input-wrapper clearfix">
         <span class="label fl">提现金额</span>
