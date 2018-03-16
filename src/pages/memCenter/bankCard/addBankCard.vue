@@ -19,8 +19,8 @@
       </div>
       <div class="input-wrapper clearfix" @click="showBankPicker">
         <span class="label fl">开户行</span>
-        <span class="txt fl" :class="{gray: bankname==''}">
-          {{bankname == '' ? '请选择开户行' : bankname}}
+        <span class="txt fl" :class="{gray: banks.bankname==''}">
+          {{banks.bankname == '' ? '请选择开户行' : banks.bankname}}
             <svg>
                 <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#arrow-right"></use>
             </svg>
@@ -48,9 +48,11 @@
                 banksList: [],
                 bankUser: '',
                 bankCard: '',
-                bankname: '',
+                banks: {
+                  bankname: '',
+                  bankId: ''
+                },
                 tradeCode: ''
-
               }
         },
         components: {
@@ -67,13 +69,10 @@
               obj.text = res.banklist[i].name;
               this.banksList.push(obj)
             }
-            // console.log(this.banksList)
+            console.log(this.banksList)
             this.bankPicker = this.$createPicker({
               title: '选择开户行',
               data: [this.banksList],
-              alias: {
-                value: 'num',
-              },
               onSelect: this.selectBankHandle,
               onCancel: this.cancelHandle
             })
@@ -112,8 +111,8 @@
               }).show();
             }else {
               AddBank({
-                bankId: this.bankUser,
-                accountName: this.bankname,
+                bankId: this.banks.bankId,
+                accountName: this.bankUser,
                 fundpassword: this.tradeCode ,
                 accountNo: this.bankCard
               }).then(res => {
@@ -135,7 +134,10 @@
             this.bankPicker.show();
           },
           selectBankHandle(v,i,t){
-            this.bankname = t[0]
+            console.log(v)
+            this.banks.bankId = v[0]
+            this.banks.bankname = t[0]
+            console.log(this.banks.bankId, this.banks.bankname )
           }
         }
 
