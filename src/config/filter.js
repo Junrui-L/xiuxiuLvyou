@@ -138,3 +138,13 @@ Vue.filter('adderSubtractor', (val, mode) => {
   }
 
 })
+
+//名字，身份证，银行卡，隐藏部分数字变‘*’号 plusXing(前面保留位数，后面保留位数）
+Vue.filter('plusXing', (str, frontLen, endLen) => {
+  var len = str.length - frontLen - endLen;
+  var xing = '';
+  for (var i = 0; i < len; i++) {
+    xing += '*';
+  }
+  return str.substring(0, frontLen) + xing + str.substring(str.length - endLen);
+});

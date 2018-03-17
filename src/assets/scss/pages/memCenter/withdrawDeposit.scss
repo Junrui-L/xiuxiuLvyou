@@ -12,6 +12,11 @@
       line-height: px2rem(35px);
       color: $color-black;
     }
+    .tits{
+      width: px2rem(240px);
+      line-height: px2rem(35px);
+      color: $color-black;
+    }
     input {
       @include setSize(px2rem(240px), px2rem(35px));
       line-height: px2rem(55px);
@@ -24,23 +29,7 @@
     .txt {
       text-align: left;
       line-height: px2rem(30px);
-      @include setSize(px2rem(240px), px2rem(30px));
-      @include ellipsis;
-    }
-    .gray{
-      color: $color-black-secondary;
-    }
-    svg {
-      @include centerTop;
-      right: px2rem(30px);
-      fill: $color-gray-secondary;
-      width: px2rem(10px);
-      height:px2rem(10px);
-      vertical-align: middle;
-    }txt {
-      text-align: left;
-      line-height: px2rem(30px);
-      @include setSize(px2rem(240px), px2rem(30px));
+      @include setSize(px2rem(80px), px2rem(30px));
       @include ellipsis;
     }
     .gray{
@@ -54,7 +43,6 @@
       height:px2rem(10px);
       vertical-align: middle;
     }
-
   }
   .deposit-limit {
     padding: px2rem(8px) px2rem(20px);

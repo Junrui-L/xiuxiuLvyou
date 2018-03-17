@@ -168,12 +168,12 @@ const router = new Router({
       name: 'accountDetail',
       component: AccountDetail
     },
-    //提现
-    {
-      path: '/accountDetail',
-      name: 'accountDetail',
-      component: AccountDetail
-    },
+    // //提现
+    // {
+    //   path: '/accountDetail',
+    //   name: 'accountDetail',
+    //   component: AccountDetail
+    // },
     {
       path: '/withdrawDeposit',
       name: 'withdrawDeposit',

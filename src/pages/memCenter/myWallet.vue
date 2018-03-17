@@ -17,7 +17,7 @@
               <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#arrow-right"></use>
             </svg>
           </router-link>
-          <li class="wallet-item clearfix">
+          <router-link tag="li" to="/accountBill" class="wallet-item clearfix">
             <div class="item-left fl">
               <h5>总收益</h5>
               <p>￥{{count.sumprofit}}</p>
@@ -25,8 +25,8 @@
             <svg class="fr">
               <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#arrow-right"></use>
             </svg>
-          </li>
-          <li class="wallet-item clearfix">
+          </router-link>
+          <router-link tag="li" to="/accountBill" class="wallet-item clearfix">
             <div class="item-left fl">
               <h5>历史提现</h5>
               <p>￥{{count.sumoutblance}}</p>
@@ -34,7 +34,7 @@
             <svg class="fr">
               <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#arrow-right"></use>
             </svg>
-          </li>
+          </router-link>
         </ul>
       </div>
       <div class="button-wrap">
@@ -69,7 +69,7 @@
           },
           withDraw(){
             console.log('去取钱')
-            this.$router.push({path: '/withdrawDeposit'})
+            this.$router.push({path: '/withdrawDeposit', query: {id: ''}})
           }
         }
 

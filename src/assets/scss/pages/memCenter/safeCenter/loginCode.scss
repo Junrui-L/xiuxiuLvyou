@@ -1,0 +1,63 @@
+.loginCode {
+  height: 100%;
+  padding:px2rem(50px) 0 px2rem(10px);
+  .head_top {
+    z-index: 10;
+  }
+  .addto {
+    @include setSize(px2rem(60px), px2rem(40px));
+    @include centerTop;
+    right: px2rem(10px);
+    @include font-dpr(14px);
+    line-height: px2rem(40px);
+    text-align: center;
+    color: $color-red;
+    .commit {
+      @include setButton(px2rem(70px), px2rem(40px),$color-red,$white,0);
+      @include font-dpr(13px)
+    }
+  }
+  .input-wrapper {
+    padding-left: px2rem(20px);
+    line-height: px2rem(44px);
+    border-bottom: 1px solid $color-body-bg;
+    background: $white;
+    @include font-dpr(14px);
+  }
+  .readonly {
+    background: $color-body-bg;
+  }
+  .input-txt {
+
+    border: 0;
+    @include font-dpr(14px);
+    color: $color-black;
+    padding:px2rem(20px) px2rem(20px) px2rem(20px) 0;
+
+  }
+  .verify-code {
+    background: $white no-repeat px2rem(24px) center;
+    background-size: px2rem(32px) px2rem(42px);
+  }
+
+  .verify {
+
+    width: 100%;
+    position: relative;
+    .getCode {
+      @include centerTop;
+      right: 0;
+      @include setButton(px2rem(120px), px2rem(40px), $color-black, $white, px2rem(8px));
+      @include font-dpr(14px);
+      &:before {
+        content: '';
+        @include centerTop;
+        left: 0;
+        width: 3px;
+        height: px2rem(30px);
+        background: $color-gray-secondary;
+      }
+    }
+  }
+
+}

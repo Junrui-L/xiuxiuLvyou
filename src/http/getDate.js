@@ -330,6 +330,15 @@ export const getVeryCode = (mobile) => $http.post('/siteH5/user.json?act=sendCod
   mobile: mobile
 })
 
+
+/**
+ * 修改蜜码
+ * */
+export const updatePassword = (veCode, password, type) => $http.post('/siteH5/user.json?act=updatePassword',{
+  veCode: veCode,
+  password: password,
+  type: type
+})
 /**
  * 用户推广二维码
  *

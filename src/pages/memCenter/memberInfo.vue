@@ -5,11 +5,7 @@
           <span class="title fl">个人头像</span>
           <div class="img-wrapper fr">
             <img :src="userInfo.headimgurl" alt="">
-            <!--<svg>-->
-              <!--<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#arrow-right"></use>-->
-            <!--</svg>-->
           </div>
-
         </div>
         <div class="head-item ">
           <div class="item-wrapper clearfix">
@@ -52,7 +48,7 @@
           <div class="item-wrapper clearfix">
             <span class="title">出生日期</span>
             <span class="txt fr">
-            {{userInfo.birthDate || '未设置'}}
+            {{userInfo.brithDate || '未设置'}}
             <svg>
                 <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#arrow-right"></use>
             </svg>
@@ -84,8 +80,8 @@
             </span>
           </router-link>
         </li>
-        <li class="head-item clearfix">
-          <router-link to="/bankCardList" class="item-wrapper clearfix">
+        <li class="head-item clearfix" @click="toSetBankCard">
+          <div class="item-wrapper clearfix">
             <span class="title">银行卡设置</span>
             <span class="txt fr">
 
@@ -93,17 +89,17 @@
                 <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#arrow-right"></use>
             </svg>
             </span>
-          </router-link>
+          </div>
         </li>
-        <li class="head-item clearfix">
-          <router-link to="/safeCenter" class="item-wrapper clearfix">
+        <li class="head-item clearfix" @click="toSafeCenter">
+          <div class="item-wrapper clearfix">
             <span class="title">安全中心</span>
             <span class="txt fr">
             <svg>
                 <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#arrow-right"></use>
             </svg>
             </span>
-          </router-link>
+          </div>
         </li>
         <li class="head-item clearfix">
           <router-link to="/myQrcode" class="item-wrapper clearfix">
@@ -123,7 +119,7 @@
 <script>
     import {userPerDetail, userLogin} from '../../http/getDate'
     export default {
-        name: 'member-info',
+        name: 'memberInfo',
         data() {
           return {
             userInfo: {}
@@ -136,7 +132,22 @@
           })
         },
         methods: {
-
+          toSetBankCard(){
+            if(this.userInfo.mobile == '') {
+              //设置手机号先
+              this.$router.push({path: '/setContact'})
+            }else {
+              this.$router.push({path: '/bankCardList'})
+            }
+          },
+          toSafeCenter(){
+            if(this.userInfo.mobile == '') {
+              //设置手机号先
+                this.$router.push({path: '/setContact'})
+            }else {
+              this.$router.push({path: '/safeCenter'})
+            }
+          }
         }
     }
 </script>

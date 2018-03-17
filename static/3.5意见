@@ -96,3 +96,9 @@ http://www.easemob.com/download/im
 
 
 你取的是玩法的 团游类型，要去套餐的团游类型的
+
+3.16意见
+--------------------------------------------
+修改密码 获取验证码时不需要填写手机号，手机号是不可编辑的
+修改密码的接口：act=updatePassword&veCode=&password=&type=loginPassword/moneyPassword
+

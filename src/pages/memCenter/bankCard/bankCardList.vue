@@ -7,25 +7,13 @@
             <div class="img-wrap fl">
               <img :src="basePath + item.icon" alt="">
             </div>
-            <div class="txt-wrap fl" @click="$router.push({path: '/withdrawDeposit'})">
+            <div class="txt-wrap fl" @click="$router.push({path: '/withdrawDeposit', query: {id: item.id}})">
               <div class="bankname">{{item.bankname}}</div>
               <div class="bankcate"></div>
               <div class="banknum">{{item.accountno}}</div>
             </div>
           </div>
         </li>
-        <!--<router-link tag="li" :to="{path: '/withdrawDeposit'}" class="card-item clearfix">-->
-          <!--<div class="card-wrapper clearfix">-->
-            <!--<div class="img-wrap fl">-->
-              <!--<img src="http://wx.qlogo.cn/mmopen/ViaU7AyviafoibrhnNOpcjn6UyvElL9vlNiaOMZwpSTh4XOk3dWQ6GPiafZAZC0SECOoRAhCU1906rHVBkfdcW94gichiaCwX8WNd4F/132" alt="">-->
-            <!--</div>-->
-            <!--<div class="txt-wrap fl">-->
-              <!--<div class="bankname">中国银行</div>-->
-              <!--<div class="bankcate">储蓄卡</div>-->
-              <!--<div class="banknum">*** *** *** 333</div>-->
-            <!--</div>-->
-          <!--</div>-->
-        <!--</router-link>-->
       </ul>
       <div class="add-card list-item">
         <router-link to="/addBankCard" class="item-wrapper clearfix">

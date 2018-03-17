@@ -1,7 +1,7 @@
 <template>
     <div class="withdrawDeposit">
       <div class="input-wrapper clearfix" @click="$router.push({path: '/bankCardList'})">
-        <span class="tits fl">选择银行卡</span>
+        <span class="tits fl">{{bankName}}</span>
         <span class="txt fr">
             <svg>
                 <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#arrow-right"></use>
@@ -24,19 +24,33 @@
 </template>
 
 <script>
-  import {withdraw} from '../../http/getDate'
+  import {userBanks,withdraw} from '../../http/getDate'
     export default {
         name: "withdrawDeposit",
       data(){
         return {
-          bankCard: '',
+          bankName: '请选择银行卡',
+          bankId: this.$route.query.id,
           depositNum: '',
           tradeCode: '',
           canDeposit: true
         }
       },
-      mounted(){
+      computed: {
 
+      },
+      mounted(){
+        userBanks().then(res => {
+          console.log(res)
+          let resp = res.list
+          for(let i in  resp){
+              console.log(resp[i])
+            if(this.bankId == resp[i].id) {
+                console.log(resp[i].id, resp[i].bankname)
+                this.bankName = resp[i].bankname;
+            }
+          }
+        })
       },
       watch: {
         canDeposit: function () {
@@ -61,6 +75,14 @@
               time: 2000
             }).show();
             return
+          } else if(this.depositNum < 50 ) {
+            this.$createToast({
+              txt: '最低提现金额50',
+              type: 'error',
+              mask: true,
+              time: 2000
+            }).show();
+            return
           } else if(this.tradeCode == '') {
             this.$createToast({
               txt: '请输入交易密码',
@@ -70,7 +92,7 @@
             }).show();
             return
           } else {
-            withdraw(this.bankCard, this.depositNum, this.tradeCode).then( res => {
+            withdraw(this.bankId, this.depositNum, this.tradeCode).then( res => {
               console.log('提交提现')
               if(res.msg) {
                 this.$createDialog({
