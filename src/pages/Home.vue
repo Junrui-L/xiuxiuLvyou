@@ -36,15 +36,15 @@
     </div>
     <ul class="nav clearfix">
       <li class="nav-item fl">
-        <router-link class="nav-link" :to="{path: '/scenicRegion' , query: { citySn: locations.areasn }}">
+        <router-link class="nav-link" :to="{path: '/scenicRegion' , query: { citySn: locations.areasn || 110100}}">
           <img class="nav-img" src="../assets/img/home_jingqu@2x.png" alt="">
-          <p class="nav-tit">景区列表</p>
+          <p class="nav-tit">景区向导</p>
         </router-link>
       </li>
       <li class="nav-item fl">
         <router-link class="nav-link" :to="{path: '/cityGuide', query: {citySn: locations.areasn || 110100}}">
           <img class="nav-img" src="../assets/img/home_qudao_xhdpi.png" alt="">
-          <p class="nav-tit">区导列表</p>
+          <p class="nav-tit">当地向导</p>
         </router-link>
       </li>
       <li class="nav-item fl">
@@ -65,11 +65,11 @@
     <div class="hot-spots">
       <h3 class="title">
         <span>热门景点</span>
-        <a href="" class="more-link fr">查看更多
+        <router-link  :to="{path: '/cityGuide', query: {citySn:  110100}}" class="more-link fr">查看更多
           <svg>
             <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#arrow-right"></use>
           </svg>
-        </a>
+        </router-link>
 
       </h3>
       <div class="spots-wrapper slider-wrapper">
@@ -89,11 +89,11 @@
     <div class="recommended-tours">
       <h3 class="title">
         <span>精选推荐专线</span>
-        <a href="" class="more-link fr">查看更多
-          <svg>
-            <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#arrow-right"></use>
-          </svg>
-        </a>
+        <!--<a href="" class="more-link fr">查看更多-->
+          <!--<svg>-->
+            <!--<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#arrow-right"></use>-->
+          <!--</svg>-->
+        <!--</a>-->
       </h3>
       <div class="recom-wrapper">
         <cube-slide
@@ -134,11 +134,11 @@
     <div class="hot-spots  hot-area">
       <h3 class="title">
         <span>热门区域</span>
-        <a href="" class="more-link fr">查看更多
+        <router-link :to="{path: '/scenicRegion', query: {citySn:  110100}}" href="" class="more-link fr">查看更多
           <svg>
             <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#arrow-right"></use>
           </svg>
-        </a>
+        </router-link>
       </h3>
       <div class="area-wrapper slider-wrapper">
         <HoriSlider class="spots-list" ref="hotArea">

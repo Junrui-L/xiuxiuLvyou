@@ -59,7 +59,16 @@
               userLogin(this.phone, this.passWord).then(res => {
                 this.canLogin = false
                 console.log(res)
-                this.$router.go(-1);
+
+                if(res.msg) {
+                  this.$createDialog({
+                    type: 'alert',
+                    title: '温馨提示',
+                    content: res.msg
+                  }).show()
+                } else {
+                  this.$router.go(-1);
+                }
               })
             }
 

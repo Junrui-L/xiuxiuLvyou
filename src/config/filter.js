@@ -1,21 +1,6 @@
 import Vue from 'vue'
 import config from '../http/api'
 
-//处理图片地址
-Vue.filter('imgUrl', (url, mode) => {
-  let baseUrl = 'www.youdingsoft.com/';
-  let dUrl = url.split('/')[1];
-  switch (mode) {
-    case 'small':
-      return config.imgUrl + 'fileUploadsmall/' + dUrl;
-    case 'middle':
-      return config.imgUrl + 'fileUploadmedium/' + dUrl;
-    case 'orgin':
-      return config.imgUrl + 'fileUpload/' + dUrl;
-    default:
-      return config.imgUrl + 'fileUploadsmall/' + dUrl
-  }
-})
 //时间过滤， fmtDate('yyyy,MM,dd')
 Vue.filter('fmtDate', (data, fmt) => {
   let dates;
@@ -64,7 +49,19 @@ Vue.filter('orderStateText', state => {
   }
   return orderStateMap[state]
 })
-//
+/**
+ * 向导类别
+ * */
+
+Vue.filter('guideTypeText', state => {
+  const servicetypeMap = {
+    1: '景区讲解',
+    2: '当地带玩',
+    3: '专线旅游'
+  }
+  return servicetypeMap[state]
+})
+
 /**
   玩法服务类型 类型状态
  * 服务类别

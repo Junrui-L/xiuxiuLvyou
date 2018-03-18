@@ -349,6 +349,10 @@
           })
           //获取当前日期
           let nowTime = new Date();
+          if(nowTime.getHours() >= 18) {
+            //超高跟18点默认订明天
+            nowTime.setTime(nowTime.getTime()+24*60*60*1000)
+          }
           let nowday = dateFmt(nowTime, 'yyyy-M-d');
           let minDay = nowday = nowday.split('-');
           this.datePicker = this.$createDatePicker({
@@ -364,17 +368,29 @@
             guideDetails(this.scenicspot, this.accountId).then( res=> {
               console.log('----景区id查找向导玩法详情-------')
               console.log(res);
-
-              this.plays = res.play;
-              this.playImgs = res.ywImgs;
-              this.guide = res.guide;
-              this.mpPackelist= res.mpPackelist
-              this.playlist=res.playlist
-              this.pricePackelist=res.pricePackelist//套餐
-              this.priceRanges=res.priceRanges
-              this.playId = res.play.id; //向导Id
-              this.SAVE_GUIDE(res.guide);
-              this.SAVE_PLAY(res.play)
+              if(res.msg){
+                //景区向导不存在
+                this.$createToast({
+                  txt: res.msg,
+                  type: 'error',
+                  mask: false,
+                  time: 1500
+                }).show();
+                setTimeout(()=>{
+                  this.$router.replace({path: '/guideDetail',  query: {id: this.accountId}})
+                },1000)
+              }else {
+                this.plays = res.play;
+                this.playImgs = res.ywImgs;
+                this.guide = res.guide;
+                this.mpPackelist= res.mpPackelist
+                this.playlist=res.playlist
+                this.pricePackelist=res.pricePackelist//套餐
+                this.priceRanges=res.priceRanges
+                this.playId = res.play.id; //向导Id
+                this.SAVE_GUIDE(res.guide);
+                this.SAVE_PLAY(res.play)
+              }
 
             })
           },

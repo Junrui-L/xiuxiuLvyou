@@ -134,16 +134,33 @@
         methods: {
           toSetBankCard(){
             if(this.userInfo.mobile == '') {
+              this.$createToast({
+                txt: '请先设置手机号码',
+                type: 'error',
+                mask: false,
+                time: 1500
+              }).show();
               //设置手机号先
-              this.$router.push({path: '/setContact'})
+              setTimeout(() => {
+                this.$router.push({path: '/setContact'})
+              }, 1000)
+
             }else {
               this.$router.push({path: '/bankCardList'})
             }
           },
           toSafeCenter(){
             if(this.userInfo.mobile == '') {
+              this.$createToast({
+                txt: '请先设置手机号码',
+                type: 'error',
+                mask: false,
+                time: 1500
+              }).show();
               //设置手机号先
+              setTimeout(() => {
                 this.$router.push({path: '/setContact'})
+              }, 1000)
             }else {
               this.$router.push({path: '/safeCenter'})
             }

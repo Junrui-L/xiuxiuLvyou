@@ -252,13 +252,6 @@
             mask: true,
             time: 2000
           }).show();
-        } else if(this.requiretxt == '') {
-          this.$createToast({
-            txt: '请填写备注',
-            type: 'error',
-            mask: true,
-            time: 2000
-          }).show();
         } else {
           // console.log(this.mpPackage.mpPackageId)
           creatOrder(

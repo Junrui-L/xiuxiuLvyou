@@ -186,7 +186,7 @@
         <img :src="basePath + orderInfo.orderplayImg" alt="">
       </div>
       <dl class="guide-detail fl">
-        <dt class="guide-name">{{orderInfo.username}} <span class="message"></span></dt>
+        <dt class="guide-name">{{orderInfo.username}} <span  v-if="orderInfo.status > 1" class="message"></span></dt>
         <dd class="guide-scenic"><span>{{orderInfo.playaddre}}</span><span>{{orderInfo.servicetype | servicetypeText }}</span></dd>
         <dd class="guide-mode">
           <span> {{orderInfo.wfname}} ({{ orderInfo.orderMode}}) </span>
@@ -267,7 +267,7 @@
         </span></li>
       <template v-if="orderInfo.sfty == 1">
         <li class="check-item clearfix"  v-if="orderInfo.status == 0 || orderInfo.status == 1 || orderInfo.status == 2 || orderInfo.status == 3 || orderInfo.status == 4" > 团游优惠 <span class="group-count fr">团正在确认中，出行后将会统计团友人数和价格。</span></li>
-        <li class="check-item clearfix"  v-if="orderInfo.status == 5 " > 团游优惠 <span class="group-count fr">总共8人游，打{{orderInfo.tyval}}折 共优惠60元（100*3*0.2）订单完成后将会按优惠价格自动返到个人账户中</span></li>
+        <li class="check-item clearfix"  v-if="orderInfo.status == 5 " > 团游优惠 <span class="group-count fr">总共人游，打{{orderInfo.tyval}}折 共优惠**元（XX*XX*XX）订单完成后将会按优惠价格自动返到个人账户中</span></li>
         <li class="check-item clearfix"  v-if="orderInfo.status == 6 || orderInfo.status == 7 || orderInfo.status == 8 " > 团游优惠 <span class="group-count fr">总共8人游，打{{orderInfo.tyval}}折 共优惠60元（100*3*0.2） 订单完成后将会按优惠价格自动返到个人账户中</span></li>
       </template>
     </ul>

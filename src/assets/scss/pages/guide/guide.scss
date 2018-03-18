@@ -89,7 +89,7 @@
     .guide-txt {
       margin-top: px2rem(16px);
       padding: px2rem(12px);
-      height: px2rem(64px);
+      max-height: px2rem(64px);
       @include font-dpr(12px);
       background: $color-senior-bg;
       p {

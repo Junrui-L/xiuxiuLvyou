@@ -74,6 +74,7 @@ export const spotsList = (areasn) => $http.get('/siteH5/guide.json?act=list', {
 
 export const guideList = (data) => $http.post('/siteH5/guide.json?act=guideslist', {
   scenicspot: data.scenicspotId,
+  servicetype: data.servicetype, //服务类型
   sex: data.sex,
   agetype: data.agetype,
   minprice: data.minprice,
@@ -89,6 +90,7 @@ export const guideList = (data) => $http.post('/siteH5/guide.json?act=guideslist
  * */
 export const cityGuideList = (data) => $http.post('/siteH5/guide.json?act=cityguideslist', {
   city: data.citySn,
+  servicetype: data.servicetype, //服务类型
   sex: data.sex,
   agetype: data.agetype,
   minprice: data.minprice,

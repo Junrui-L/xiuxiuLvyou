@@ -281,7 +281,7 @@
         this.$options.listEl.forEach(item => {
           item.classList.remove('active');
         });
-        this.$options.listEl[3].classList.add('active');
+        this.$options.listEl[2].classList.add('active');
         this.$options.titleList.querySelectorAll('li').forEach(item => {
           item.classList.remove('cur');
         });

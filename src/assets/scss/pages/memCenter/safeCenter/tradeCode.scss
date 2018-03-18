@@ -61,9 +61,12 @@
     }
 
 
-
-
-
-
+    .tips {
+      padding-left: px2rem(20px);
+      height: px2rem(36px);
+      line-height: px2rem(36px);
+      @include font-dpr(14px);
+      color: $color-red;
+    }
 
 }

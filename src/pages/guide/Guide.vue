@@ -1,4 +1,4 @@
-/*Created by soft on 2018/1/3 */
+   /*Created by soft on 2018/1/3 */
 <template>
   <div class="Guide">
     <header ref="uiHeader">
@@ -13,7 +13,7 @@
     <div class="guide-wrapper">
       <ul class="guide-list">
         <li  v-if="guidesList.length == 0" class="noGuide">暂无向导</li>
-        <li v-else class="guide" v-for="item in guidesList"  @click="$router.push({name: 'scenicDetail',  query: {scenicspot: scenicId, accountId: item.visitorid}})">
+        <li v-else class="guide" v-for="item in guidesList"  @click="goDetail(item.servicetype, item.visitorid)">
           <div class="guide-t clearfix">
             <div class="guide-img fl">
               <img :src="item.userimg" alt="用户头像"/>
@@ -67,28 +67,29 @@
             name: '导游类型',
             value: 'servicetype',
             children: [
-              {name: '景点讲解', value: 1},
-              {name: '带游服务', value: 2}
+              {name: '景区讲解', value: 1},
+              {name: '当地带玩', value: 2},
+              {name: '专线旅游', value: 3}
             ]
           },
-          {
-            name: '年龄',
-            value: 'agetype',
-            children: [
-              {name: '70后', value: '70后'},
-              {name: '80后', value: '80后'},
-              {name: '90后', value: '90后'},
-              {name: '00后', value: '00后'},
-            ]
-          },
+          // {
+          //   name: '年龄',
+          //   value: 'agetype',
+          //   children: [
+          //     {name: '70后', value: '70后'},
+          //     {name: '80后', value: '80后'},
+          //     {name: '90后', value: '90后'},
+          //     {name: '00后', value: '00后'},
+          //   ]
+          // },
           {
             name: '默认排序',
             value: 'sort',
             children: [
-              {name: '价格', value: 1, type: 'price'},
-              {name: '今日可团游', value: 1, type: 'todaytuan'},
-              {name: '包接送', value: 1, type: 'baojiesong'},
-              {name: '人气', value: 1, type: 'peoplenum'},
+              {name: '评分高低', value: 1, type: 'price'},
+              {name: '服务单数', value: 2, type: 'todaytuan'},
+              {name: '价格由低到高', value: 3, type: 'baojiesong'},
+              {name: '价格由高到低', value: 1, type: 'peoplenum'},
             ]
           }
         ],
@@ -140,6 +141,15 @@
           this.scenicInfo = res.scenicspotMap;
           this.guidesList = res.guideslist;
         })
+      },
+      goDetail(type,id){
+        if(type == 1) {
+          //景区向导
+          this.$router.push({path: '/scenicDetail',  query: {scenicspot: this.scenicId, accountId: id}})
+        } else {
+          //其他向导
+          this.$router.push({path: '/guideDetail',  query: {id: id}})
+        }
       }
 
     }

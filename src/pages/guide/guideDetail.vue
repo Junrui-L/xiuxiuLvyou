@@ -2,7 +2,9 @@
   <div class="guide_detail">
     <div class="guide-info clearfix">
       <ul class="guide-name fl">
-        <li class="name">{{guideInfos.userName}} <span>{{guideInfos.agetype}}</span><span>{{guideInfos.signature}}</span></li>
+        <li class="name">{{guideInfos.userName}} <span>{{guideInfos.agetype}}</span>
+          <!--<span>{{guideInfos.signature}}</span>-->
+        </li>
         <li class="certification">
           <span>导游已认证</span>
           <span>{{servicetype}}</span>

@@ -66,33 +66,35 @@
             name: '导游类型',
             value: 'servicetype',
             children: [
-              {name: '当地游玩', value: 1},
-              {name: '专线游玩', value: 2}
+              {name: '景区讲解', value: 1},
+              {name: '当地带玩', value: 2},
+              {name: '专线旅游', value: 3}
             ]
           },
-          {
-            name: '年龄',
-            value: 'agetype',
-            children: [
-              {name: '70后', value: '70后'},
-              {name: '80后', value: '80后'},
-              {name: '90后', value: '90后'},
-              {name: '00后', value: '00后'},
-            ]
-          },
+          // {
+          //   name: '年龄',
+          //   value: 'agetype',
+          //   children: [
+          //     {name: '70后', value: '70后'},
+          //     {name: '80后', value: '80后'},
+          //     {name: '90后', value: '90后'},
+          //     {name: '00后', value: '00后'},
+          //   ]
+          // },
           {
             name: '默认排序',
             value: 'sort',
             children: [
-              {name: '价格', value: 1, type: 'price'},
-              {name: '今日可团游', value: 1, type: 'todaytuan'},
-              {name: '包接送', value: 1, type: 'baojiesong'},
-              {name: '人气', value: 1, type: 'peoplenum'},
+              {name: '评分高低', value: 1, type: 'price'},
+              {name: '服务单数', value: 2, type: 'todaytuan'},
+              {name: '价格由低到高', value: 3, type: 'baojiesong'},
+              {name: '价格由高到低', value: 1, type: 'peoplenum'},
             ]
           }
         ],
         sendData: {  // 景区导游列表请求参数
           citySn: '',
+          servictype: '',
           sex: '',
           agetype: '',
           minprice: '',
