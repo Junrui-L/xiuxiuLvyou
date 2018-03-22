@@ -385,8 +385,8 @@
 
   .bootom-cotent {
     padding: px2rem(20px);
-    padding-bottom: px2rem(60px);
-    @include setSize(100%, px2rem(400px));
+    padding-bottom: px2rem(80px);
+    @include setSize(100%, px2rem(420px));
     background: $white;
     position: relative;
     .close {

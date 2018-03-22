@@ -154,8 +154,9 @@ export const getNearGuide = (latitude, longitude) => $http.get('/siteH5/guide.js
  * 初始化订单
  * */
 
-export const initOrder = (godate, accountId, playId, tripsnum, packageid, source, tipamount) => $http.post('/siteH5/order.json?act=init', {
+export const initOrder = (godate, playday,accountId, playId, tripsnum, packageid, source, tipamount) => $http.post('/siteH5/order.json?act=init', {
   godate: godate,
+  playday: playday,
   accountId: accountId,
   playId: playId,
   tripsnum: tripsnum,

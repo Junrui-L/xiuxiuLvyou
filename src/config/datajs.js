@@ -18224,7 +18224,13 @@ export const peopleNum = [
   {num: 13, text: '13人'}, {num: 14, text: '14人'}, {num: 15, text: '15人'}, {num: 16, text: '16人'},
   {num: 17, text: '17人'}, {num: 18, text: '18人'}, {num: 19, text: '19人'}, {num: 20, text: '20人'}
 ]
-
+export const peoleData = [
+  {num: 1, text: '1天'}, {num: 2, text: '2天'}, {num: 3, text: '3天'}, {num: 3, text: '4天'},
+  {num: 5, text: '5天'}, {num: 6, text: '6天'}, {num: 7, text: '7天'}, {num: 8, text: '8天'},
+  {num: 9, text: '9天'}, {num: 10, text: '10天'}, {num: 11, text: '11天'}, {num: 12, text: '12天'},
+  {num: 13, text: '13天'}, {num: 14, text: '14天'}, {num: 15, text: '15天'}, {num: 16, text: '16天'},
+  {num: 17, text: '17天'}, {num: 18, text: '18天'}, {num: 19, text: '19天'}, {num: 20, text: '20天'}
+]
 export const bankNum = [
   {value: 1, text: '中国建设银行'},
   {value: 2, text: '中国工商银行'},

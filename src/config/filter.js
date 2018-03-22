@@ -80,12 +80,12 @@ Vue.filter('servicetypeText', state => {
   return servicetypeMap[state]
 })
 
-//佣金模式
+//团游模式
 Vue.filter('tymodeText', state => {
   const tymodeMap = {
-    0: '(平分模式)',
-    1: '(固定折扣模式)',
-    2: '(剃分模式)'
+    0: '平分模式',
+    1: '固定折扣模式',
+    2: '剃分模式'
   }
   return tymodeMap[state]
 })

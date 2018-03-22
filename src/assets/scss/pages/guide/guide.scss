@@ -55,8 +55,15 @@
         white-space: nowrap;
         text-overflow: ellipsis;
         @include font-dpr(15px);
-        span {
-          color: $color-gray-secondary;
+        position: relative;
+        .guide-type {
+          margin-left: px2rem(10px);
+          padding:0 px2rem(5px);
+          background: $color-body-bg;
+          line-height: px2rem(25px);
+          @include font-dpr(12px);
+          color: $color-black-secondary;
+          border-radius: px2rem(3px);
         }
       }
 

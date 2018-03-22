@@ -48,7 +48,7 @@
           let minMonth = year.value === this.min[0] ? this.min[1] : 1
           let maxMonth = year.value === this.max[0] ? this.max[1] : 12
 
-          year.children = range(minMonth, maxMonth, false, '月')
+          year.children = range(minMonth, maxMonth, true, '月')
           year.children.forEach(month => {
             let day = 30
             if ([1, 3, 5, 7, 8, 10, 12].includes(month.value)) {
@@ -62,7 +62,7 @@
             let minDay = year.value === this.min[0] && month.value === this.min[1] ? this.min[2] : 1
             let maxDay = year.value === this.max[0] && month.value === this.max[1] ? this.max[2] : day
 
-            month.children = range(minDay, maxDay, false, '日')
+            month.children = range(minDay, maxDay, true, '日')
           })
         })
 

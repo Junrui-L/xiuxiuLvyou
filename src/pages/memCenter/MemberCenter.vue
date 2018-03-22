@@ -51,7 +51,7 @@
         <p class="no_data_text" v-if="orderList.length===0">暂无数据</p>
         <div class="order-list-item" v-for="v in orderList">
           <div class="order-item clearfix" @click="$router.push({path: '/order' , query: { orderNum: v.ordernumber}})">
-            <p class="fl h44">出行时间：{{v.godate}}</p>
+            <p class="fl h44">出行时间：{{v.godate}} （{{v.playDay}} 天）</p>
             <p class="fr  h44 orderstate">{{v.status | orderStateText}}</p>
             <div class="scenicInfo fl">
               <img :src="basePath + v.orderplayImg"/>

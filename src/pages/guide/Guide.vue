@@ -4,11 +4,12 @@
     <header ref="uiHeader">
       <HeadTop go-back='true' :headBg="headBg">
         <div slot="select-title" class="select-title">
-          <span class="spotname ">{{scenicInfo.name}}</span>
+          <span class="spotname ">{{scenicInfo.name}} </span>
         </div>
       </HeadTop>
       <img class="head-img" v-if="scenicInfo.scenicimg" :src="baseUrl + scenicInfo.scenicimg" alt="">
     </header>
+
     <drop-down :dropDownData = "dropDownData" :selectCallback="selectCallback" ></drop-down>
     <div class="guide-wrapper">
       <ul class="guide-list">
@@ -19,8 +20,8 @@
               <img :src="item.userimg" alt="用户头像"/>
             </div>
             <div class="guide-detail fl">
-              <h5 class="guide-name"><span>{{item.username}}</span></h5>
-              <div class="region-level"><span>{{item.wfcount}}种玩法 </span> |<span> 服务{{item.fwcount}}人 </span></div>
+              <h5 class="guide-name clearfix"><span class="fl">{{item.username}}</span><span class="fl guide-type">{{ item.servicetype | guideTypeText }}</span></h5>
+              <div class="guide-count"><span>{{item.wfcount}}种玩法 </span> |<span> 服务{{item.fwcount}}人 </span></div>
               <!--<div class="guide-star"><span>类别：</span>历史古迹、历史博物馆</div>-->
             </div>
             <!--<button class="guide-order fl" @click="$router.push({name: 'guideDetail',  params: {id: 33}})">找Ta预订-->
@@ -72,16 +73,6 @@
               {name: '专线旅游', value: 3}
             ]
           },
-          // {
-          //   name: '年龄',
-          //   value: 'agetype',
-          //   children: [
-          //     {name: '70后', value: '70后'},
-          //     {name: '80后', value: '80后'},
-          //     {name: '90后', value: '90后'},
-          //     {name: '00后', value: '00后'},
-          //   ]
-          // },
           {
             name: '默认排序',
             value: 'sort',

@@ -16,9 +16,10 @@
     <div class="order-info">
       <h3 class="title">订单信息</h3>
       <ul class="order-list">
+        <li class="info-item">游玩天数 <span class="fr"> {{baseOrder.travalDay.value || 1}}天</span></li>
         <li class="info-item">游玩时间 <span class="fr">{{baseOrder.travalDate.txt}}</span></li>
+        <li class="info-item">截止游玩时间 <span class="fr">{{endate}}</span></li>
         <li class="info-item">游玩人数 <span class="fr">{{baseOrder.peopleNum.txt}}</span></li>
-        <li class="info-item">游玩天数 <span class="fr"> {{play.playDay || 1}}天</span></li>
         <li class="info-item">价格套餐 <span class="fr">{{pricePackage.name}}/{{pricePackage.price}}元</span></li>
       </ul>
     </div>
@@ -26,7 +27,7 @@
       <switch-option name="开启团游" :isDisable = "pricePackage.sfzcty == 1 ? false : true"  @update:value="onGroup" ></switch-option>
     </div>
     <div class="notify group-notify">
-      <!--<p>导游优惠模式：固定折扣模式，7，8折</p>-->
+      <p>团游优惠模式：{{ pricePackage.tytype }}    <template v-if="pricePackage.tytype == 2">{{ pricePackage.tyval}}折</template></p>
 
       <p>注意：团游必须有2个订单才生效，价格由最终团游数决定。而差价会在旅行结束后退到您的个人账户中。</p>
     </div>
@@ -49,7 +50,6 @@
       </div>
     </div>
     <div class="notify tickit-notify" v-if="mpPackage.mpPackageNotice != ''">
-
       <p>门票说明：{{mpPackage.mpPackageNotice}}</p>
       <!--<p>注意：团游必须有2个订单才生效，价格由最终团游数决定。而差价会在旅行结束后退到您的个人账户中。</p>-->
     </div>
@@ -110,6 +110,7 @@
 <script>
   import {mapState, mapMutations} from 'vuex'
   import {initOrder, loadOrder, creatOrder} from '../../http/getDate'
+  import {dateFmt} from '../../config/myUtils'
   import {peopleNum} from '../../config/datajs'
   import {localStore} from '../../config/myUtils'
   import SwitchOption from  '../../components/switchOption.vue'
@@ -118,6 +119,7 @@
       return {
         godate: '',
         playday: '', //出游天数
+        endate: '', //结束日期
         accountId: this.$route.query.guideId,
         playId: this.$route.query.playId,
         tripsnum: '',
@@ -129,6 +131,7 @@
           mpPackageNotice: '',
           mpPackageName: ''
         },
+        tuanOrder: null, //团信息
         mpPackagecount: '',
         istuan: 0,
         source: 0,
@@ -163,6 +166,7 @@
         // if(this.playday != '') {
           this.playday = parseInt(this.play.playDay)
           // }
+
         console.log('...门票套餐价...门票套餐价')
         console.log(this.pricePackage.price, this.baseOrder.peopleNum.value, this.mpPackage.mpPackagePrice, this.mpPackagecount);
         if(this.playday != '') {
@@ -200,10 +204,16 @@
       initHeOrder() {
         console.log(this.guide)
         this.godate = this.baseOrder.travalDate.value;
-        this.tripsnum = this.baseOrder.peopleNum.value
-        this.packageid = this.baseOrder.mealType.id
+        this.playday = this.baseOrder.travalDay.value;
+        this.tripsnum = this.baseOrder.peopleNum.value;
+        this.packageid = this.baseOrder.mealType.id;
+        let da = new Date(this.godate)
 
-        initOrder(this.godate, this.accountId, this.playId, this.tripsnum, this.packageid, 0, 0).then(resp => {
+        da.setTime(da.getTime()+ this.playday*24*60*60*1000)
+
+        this.endate = dateFmt(da, 'yyyy年MM月dd日');
+        console.log(da)
+        initOrder(this.godate,this.playday, this.accountId, this.playId, this.tripsnum, this.packageid, 0, 0).then(resp => {
           console.log('-------订单初始化返回--------');
             console.log(resp)
             loadOrder().then(res=> {

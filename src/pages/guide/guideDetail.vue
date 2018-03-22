@@ -38,6 +38,17 @@
         </p>
         <span class="see-all" :class="{'hide': clipInroduce == false}"  @click="clipInroduce = false">查看全部</span>
       </div>
+      <div class="guide-img">
+        <h3>生活照</h3>
+        <ul class="img-wrapper clearfix">
+          <li class="img-container" v-for="i in getStr(guideInfos.lifeimgs)">
+          <!--<li class="img-container">-->
+            <img :src="i" alt="">
+            <!--<img src="../../assets/img/home_list-1.jpg"  alt="">-->
+            <!--<img src="../../assets/img/home_list-1.jpg"  alt="">-->
+          </li>
+        </ul>
+      </div>
       <div class="tourist-eval">
         <h3 class="tite">游客评价</h3>
 
@@ -132,7 +143,7 @@
   export default {
     data() {
       return {
-        clipInroduce: true,
+        clipInroduce: true, //查看更多详情
         guideInfos: [],
         playList: []
       }

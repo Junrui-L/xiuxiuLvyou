@@ -1,4 +1,3 @@
-
 .iv-dropDown-cover{
     position: fixed;
     top: 0;
@@ -183,8 +182,8 @@
 
     &.pro-list {
       display: block;
-      padding: px2rem(15px);
-
+      padding: px2rem(15px) px2rem(15px) px2rem(60px);
+      overflow: auto;
       .check-wrapper {
         margin-bottom: px2rem(10px);
         h5 {

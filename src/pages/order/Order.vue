@@ -208,8 +208,9 @@
       <ul class="order-list">
         <li class="info-item clearfix">联系人 <span class="fr">{{orderInfo.limkman}}</span></li>
         <li class="info-item clearfix" >联系电话 <span class="fr">{{orderInfo.linkPhone}}</span></li>
-        <li class="info-item clearfix">游玩日期 <span class="fr">{{ orderInfo.godate }}</span></li>
         <li class="info-item clearfix">游玩天数 <span class="fr">{{ orderInfo.playDay }} 天</span></li>
+        <li class="info-item clearfix">游玩日期 <span class="fr">{{ orderInfo.godate }}</span></li>
+        <li class="info-item clearfix">结束日期 <span class="fr">{{ orderInfo.godate }}</span></li>
         <li class="info-item clearfix">出行人数 <span class="fr">{{ orderInfo.tripsnum}} 人</span></li>
         <li class="info-item clearfix">是否团游 <span class="fr">{{orderInfo.sfty == 1 ? '是' : '否'}}</span>
         </li>
@@ -314,6 +315,8 @@
         orderDetail(this.orderNum).then(res => {
           console.log(res)
           this.orderInfo = res.order;
+
+
           let creatT = new Date(res.order.created_at.replace(/-/g,'/')).getTime();  //创建订单时间
           // this.endT = new Date(creatT + 1000 * 60 * 30).getTime();
           if(res.order.paytime && res.order.paytime != undefined) {

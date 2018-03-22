@@ -119,9 +119,6 @@
                     <li class="img-container" v-for="i in getStr(img.imgs)">
                       <img :src="basePath + i" alt="">
                     </li>
-                    <!--<li class="img-container"><img src="../../assets/img/home_list-1.jpg" alt=""></li>-->
-                    <!--<li class="img-container"><img src="../../assets/img/home_list-1.jpg" alt=""></li>-->
-                    <!--<li class="img-container"><img src="../../assets/img/home_list-1.jpg" alt=""></li>-->
                   </ul>
                </template>
 
@@ -230,13 +227,18 @@
               <h3 class="region-name">{{plays.serviceCity}}-{{plays.scenicspot}} <span v-show="plays.sfzcty == 1">可团游</span></h3>
               <div class="region-adress">{{plays.serviceCity}}   <span>{{plays.wfname}}</span></div>
               <ul class="tips clearfix">
-                <li class="tip fl">景点带游</li>
-                <li class="tip fl">美景拍摄</li>
-                <!--<li class="tip fl">历史古迹</li>-->
+                <li class="tip fl" v-for="word in getStr(plays.wfbq)">{{word}}</li>
+
               </ul>
             </div>
             <ul class="choose-wrap">
               <li class="choose-item clearfix" @click="showDatePicker">选择出行日期 <span class="fr">{{travalDate.txt}}
+                <svg>
+                       <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#arrow-right"></use>
+                </svg>
+              </span>
+              </li>
+              <li class="choose-item clearfix" @click="showDayPicker">游玩天数 <span class="fr">{{travalDay.txt }}
                 <svg>
                        <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#arrow-right"></use>
                 </svg>
@@ -279,7 +281,7 @@
     import HeadTop from '../../components/HeadTop.vue'
     import EvaluateStar from '../../components/EvaluateStar.vue'
     import DatePicker from '../../components/date-picker'
-    import {peopleNum} from '../../config/datajs'
+    import {peopleNum, peoleData} from '../../config/datajs'
     import {dateFmt} from '../../config/myUtils'
     import TransPan from  '../../components/transitionPanel'
     createAPI(Vue, DatePicker, ['select', 'cancel'], false)
@@ -300,6 +302,7 @@
                 priceRanges: [],
                 mealdata: [],
                 travalDate: '',
+                travalDay: '',
                 mealType: '',
                 peopleNum: '',
                 newPricePackelist:[],
@@ -329,6 +332,8 @@
           }
         },
         mounted() {
+          console.log(this.play);
+
           if(this.$route.query.scenicspot) {
             console.log('从景区id来的')
             this.getData()
@@ -337,6 +342,16 @@
             this.playListDetail()
 
           }
+
+          this.dayPicker = this.$createPicker({
+            title: '出行天数',
+            data: [peoleData],
+            alias: {
+              value: 'num',
+            },
+            onSelect: this.selectDayHandle,
+            onCancel: this.cancelHandle
+          })
 
           this.peoplePicker = this.$createPicker({
             title: '出行人数',
@@ -353,7 +368,7 @@
             //超高跟18点默认订明天
             nowTime.setTime(nowTime.getTime()+24*60*60*1000)
           }
-          let nowday = dateFmt(nowTime, 'yyyy-M-d');
+          let nowday = dateFmt(nowTime, 'yyyy-M-dd');
           let minDay = nowday = nowday.split('-');
           this.datePicker = this.$createDatePicker({
             min: minDay,
@@ -361,6 +376,8 @@
             onSelect: this.selecTimetHandle,
             onCancel: this.cancelHandle
           })
+
+
       },
         methods: {
           ...mapMutations(['GET_USERINFO','RECORD_ADDRESS' ,'BASE_ORDER','SAVE_GUIDE','SAVE_PLAY','SAVE_PRICEPACKAGE']),
@@ -369,16 +386,9 @@
               console.log('----景区id查找向导玩法详情-------')
               console.log(res);
               if(res.msg){
+                console.log(res.msg)
                 //景区向导不存在
-                this.$createToast({
-                  txt: res.msg,
-                  type: 'error',
-                  mask: false,
-                  time: 1500
-                }).show();
-                setTimeout(()=>{
-                  this.$router.replace({path: '/guideDetail',  query: {id: this.accountId}})
-                },1000)
+                this.$router.replace({path: '/guideDetail',  query: {id: this.accountId}})
               }else {
                 this.plays = res.play;
                 this.playImgs = res.ywImgs;
@@ -447,11 +457,20 @@
           showPeoplePicker() {
             this.peoplePicker.show();
           },
+          showDayPicker(){
+            this.dayPicker.show();
+          },
           selecTimetHandle(selectedVal, selectedIndex, selectedText) {
-            this.travalDate = {value: selectedVal.join('-'), txt: selectedText.join('')}
-            console.log(this.travalDate )
-
+            //加0
+            let sv = selectedVal.map((i)=>{
+               return  i < 10 ? '0' + i : i
+            })
+            this.travalDate = {value: sv.join('-'), txt: selectedText.join('')}
             this.priceList(this.travalDate.value, this.scenicspot, this.plays.id )
+          },
+          selectDayHandle(selectedVal, selectedIndex, selectedText){
+            // this.dayPicker.show();
+            this.travalDay = {value:selectedVal[0], txt: selectedText[0] }
           },
           selectMealHandle(selectedVal, selectedIndex, selectedText) {
             this.mealType = {type:selectedText[0],id: selectedVal[0]};
@@ -470,9 +489,8 @@
             component.hide();
           },
           nextStep(){
-            if(this.travalDate != '' && this.mealType!= '' && this.peopleNum != '') {
-              this.BASE_ORDER({travalDate:this.travalDate, mealType: this.mealType, peopleNum: this.peopleNum})
-
+            if(this.travalDate != '' && this.mealType!= '' && this.peopleNum != '' && this.travalDay.value >= this.plays.playDay) {
+              this.BASE_ORDER({travalDate:this.travalDate,travalDay: this.travalDay, mealType: this.mealType, peopleNum: this.peopleNum})
               this.$router.push({name: 'orderDetail',query: {guideId: this.accountId, playId: this.playId}})
             } else if(this.travalDate == '' ){
               this.$createDialog({
@@ -480,7 +498,19 @@
                 title: '温馨提示',
                 content: '请先选择日期'
               }).show()
-            }else if(this.mealType == '' ){
+            } else if(this.travalDay == '' ) {
+              this.$createDialog({
+                type: 'alert',
+                title: '温馨提示',
+                content: '请先选择出行天数'
+              }).show()
+            }else if(this.travalDay.value < this.plays.playDay ) {
+              this.$createDialog({
+                type: 'alert',
+                title: '温馨提示',
+                content: '出行天数须大于玩法天数'
+              }).show()
+            } else if(this.mealType == '' ){
               this.$createDialog({
                 type: 'alert',
                 title: '温馨提示',

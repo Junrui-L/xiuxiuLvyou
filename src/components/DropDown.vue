@@ -32,6 +32,10 @@
           <h5>性别</h5>
           <radio-box :options="sexArr" v-model="sex"/>
         </div>
+        <div class="check-wrapper">
+          <h5>年龄</h5>
+          <radio-box :options="ageArr" v-model="age"/>
+        </div>
         <div class="check-wrapper" @click="showPicker">
           <h5>价格范围</h5>
           <div class="price-limit clearfix">请选择价格范围
@@ -98,7 +102,15 @@
           {label: '男', value: '1'},
           {label: '女', value: '2'}
         ],
+        ageArr: [
+          {label: '70后', value: '70后'},
+          {label: '80后', value: '80后'},
+          {label: '90后', value: '90后'},
+          {label: '00后', value: '00后'},
+
+        ],
         sex: '',     //性别
+        age: '',     //年龄
         priceRange: '价格范围',
         selecteGroup: '2',
         isGroup: '', //是否开团
@@ -311,11 +323,11 @@
       },
       // init other ul's class when user click
       classInit(e, sequence) {
-        var parent = e.target.parentNode.parentNode;
-        var childs = parent.querySelectorAll('ul');
-        var index = sequence === 'first' ? 1 : 2;
+        let parent = e.target.parentNode.parentNode;
+        let childs = parent.querySelectorAll('ul');
+        let index = sequence === 'first' ? 1 : 2;
         if (childs[index]) {
-          var lis = childs[index].querySelectorAll('li');
+          let lis = childs[index].querySelectorAll('li');
           lis.forEach(item => {
             item.classList.remove('cur');
           });
@@ -346,6 +358,7 @@
       sureProSelect() {
         let proCondition = [];
         proCondition.push({sex: this.sex})
+        proCondition.push({age: this.age})
         proCondition.push({isGroup: this.isGroup})
         proCondition.push({serverType: this.serverType})
         proCondition.push({minprice: this.minprice})
