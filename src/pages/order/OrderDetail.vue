@@ -16,7 +16,7 @@
     <div class="order-info">
       <h3 class="title">订单信息</h3>
       <ul class="order-list">
-        <li class="info-item">游玩天数 <span class="fr"> {{baseOrder.travalDay.value || 1}}天</span></li>
+        <li class="info-item">游玩天数 <span class="fr"> {{baseOrder.travalDay.value}}天</span></li>
         <li class="info-item">游玩时间 <span class="fr">{{baseOrder.travalDate.txt}}</span></li>
         <li class="info-item">截止游玩时间 <span class="fr">{{endate}}</span></li>
         <li class="info-item">游玩人数 <span class="fr">{{baseOrder.peopleNum.txt}}</span></li>
@@ -27,7 +27,7 @@
       <switch-option name="开启团游" :isDisable = "pricePackage.sfzcty == 1 ? false : true"  @update:value="onGroup" ></switch-option>
     </div>
     <div class="notify group-notify">
-      <p>团游优惠模式：{{ pricePackage.tytype }}    <template v-if="pricePackage.tytype == 2">{{ pricePackage.tyval}}折</template></p>
+      <p>团游优惠模式：{{ play.tytype | tymodeText}}    <template v-if="pricePackage.tytype == 2">{{ pricePackage.tyval}}折</template></p>
 
       <p>注意：团游必须有2个订单才生效，价格由最终团游数决定。而差价会在旅行结束后退到您的个人账户中。</p>
     </div>
@@ -164,9 +164,10 @@
         }
 
         // if(this.playday != '') {
-          this.playday = parseInt(this.play.playDay)
+        //游玩天数
+          this.playday = parseInt(this.playday)
           // }
-
+          console.log(this.playday)
         console.log('...门票套餐价...门票套餐价')
         console.log(this.pricePackage.price, this.baseOrder.peopleNum.value, this.mpPackage.mpPackagePrice, this.mpPackagecount);
         if(this.playday != '') {
