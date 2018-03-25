@@ -124,6 +124,8 @@
         playId: this.$route.query.playId,
         tripsnum: '',
         packageid: '',//套餐id
+        pricePackages: {}, //套餐对象
+
         mpPackList: '',
         mpPackage: {     //门票集合
           mpPackageId:'',
@@ -163,15 +165,22 @@
           this.mpPackagecount = 0
         }
 
-        // if(this.playday != '') {
-        //游玩天数
-          this.playday = parseInt(this.playday)
-          // }
-          console.log(this.playday)
+        this.playday = parseInt(this.playday)
         console.log('...门票套餐价...门票套餐价')
-        console.log(this.pricePackage.price, this.baseOrder.peopleNum.value, this.mpPackage.mpPackagePrice, this.mpPackagecount);
-        if(this.playday != '') {
-          return parseInt(this.pricePackage.price )* parseInt(this.baseOrder.peopleNum.value)* parseInt(this.playday)  + parseInt(this.mpPackage.mpPackagePrice) * parseInt(this.mpPackagecount)
+        console.log(this.pricePackages.price, this.baseOrder.peopleNum.value, this.mpPackage.mpPackagePrice, this.mpPackagecount);
+        /*1-人/天（一人一天价）;2-单/天（一团一天价）;3-人/次（一人游价）;4-单/次（总团价游）*/
+        if(this.pricePackages.unit == 1) {
+          console.log(`套餐价格${this.pricePackages.price},人数${this.tripsnum},游玩天 ${this.playday},门票价 ${this.mpPackage.mpPackagePrice},门票数 ${this.mpPackagecount} `)
+          return parseInt(this.pricePackage.price )* parseInt(this.tripsnum)* parseInt(this.playday)  + parseInt(this.mpPackage.mpPackagePrice) * parseInt(this.mpPackagecount)
+        } else if(this.pricePackages.unit == 2) {
+          return parseInt(this.pricePackage.price ) * parseInt(this.playday)  + parseInt(this.mpPackage.mpPackagePrice) * parseInt(this.mpPackagecount)
+
+        } else if(this.pricePackages.unit == 3){
+          return parseInt(this.pricePackage.price ) * parseInt(this.tripsnum) + parseInt(this.mpPackage.mpPackagePrice) * parseInt(this.mpPackagecount)
+
+        } else if(this.pricePackages.unit == 4) {
+          return parseInt(this.pricePackage.price )  + parseInt(this.mpPackage.mpPackagePrice) * parseInt(this.mpPackagecount)
+
         }
       }
     },
@@ -203,40 +212,43 @@
         this.mpPackagecount = v[0]
       },
       initHeOrder() {
-        console.log(this.guide)
-        this.godate = this.baseOrder.travalDate.value;
-        this.playday = this.baseOrder.travalDay.value;
-        this.tripsnum = this.baseOrder.peopleNum.value;
-        this.packageid = this.baseOrder.mealType.id;
-        let da = new Date(this.godate)
+        loadOrder().then(res=> {
+          console.log('---初始订单加载返回-----')
+          console.log(JSON.stringify(res.orderData));
+          this.godate = res.orderData.godate;
+          this.playday = res.orderData.playday; //游玩天数
+          console.log(this.godate)
+          let da = new Date(this.godate)
 
-        da.setTime(da.getTime()+ this.playday*24*60*60*1000)
+          da.setTime(da.getTime()+ this.playday*24*60*60*1000)
+          console.log(da)
+          this.endate = dateFmt(da, 'yyyy年MM月dd日'); //游玩结束日期
 
-        this.endate = dateFmt(da, 'yyyy年MM月dd日');
-        console.log(da)
-        initOrder(this.godate,this.playday, this.accountId, this.playId, this.tripsnum, this.packageid, 0, 0).then(resp => {
-          console.log('-------订单初始化返回--------');
-            console.log(resp)
-            loadOrder().then(res=> {
-              console.log('---下单前订单加载返回-----')
-              console.log(res);
-              this.mpPackList = res.mpPackelist;
-              this.linkman = res.visitor.userName;
-              this.linkPhone = res.visitor.mobile;
-              this.GET_USERINFO(res.visitor)
-              let mpdata = [];
-              for(let i=0; i<res.mpPackelist.length; i++) {
-                mpdata[i] = {value: res.mpPackelist[i].id, text: res.mpPackelist[i].name}
-              }
-              console.log(mpdata)
-              this.mpPackgePicker = this.$createPicker({
-                title: '门票套餐',
-                data: [mpdata],
-                onSelect: this.selectmpHandle,
-                onCancel: this.cancelHandle
-              })
-            })
+
+          this.tripsnum = res.orderData.tripsnum;
+          this.packageid = res.orderData.packageid;
+
+          this.pricePackages = res.pricePackage; //价格套餐详情
+
+          this.mpPackList = res.mpPackelist;
+          let mpdata = [];
+          for(let i=0; i<res.mpPackelist.length; i++) {
+            mpdata[i] = {value: res.mpPackelist[i].id, text: res.mpPackelist[i].name}
+          }
+          this.mpPackgePicker = this.$createPicker({
+            title: '门票套餐',
+            data: [mpdata],
+            onSelect: this.selectmpHandle,
+            onCancel: this.cancelHandle
+          })
+
+          this.linkman = res.visitor.userName;
+          this.linkPhone = res.visitor.mobile;
+          this.GET_USERINFO(res.visitor)
+
+          this.tuanOrder = res.tuanOrder; //当天团游信息
         })
+
       },
       showmpPackgePicker(){
         this.mpPackgePicker.show();

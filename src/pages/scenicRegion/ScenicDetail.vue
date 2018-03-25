@@ -277,7 +277,7 @@
 <script type="text/ecmascript-6">
     import Vue from 'vue'
     import {mapState, mapMutations} from 'vuex'
-    import {guideDetails, playlistDetail, loadPackage} from '../../http/getDate'
+    import {guideDetails, playlistDetail, loadPackage, initOrder} from '../../http/getDate'
     import HeadTop from '../../components/HeadTop.vue'
     import EvaluateStar from '../../components/EvaluateStar.vue'
     import DatePicker from '../../components/date-picker'
@@ -489,10 +489,7 @@
             component.hide();
           },
           nextStep(){
-            if(this.travalDate != '' && this.mealType!= '' && this.peopleNum != '' && this.travalDay.value >= this.plays.playDay) {
-              this.BASE_ORDER({travalDate:this.travalDate,travalDay: this.travalDay, mealType: this.mealType, peopleNum: this.peopleNum})
-              this.$router.push({name: 'orderDetail',query: {guideId: this.accountId, playId: this.playId}})
-            } else if(this.travalDate == '' ){
+            if(this.travalDate == '' ){
               this.$createDialog({
                 type: 'alert',
                 title: '温馨提示',
@@ -522,9 +519,29 @@
                 title: '温馨提示',
                 content: '请先选择人数'
               }).show()
+            } else if(this.travalDate != '' && this.mealType!= '' && this.peopleNum != '' && this.travalDay.value >= this.plays.playDay) {
+
+             //初始化订单 更新初步订单到数据仓库
+              console.log('去下一步')
+              initOrder(this.travalDate.value,this.travalDay.value, this.accountId, this.playId, this.peopleNum.value, this.mealType.id, 0, 0).then(res => {
+                console.log(res);
+                if(res.msg){
+                  this.$createDialog({
+                    type: 'alert',
+                    title: '温馨提示',
+                    content: res.msg,
+                    showClose: true
+                  }).show()
+                }else  {
+                  this.BASE_ORDER({travalDate:this.travalDate,travalDay: this.travalDay, mealType: this.mealType, peopleNum: this.peopleNum})
+                  this.$router.push({name: 'orderDetail',query: {guideId: this.accountId, playId: this.playId}})
+                }
+              })
+
+              // this.BASE_ORDER({travalDate:this.travalDate,travalDay: this.travalDay, mealType: this.mealType, peopleNum: this.peopleNum})
+              // this.$router.push({name: 'orderDetail',query: {guideId: this.accountId, playId: this.playId}})
+
             }
-            console.log('去下一步')
-            // 更新初步订单到数据仓库
 
           },
           changeNav(item, itemDetail){

@@ -13,7 +13,7 @@
         <input class="deposit-num fl"  maxlength="8" type="number" v-model="depositNum" placeholder="请输入提现金额"/>
       </div>
       <div class="deposit-limit">
-        <p>可用金额：￥333.00 元</p>
+        <p>可用金额：￥{{accountBalance}} 元</p>
       </div>
       <div class="input-wrapper clearfix">
         <span class="label fl">支付密码</span>
@@ -24,7 +24,7 @@
 </template>
 
 <script>
-  import {userBanks,withdraw} from '../../http/getDate'
+  import {userBanks,userAccounts,withdraw} from '../../http/getDate'
     export default {
         name: "withdrawDeposit",
       data(){
@@ -32,6 +32,7 @@
           bankName: '请选择银行卡',
           bankId: this.$route.query.id,
           depositNum: '',
+          accountBalance: 0,
           tradeCode: '',
           canDeposit: true
         }
@@ -51,6 +52,9 @@
             }
           }
         })
+
+        this.queryWallet();
+        //查询钱包余额
       },
       watch: {
         canDeposit: function () {
@@ -111,7 +115,13 @@
             })
           }
 
-        }
+        },
+        // 查询钱包
+        queryWallet(){
+          userAccounts().then(res => {
+            this.accountBalance = res.capital.accountBalance
+          })
+        },
 
       }
     }

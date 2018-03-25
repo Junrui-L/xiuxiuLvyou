@@ -119,7 +119,7 @@
     },
     computed: {
       ...mapState([
-        'basePath','userInfo'
+        'basePath'
       ]),
     },
     mounted() {
