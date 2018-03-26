@@ -229,6 +229,7 @@
       return {
         // baseUrl: 'http://www.youdingsoft.com',
         locations: {areasn: 110100},
+        local: null,
         hotSpotse: [],
         hotArea:  [],
         hotLine: [],
@@ -273,7 +274,10 @@
         _this.$refs.silde.refresh();
         _this.$refs.silde2.refresh();
       }, 1000)
-      this.configWx();
+      this.memoryLocation(); //查找本地记录
+
+
+
     },
 
     methods: {
@@ -283,6 +287,9 @@
         await homeData().then(res => {
           console.log(res);
           let resp = res;
+          if(resp.position.newcitySn != null) {
+            this.locations.areasn = resp.position.newcitySn;
+          }
           this.banners = resp[1]   //banner图
 
           this.hotArea = resp[3]; //热门区域
@@ -304,15 +311,11 @@
           console.log(err)
         });
         console.log('获取了首页数据')
+        this.configWx();  //获取当前地理位置
+
       },
       goSearch() {
         this.$router.push({path: '/search/110000'}) //
-      },
-      changePage(current) {
-        // console.log('当前轮播图序号为:' + current)
-      },
-      clickPage(item, index) {
-        // console.log(item, index)
       },
       configWx(){
         let signUrl = location.href;
@@ -352,19 +355,43 @@
               // var accuracy = res.accuracy; // 位置精度
               getUserArea(res.latitude, res.longitude).then(res => {
                 console.log('-----获取当前地区-----')
+                let lastSn = localSn.get('areaSn');
+                if(lastSn == null) {
+                  localSn.set('areaSn', res.areasn);
+                  that.locations = res;
+                } else {
+                  if(res.areasn == lastSn) {
+                    console.log('位置没有变')
+                  }else {
+                    that.locations = res;
+                    localSn.set('areaSn', res.areasn);
+                    that.USER_AREA(res);
+                    console.log('更新地理位置')
+                  }
+                }
+
+
                   console.log(res);
                 console.log(that.locations);
                 console.log(`当前地区编号${res.areasn}`)
 
-                  that.locations = res;
-                  localSn.set('areaSn', res.areasn);
-                  that.USER_AREA(res);
+
               })
             }
           });
         })
       },
-
+      memoryLocation(){
+        let local = localSn.get('areaSn');
+        console.log('记录的城市'+localSn)
+        if(local == null || local == undefined) {
+          console.log('没有记录，立即获取')
+          this.configWx();  //立即获取当前地理位置
+        } else {
+          console.log('有记录，立即获取' + local)
+          this.locations.areasn = local;
+        }
+      },
       showDialog() {
         this.$createDialog({
           type: 'alert',
