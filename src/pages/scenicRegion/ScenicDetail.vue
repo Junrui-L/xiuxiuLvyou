@@ -16,9 +16,7 @@
                 <div class="region-adress">{{plays.serviceCity}}   <span>{{plays.wfname}}</span></div>
                 <ul class="tips clearfix">
                     <li class="tip fl" v-for="word in getStr(plays.wfbq)">{{word}}</li>
-                    <!--<li class="tip fl">景点带游</li>-->
-                    <!--<li class="tip fl">美景拍摄</li>-->
-                    <!--<li class="tip fl">历史古迹</li>-->
+
                 </ul>
             </div>
 
@@ -34,7 +32,7 @@
                   </div>
                 </div>
 
-                <a class="guide-order fl" href="tel:22222"></a>
+                <!--<a class="guide-order fl" href="tel:22222"></a>-->
             </div>
         </div>
         <div class="region-detail-nav">
@@ -187,7 +185,7 @@
             <div class="other-playmethos" v-if="otherPlays.length > 0">
                 <section><h3 class="tite">向导其他玩法</h3></section>
                 <ul class="methos-wrapper">
-                    <li class="methods" v-for="item in otherPlays "  @click="$router.push({name: 'scenicDetail',  query: {scenicspot: item.scenicspotid, accountId: item.accountid}})">
+                    <li class="methods" v-for="item in otherPlays "  @click="playListDetail(item.id, item.accountid)">
 
                             <dl class="clearfix">
                                 <dt class="method-img fl">
@@ -339,7 +337,7 @@
             this.getData()
           } else if(this.$route.query.playId){
             console.log('从玩法id来的')
-            this.playListDetail()
+            this.playListDetail(this.playId, this.accountId)
 
           }
 
@@ -404,8 +402,8 @@
 
             })
           },
-          playListDetail(){
-            playlistDetail(this.playId, this.accountId).then(res => {
+          playListDetail(pid, aid){
+            playlistDetail(pid, aid).then(res => {
               console.log('--------向导玩法id查找玩法详情------------')
               console.log(res);
               this.plays = res.play;

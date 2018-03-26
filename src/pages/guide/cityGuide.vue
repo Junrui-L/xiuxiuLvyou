@@ -18,17 +18,18 @@
           <div class="guide-t clearfix">
             <div class="guide-img fl">
               <img :src="item.userimg" alt="用户头像"/>
+              <i class="male" :class="{'female': item.sex == 2}"></i>
             </div>
             <div class="guide-detail fl">
               <h5 class="guide-name"><span>{{item.username}}</span></h5>
               <div class="guide-count"><span>{{item.wfcount}}种玩法 </span> |<span> 服务{{item.fwcount}}人 </span></div>
-              <!--<div class="guide-dis"><span>类别：</span>历史古迹、历史博物馆</div>-->
+              <div class="guide-price"  v-if="item.dayprice != null">￥{{item.dayprice}}<span>起/天</span></div>
             </div>
-            <button class="guide-order fl" >找Ta预订 </button>
+            <!--<button class="guide-order fl" >找Ta预订 </button>-->
           </div>
-          <div class="guide-txt">
+          <div class="guide-txt" v-if="item.abstract != '' ">
             <p>
-              {{ item.signature }}
+              {{  item.abstract  }}
             </p>
           </div>
         </li>

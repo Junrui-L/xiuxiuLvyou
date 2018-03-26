@@ -22,6 +22,7 @@
           <div class="guide-t clearfix">
             <div class="guide-img fl">
               <img :src="item.headimgurl" alt="用户头像"/>
+              <i class="male" :class="{'female': item.sex == 2}"></i>
             </div>
             <div class="guide-detail fl">
               <h5 class="guide-name">{{item.userName}}<span> ( {{item.servicetype | servicetypeText }} )</span></h5>
@@ -31,7 +32,7 @@
             <!--<button class="guide-order fl" @click="$router.push({name: 'guideDetail',  params: {id: 33}})">找Ta预订-->
             <button class="guide-order fl" >找Ta预订 </button>
           </div>
-          <div class="guide-txt">
+          <div class="guide-txt" v-if="item.abstract != '' ">
             <p>
               {{ item.abstract }}
             </p>
