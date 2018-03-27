@@ -92,7 +92,20 @@
         line-height: px2rem(20px);
         @include font-dpr(13px);
         color: $color-black;
-
+        .guide-price {
+          margin-left: px2rem(8px);
+          padding:0 px2rem(5px);
+          background: $color-body-bg;
+          line-height: px2rem(25px);
+          @include font-dpr(13px);
+          color: $color-red;
+          border-radius: px2rem(3px);
+          span {
+            line-height: px2rem(15px);
+            @include font-dpr(11px);
+            color: $color-black-secondary;
+          }
+        }
       }
 
       .guide-price {

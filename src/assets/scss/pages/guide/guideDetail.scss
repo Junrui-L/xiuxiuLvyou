@@ -15,6 +15,20 @@
         color: $color-gray-secondary;
         @include font-dpr(13px)
       }
+      .guide-price {
+        margin-left: px2rem(8px);
+        padding: 0 px2rem(5px);
+        background: $color-body-bg;
+        line-height: px2rem(25px);
+        @include font-dpr(13px);
+        color: $color-red;
+        border-radius: px2rem(3px);
+        span {
+          line-height: px2rem(15px);
+          @include font-dpr(11px);
+          color: $color-black-secondary;
+        }
+      }
     }
 
     .certification {
@@ -54,6 +68,22 @@
         height: 100%;
         border: 0;
         border-radius: 50%;
+      }
+
+      .male {
+        padding: px2rem(3px);
+        @include setSize(px2rem(20px), px2rem(20px));
+        position: absolute;
+        right: 0;
+        bottom: 0;
+        border-radius: 50%;
+        background:#fff url(../../assets/img/male.png) no-repeat center;
+        background-size: px2rem(18px) px2rem(18px);
+      }
+
+      .female {
+        background:#fff url(../../assets/img/female.png) no-repeat center;
+        background-size: px2rem(18px) px2rem(18px);
       }
     }
 

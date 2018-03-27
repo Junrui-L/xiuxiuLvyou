@@ -4,6 +4,7 @@
       <ul class="guide-name fl">
         <li class="name">{{guideInfos.userName}} <span>{{guideInfos.agetype}}</span>
           <!--<span>{{guideInfos.signature}}</span>-->
+          <span class="guide-price"  v-if="guideInfos.dayprice != null">￥{{guideInfos.dayprice}}<span>起/天</span></span>
         </li>
         <li class="certification">
           <span>导游已认证</span>
@@ -13,6 +14,7 @@
       </ul>
       <div class="img-wrapper fr">
         <img :src="guideInfos.userImg" alt="">
+        <i class="male" :class="{'female': guideInfos.sex == 2}"></i>
       </div>
     </div>
     <ul class="guide-date clearfix">

@@ -22,8 +22,8 @@
             </div>
             <div class="guide-detail fl">
               <h5 class="guide-name clearfix" ><span class="fl">{{item.username}}</span><span class="fl guide-type">{{ item.servicetype | guideTypeText }}</span></h5>
-              <div class="guide-count"><span>{{item.wfcount}}种玩法 </span> |<span> 服务{{item.fwcount}}人 </span> </div>
-              <div class="guide-price"  v-if="item.dayprice != null">￥{{item.dayprice}}<span>起/天</span></div>
+              <div class="guide-count"><span>{{item.wfcount}}种玩法 </span> |<span> 服务{{item.fwcount}}人 </span><span class="guide-price"  v-if="item.dayprice != null">￥{{item.dayprice}}<span>起/天</span></span> </div>
+              <!--<div class="guide-price"  v-if="item.dayprice != null">￥{{item.dayprice}}<span>起/天</span></div>-->
             </div>
             <!--<button class="guide-order fl" @click="$router.push({name: 'guideDetail',  params: {id: 33}})">找Ta预订-->
             <!--<button class="guide-order fl" >找Ta预订 </button>-->

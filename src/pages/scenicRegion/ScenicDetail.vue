@@ -24,10 +24,11 @@
                 <div class="guide-content" @click="$router.push({path: '/guideDetail',  query: {id: guide.visitorId}})">
                   <div class="guide-img fl">
                     <img :src="guide.userImg" alt="">
+                    <i class="male" :class="{'female': guide.sex == 2}"></i>
                   </div>
                   <div class="guide-detail fl">
                     <h5 class="guide-name"><span>{{guide.userName}}</span></h5>
-                    <div class="guide-level"><span>{{guide.wfcount}}种玩法 </span> | <span>服务{{guide.fwcount}}人</span></div>
+                    <div class="guide-level"><span>{{guide.wfcount}}种玩法 </span> | <span>服务{{guide.fwcount}}人</span><span class="guide-price"  v-if="guide.dayprice != null">￥{{guide.dayprice}}<span>起/天</span></span></div>
                     <EvaluateStar :code="guide.level"></EvaluateStar>
                   </div>
                 </div>
