@@ -2,6 +2,45 @@
   width: 100%;
   //padding-top: px2rem(40px);
   padding-bottom: px2rem(80px);
+  .swiper-container {
+    @include setSize(100%, px2rem(300px))
+  }
+  .swiper-slide {
+    width: 100%;
+    height: 8rem;
+    max-height: px2rem(300px);
+    position: relative;
+    img {
+     width: 100%;
+      height: 100%;
+
+    }
+  }
+  .swiper-container-horizontal > .swiper-pagination-bullets {
+    width: 100%;
+    bottom: px2rem(10px)
+  }
+  .swiper-container-horizontal > .swiper-pagination-bullets .swiper-pagination-bullet {
+    margin: 0 px2rem(5px);
+  }
+  .swiper-pagination-bullet {
+    @include setSize(px2rem(10px), px2rem(10px));
+    background: #333;
+    opacity: 0.3;
+  }
+  .swiper-pagination-bullet-active {
+    @include setSize(px2rem(10px), px2rem(10px));
+    background: $white;
+    opacity: 1;
+  }
+  .guide-photo {
+    @include setSize(100%, px2rem(300px));
+
+    img {
+      width: 100%;
+      max-height: px2rem(300px);
+    }
+  }
   .guide-info {
     background: $white;
     padding: px2rem(20px);
@@ -102,6 +141,13 @@
       strong {
         @include font-dpr(18px);
         line-height: px2rem(24px);
+
+      }
+      .guid-p {
+        color: $color-red;
+        span {
+          @include font-dpr(13px)
+        }
       }
       p {
         @include font-dpr(14px);
@@ -366,7 +412,9 @@
       color: $color-gray-secondary;
     }
     .choose-item {
-      @include setSize(100%, px2rem(50px));
+      //@include setSize(100%, px2rem(60px));
+      width: 100%;
+      margin-bottom: px2rem(10px);
       line-height: px2rem(50px);
       @include font-dpr(14px);
       border-bottom: 1px solid $color-body-bg;
@@ -449,5 +497,95 @@
     }
   }
 
+  .bootom-cotent {
+    padding: px2rem(20px);
+    padding-bottom: px2rem(80px);
+    @include setSize(100%, px2rem(420px));
+    background: $white;
+    position: relative;
+    .close {
+      position: absolute;
+      top: px2rem(10px);
+      right: px2rem(10px);
+      @include setSize(px2rem(30px), px2rem(30px));
+      &:before, &:after {
+        content: '';
+        position: absolute;
+        top: px2rem(15px);
+        left: 0;
+        @include transform(rotate(45deg));
+        @include setSize(px2rem(30px), 2px);
+        background: $color-black;
+      }
+
+      &:after {
+        @include transform(rotate(135deg));
+      }
+    }
+
+
+    .head-wrapper {
+      .region-name {
+        @include font-dpr(24px);
+        line-height: px2rem(30px);
+        span {
+          box-sizing: border-box;
+          display: inline-block;
+          @include font-dpr(14px);
+          line-height: px2rem(30px);
+          padding-left: px2rem(10px);
+          padding-right: px2rem(8px);
+          background:  url(../../assets/img/Rectangle.png) no-repeat center;
+          background-size: px2rem(50px) px2rem(20px);
+          color: $white;
+        }
+      }
+
+      .region-adress {
+        @include font-dpr(16px);
+        line-height: px2rem(28px);
+        padding-left: px2rem(30px);
+        background: url(../../assets/img/search_list_local@2x.png) no-repeat px2rem(8px) center;
+        background-size: px2rem(15px) px2rem(20px);
+      }
+
+      .tips {
+        padding: px2rem(10px) 0;
+        .tip {
+          margin-right: px2rem(10px);
+          padding: 0 px2rem(3px);
+          background: $color-senior-bg;
+          color: $color-brown-primary;
+          @include font-dpr(12px)
+        }
+      }
+    }
+
+
+    .choose-item {
+      @include setSize(100%, px2rem(50px));
+      line-height: px2rem(50px);
+      @include font-dpr(14px);
+      border-bottom: 1px solid $color-body-bg;
+      color: $color-gray-secondary;
+      span {
+        color: $color-black;
+      }
+      svg {
+        fill: $color-gray-secondary;
+        width: px2rem(16px);
+        height:px2rem(16px);
+        vertical-align: text-bottom;
+      }
+    }
+
+    .next-step {
+      padding: 0;
+      @include centerLeft;
+      bottom: px2rem(10px);
+      @include setSize(90%, px2rem(50px));
+      line-height: px2rem(50px);
+    }
+  }
 
 }

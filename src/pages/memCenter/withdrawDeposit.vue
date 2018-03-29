@@ -17,7 +17,7 @@
       </div>
       <div class="input-wrapper clearfix">
         <span class="label fl">支付密码</span>
-        <input class="trade-code fl"  maxlength="6" type="tel" v-model="tradeCode" placeholder="请输入支付密码"/>
+        <input class="trade-code fl"  maxlength="6" type="password" v-model="tradeCode" placeholder="请输入支付密码"/>
       </div>
       <div class="btn-wrapper"><button class="sure-btn" :class="{active: canDeposit}" @click="toWidtraw">确 定</button></div>
     </div>
@@ -79,9 +79,17 @@
               time: 2000
             }).show();
             return
-          } else if(this.depositNum < 50 ) {
+          } else if(parseInt(this.depositNum) < 50 ) {
             this.$createToast({
               txt: '最低提现金额50',
+              type: 'error',
+              mask: true,
+              time: 2000
+            }).show();
+            return
+          } else if(parseInt(this.depositNum) > parseInt(this.accountBalance)) {
+            this.$createToast({
+              txt: '超过最大提取额度',
               type: 'error',
               mask: true,
               time: 2000

@@ -217,6 +217,7 @@
           console.log(JSON.stringify(res.orderData));
           this.godate = res.orderData.godate;
           this.playday = res.orderData.playday; //游玩天数
+
           console.log(this.godate)
           let da = new Date(this.godate)
 

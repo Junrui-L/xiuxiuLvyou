@@ -4,9 +4,6 @@
     <div class="scenic_detail">
         <header ref="uiHeader">
             <HeadTop go-back='true' :headBg="headBg">
-              <!--<div slot="select-title" class="select-title">-->
-                <!--<span class="cityname ">北京北北</span>-->
-              <!--</div>-->
             </HeadTop>
             <img  class="head-img" :src="basePath + plays.wfImg" alt="">
         </header>

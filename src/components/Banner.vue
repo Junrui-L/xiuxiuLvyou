@@ -1,8 +1,8 @@
 <!-- Banner图 组件 -->
 <template>
-  <div class="swiper-container" :class="swipeid">
+  <div class="swiper-container" >
     <div class="swiper-wrapper">
-      <slot name="swiper-con"></slot>
+      <slot></slot>
     </div>
     <!-- 分页器 -->
     <div class="swiper-pagination" :style="{'text-align':paginationDirection}"></div>
@@ -12,10 +12,6 @@
   import '../assets/lib/swiper/js/swiper.js';
   export default {
     props: {
-      swipeid: {
-        type: String,
-        default: ''
-      },
       effect: {
         type: String,
         default: 'slide'
@@ -30,7 +26,7 @@
       },
       autoplay: {
         type: Number,
-        default: 5000,
+        default: 3000,
       },
       paginationType: {
         type: String,
@@ -46,8 +42,8 @@
       }
     },
     mounted() {
-      var That = this;
-      new Swiper('.'+That.swipeid, {
+      let That = this;
+      new Swiper('.swiper-container', {
         //循环
         loop: That.loop,
         //分页器
@@ -61,6 +57,7 @@
         //特效
         effect: That.effect, //slide,fade,coverflow,cube
         //用户操作swiper之后，是否禁止autoplay
+        observeParents:true,
         autoplayDisableOnInteraction : false,
       })
     }

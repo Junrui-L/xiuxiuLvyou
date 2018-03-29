@@ -18,14 +18,14 @@
       color: $color-black;
     }
     input {
-      @include setSize(px2rem(240px), px2rem(35px));
-      line-height: px2rem(55px);
+      @include setSize(px2rem(200px), px2rem(35px));
+      //line-height: px2rem(55px);
+      color: $color-black;
       color: $color-black;
       border: none;
       @include font-dpr(14px);
        border: 0;
     }
-
     .txt {
       text-align: left;
       line-height: px2rem(30px);

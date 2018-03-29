@@ -6,6 +6,7 @@ import store from './store/index'
 import http from './http'               //请求数据
 import './config/setView'               //不同dpr手机兼容
 import './assets/scss/app.scss'         //引入全局的css文件包
+import './assets/lib/swiper/css/swiper.css' //swiper样式
 import VueLazyload from 'vue-lazyload'  //图片模板等懒加载
 import errImg from './assets/img/404.png' //404图片
 import loadingImg from './assets/img/loading-spin.svg' //loading图片
