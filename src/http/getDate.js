@@ -497,3 +497,20 @@ export const getCollectionList = (data) => $http.post('/siteH5/collection.json?a
   page: data.page,
   type: data.type
 })
+
+/**
+ * 未使用的优惠
+ * */
+export const getCanUseyhj = (data) => $http.post('/siteH5/order.json?act=loadyhj', {})
+
+
+/**
+ * 加载过期优惠券
+ * */
+export const getOutDateyhj = (data) => $http.post('/siteH5/order.json?act=loadOveryhj', {})
+
+
+/**
+ * 加载已使用的优惠券
+ * */
+export const getHaveUseyhj = (data) => $http.post('/siteH5/order.json?act=loadmakeyhjj', {})

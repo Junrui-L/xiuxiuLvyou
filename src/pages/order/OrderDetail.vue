@@ -87,9 +87,19 @@
 
       </textarea>
     </div>
-    <div class="coupons">优惠券
+
+    <!--<div class="tickit-n" @click="showmpPackagecount">数量-->
+        <!--<span class="tickit-txt  fr">-->
+          <!--{{mpPackagecount == '' ? '选择套餐数量' : mpPackagecount}}人-->
+          <!--<svg>-->
+              <!--<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#arrow-right"></use>-->
+          <!--</svg>-->
+        <!--</span>-->
+    <!--</div>-->
+
+    <div class="coupons" @click="showYHJ">优惠券
       <span class="coupon-txt  fr">
-          暂无优惠券可用
+          {{selectYHJObj.name ? selectYHJObj.name :'暂无优惠券可用'}}
           <svg>
               <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#arrow-right"></use>
           </svg>
@@ -120,7 +130,7 @@
 
 <script>
   import {mapState, mapMutations} from 'vuex'
-  import {initOrder, loadOrder, creatOrder} from '../../http/getDate'
+  import {initOrder, loadOrder, creatOrder,getCanUseyhj} from '../../http/getDate'
   import {dateFmt} from '../../config/myUtils'
   import {peopleNum} from '../../config/datajs'
   import {localStore} from '../../config/myUtils'
@@ -154,7 +164,9 @@
         linkman: '',
         linkPhone: '',
         requiretxt: '',
-        yhjId: ''
+        yhjId: '',
+        selectYHJObj:{}, // 选中的优惠券对象
+        yjhArr:[] // 可以使用的优惠券列表
       }
     },
     components: {
@@ -213,7 +225,16 @@
         onSelect: this.selectCountHandle,
         onCancel: this.cancelHandle
       })
-
+      this.yhjPicker = this.$createPicker({
+        title: '可用优惠券',
+        data: [this.yjhArr],
+        alias: {
+          value: 'id',
+        },
+        onSelect: this.selectYHJHandle,
+        onCancel: this.cancelHandle
+      })
+      this.getCanUseYHJ()
       this.initHeOrder();
     },
     methods: {
@@ -221,8 +242,25 @@
       showmpPackagecount(){
         this.mpPicker.show();
       },
+      // 显示优惠券
+      showYHJ(){
+        this.yhjPicke.show()
+      },
+      // 选中优惠券
+      selectYHJHandle(v, i, t){
+        this.selectYHJObj = this.yjhArr[i];
+//        this.mpPackage.mpPackagePrice = this.mpPackList[i[0]]['price'];
+//        this.mpPackage.mpPackageNotice = this.mpPackList[i[0]]['remark'];
+//        this.mpPackage.mpPackageName = t[0];
+      },
       selectCountHandle(v){
         this.mpPackagecount = v[0]
+      },
+      // 获取未使用的优惠券
+      getCanUseYHJ (){
+        getCanUseyhj().then(res=>{
+          this.yjhArr=res.data
+        })
       },
       initHeOrder() {
         loadOrder().then(res=> {
