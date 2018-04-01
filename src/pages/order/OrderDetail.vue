@@ -91,7 +91,7 @@
 
     <div class="coupons" @click="showYHJ">优惠券
       <span class="coupon-txt  fr">
-          {{selectYHJObj.name ? selectYHJObj.name :'暂无优惠券可用'}}
+          {{selectYHJObj.text ? selectYHJObj.text :'暂无优惠券可用'}}
           <svg>
               <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#arrow-right"></use>
           </svg>
@@ -237,15 +237,7 @@
         onSelect: this.selectCountHandle,
         onCancel: this.cancelHandle
       })
-      this.yhjPicker = this.$createPicker({
-        title: '可用优惠券',
-        data: [this.yjhArr],
-        alias: {
-          value: 'id',
-        },
-        onSelect: this.selectYHJHandle,
-        onCancel: this.cancelHandle
-      })
+
       this.getCanUseYHJ()
       this.initHeOrder();
     },
@@ -261,6 +253,7 @@
       // 选中优惠券
       selectYHJHandle(v, i, t){
         this.selectYHJObj = this.yjhArr[i];
+        console.log(this.selectYHJObj)
 //        this.mpPackage.mpPackagePrice = this.mpPackList[i[0]]['price'];
 //        this.mpPackage.mpPackageNotice = this.mpPackList[i[0]]['remark'];
 //        this.mpPackage.mpPackageName = t[0];
@@ -271,7 +264,26 @@
       // 获取未使用的优惠券
       getCanUseYHJ (){
         getCanUseyhj().then(res=>{
-          this.yjhArr=res.data
+          this.yjhArr=res.list
+
+          let yhjData = [];
+          if(res.list.length > 0) {
+            for(let i=0; i<res.list.length; i++) {
+              yhjData[i] = {value: res.list[i].id, text: res.list[i].name, price: res.list[i].toprice}
+            }
+
+          } else {
+            yhjData = [{value: '', text: '暂无优惠券可用'}]
+          }
+
+          this.yjhArr = yhjData;
+          this.yhjPicker = this.$createPicker({
+            title: '可用优惠券',
+            data: [this.yjhArr],
+            onSelect: this.selectYHJHandle,
+            onCancel: this.cancelHandle
+          })
+
         })
       },
       initHeOrder() {

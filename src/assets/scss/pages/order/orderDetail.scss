@@ -233,7 +233,7 @@
   /*设置联系方式*/
 
   .cube-popup-container .cube-popup-content {
-    @include setSize(90%, 60%);
+    width: 90%;
     border-radius: px2rem(8px);
   }
   .set_contact {
