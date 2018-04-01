@@ -43,7 +43,7 @@
 </template>
 
 <script>
-  import {getCouponsList} from '../../http/getDate'
+  import {getCanUseyhj,getOutDateyhj,getHaveUseyhj} from '../../http/getDate'
   import HeadTop from '../../components/HeadTop.vue'
 
   export default {
@@ -53,25 +53,40 @@
         headBg: true,
         currentTab: 'outdate',// 当前选择的Tab,
         couponsList: [],// 优惠券列表
-        tomake: '',//是否可用(必填00未过期可用，1已过期不可用)
+        tomake: '',//是否可用(必填0未过期可用，1已过期不可用)
         mapObj: {notuse: 0, outdate: 1, haveuse: 2}
       }
     },
     components: {
       HeadTop
     },
+    mounted(){
+        this.getCouponsList()
+    },
     methods: {
-      // 获取优惠券列表
+      // 获取已过期优惠券列表
       getCouponsList() {
-        getCouponsList(this.tomake).then(res => {
-          this.couponsList = res.data
+        getOutDateyhj().then(res => {
+          this.couponsList = res.list ? res.list :[]
         })
       },
       // 切换Tab
       clickTabItem(tabName) {
         this.currentTab = tabName
         this.tomake = this.mapObj[tabName]
-        this.getCouponsList()
+        if(tabName==='notuse'){
+          getCanUseyhj().then(res => {
+            this.couponsList = res.list ? res.list :[]
+          })
+        }else if(tabName==='outdate'){
+          getOutDateyhj().then(res => {
+            this.couponsList =res.list ? res.list :[]
+          })
+        }else if(tabName==='haveuse'){
+          getHaveUseyhj().then(res => {
+            this.couponsList = res.list ? res.list :[]
+          })
+        }
       }
     }
   }

@@ -390,6 +390,7 @@
         this.priceList(this.travalDate.value, this.scenicspot, this.plays.id)
       },
       selectDayHandle(selectedVal, selectedIndex, selectedText) {
+          debugger
         // this.dayPicker.show();
         this.travalDay = {value: selectedVal[0], txt: selectedText[0]}
       },
