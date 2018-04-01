@@ -395,8 +395,7 @@
         this.priceList(this.travalDate.value, this.plays.accountid, this.plays.id)
       },
       selectDayHandle(selectedVal, selectedIndex, selectedText) {
-          debugger
-        // this.dayPicker.show();
+
         this.travalDay = {value: selectedVal[0], txt: selectedText[0]}
       },
       selectMealHandle(selectedVal, selectedIndex, selectedText) {

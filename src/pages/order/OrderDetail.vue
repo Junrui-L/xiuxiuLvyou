@@ -42,7 +42,7 @@
 
       <p>注意：团游必须有2个订单才生效，价格由最终团游数决定。而差价会在旅行结束后退到您的个人账户中。</p>
     </div>
-    <div class="tickets">
+    <div class="tickets" v-if="mpPackList.length > 0">
       <div class="tickit-m" @click="showmpPackgePicker">门票套餐
         <span class="tickit-txt fr" >
           {{mpPackage.mpPackageName == '' ? '请选择门票套餐' : mpPackage.mpPackageName}}
@@ -71,7 +71,8 @@
           <input class="contact-input" type="text" maxlength="8" v-model="linkman" placeholder="请输入姓名" />
         </span>
       </li>
-      <li class="contact-phone" @click="$router.push({path: '/setContact'})">
+      <!--<li class="contact-phone" @click="$router.push({path: '/setContact'})">-->
+      <li class="contact-phone" @click="showSetPopup">
         电话
         <span class="contact-txt fr">
           {{linkPhone}}
@@ -87,15 +88,6 @@
 
       </textarea>
     </div>
-
-    <!--<div class="tickit-n" @click="showmpPackagecount">数量-->
-        <!--<span class="tickit-txt  fr">-->
-          <!--{{mpPackagecount == '' ? '选择套餐数量' : mpPackagecount}}人-->
-          <!--<svg>-->
-              <!--<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#arrow-right"></use>-->
-          <!--</svg>-->
-        <!--</span>-->
-    <!--</div>-->
 
     <div class="coupons" @click="showYHJ">优惠券
       <span class="coupon-txt  fr">
@@ -125,12 +117,27 @@
       </div>
 
     </div>
+    <cube-popup type="choose-popup"  :center="true" ref="setPhonePopup">
+      <div class="set_contact">
+        <i class="close" @click="hideSetPopup"></i>
+        <h1 class="title">设置联系手机</h1>
+        <div class="input-wrapper"><input class="phone" type="tel" maxlength="11" v-model="phone" placeholder="请输入手机号">
+          <i v-if="phone != ''" class="delete" @click="clearPhone"></i>
+          <button class="btn-txt" @click="sendCode" :disabled="isDisabled">{{ btnText }}</button>
+        </div>
+        <div class="input-wrapper"><input class="verify-code"  maxlength="6" type="tel" v-model="verifyCode" placeholder="请输入验证码"/>
+          <!--<button v-show="noRecive" class="btn-txt">没有收到?</button>-->
+        </div>
+        <div class="save-wrapper"><button class="save-btn" @click="setPhone">保存</button></div>
+      </div>
+    </cube-popup>
+
   </div>
 </template>
 
 <script>
   import {mapState, mapMutations} from 'vuex'
-  import {initOrder, loadOrder, creatOrder,getCanUseyhj} from '../../http/getDate'
+  import {initOrder, loadOrder, creatOrder,getCanUseyhj,getVeryCode, userUpdateMobile} from '../../http/getDate'
   import {dateFmt} from '../../config/myUtils'
   import {peopleNum} from '../../config/datajs'
   import {localStore} from '../../config/myUtils'
@@ -166,7 +173,12 @@
         requiretxt: '',
         yhjId: '',
         selectYHJObj:{}, // 选中的优惠券对象
-        yjhArr:[] // 可以使用的优惠券列表
+        yjhArr:[], // 可以使用的优惠券列表
+
+        phone: '', //手机号码
+        verifyCode: '',
+        btnText: '获取验证码',
+        isDisabled: false,
       }
     },
     components: {
@@ -244,7 +256,7 @@
       },
       // 显示优惠券
       showYHJ(){
-        this.yhjPicke.show()
+        this.yhjPicker.show()
       },
       // 选中优惠券
       selectYHJHandle(v, i, t){
@@ -384,6 +396,119 @@
       onGroup(msg) {
         //是否开启团切换
         msg ? this.istuan = 1 : this.istuan = 0;
+
+      },
+      showSetPopup() {
+        //显示重置密码
+        const component = this.$refs.setPhonePopup
+        component.show()
+      },
+      hideSetPopup() {
+        const component = this.$refs.setPhonePopup;
+        component.hide();
+      },
+      clearPhone() {
+        this.phone = ''
+      },
+      sendCode() {
+        //发送验证码60s倒计时
+        let setf = this;
+        this.noRecive = true;
+        let countdown = 60;
+        let reg = /^1[34578][0-9]{9}$/;
+        if(this.phone == '') {
+          this.$createDialog({
+            type: 'alert',
+            title: '提示',
+            content: '请输入手机号'
+          }).show()
+        } else if(!reg.test(this.phone)) {
+          this.$createDialog({
+            type: 'alert',
+            title: '提示',
+            content: '请输入正确的手机号'
+          }).show()
+        } else {
+          //获取验证码
+          getVeryCode(this.phone).then(res => {
+            if(res.msg) {
+              this.$createDialog({
+                type: 'alert',
+                title: '提示',
+                content: res.msg
+              }).show()
+            } else {
+              this.$createDialog({
+                type: 'alert',
+                title: '提示',
+                content: res.data
+              }).show()
+            }
+          })
+          let  settime = () => {
+            if (countdown === 0) {
+              setf.isDisabled = false
+              setf.btnText = "重新获取";
+              countdown = 60;
+              return false;
+            } else {
+              setf.isDisabled = true;
+              setf.btnText = "(" + countdown + "s)重新获取";
+              countdown--;
+            }
+            setTimeout(() => {
+              settime();
+            },1000);
+          };
+          settime()
+        }
+
+      },
+      setPhone(){
+        let reg = /^1[345789][0-9]{9}$/;
+        if(this.phone == ''){
+          this.$createDialog({
+            type: 'alert',
+            title: '提示',
+            content: '请输入手机号'
+          }).show()
+        } else if(this.verifyCode == '') {
+          this.$createDialog({
+            type: 'alert',
+            title: '提示',
+            content: '请输入验证码'
+          }).show()
+        } else if(!reg.test(this.phone)) {
+          this.$createDialog({
+            type: 'alert',
+            title: '提示',
+            content: '请输入正确的手机号'
+          }).show()
+        }else if(reg.test(this.phone)){
+          userUpdateMobile(this.phone, this.verifyCode).then(res => {
+            console.log(res)
+            if(res.msg) {
+              this.$createDialog({
+                type: 'alert',
+                title: '提示',
+                content: res.msg
+              }).show()
+            } else {
+              this.$createToast({
+                txt: '手机号码设置成功',
+                type: 'correct',
+                mask: true,
+                time: 2000
+              }).show();
+              setTimeout(()=> {
+                //设置成功
+                this.linkPhone = this.phone;
+                this.hideSetPopup();
+              }, 1000)
+
+            }
+          })
+        }
 
       }
     }
