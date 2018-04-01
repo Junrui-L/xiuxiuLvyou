@@ -133,7 +133,7 @@ const router = new Router({
       path: '/orderDetail',
       name: 'orderDetail',
       component: OrderDetail,
-      meta: {keepAlive: true}
+      // meta: {keepAlive: true}
     },
     {
       //订单预览

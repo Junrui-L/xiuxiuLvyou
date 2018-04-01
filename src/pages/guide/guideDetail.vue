@@ -15,7 +15,7 @@
       <ul class="guide-name fl">
         <li class="name">{{guideInfos.userName}} <span>{{guideInfos.agetype}}</span>
           <!--<span>{{guideInfos.signature}}</span>-->
-          <span class="guide-price" v-if="guideInfos.dayprice != null">￥{{guideInfos.dayprice}}<span>起/天</span></span>
+          <!--<span class="guide-price" v-if="guideInfos.dayprice != null">￥{{guideInfos.dayprice}}<span>起/天</span></span>-->
         </li>
         <li class="certification">
           <span>导游已认证</span>
@@ -41,7 +41,7 @@
         <strong>{{guideInfos.assess || 0}}</strong>
         <p>评价数</p>
       </li>
-      <li class="date-item fl">
+      <li class="date-item fl" v-if="guideInfos.dayprice">
         <strong class="guid-p">  ￥{{guideInfos.dayprice}} <span>起</span></strong>
         <p>价格</p>
       </li>
@@ -295,9 +295,14 @@
         nowTime.setTime(nowTime.getTime()+24*60*60*1000)
       }
       let nowday = dateFmt(nowTime, 'yyyy-M-dd');
-      let minDay = nowday = nowday.split('-');
+
+      let minDay  = nowday.split('-');
+      let mindate = [];
+      minDay.forEach((v,i)=>{
+        mindate[i] = parseInt(v)
+      });
       this.datePicker = this.$createDatePicker({
-        min: minDay,
+        min: mindate,
         max: [2020, 12, 31],
         onSelect: this.selecTimetHandle,
         onCancel: this.cancelHandle
@@ -387,7 +392,7 @@
           return i < 10 ? '0' + i : i
         })
         this.travalDate = {value: sv.join('-'), txt: selectedText.join('')}
-        this.priceList(this.travalDate.value, this.scenicspot, this.plays.id)
+        this.priceList(this.travalDate.value, this.plays.accountid, this.plays.id)
       },
       selectDayHandle(selectedVal, selectedIndex, selectedText) {
         // this.dayPicker.show();
@@ -455,7 +460,7 @@
 
           //初始化订单 更新初步订单到数据仓库
           console.log('去下一步')
-          initOrder(this.travalDate.value,this.travalDay.value, this.accountId, this.playId, this.peopleNum.value, this.mealType.id, 0, 0).then(res => {
+          initOrder(this.travalDate.value,this.travalDay.value, this.plays.accountid, this.plays.id, this.peopleNum.value, this.mealType.id, 0, 0).then(res => {
             console.log(res);
             if(res.msg){
               this.$createDialog({

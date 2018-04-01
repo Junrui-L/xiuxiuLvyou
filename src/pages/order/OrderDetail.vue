@@ -2,13 +2,24 @@
   <div class="order_detail">
     <header class="guide-info clearfix">
       <div class="guide-img fl">
-        <img :src="guideInfo.userImg" alt="">
+        <img :src="guideInfos.userImg" alt="">
       </div>
       <dl class="guide-detail fl">
-        <dt class="guide-name">{{play.username}}</dt>
-        <dd class="guide-scenic"><span>{{play.scenicspot}}</span><span>{{play.servicetype | servicetypeText}}</span></dd>
+
+        <dt class="guide-name">{{plays.username}}</dt>
+        <dd class="guide-scenic">
+          <template v-if="plays.servicetype == 1">
+            <span>{{plays.scenicspot}}</span>
+          </template>
+          <template v-else-if="plays.servicetype == 2">
+            <span>{{plays.serviceCity}}</span>
+          </template>
+          <template v-else-if="plays.servicetype == 3">
+            <span>{{plays.serviceCity}}</span>
+          </template>
+          <span>{{plays.servicetype | servicetypeText}}</span></dd>
         <dd class="guide-mode">
-          {{ play.wfname }}
+          {{ plays.wfname }}
           </dd>
       </dl>
 
@@ -16,18 +27,18 @@
     <div class="order-info">
       <h3 class="title">订单信息</h3>
       <ul class="order-list">
-        <li class="info-item">游玩天数 <span class="fr"> {{baseOrder.travalDay.value}}天</span></li>
-        <li class="info-item">游玩时间 <span class="fr">{{baseOrder.travalDate.txt}}</span></li>
+        <li class="info-item">游玩天数 <span class="fr"> {{orderDatas.playday}}天</span></li>
+        <li class="info-item">游玩时间 <span class="fr">{{orderDatas.godate}}</span></li>
         <li class="info-item">截止游玩时间 <span class="fr">{{endate}}</span></li>
-        <li class="info-item">游玩人数 <span class="fr">{{baseOrder.peopleNum.txt}}</span></li>
-        <li class="info-item">价格套餐 <span class="fr">{{pricePackage.name}}/{{pricePackage.price}}元</span></li>
+        <li class="info-item">游玩人数 <span class="fr">{{orderDatas.tripsnum}}人</span></li>
+        <li class="info-item">价格套餐 <span class="fr">{{pricePackages.name}}/{{pricePackages.price}}元</span></li>
       </ul>
     </div>
     <div class="group-trip">
-      <switch-option name="开启团游" :isDisable = "pricePackage.sfzcty == 1 ? false : true"  @update:value="onGroup" ></switch-option>
+      <switch-option name="开启团游" :isDisable = "pricePackages.sfzcty == 1 ? true : false"  @update:value="onGroup" ></switch-option>
     </div>
     <div class="notify group-notify">
-      <p>团游优惠模式：{{ play.tytype | tymodeText}}    <template v-if="pricePackage.tytype == 2">{{ pricePackage.tyval}}折</template></p>
+      <p v-if="istuan == 1">团游优惠模式：{{ plays.tytype | tymodeText}}    <template v-if="pricePackages.tytype == 2">{{ pricePackages.tyval}}折</template></p>
 
       <p>注意：团游必须有2个订单才生效，价格由最终团游数决定。而差价会在旅行结束后退到您的个人账户中。</p>
     </div>
@@ -125,7 +136,9 @@
         tripsnum: '',
         packageid: '',//套餐id
         pricePackages: {}, //套餐对象
-
+        guideInfos: {}, //导游对象
+        plays: {}, //玩法对象
+        orderDatas: {}, //基本订单对象
         mpPackList: '',
         mpPackage: {     //门票集合
           mpPackageId:'',
@@ -167,19 +180,19 @@
 
         this.playday = parseInt(this.playday)
         console.log('...门票套餐价...门票套餐价')
-        console.log(this.pricePackages.price, this.baseOrder.peopleNum.value, this.mpPackage.mpPackagePrice, this.mpPackagecount);
+        // console.log(this.pricePackages.price, this.baseOrder.peopleNum.value, this.mpPackage.mpPackagePrice, this.mpPackagecount);
         /*1-人/天（一人一天价）;2-单/天（一团一天价）;3-人/次（一人游价）;4-单/次（总团价游）*/
         if(this.pricePackages.unit == 1) {
           console.log(`套餐价格${this.pricePackages.price},人数${this.tripsnum},游玩天 ${this.playday},门票价 ${this.mpPackage.mpPackagePrice},门票数 ${this.mpPackagecount} `)
-          return parseInt(this.pricePackage.price )* parseInt(this.tripsnum)* parseInt(this.playday)  + parseInt(this.mpPackage.mpPackagePrice) * parseInt(this.mpPackagecount)
+          return parseInt(this.pricePackages.price )* parseInt(this.tripsnum)* parseInt(this.playday)  + parseInt(this.mpPackage.mpPackagePrice) * parseInt(this.mpPackagecount)
         } else if(this.pricePackages.unit == 2) {
-          return parseInt(this.pricePackage.price ) * parseInt(this.playday)  + parseInt(this.mpPackage.mpPackagePrice) * parseInt(this.mpPackagecount)
+          return parseInt(this.pricePackages.price ) * parseInt(this.playday)  + parseInt(this.mpPackage.mpPackagePrice) * parseInt(this.mpPackagecount)
 
         } else if(this.pricePackages.unit == 3){
-          return parseInt(this.pricePackage.price ) * parseInt(this.tripsnum) + parseInt(this.mpPackage.mpPackagePrice) * parseInt(this.mpPackagecount)
+          return parseInt(this.pricePackages.price ) * parseInt(this.tripsnum) + parseInt(this.mpPackage.mpPackagePrice) * parseInt(this.mpPackagecount)
 
         } else if(this.pricePackages.unit == 4) {
-          return parseInt(this.pricePackage.price )  + parseInt(this.mpPackage.mpPackagePrice) * parseInt(this.mpPackagecount)
+          return parseInt(this.pricePackages.price )  + parseInt(this.mpPackage.mpPackagePrice) * parseInt(this.mpPackagecount)
 
         }
       }
@@ -215,6 +228,10 @@
         loadOrder().then(res=> {
           console.log('---初始订单加载返回-----')
           console.log(JSON.stringify(res.orderData));
+          this.guideInfos = res.guide; //导游
+          this.plays = res.play; //玩法对象
+          this.orderDatas = res.orderData
+
           this.godate = res.orderData.godate;
           this.playday = res.orderData.playday; //游玩天数
 

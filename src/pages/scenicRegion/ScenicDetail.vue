@@ -365,9 +365,13 @@
             nowTime.setTime(nowTime.getTime()+24*60*60*1000)
           }
           let nowday = dateFmt(nowTime, 'yyyy-M-dd');
-          let minDay = nowday = nowday.split('-');
+          let minDay =  nowday.split('-');
+          let mindate = [];
+          minDay.forEach((v,i)=>{
+            mindate[i] = parseInt(v)
+          });
           this.datePicker = this.$createDatePicker({
-            min: minDay,
+            min: mindate,
             max: [2020, 12, 31],
             onSelect: this.selecTimetHandle,
             onCancel: this.cancelHandle

@@ -20,13 +20,13 @@
       min: {
         type: Array,
         default() {
-          return [2010, 2, 1]
+          return [2018, 3, 1]
         }
       },
       max: {
         type: Array,
         default() {
-          return [2020, 2, 1]
+          return [2020, 12, 31]
         }
       },
       selectedIndex: {
@@ -58,14 +58,12 @@
                 day = !(year.value % 400) || (!(year.value % 4) && year.value % 100) ? 29 : 28
               }
             }
-
             let minDay = year.value === this.min[0] && month.value === this.min[1] ? this.min[2] : 1
             let maxDay = year.value === this.max[0] && month.value === this.max[1] ? this.max[2] : day
-
             month.children = range(minDay, maxDay, true, '日')
           })
         })
-
+        console.log(data)
         return data
       }
     },
