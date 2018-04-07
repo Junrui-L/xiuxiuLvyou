@@ -1,7 +1,7 @@
 
 .head_top{
   position: fixed;
-  z-index: 11100;
+  z-index: 100;
   left: 0;
   top: 0;
   @include setSize(100%, px2rem(44px));
@@ -113,3 +113,13 @@
 }
 
 /*呼叫对话框*/
+
+//顶部右侧筛选
+.select-options {
+
+  @include centerTop;
+  right: px2rem(25px);
+  @include setSize(px2rem(25px), px2rem(25px));
+  background: url(../../assets/img/moreselect.png) no-repeat center;
+  background-size: 80%;
+}

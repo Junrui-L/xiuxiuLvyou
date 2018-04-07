@@ -9,6 +9,7 @@
                 <span class="cityname " @click="showCityPicker">{{city}}</span>
 
               </div>
+              <div class="select-options" slot="selectoption" @click="showActive"></div>
             </HeadTop>
             <img  class="head-img" :src="baseUrl + citySenic.cityimg" alt="">
         </header>
@@ -23,7 +24,7 @@
                     <dd class="region-detail fl">
                       <h5 class="region-name"><span>{{item.name}}</span></h5>
                       <div class="region-level">国家{{item.level}}A级景区 （{{item.guidecount ? item.guidecount : 0}}位向导）</div>
-                      <div class="region-category"><span>类别：</span>{{item.typename}}</div>
+                      <div class="region-category"><span>类别：</span>{{item.typename}} <span v-if="item.distance">距离： {{item.distance | showDistance}} </span></div>
                     </dd>
                   </dl>
                   <div class="region-txt">
@@ -73,7 +74,8 @@
             onCancel: this.cancelHandle
           })
 
-          this.getSpotsList(this.cityValue);
+          //默认按距离排
+          this.getSpotsList(this.cityValue, 'distance');
           //获取区域
           window.addEventListener('scroll', throttle(() => {
 
@@ -100,9 +102,9 @@
           cancelHandle() {
             console.log('取消了')
           },
-          getSpotsList(val) {
+          getSpotsList(area, sortType) {
 
-            spotsList(val).then(res => {
+            spotsList(area, sortType).then(res => {
 
               //获取全国景区列表
               this.citySenic = res.cityMap;
@@ -115,6 +117,42 @@
             this.cityScenicspots(citysn).then(res => {
               console.log(res)
             })
+          },
+          showActive() {
+            this.$createActionSheet({
+              title: '景区筛选',
+              // active: 0,
+              data: [
+                {
+                  content: '级别',
+                  sortType: 'level'
+                },
+                {
+                  content: '距离',
+                  sortType: 'distance'
+                },
+                {
+                  content: '评分',
+                  sortType: 'score'
+                },
+                {
+                  content: '价格',
+                  sortType: 'playprice'
+                },
+                {
+                  content: '查看全部',
+                  sortType: ''
+                }
+              ],
+              onSelect: (item, index) => {
+                this.getSpotsList(this.cityValue, item.sortType)
+                console.log(item.sex)
+
+              },
+              onCancel: () => {
+                console.log('取消了')
+              }
+            }).show()
           }
 
         }

@@ -228,7 +228,7 @@
               </ul>
             </div>
             <ul class="choose-wrap">
-              <li class="choose-item clearfix" @click="showDatePicker">选择出行日期 <span class="fr">{{travalDate.txt}}
+              <li class="choose-item clearfix" @click="showDatePicker">选择出行日期 <span class="fr">{{travalDate.txt ? travalDate.txt : '请选择'}}
                 <svg>
                        <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#arrow-right"></use>
                 </svg>
@@ -241,7 +241,7 @@
               </span>
               </li>
               <li class="choose-item clearfix" @click="showMealPicker">可选套餐
-                <span class="fr"> {{mealType.type}}
+                <span class="fr"> {{mealType.type ? mealType.type : '请选择'}}
                    <svg>
                   <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#arrow-right"></use>
                 </svg>
@@ -278,7 +278,7 @@
     import EvaluateStar from '../../components/EvaluateStar.vue'
     import DatePicker from '../../components/date-picker'
     import {peopleNum, peoleData} from '../../config/datajs'
-    import {dateFmt} from '../../config/myUtils'
+    import {dateFmt, throttle} from '../../config/myUtils'
     import TransPan from  '../../components/transitionPanel'
     createAPI(Vue, DatePicker, ['select', 'cancel'], false)
     let  peoledata = peopleNum
@@ -298,9 +298,15 @@
                 priceRanges: [],
                 mealdata: [],
                 travalDate: '',
-                travalDay: '',
+                travalDay: {
+                  value: 1,
+                  txt: '1天'
+                },
                 mealType: '',
-                peopleNum: '',
+                peopleNum:  {
+                  value: 1,
+                  txt: '1人'
+                },
                 newPricePackelist:[],
                 navItem: 'price',
                 showPanPrice: false,  //各说明的详情下拉展示隐藏
@@ -358,25 +364,46 @@
             onSelect: this.selectpeopleHandle,
             onCancel: this.cancelHandle
           })
-          //获取当前日期
-          let nowTime = new Date();
-          if(nowTime.getHours() >= 18) {
-            //超高跟18点默认订明天
-            nowTime.setTime(nowTime.getTime()+24*60*60*1000)
-          }
-          let nowday = dateFmt(nowTime, 'yyyy-M-dd');
-          let minDay =  nowday.split('-');
+          //获取当前日期,s设置日期初始时间点
+          let nowTime = new Date(), startTime = [];
+          let nowday = dateFmt(nowTime, 'yyyy-M-dd-hh');
+          console.log(`现在的日期是${nowday}`)
+          let minDay  = nowday.split('-');
           let mindate = [];
           minDay.forEach((v,i)=>{
             mindate[i] = parseInt(v)
           });
+          console.log(mindate)
+          if(nowTime.getHours() >= 18) {
+            //超过18点默认订明天
+            nowTime.setTime(nowTime.getTime()+24*60*60*1000);
+            let startDay = dateFmt(nowTime, 'yyyy-M-dd');
+            let startDate  = startDay.split('-');
+            startDate.push(8)
+            startDate.forEach((v,i)=>{
+              startTime[i] = parseInt(v)
+            });
+          } else {
+            startTime = mindate
+          }
           this.datePicker = this.$createDatePicker({
+            title: '出行日期',
             min: mindate,
-            max: [2020, 12, 31],
+            max: [2020, 12, 31, 8],
+            value: startTime,
+            columnCount: 4,
             onSelect: this.selecTimetHandle,
             onCancel: this.cancelHandle
           })
-
+          //添加头部背景
+          window.addEventListener('scroll', throttle(() => {
+            let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+            if( scrollTop > 300) {
+              this.headBg = true;
+            } else {
+              this.headBg = false;
+            }
+          },250))
 
       },
         methods: {
@@ -422,8 +449,8 @@
               // console.log(this.otherPlays)
             })
           },
-          priceList(godate, accountId, playId) {
-            loadPackage(godate, accountId, playId).then(res => {
+          priceList(godate,timehour, accountId, playId) {
+            loadPackage(godate,timehour, accountId, playId).then(res => {
               this.newPricePackelist = res.pricepackageList;   //根据日期的套餐集合
               for(let i=0; i< this.newPricePackelist.length; i++) {
                 this.mealdata[i] = {value:this.newPricePackelist[i].id, text: this.newPricePackelist[i].name}
@@ -461,12 +488,8 @@
             this.dayPicker.show();
           },
           selecTimetHandle(selectedVal, selectedIndex, selectedText) {
-            //加0
-            let sv = selectedVal.map((i)=>{
-               return  i < 10 ? '0' + i : i
-            })
-            this.travalDate = {value: sv.join('-'), txt: selectedText.join('')}
-            this.priceList(this.travalDate.value, this.scenicspot, this.plays.id )
+            this.travalDate = {value: dateFmt(selectedVal, 'yyyy-M-d'), txt: selectedText.join('')}
+            this.priceList(this.travalDate.value,selectedVal.getHours(), this.scenicspot, this.plays.id )
           },
           selectDayHandle(selectedVal, selectedIndex, selectedText){
             // this.dayPicker.show();

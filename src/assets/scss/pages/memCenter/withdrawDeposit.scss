@@ -50,6 +50,25 @@
     @include font-dpr(13px);
     color: $color-gray-secondary;
   }
+
+  .coupons {
+    padding: 0 px2rem(18px) px2rem(5px);
+    background: $white;
+    @include setSize(100%, px2rem(60px));
+    line-height: px2rem(60px);
+    @include font-dpr(16px);
+    .coupon-txt {
+      @include font-dpr(14px);
+      color: $color-gray-primary;
+      svg {
+        fill: $color-gray-secondary;
+        width: px2rem(16px);
+        height: px2rem(16px);
+        vertical-align: text-top;
+      }
+    }
+  }
+
   .btn-wrapper {
     margin-top: px2rem(20px);
     padding: 0 px2rem(20px);

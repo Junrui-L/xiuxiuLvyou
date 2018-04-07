@@ -22,7 +22,7 @@
         <slot name="edit"></slot>
         <slot name="select-title"></slot>
         <slot name="message"></slot>
-        <slot name="changeLogin"></slot>
+        <slot name="selectoption"></slot>
     </div>
 </template>
 <script>

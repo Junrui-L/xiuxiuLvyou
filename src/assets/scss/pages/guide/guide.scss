@@ -2,7 +2,7 @@
   background: $color-body-bg;
   header {
     width: 100%;
-    height: px2rem(210px);
+    //height: px2rem(210px);
 
     .head-img {
       width: 100%;
@@ -12,7 +12,6 @@
 
   .guide-wrapper {
     padding: px2rem(10px);
-
     .guide-list {
       padding:0 px2rem(10px);
       background: #fff;
@@ -83,6 +82,14 @@
           @include font-dpr(12px);
           color: $color-black-secondary;
           border-radius: px2rem(3px);
+        }
+
+        .hascar {
+          padding:0 px2rem(5px);
+          background: $color-body-bg;
+          line-height: px2rem(25px);
+          @include font-dpr(12px);
+          color: $color-gray-secondary;
         }
       }
 
@@ -171,19 +178,15 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 }
+
+.near-guide {
+  padding-top: px2rem(40px);
+  .select-title .spotname {
+    padding-left: 0.8rem;
+    padding-right: 0.8rem;
+    //background:#fff url(../../assets/img/male.png) no-repeat px2rem(3px) center ;
+    //background-size: px2rem(18px) px2rem(18px);
+  }
+}
+

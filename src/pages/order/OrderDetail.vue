@@ -30,22 +30,22 @@
         <li class="info-item">游玩天数 <span class="fr"> {{orderDatas.playday}}天</span></li>
         <li class="info-item">游玩时间 <span class="fr">{{orderDatas.godate}}</span></li>
         <li class="info-item">截止游玩时间 <span class="fr">{{endate}}</span></li>
-        <li class="info-item">游玩人数 <span class="fr">{{orderDatas.tripsnum}}人</span></li>
-        <li class="info-item">价格套餐 <span class="fr">{{pricePackages.name}}/{{pricePackages.price}}元</span></li>
+        <li class="info-item">游玩人数 <span class="fr">{{orderDatas.tripsnum}}人{{pricePackages.sfzcty}}</span></li>
+        <li class="info-item">价格套餐 <span class="fr">{{pricePackages.name}}/ ￥{{pricePackages.price }}/{{pricePackages.unit | unitText}}</span></li>
       </ul>
     </div>
-    <div class="group-trip">
-      <switch-option name="开启团游" :isDisable = "pricePackages.sfzcty == 1 ? true : false"  @update:value="onGroup" ></switch-option>
+    <div class="group-trip" v-if="pricePackages.sfzcty == 1">
+      <switch-option name="开启团游" :isDisable = "pricePackages.sfzcty == 0 ? true : false"  @update:value="onGroup" ></switch-option>
     </div>
-    <div class="notify group-notify">
-      <p v-if="istuan == 1">团游优惠模式：{{ plays.tytype | tymodeText}}    <template v-if="pricePackages.tytype == 2">{{ pricePackages.tyval}}折</template></p>
+    <div class="notify group-notify" v-if="pricePackages.sfzcty == 1">
+      <p >团游优惠模式：{{ plays.tytype | tymodeText}}    <template v-if="pricePackages.tytype == 2">{{ pricePackages.tyval}}折</template></p>
 
-      <p>注意：团游必须有2个订单才生效，价格由最终团游数决定。而差价会在旅行结束后退到您的个人账户中。</p>
+      <p v-if="istuan == 1">注意：团游必须有2个订单才生效，价格由最终团游数决定。而差价会在旅行结束后退到您的个人账户中。</p>
     </div>
     <div class="tickets" v-if="mpPackList.length > 0">
       <div class="tickit-m" @click="showmpPackgePicker">门票套餐
         <span class="tickit-txt fr" >
-          {{mpPackage.mpPackageName == '' ? '请选择门票套餐' : mpPackage.mpPackageName}}
+          {{mpPackage.mpPackageName == '' ? '请选择' : mpPackage.mpPackageName}}
           <svg>
               <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#arrow-right"></use>
           </svg>
@@ -53,7 +53,7 @@
       </div>
       <div class="tickit-n" @click="showmpPackagecount">数量
         <span class="tickit-txt  fr">
-          {{mpPackagecount == '' ? '选择套餐数量' : mpPackagecount}}人
+          {{mpPackagecount == '' ? '请选择' : mpPackagecount}}人
           <svg>
               <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#arrow-right"></use>
           </svg>
@@ -91,7 +91,7 @@
 
     <div class="coupons" @click="showYHJ">优惠券
       <span class="coupon-txt  fr">
-          {{selectYHJObj.text ? selectYHJObj.text :'暂无优惠券可用'}}
+          {{selectYHJObj.text ? selectYHJObj.text : yjhArr.length-1 +'张优惠券可用'}}
           <svg>
               <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#arrow-right"></use>
           </svg>
@@ -172,7 +172,7 @@
         linkPhone: '',
         requiretxt: '',
         yhjId: '',
-        selectYHJObj:{}, // 选中的优惠券对象
+        selectYHJObj:'', // 选中的优惠券对象
         yjhArr:[], // 可以使用的优惠券列表
 
         phone: '', //手机号码
@@ -204,19 +204,42 @@
 
         this.playday = parseInt(this.playday)
         console.log('...门票套餐价...门票套餐价')
+        let allPrice;
         // console.log(this.pricePackages.price, this.baseOrder.peopleNum.value, this.mpPackage.mpPackagePrice, this.mpPackagecount);
         /*1-人/天（一人一天价）;2-单/天（一团一天价）;3-人/次（一人游价）;4-单/次（总团价游）*/
         if(this.pricePackages.unit == 1) {
-          console.log(`套餐价格${this.pricePackages.price},人数${this.tripsnum},游玩天 ${this.playday},门票价 ${this.mpPackage.mpPackagePrice},门票数 ${this.mpPackagecount} `)
-          return parseInt(this.pricePackages.price )* parseInt(this.tripsnum)* parseInt(this.playday)  + parseInt(this.mpPackage.mpPackagePrice) * parseInt(this.mpPackagecount)
+          console.log(`套餐价格${this.pricePackages.price},人数${this.tripsnum},游玩天 ${this.playday},门票价 ${this.mpPackage.mpPackagePrice},门票数 ${this.mpPackagecount} `);
+          allPrice = parseInt(this.pricePackages.price )* parseInt(this.tripsnum)* parseInt(this.playday)  + parseInt(this.mpPackage.mpPackagePrice) * parseInt(this.mpPackagecount)
+          if(this.selectYHJObj != ''){
+            return allPrice - parseInt(this.selectYHJObj.price)
+          } else {
+            return allPrice
+          }
+          // return parseInt(this.pricePackages.price )* parseInt(this.tripsnum)* parseInt(this.playday)  + parseInt(this.mpPackage.mpPackagePrice) * parseInt(this.mpPackagecount)
         } else if(this.pricePackages.unit == 2) {
-          return parseInt(this.pricePackages.price ) * parseInt(this.playday)  + parseInt(this.mpPackage.mpPackagePrice) * parseInt(this.mpPackagecount)
+            allPrice = parseInt(this.pricePackages.price ) * parseInt(this.playday)  + parseInt(this.mpPackage.mpPackagePrice) * parseInt(this.mpPackagecount)
+            if(this.selectYHJObj != ''){
+              return allPrice - parseInt(this.selectYHJObj.price)
+            } else {
+              return allPrice
+            }
 
         } else if(this.pricePackages.unit == 3){
-          return parseInt(this.pricePackages.price ) * parseInt(this.tripsnum) + parseInt(this.mpPackage.mpPackagePrice) * parseInt(this.mpPackagecount)
+          allPrice = parseInt(this.pricePackages.price ) * parseInt(this.tripsnum) + parseInt(this.mpPackage.mpPackagePrice) * parseInt(this.mpPackagecount)
+          if(this.selectYHJObj != ''){
+            return allPrice - parseInt(this.selectYHJObj.price)
+          } else {
+            return allPrice
+          }
+
 
         } else if(this.pricePackages.unit == 4) {
-          return parseInt(this.pricePackages.price )  + parseInt(this.mpPackage.mpPackagePrice) * parseInt(this.mpPackagecount)
+          allPrice = parseInt(this.pricePackages.price )  + parseInt(this.mpPackage.mpPackagePrice) * parseInt(this.mpPackagecount)
+          if(this.selectYHJObj != '') {
+            return allPrice - parseInt(this.selectYHJObj.price)
+          } else {
+            return allPrice
+          }
 
         }
       }
@@ -253,10 +276,7 @@
       // 选中优惠券
       selectYHJHandle(v, i, t){
         this.selectYHJObj = this.yjhArr[i];
-        console.log(this.selectYHJObj)
-//        this.mpPackage.mpPackagePrice = this.mpPackList[i[0]]['price'];
-//        this.mpPackage.mpPackageNotice = this.mpPackList[i[0]]['remark'];
-//        this.mpPackage.mpPackageName = t[0];
+        this.yhjId = this.selectYHJObj.value;
       },
       selectCountHandle(v){
         this.mpPackagecount = v[0]
@@ -269,11 +289,15 @@
           let yhjData = [];
           if(res.list.length > 0) {
             for(let i=0; i<res.list.length; i++) {
-              yhjData[i] = {value: res.list[i].id, text: res.list[i].name, price: res.list[i].toprice}
-            }
+              if(res.list[i].type == 4 || res.list[i].type == 5){
+                yhjData.push({value: res.list[i].id, text: res.list[i].name, price: res.list[i].toprice})
+              }
 
+            }
+            yhjData.push({value:'', text: '不使用优惠券', price: 0})
+            console.log(yhjData);
           } else {
-            yhjData = [{value: '', text: '暂无优惠券可用'}]
+            yhjData = [{value:'', text: '暂无可用优惠券', price: 0}]
           }
 
           this.yjhArr = yhjData;
@@ -300,9 +324,9 @@
           console.log(this.godate)
           let da = new Date(this.godate)
 
-          da.setTime(da.getTime()+ this.playday*24*60*60*1000)
+          da.setTime(da.getTime()+ (this.playday -1)*24*60*60*1000)
           console.log(da)
-          this.endate = dateFmt(da, 'yyyy年MM月dd日'); //游玩结束日期
+          this.endate = dateFmt(da, 'yyyy-M-d'); //游玩结束日期
 
 
           this.tripsnum = res.orderData.tripsnum;

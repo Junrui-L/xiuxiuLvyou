@@ -1,7 +1,16 @@
 /*Created by soft on 2018/1/3 */
 
 <template>
-  <div class="Guide">
+  <div class="Guide near-guide">
+    <header ref="uiHeader">
+      <HeadTop go-back='true' :headBg="true">
+        <div slot="select-title" class="select-title">
+          <span class="spotname ">附近向导</span>
+        </div>
+        <div class="select-options" slot="selectoption" @click="showActive"></div>
+      </HeadTop>
+
+    </header>
     <!--<drop-down v-if="guidesList.length != 0" :dropDownData="dropDownData" :selectCallback="selectCallback" ></drop-down>-->
     <div class="guide-wrapper">
       <ul class="guide-list">
@@ -29,8 +38,7 @@
               <div class="guide-count"><span>{{item.wfcount}}种玩法</span> | <span>服务{{item.fwcount}}人 </span></div>
               <div class="guide-dis"><span>距离：</span>{{ item.distance | showDistance}}</div>
             </div>
-            <!--<button class="guide-order fl" @click="$router.push({name: 'guideDetail',  params: {id: 33}})">找Ta预订-->
-            <button class="guide-order fl" >找Ta预订 </button>
+            <!--<button class="guide-order fl" >找Ta预订 </button>-->
           </div>
           <div class="guide-txt" v-if="item.abstract != '' ">
             <p>
@@ -139,18 +147,49 @@
         })
         this.getGuideList(this.sendData)
       },
-      getGuideList() {
+      getGuideList(sex) {
         if( this.locations.latitude != '' && this.locations.longitud != '') {
-          getNearGuide(this.locations.latitude, this.locations.longitude).then(res => {
+          getNearGuide(this.locations.latitude, this.locations.longitude, sex).then(res => {
             console.log('区导列表返回。。。。。')
             console.log(res);
             this.guidesList = res.list;
           })
           // this.getNearGuide(this.locations.latitude, this.locations.longitude);
         } else {
-
+          this.$createToast({
+            txt: `未获取到您的位置，请返回首页重新进入`,
+            type: 'error',
+            time: 3000
+          }).show()
         }
 
+      },
+      showActive() {
+        this.$createActionSheet({
+          title: '向导筛选',
+          // active: 0,
+          data: [
+            {
+              content: '只看女向导',
+              sex: 2
+            },
+            {
+              content: '只看男向导',
+              sex: 1
+            },
+            {
+              content: '查看全部',
+              sex: ''
+            }
+          ],
+          onSelect: (item, index) => {
+            console.log(item.sex)
+            this.getGuideList(item.sex)
+          },
+          onCancel: () => {
+            console.log('取消了')
+          }
+        }).show()
       }
 
     }

@@ -63,8 +63,9 @@ export const searchScenicspots = (valword) => $http.post('/siteH5/index.json?act
  *ok
  * */
 
-export const spotsList = (areasn) => $http.get('/siteH5/guide.json?act=list', {
-  city: areasn
+export const spotsList = (areasn, sortType) => $http.get('/siteH5/guide.json?act=list', {
+  city: areasn,
+  sortType: sortType
 });
 
 /**
@@ -112,8 +113,9 @@ export const guideDetails = (scenicspot, accountId) => $http.post('/siteH5/guide
 /**
  * 加载套餐集合/order.json?act=loadPackage
  * */
-export const loadPackage = (godate, accountId, playId) => $http.post('/siteH5/order.json?act=loadPackage', {
+export const loadPackage = (godate, timehour,accountId, playId) => $http.post('/siteH5/order.json?act=loadPackage', {
   godate: godate,
+  timehour: timehour,
   accountId: accountId,
   playId: playId
 });
@@ -143,9 +145,10 @@ export const playlistDetail = (playId, accountId) => $http.get('/siteH5/guide.js
  * 附近向导
  *
  * */
-export const getNearGuide = (latitude, longitude) => $http.get('/siteH5/guide.json?act=fjGuideslist', {
+export const getNearGuide = (latitude, longitude, sex) => $http.get('/siteH5/guide.json?act=fjGuideslist', {
   latitude: latitude,
-  longitude: longitude
+  longitude: longitude,
+  sex: sex
 })
 
 //订单
@@ -434,8 +437,9 @@ export const deletBank = (userBankId) => $http.post('/siteapp/capital.json?act=d
  *
  * */
 
-export const withdraw = (userBankId, money, fundpassword) => $http.get('/siteapp/capital.json?act=withdrawals', {
+export const withdraw = (userBankId,yhjId, money, fundpassword) => $http.get('/siteapp/capital.json?act=withdrawals', {
   userBankId: userBankId,
+  yhjId: yhjId,
   money: money,
   fundpassword: fundpassword
 });

@@ -89,6 +89,20 @@ Vue.filter('tymodeText', state => {
   }
   return tymodeMap[state]
 })
+
+/*套餐计价*/
+Vue.filter('unitText', state => {
+  const unitMap = {
+    1: '人/天',
+    2: '团/天',
+    3: '人/次',
+    4: '单/次'
+  }
+  return unitMap[state]
+})
+
+
+
 //距离显示
 Vue.filter('showDistance', val => {
   if(!val) {

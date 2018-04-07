@@ -21,9 +21,9 @@
               <i class="male" :class="{'female': item.sex == 2}"></i>
             </div>
             <div class="guide-detail fl">
-              <h5 class="guide-name"><span>{{item.username}}</span></h5>
-              <div class="guide-count"><span>{{item.wfcount}}种玩法 </span> |<span> 服务{{item.fwcount}}人 </span></div>
-              <div class="guide-price"  v-if="item.dayprice != null">￥{{item.dayprice}}<span>起/天</span></div>
+              <h5 class="guide-name"><span>{{item.username}}</span> <span class="hascar" v-if="item.havecar == 1">({{item.havecar == 1 ? '有车' : ''}})</span></h5>
+              <div class="guide-count"><span>{{item.wfcount}}种玩法 </span> |<span> 服务{{item.fwcount}}人 </span><span class="guide-price"  v-if="item.dayprice != null">￥{{item.dayprice}}<span>起/天</span></span></div>
+              <!--<div class="guide-price"  v-if="item.dayprice != null">￥{{item.dayprice}}<span>起/天</span></div>-->
             </div>
             <!--<button class="guide-order fl" >找Ta预订 </button>-->
           </div>
@@ -102,7 +102,8 @@
           maxprice: '',
           todaytuan: '',
           isbuyticket: '',
-          isshuttle: ''
+          isshuttle: '',
+          havecar: ''
         }
       }
     },
