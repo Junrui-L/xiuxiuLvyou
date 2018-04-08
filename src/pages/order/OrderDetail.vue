@@ -260,8 +260,6 @@
         onSelect: this.selectCountHandle,
         onCancel: this.cancelHandle
       })
-
-      this.getCanUseYHJ()
       this.initHeOrder();
     },
     methods: {
@@ -290,7 +288,10 @@
           if(res.list.length > 0) {
             for(let i=0; i<res.list.length; i++) {
               if(res.list[i].type == 4 || res.list[i].type == 5){
-                yhjData.push({value: res.list[i].id, text: res.list[i].name, price: res.list[i].toprice})
+                  //  优惠券最低价与订单总价比对
+                if(res.list[i].minprice<=this.total){
+                  yhjData.push({value: res.list[i].id, text: res.list[i].name, price: res.list[i].toprice})
+                }
               }
 
             }
@@ -351,6 +352,8 @@
           this.GET_USERINFO(res.visitor)
 
           this.tuanOrder = res.tuanOrder; //当天团游信息
+          //获取订单详情后再获取优惠券进行比对
+          this.getCanUseYHJ()
         })
 
       },
