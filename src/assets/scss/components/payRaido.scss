@@ -1,3 +1,18 @@
+.pay-style {
+  width: 100%;
+  margin-top: px2rem(10px);
+  background: $white;
+  height: px2rem(50px);
+  line-height: px2rem(50px);
+  @include font-dpr(16px);
+  color: $color-black;
+  border-bottom: 1px solid $color-body-bg;
+  .check-count {
+    padding-top: px2rem(12px);
+  }
+
+}
+
 .ui-radio{
   width: px2rem(24px);
   height: px2rem(24px);

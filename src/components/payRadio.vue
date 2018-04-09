@@ -1,8 +1,13 @@
 <template>
   <!--这里设置了选中后的radio样式类,和禁用后的样式类-->
-  <label class="ui-radio" :class="{'checked':model==value,'disabled':disabled}">
-    <input type="radio" ref="radio" :value="value" @click="updateVal" :disabled="disabled">
-  </label>
+  <div class="pay-style" @click="updateVal">
+    {{paymethod}}
+    <span class="check-count fr">
+      <label class="ui-radio" :class="{'checked':model==value,'disabled':disabled}">
+        <input type="radio" ref="radio" :value="value"  :disabled="disabled">
+      </label>
+    </span>
+  </div>
 </template>
 
 <script>
@@ -14,6 +19,10 @@
       event: 'change'
     },
     props: {
+      paymethod: {
+        type: String,
+        default: '余额支付'
+      },
       value: {//radio的value属性
         type: [String, Number],
         require: true
@@ -43,6 +52,3 @@
   }
 </script>
 
-<style scoped>
-
-</style>

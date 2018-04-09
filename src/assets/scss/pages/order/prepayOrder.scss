@@ -40,40 +40,19 @@
     padding: 0 px2rem(20px);
     background: $white;
 
-    .accout-pay, .account-balance {
+    .account-balance {
       height: px2rem(50px);
       line-height: px2rem(50px);
       @include font-dpr(16px);
-
-    }
-    .accout-pay {
-      color: $color-black;
-      border-bottom: 1px solid $color-body-bg;
-
-    }
-
-    .account-balance {
       color: $color-black-secondary;
+
     }
-
   }
 
-  .check-count {
-    padding-top: px2rem(12px);
-  }
-
-  .wx-pay {
-    margin-top: px2rem(10px);
+  .another-accout {
     padding: 0 px2rem(20px);
     background: $white;
-    height: px2rem(50px);
-    line-height: px2rem(50px);
-    @include font-dpr(16px);
-    color: $color-black;
-
-
   }
-
   .all-pay {
     @include setSize(100%, px2rem(44px));
     line-height: px2rem(44px);

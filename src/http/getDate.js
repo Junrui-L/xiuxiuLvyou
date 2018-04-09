@@ -493,6 +493,25 @@ export const getImgPath = (data) => $http.post('/siteH5/user.json?act=loadImgPat
 })
 
 /**
+ * 新增收藏
+ * */
+
+export const addCollection = (data) => $http.post('/siteH5/collection.json?act=add', {
+  gzkey: data.gzkey,
+  type: data.type,
+  name: data.name
+})
+
+/**
+ * 取消收藏
+ * */
+export const delCollection = (data) => $http.post('/siteH5/collection.json?act=deleteByKey', {
+  gzkey: data.gzkey,
+  type: data.type
+})
+
+
+/**
  * 收藏记录 page type 类型(必填)1收藏向导，2收藏玩法，3收藏景区
  * type: head头像类型,credentials证件类型,image其他图片类型
  * */

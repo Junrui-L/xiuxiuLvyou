@@ -16,15 +16,17 @@
     </div>
 
     <div class="account-wrapper">
-      <div class="accout-pay">账户支付 <span class="check-count fr"><pay-radio v-model="val" value="1"
-                                                                           @change="getVal"></pay-radio></span></div>
+      <pay-radio paymethod="余额支付" v-model="val" value="1" @change="getVal"></pay-radio>
       <div class="account-balance">余额：{{userAccount.accountBalance}}元</div>
     </div>
-    <div class="wx-pay">微信支付 <span class="check-count fr"><pay-radio v-model="val" value="2"
-                                                                     @change="getVal"></pay-radio></span></div>
+    <div class="another-accout">
+      <pay-radio paymethod="微信支付" v-model="val" value="2" @change="getVal"></pay-radio>
+    </div>
+
     <!--<div class="all-pay"><span>查看全部支付方式 </span></div>-->
     <div class="sure-pay">
-      <button class="pay-btn" @click="pay">确认支付 <span>￥ {{payOrderDetail.orderSumPrice}}元</span></button>
+      <button class="pay-btn" @click="pay">确认支付 <span>￥ {{payOrderDetail.payPrice}}元</span></button>
+
     </div>
     <cube-popup type="code-popup"   ref="codePopup">
       <div class="code-wrap">

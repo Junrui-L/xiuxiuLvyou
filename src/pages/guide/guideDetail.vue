@@ -107,7 +107,7 @@
     <div class="secnic-footer ">
       <div class="clearfix">
         <div class="fucc fl">
-          <span class="favarate">收藏</span>
+          <span class="favarate" :class="{'favarated': isCollect}" @click="addCollect">收藏</span>
           <span class="chat">咨询</span>
         </div>
         <button class="order-btn fr" @click="touchMe">找我预约</button>
@@ -186,7 +186,7 @@
         <div class="secnic-footer ">
           <div class="clearfix">
             <div class="fucc fl">
-              <span class="favarate">收藏</span>
+              <span class="favarate" :class="{'favarated': isCollect}" @click="addCollect">收藏</span>
               <span class="chat">咨询</span>
             </div>
             <button class="order-btn fr" @click="nextStep">下一步</button>
@@ -200,7 +200,7 @@
 <script type="text/ecmascript-6">
   import Vue from 'vue'
   import {mapState, mapMutations} from 'vuex'
-  import {guideHome, loadPackage, initOrder} from '../../http/getDate'
+  import {guideHome, loadPackage, initOrder, addCollection} from '../../http/getDate'
   import {dateFmt, throttle} from '../../config/myUtils'
   import HeadTop from '../../components/HeadTop.vue'
   import Banner from '../../components/Banner.vue'
@@ -242,6 +242,7 @@
         },
         newPricePackelist: [],
         plays: {},
+        isCollect: true,// 是否收藏
       }
     },
     computed: {
@@ -493,6 +494,15 @@
 
         console.log( this.plays.playDay)
         console.log(`travalDate: ${this.travalDate.value},travalDay: ${this.travalDay.value}, mealType: ${JSON.stringify(this.mealType)}, peopleNum: ${JSON.stringify(this.peopleNum)}`)
+      },
+      addCollect(){
+        addCollection({ gzkey: this.guideInfos.id,type: 1,name: this.guideInfos.userName}).then(res=>{
+          console.log(res);
+        })
+        //添加收藏
+        this.isCollect = !this.isCollect;
+
+
       },
       getStr(str) {
         if (str && str != '') {
