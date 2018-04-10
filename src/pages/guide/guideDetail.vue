@@ -200,7 +200,7 @@
 <script type="text/ecmascript-6">
   import Vue from 'vue'
   import {mapState, mapMutations} from 'vuex'
-  import {guideHome, loadPackage, initOrder, addCollection} from '../../http/getDate'
+  import {guideHome, loadPackage, initOrder, addCollection, delCollection} from '../../http/getDate'
   import {dateFmt, throttle} from '../../config/myUtils'
   import HeadTop from '../../components/HeadTop.vue'
   import Banner from '../../components/Banner.vue'
@@ -242,7 +242,7 @@
         },
         newPricePackelist: [],
         plays: {},
-        isCollect: true,// 是否收藏
+        isCollect: false,// 是否收藏
       }
     },
     computed: {
@@ -345,6 +345,9 @@
           console.log(this.playList)
           if(this.playList.length == 1) {
             this.plays = this.playList[0];
+          }
+          if(res.conllectionMap) {
+            this.isCollect = res.conllectionMap.play;//是否收藏当前
           }
         })
       },
@@ -496,13 +499,65 @@
         console.log(`travalDate: ${this.travalDate.value},travalDay: ${this.travalDay.value}, mealType: ${JSON.stringify(this.mealType)}, peopleNum: ${JSON.stringify(this.peopleNum)}`)
       },
       addCollect(){
-        addCollection({ gzkey: this.guideInfos.id,type: 1,name: this.guideInfos.userName}).then(res=>{
-          console.log(res);
-        })
-        //添加收藏
-        this.isCollect = !this.isCollect;
 
-
+        // delCollection({gzkey: this.guideInfos.id,type: 1,name: this.guideInfos.userName}).then(res => {
+        //   //取消收藏
+        //   if(res.msg) {
+        //     this.$createDialog({
+        //       type: 'alert',
+        //       title: '提示',
+        //       content: res.msg
+        //     }).show()
+        //   } else {
+        //     this.$createToast({
+        //       txt: '取消收藏',
+        //       type: 'correct',
+        //       mask: true,
+        //       time: 2000
+        //     }).show();
+        //     this.isCollect = false;
+        //   }
+        // })
+        if(this.isCollect) {
+          delCollection({gzkey: this.guideInfos.id,type: 1,name: this.guideInfos.userName}).then(res => {
+            //取消收藏
+            if(res.msg) {
+              this.$createDialog({
+                type: 'alert',
+                title: '提示',
+                content: res.msg
+              }).show()
+            } else {
+              this.$createToast({
+                txt: '取消收藏',
+                type: 'correct',
+                mask: true,
+                time: 2000
+              }).show();
+              this.isCollect = false;
+            }
+          })
+        } else {
+          addCollection({ gzkey: this.guideInfos.id,type: 1,name: this.guideInfos.userName}).then(res=>{
+            //添加收藏
+            console.log(res);
+            if(res.msg) {
+              this.$createDialog({
+                type: 'alert',
+                title: '提示',
+                content: res.msg
+              }).show()
+            } else {
+              this.$createToast({
+                txt: '收藏成功',
+                type: 'correct',
+                mask: true,
+                time: 2000
+              }).show();
+              this.isCollect = true;
+            };
+          })
+        }
       },
       getStr(str) {
         if (str && str != '') {

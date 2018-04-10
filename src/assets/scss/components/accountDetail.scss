@@ -55,7 +55,7 @@
     padding: 0 px2rem(15px);
     background: $white;
     .lists-item {
-      @include setSize(100%, px2rem(42px));
+      width: 100%;
       line-height: px2rem(42px);
       color: $color-gray-secondary;
       @include font-dpr(15px);

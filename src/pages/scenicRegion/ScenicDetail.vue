@@ -208,7 +208,7 @@
         <div class="secnic-footer ">
             <div class="clearfix">
                 <div class="fucc fl">
-                    <span class="favarate">收藏</span>
+                    <span class="favarate" :class="{'favarated': isCollect}" @click="addCollect">收藏</span>
                     <span class="chat">咨询</span>
                 </div>
                 <button class="order-btn fr" @click="showChoosPopup">找我预约</button>
@@ -259,7 +259,7 @@
             <div class="secnic-footer ">
               <div class="clearfix">
                 <div class="fucc fl">
-                  <span class="favarate">收藏</span>
+                  <span class="favarate" :class="{'favarated': isCollect}" @click="addCollect">收藏</span>
                   <span class="chat">咨询</span>
                 </div>
                 <button class="order-btn fr" @click="nextStep">下一步</button>
@@ -273,7 +273,7 @@
 <script type="text/ecmascript-6">
     import Vue from 'vue'
     import {mapState, mapMutations} from 'vuex'
-    import {guideDetails, playlistDetail, loadPackage, initOrder} from '../../http/getDate'
+    import {guideDetails, playlistDetail, loadPackage, initOrder, addCollection, delCollection} from '../../http/getDate'
     import HeadTop from '../../components/HeadTop.vue'
     import EvaluateStar from '../../components/EvaluateStar.vue'
     import DatePicker from '../../components/date-picker'
@@ -314,6 +314,7 @@
                 showPanGuide: false,
                 showPanPlant: false,
                 showPanPoilcy: false,
+                isCollect: false  //是否收藏
             }
         },
         components: {
@@ -425,6 +426,9 @@
                 this.pricePackelist=res.pricePackelist//套餐
                 this.priceRanges=res.priceRanges
                 this.playId = res.play.id; //向导Id
+                if(res.conllectionMap) {
+                  this.isCollect = res.conllectionMap.play;//是否收藏当前
+                }
                 this.SAVE_GUIDE(res.guide);
                 this.SAVE_PLAY(res.play)
               }
@@ -574,6 +578,51 @@
             console.log('距离顶部高度' + total);
             document.body.scrollTop = total;
             document.documentElement.scrollTop = total
+          },
+          addCollect(){
+            //添加or取消收藏
+            if(this.isCollect) {
+              delCollection({gzkey: this.plays.id,type: 2}).then(res => {
+                //取消收藏
+                if(res.msg) {
+                  this.$createDialog({
+                    type: 'alert',
+                    title: '提示',
+                    content: res.msg
+                  }).show()
+                } else {
+                  this.$createToast({
+                    txt: '取消收藏',
+                    type: 'correct',
+                    mask: true,
+                    time: 2000
+                  }).show();
+                  this.isCollect = false;
+                }
+              })
+            }else {
+              addCollection({ gzkey: this.plays.id,type: 2,name: this.plays.wfname}).then(res=>{
+                //添加收藏
+                console.log(res);
+                if(res.msg) {
+                  this.$createDialog({
+                    type: 'alert',
+                    title: '提示',
+                    content: res.msg
+                  }).show()
+                } else {
+                  this.$createToast({
+                    txt: '收藏成功',
+                    type: 'correct',
+                    mask: true,
+                    time: 2000
+                  }).show();
+                  this.isCollect = true;
+                }
+              })
+
+            }
+
           },
           getStr(str) {
             if( str && str != ''){

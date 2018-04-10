@@ -12,24 +12,26 @@
         <li class="guide" v-for="gui in collectionList">
           <div class="guide-t clearfix">
             <div class="guide-img fl">
-              <img src="../../assets/img/tttt.png" alt="">
+              <img :src="gui.userImg" alt="">
             </div>
             <div class="guide-detail fl">
-              <h5 class="guide-name"><span>丁大力</span></h5>
-              <div class="region-level"><span>服务100人</span> | <span>2种玩法 </span></div>
-              <div class="guide-star"><span>类别：</span>历史古迹、历史博物馆</div>
+              <h5 class="guide-name"><span class="fl">{{gui.userName}}</span><span class="fl guide-type">{{ gui.servicetype | guideTypeText }}</span></h5>
+              <div class="region-level"><span>{{gui.wfcount}}种玩法 </span></div>
+              <!--<div class="guide-star"><span>类别：</span>历史古迹、历史博物馆</div>-->
             </div>
-            <button class="guide-order fl">找Ta预订
-            </button>
           </div>
-          <div class="guide-txt">
-            <p>
-              这是一块神奇的大陆，欧扎加拉圣诞节来看啥地这是一块神奇的大陆，欧扎加拉圣诞节来看啥地
-              这是一块神奇的大陆，欧扎加拉圣诞节来看啥地方了卡收到积分跑文件发了
-            </p>
-          </div>
+          <!--<div class="guide-txt">-->
+            <!--<p>-->
+              <!--这是一块神奇的大陆，欧扎加拉圣诞节来看啥地这是一块神奇的大陆，欧扎加拉圣诞节来看啥地-->
+              <!--这是一块神奇的大陆，欧扎加拉圣诞节来看啥地方了卡收到积分跑文件发了-->
+            <!--</p>-->
+          <!--</div>-->
         </li>
       </ul>
+      <div v-if="collectionList.length!== 0">
+        <p class="load-more" v-show="!nomore" @click="loadMore">加载更多</p>
+        <p class="load-more" v-show="nomore">没有更多了</p>
+      </div>
     </div>
 
     <div v-if="currentTab=='playway'" class="playway-wrapper">
@@ -94,7 +96,7 @@
         page:1,
         type:1,
         nomore:false,
-        collectionList: [1, 2, 2, 2, 2, 2],// 向导列表
+        collectionList: [],// 向导列表
       }
     },
     components: {
@@ -109,7 +111,8 @@
               this.nomore = true
             }
           } else {
-            this.collectionList.push(...res.list)
+            this.collectionList = res.list;
+            console.log(this.collectionList)
             if (res.list.length < 25) {
               this.nomore = true
             }
@@ -130,6 +133,9 @@
           this.type=3
           this.queryList()
         }
+      },
+      loadMore(){
+
       }
     }
   }

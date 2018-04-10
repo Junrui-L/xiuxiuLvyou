@@ -51,7 +51,7 @@
     data() {
       return {
         headBg: true,
-        currentTab: 'outdate',// 当前选择的Tab,
+        currentTab: 'notuse',// 当前选择的Tab,
         couponsList: [],// 优惠券列表
         tomake: '',//是否可用(必填0未过期可用，1已过期不可用)
         mapObj: {notuse: 0, outdate: 1, haveuse: 2}
@@ -66,7 +66,7 @@
     methods: {
       // 获取已过期优惠券列表
       getCouponsList() {
-        getOutDateyhj().then(res => {
+        getCanUseyhj().then(res => {
           this.couponsList = res.list ? res.list :[]
         })
       },

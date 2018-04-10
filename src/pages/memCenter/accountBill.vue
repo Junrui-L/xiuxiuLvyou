@@ -24,7 +24,7 @@
           <img :src="item.typeicon" alt="" />
         </div>
         <div class="money fl">
-          <p class="num"> {{ item.type | adderSubtractor('symbol')}}{{item.profitLossMoney}}</p>
+          <p class="num"> {{ item.changetype == 0 ? '-' : '+'}}{{item.profitLossMoney}}</p>
           <p class="bz">
             {{ item.type | adderSubtractor('txt')}}
             <!--{{ item.title }}-->

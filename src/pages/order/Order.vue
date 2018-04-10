@@ -361,11 +361,6 @@
               content: res.msg
             }).show()
           } else {
-            // this.$createDialog({
-            //   type: 'alert',
-            //   title: '提示',
-            //   content: '取消成功'
-            // }).show()
             this.$createToast({
               txt: '取消成功',
               type: 'correct',

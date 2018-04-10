@@ -38,7 +38,7 @@
       width: 100%;
       margin-top: px2rem(10px);
       padding: px2rem(20px) 0;
-      border-bottom: 2px solid #ccc;
+      border-bottom: 1px solid $color-gray-secondary;
       position: relative;
       .guide-img {
         height: px2rem(54px);
@@ -288,6 +288,13 @@
 
   }
 
+  .load-more {
+    height: px2rem(16px);
+    line-height: px2rem(16px);
+    @include font-dpr(16px);
+    text-align: center;
+    margin: px2rem(20px);
+  }
 
 
 }
