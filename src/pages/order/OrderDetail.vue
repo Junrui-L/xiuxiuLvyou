@@ -28,9 +28,9 @@
       <h3 class="title">订单信息</h3>
       <ul class="order-list">
         <li class="info-item">游玩天数 <span class="fr"> {{orderDatas.playday}}天</span></li>
-        <li class="info-item">游玩时间 <span class="fr">{{orderDatas.godate}}</span></li>
+        <li class="info-item">游玩时间 <span class="fr">{{orderDatas.godate | fmtDate('yyyy年M月d日')}}{{orderDatas.timehour}}点</span></li>
         <li class="info-item">截止游玩时间 <span class="fr">{{endate}}</span></li>
-        <li class="info-item">游玩人数 <span class="fr">{{orderDatas.tripsnum}}人{{pricePackages.sfzcty}}</span></li>
+        <li class="info-item">游玩人数 <span class="fr">{{orderDatas.tripsnum}}人</span></li>
         <li class="info-item">价格套餐 <span class="fr">{{pricePackages.name}}/ ￥{{pricePackages.price }}/{{pricePackages.unit | unitText}}</span></li>
       </ul>
     </div>
@@ -323,11 +323,13 @@
           this.playday = res.orderData.playday; //游玩天数
 
           console.log(this.godate)
-          let da = new Date(this.godate)
+          let goda = this.godate.replace(/-/g,"/")
+          console.log(goda)
+          let da = new Date(goda)
 
           da.setTime(da.getTime()+ (this.playday -1)*24*60*60*1000)
           console.log(da)
-          this.endate = dateFmt(da, 'yyyy-M-d'); //游玩结束日期
+          this.endate = dateFmt(da, 'yyyy年M月d日'); //游玩结束日期
 
 
           this.tripsnum = res.orderData.tripsnum;

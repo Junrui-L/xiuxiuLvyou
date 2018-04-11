@@ -8,7 +8,7 @@
           </div>
         </div>
         <div class="head-item ">
-          <div class="item-wrapper clearfix">
+          <div class="item-wrapper clearfix" >
             <span class="title">昵称</span>
             <span class="txt fr">
               {{userInfo.nickname}}
@@ -21,7 +21,7 @@
       </div>
       <ul class="main">
         <li class="head-item clearfix">
-          <div class="item-wrapper clearfix">
+          <div class="item-wrapper clearfix" @click="showCancel = true">
             <span class="title">真实姓名</span>
             <span class="txt fr">
             {{ userInfo.userName || '--'}}
@@ -32,12 +32,12 @@
           </div>
         </li>
         <li class="head-item clearfix">
-          <div class="item-wrapper clearfix">
-            <span class="title">个人性别</span>
+          <div class="item-wrapper clearfix" @click="setSex">
+            <span class="title" >个人性别</span>
             <span class="txt fr">
-            <template v-if="userInfo.sex == 1">男</template>
-            <template v-if="userInfo.sex == 2">女</template>
-            <template v-if="userInfo.sex == 0">未知</template>
+              <template v-if="userInfo.sex == 1">男</template>
+              <template v-if="userInfo.sex == 2">女</template>
+              <template v-if="userInfo.sex == 0">未知</template>
             <svg>
                 <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#arrow-right"></use>
             </svg>
@@ -45,7 +45,7 @@
           </div>
         </li>
         <li class="head-item clearfix">
-          <div class="item-wrapper clearfix">
+          <div class="item-wrapper clearfix" @click="showDatePicker">
             <span class="title">出生日期</span>
             <span class="txt fr">
             {{userInfo.brithDate || '未设置'}}
@@ -112,26 +112,47 @@
           </router-link>
         </li>
       </ul>
-
+    <CancelBox v-if="showCancel" confirmText="请输入您的姓名" :showCancelBox = "showCancel" @closeTip = 'shows' @confirmCancel="updateUsername"></CancelBox>
   </div>
 </template>
 
 <script>
-    import {userPerDetail, userLogin} from '../../http/getDate'
+    import Vue from 'vue'
+    import {userPerDetail, changePersonal ,userLogin} from '../../http/getDate'
+    import DatePicker from '../../components/date-picker'
+    import {dateFmt} from '../../config/myUtils'
+    import CancelBox from '../../components/cancelBox.vue'
+    createAPI(Vue, DatePicker, ['select', 'cancel'], false)
     export default {
         name: 'memberInfo',
         data() {
           return {
-            userInfo: {}
+            userInfo: {},
+            showCancel: false
           }
         },
+        components: {
+          CancelBox
+        },
         mounted() {
-          userPerDetail().then(res => {
-            console.log(res)
-            this.userInfo = res.visitor;
+          this.getDate();
+          this.datePicker = this.$createDatePicker({
+            title: '出生日期',
+            min: [1950, 1, 1],
+            max: [2020, 12, 31],
+            value: [1990, 1, 1],
+            columnCount: 3,
+            onSelect: this.selecTimetHandle,
+            onCancel: this.cancelHandle
           })
         },
         methods: {
+          getDate(){
+            userPerDetail().then(res => {
+              console.log(res)
+              this.userInfo = res.visitor;
+            });
+          },
           toSetBankCard(){
             if(this.userInfo.mobile == '') {
               this.$createToast({
@@ -164,6 +185,97 @@
             }else {
               this.$router.push({path: '/safeCenter'})
             }
+          },
+          shows(msg){
+            this.showCancel = false;
+          },
+          updateUsername(name){
+              console.log(name)
+            changePersonal('userName' , name).then(res => {
+              if(res.msg){
+                this.$createDialog({
+                  type: 'alert',
+                  title: '温馨提示',
+                  content: res.msg,
+                  showClose: true
+                }).show()
+                this.showCancel = false;
+              } else {
+                this.$createToast({
+                  txt: '设置成功',
+                  type: 'correct',
+                  mask: true,
+                  time: 2000
+                }).show();
+                this.showCancel = false;
+                this.getDate();
+              }
+            })
+          },
+          setSex() {
+            this.$createActionSheet({
+              title: '设置性别',
+              // active: 0,
+              data: [
+                {
+                  content: '女',
+                  sex: 2
+                },
+                {
+                  content: '男',
+                  sex: 1
+                }
+              ],
+              onSelect: (item, index) => {
+                console.log(item.sex) //设置性别
+                changePersonal('sex' , item.sex).then(res => {
+                  if(res.msg){
+                    this.$createDialog({
+                      type: 'alert',
+                      title: '温馨提示',
+                      content: res.msg,
+                      showClose: true
+                    }).show()
+                  } else {
+                    this.$createToast({
+                      txt: '设置成功',
+                      type: 'correct',
+                      mask: true,
+                      time: 2000
+                    }).show();
+                    this.getDate();
+                  }
+                })
+              },
+              onCancel: () => {
+                console.log('取消了')
+              }
+            }).show()
+          },
+          showDatePicker() {
+            this.datePicker.show();
+          },
+          selecTimetHandle(v){
+            let birth = dateFmt(v, 'yyyy-M-d')
+            console.log(birth)
+            changePersonal('brithDate', birth).then(res => {
+              if(res.msg){
+                this.$createDialog({
+                  type: 'alert',
+                  title: '温馨提示',
+                  content: res.msg,
+                  showClose: true
+                }).show()
+              } else {
+                this.$createToast({
+                  txt: '设置成功',
+                  type: 'correct',
+                  mask: true,
+                  time: 2000
+                }).show();
+                this.getDate();
+              }
+            })
           }
         }
     }

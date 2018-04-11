@@ -12,7 +12,7 @@
         </div>
         <div class="confrim clearfix" >
           <button class="back confirm_btn fl" @click="closeBox">返回</button>
-          <button class="confirm confirm_btn fl" @click="confirmCancel">确认取消</button>
+          <button class="confirm confirm_btn fl" @click="confirmCancel">确认</button>
         </div>
       </section>
     </div>
@@ -41,7 +41,7 @@
           this.$createDialog({
                   type: 'alert',
                   title: '提示',
-                  content: '请输入取消原因'
+                  content: '请输入内容'
                 }).show()
         } else {
           this.$emit('confirmCancel',this.cancelReason);

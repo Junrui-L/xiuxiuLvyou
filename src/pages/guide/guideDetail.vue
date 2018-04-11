@@ -209,7 +209,6 @@
   import DatePicker from '../../components/date-picker'
   import {peopleNum, peoleData} from '../../config/datajs'
   createAPI(Vue, DatePicker, ['select', 'cancel'], false)
-
   export default {
     data() {
       return {
@@ -347,7 +346,7 @@
             this.plays = this.playList[0];
           }
           if(res.conllectionMap) {
-            this.isCollect = res.conllectionMap.play;//是否收藏当前
+            this.isCollect = res.conllectionMap.guide;//是否收藏当前
           }
         })
       },

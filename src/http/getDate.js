@@ -294,7 +294,7 @@ export const userPersonal = () => $http.get('/siteH5/user.json?act=personal', {}
  * 修改用户个人信息
  *
  * */
-export const changePersonal = (dict, val) => $http.get('/siteH5/user.json?act=update', {
+export const changePersonal = (dict, val) => $http.post('/siteH5/user.json?act=update', {
   dict: dict,
   val: val
 });
