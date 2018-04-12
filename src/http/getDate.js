@@ -82,7 +82,8 @@ export const guideList = (data) => $http.post('/siteH5/guide.json?act=guideslist
   maxprice: data.maxprice,
   todaytuan: data.todaytuan,
   isbuyticket: data.isbuyticket,
-  isshuttle: data.isshuttle
+  isshuttle: data.isshuttle,
+  sort: data.sort
 });
 
 /**
@@ -98,7 +99,8 @@ export const cityGuideList = (data) => $http.post('/siteH5/guide.json?act=citygu
   maxprice: data.maxprice,
   todaytuan: data.todaytuan,
   isbuyticket: data.isbuyticket,
-  isshuttle: data.isshuttle
+  isshuttle: data.isshuttle,
+  sort: data.sort     //排序
 });
 
 /**

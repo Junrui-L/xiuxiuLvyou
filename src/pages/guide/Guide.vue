@@ -44,7 +44,6 @@
   import {throttle} from '../../config/myUtils'
   import DropDown from '../../components/DropDown.vue'
 
-
   import {provinceList, cityList, areaList} from '../../config/datajs'
 
   const cityData = provinceList
@@ -93,7 +92,8 @@
           maxprice: '',
           todaytuan: '',
           isbuyticket: '',
-          isshuttle: ''
+          isshuttle: '',
+          sort: ''
         }
       }
     },

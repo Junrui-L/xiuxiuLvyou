@@ -118,7 +118,7 @@
 
 <script>
     import Vue from 'vue'
-    import {userPerDetail, changePersonal ,userLogin} from '../../http/getDate'
+    import {userPerDetail, changePersonal , ConfigWx, getImgPath ,userLogin} from '../../http/getDate'
     import DatePicker from '../../components/date-picker'
     import {dateFmt} from '../../config/myUtils'
     import CancelBox from '../../components/cancelBox.vue'
@@ -128,6 +128,10 @@
         data() {
           return {
             userInfo: {},
+            configMap: '', //微信sdk初始化参数
+            images: [],   //图片
+            mediaId: [],
+            serverSrc: [],
             showCancel: false
           }
         },
@@ -152,6 +156,78 @@
               console.log(res)
               this.userInfo = res.visitor;
             });
+          },
+          configWx(){
+            let signUrl = location.href;
+
+            // signUrl = encodeURIComponent(signUrl)
+            console.log(`要签名的url ${signUrl}`)
+            ConfigWx(signUrl).then(res => {
+              console.log('===》签名基本参数返回《====')
+              console.log(res);
+              this.configMap = res.configMap;
+              wx.config({
+                debug: false,
+                appId: res.configMap.appid,
+                timestamp: res.configMap.timestamp,
+                nonceStr: res.configMap.nonceStr, //随机串
+                signature: res.configMap.signature ,//微信签名
+                jsApiList: ['chooseImage', 'uploadImage', 'downloadImage']  // 必填，需要使用的JS接口列表，这里与图片相关
+              });
+
+            })
+          },
+          addImg () {
+            let that = this;
+            wx.ready(function(){
+              wx.chooseImage({
+                count: 1, // 默认9
+                sizeType: ['original', 'compressed'], // 可以指定是原图还是压缩图，默认二者都有
+                sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
+                success: (res) => {
+                  let localIds = res.localIds // 返回选定照片的本地ID列表，localId可以作为img标签的src属性显示图片
+                  console.log(localIds)
+                  localIds.forEach(li => {
+                    that.images.push(li)
+                  });
+                  // this.readImages(currentSize)
+                  that.wxUploadImg(localIds);
+                },
+                fail: (err) => {
+                  console.log(err)
+                }
+              })
+
+            })
+
+          },
+          wxUploadImg(arr){
+            let length=arr.length;
+            let that = this;
+            let i=0
+            function upload() {
+              wx.uploadImage({
+                localId: arr[i],
+                success: function (res) {
+                  i++;
+                  that.mediaId.push(res.serverId); // 返回图片的服务器端ID
+                  console.log(res.serverId)
+                  getImgPath({type: 'image', media_ids: res.serverId}).then(res => {
+                    console.warn(res);
+                    that.serverSrc.push(res.imgpaths);
+                    console.log(that.serverSrc)
+                    if (i < length) {
+                      upload();
+                    }
+                  })
+                },
+                fail: function (res) {
+                  console.log(JSON.stringify(res));
+                }
+              });
+            }
+            upload();
+
           },
           toSetBankCard(){
             if(this.userInfo.mobile == '') {

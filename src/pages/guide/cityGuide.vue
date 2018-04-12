@@ -21,7 +21,7 @@
               <i class="male" :class="{'female': item.sex == 2}"></i>
             </div>
             <div class="guide-detail fl">
-              <h5 class="guide-name"><span>{{item.username}}</span> <span class="hascar" v-if="item.havecar == 1">({{item.havecar == 1 ? '有车' : ''}})</span></h5>
+              <h5 class="guide-name"><span>{{item.username}}</span> <span class="hascar" v-if="item.havecar == 1">(有车)</span></h5>
               <div class="guide-count"><span>{{item.wfcount}}种玩法 </span> |<span> 服务{{item.fwcount}}人 </span><span class="guide-price"  v-if="item.dayprice != null">￥{{item.dayprice}}<span>起/天</span></span></div>
               <!--<div class="guide-price"  v-if="item.dayprice != null">￥{{item.dayprice}}<span>起/天</span></div>-->
             </div>
@@ -72,24 +72,14 @@
               {name: '专线旅游', value: 3}
             ]
           },
-          // {
-          //   name: '年龄',
-          //   value: 'agetype',
-          //   children: [
-          //     {name: '70后', value: '70后'},
-          //     {name: '80后', value: '80后'},
-          //     {name: '90后', value: '90后'},
-          //     {name: '00后', value: '00后'},
-          //   ]
-          // },
           {
             name: '默认排序',
             value: 'sort',
             children: [
-              {name: '评分高低', value: 1, type: 'price'},
-              {name: '服务单数', value: 2, type: 'todaytuan'},
-              {name: '价格由低到高', value: 3, type: 'baojiesong'},
-              {name: '价格由高到低', value: 1, type: 'peoplenum'},
+              {name: '距离', value: 'distance'},
+              {name: '评分高低', value: 'distance'},
+              {name: '价格由低到高', value: 'playprice'},
+              {name: '价格由高到低', value: 'playprice2'},
             ]
           }
         ],
@@ -103,7 +93,8 @@
           todaytuan: '',
           isbuyticket: '',
           isshuttle: '',
-          havecar: ''
+          havecar: '',
+          sort: ''
         }
       }
     },
@@ -158,9 +149,11 @@
         cbData.forEach(item => {
           this.sendData[item.type] = item.value
         })
+        console.warn(JSON.stringify(this.sendData))
         this.getGuideList(this.sendData)
       },
       getGuideList(data) {
+        console.log('请求参数' + JSON.stringify(data))
         cityGuideList(data).then(res => {
           console.log('区导列表返回。。。。。')
           console.log(res);
