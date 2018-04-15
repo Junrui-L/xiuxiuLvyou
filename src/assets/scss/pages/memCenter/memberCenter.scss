@@ -21,7 +21,8 @@
 
       .username {
         padding-left: px2rem(20px);
-        width: 30%;
+        width: px2rem(200px);
+        @include ellipsis;
         line-height: px2rem(60px);
         color: $white;
         @include font-dpr(17px)
@@ -50,6 +51,7 @@
       //@include setSize(100%, px2rem(40px));
       .mem-item {
         width: 25%;
+        @include ellipsis;
         @include font-dpr(16px);
         line-height: px2rem(20px);
         color: $white;

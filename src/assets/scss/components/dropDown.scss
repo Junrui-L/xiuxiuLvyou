@@ -16,7 +16,7 @@
     z-index: 1000;
     .iv-dropDown-nav{
       float: left;
-      width: 75%;
+      width: 66.7%;
       line-height:  px2rem(44px);
       text-align: center;
       position: relative;
@@ -51,16 +51,16 @@
           border-color:$gray transparent  transparent  transparent ;
           //@include transform(rotate(45deg));
         }
-        &:before{
-          content: '';
-          display: block;
-          @include setSize(1px, px2rem(20px));
-          background: $gray;
-          position: absolute;
-          right: 0;
-          top: 50%;
-          @include transform(scaleX(0.5) translateY(-50%));
-        }
+        //&:before{
+        //  content: '';
+        //  display: block;
+        //  @include setSize(1px, px2rem(20px));
+        //  background: $gray;
+        //  position: absolute;
+        //  right: 0;
+        //  top: 50%;
+        //  @include transform(scaleX(0.5) translateY(-50%));
+        //}
         &:last-child:before{
           display: none;
         }
@@ -68,7 +68,7 @@
     }
 
     .pro-select {
-      width: 25%;
+      width: 33%;
       line-height: px2rem(44px);
       text-align: center;
       border-bottom:1px solid $gray;
@@ -182,38 +182,59 @@
 
     &.pro-list {
       display: block;
-      padding: px2rem(15px) px2rem(15px) px2rem(60px);
+      padding: px2rem(10px) px2rem(15px) px2rem(10px);
       overflow: auto;
+      position: relative;
+      .check-contain {
+        height: px2rem(300px);
+        overflow: auto;
+      }
       .check-wrapper {
         margin-bottom: px2rem(10px);
+        .tits {
+          padding:px2rem(15px) px2rem(15px) px2rem(15px) px2rem(10px);
+
+        }
         h5 {
           height: px2rem(30px);
           line-height: px2rem(30px);
           @include font-dpr(10px);
 
         }
+        .price-wrap {
+          padding-top: px2rem(10px);
+        }
+        .price-txt {
+          width: px2rem(55px);
+          height: px2rem(20px);
+          line-height: px2rem(20px);
+          padding: px2rem(5px);
+          text-align: center;
+          border: 1px solid $color-gray-secondary;
+        }
 
         .price-limit {
           line-height: px2rem(36px);
           @include font-dpr(15px);
 
-          svg {
-            fill: $color-gray-secondary;
-            width: px2rem(16px);
-            height:px2rem(16px);
-            vertical-align: text-top;
-          }
+
+        }
+        svg {
+          fill: $color-gray-secondary;
+          width: px2rem(16px);
+          height:px2rem(16px);
+          vertical-align: text-top;
         }
       }
 
       .btn-wrapper {
-        position: fixed;
+        position: absolute;
         bottom: 0;
         left: 0;
         @include setSize(100%, px2rem(60px));
         z-index: 10000;
         background: $white;
-        padding: px2rem(10px) px2rem(35px);
+        padding: px2rem(10px) px2rem(25px);
 
         .re {
 

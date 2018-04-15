@@ -1,14 +1,18 @@
 <template>
   <div class="radio-box cube-radio-group clearfix" :class="_groupClass" :data-horz="horizontal">
-    <div class="cube-radios fl" v-for="option in options" :class="_containerClass" >
-      <div class="radio-wrap" :class="_wrapClass(option)">
-        <input class="radio-input" type="radio" :disabled="option.disabled" v-model="radioValue" :value="option.value || option">
-        <span class="radio-ui ">
+    <div class="tit fl">{{ title }}</div>
+    <div class="options fl">
+      <div class="cube-radios fl" v-for="option in options" :class="_containerClass" >
+        <div class="radio-wrap" :class="_wrapClass(option)">
+          <input class="radio-input" type="radio" :disabled="option.disabled" v-model="radioValue" :value="option.value || option">
+          <span class="radio-ui ">
           {{option.label}}
         </span>
-        <!--<span class="radio-label">{{option.label || option}}</span>-->
+          <!--<span class="radio-label">{{option.label || option}}</span>-->
+        </div>
       </div>
     </div>
+
   </div>
 </template>
 <script type="text/ecmascript-6">
@@ -19,7 +23,11 @@
   export default {
     name: COMPONENT_NAME,
     props: {
-      value: String,
+      value: '',
+      title: {
+        type: String,
+        default: '性别'
+      },
       options: {
         type: Array,
         required: true

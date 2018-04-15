@@ -27,41 +27,48 @@
         </template>
       </div>
 
-      <div :class="[prefixCls+'-list']" class="pro-list" ref="prodropDownWrapper">
-        <div class="check-wrapper">
-          <h5>性别</h5>
-          <radio-box :options="sexArr" v-model="sex"/>
-        </div>
-        <div class="check-wrapper">
-          <h5>年龄</h5>
-          <radio-box :options="ageArr" v-model="age"/>
-        </div>
-        <div class="check-wrapper" @click="showPicker">
-          <h5>价格范围</h5>
-          <div class="price-limit clearfix">请选择价格范围
-            <span class="fr">{{priceRange}}
+      <div :class="[prefixCls+'-list']" v-show="proShow" class="pro-list" ref="prodropDownWrapper">
+        <div class="check-contain">
+          <div class="check-wrapper">
+            <radio-box title="性别" :options="sexArr" v-model="sex"/>
+          </div>
+          <div class="check-wrapper">
+            <radio-box title="年龄" :options="ageArr" v-model="age"/>
+          </div>
+          <div class="check-wrapper">
+            <div class="clearfix"><span class="tits fl">价格范围</span>
+
+              <div class="fl price-wrap"><input class="price-txt" v-model="minprice" type="text"> 元<span> - </span> <input class="price-txt" v-model="maxprice" type="text"> 元</div>
+              <div class="price-limit fr"  @click="showPicker"><span>快捷</span>范围
+                <svg>
+                  <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#arrow-right"></use>
+                </svg>
+              </div>
+            </div>
+
+
+          </div>
+          <div class="check-wrapper">
+
+            <radio-box title="是否团游" :options="isGroupArr" v-model="isGroup"/>
+
+          </div>
+          <div class="check-wrapper">
+            <radio-box title="向导能力" :options="serverTypeArr" v-model="serverType"/>
+          </div>
+          <div class="check-wrapper">
+            <!--<h5>预订时间</h5>-->
+            <div class=" clearfix" @click="showTimePicker"><span class="tits fl">选择预订时间</span>
+              <div class="price-limit fr">{{orderTime}}
               <svg>
                  <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#arrow-right"></use>
               </svg>
-            </span>
+            </div>
+            </div>
           </div>
         </div>
-        <div class="check-wrapper">
-          <h5>团游</h5>
-          <radio-box :options="isGroupArr" v-model="isGroup"/>
-          <radio-box :options="serverTypeArr" v-model="serverType"/>
-        </div>
-        <div class="check-wrapper">
-          <h5>预订时间</h5>
-          <div class="price-limit clearfix" @click="showTimePicker">选择预订时间
-            <span class="fr">{{orderTime}}
-              <svg>
-                 <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#arrow-right"></use>
-              </svg>
-            </span>
-          </div>
-        </div>
-        <div class="btn-wrapper" v-show="proShow">
+
+        <div class="btn-wrapper clearfix" v-show="proShow">
           <button class="re fl" @click="resetCon">重置</button>
           <button class="sure fr" @click="sureProSelect">确定</button>
         </div>
@@ -73,11 +80,12 @@
 
 
 <script type="text/ecmascript-6">
+  import Vue from 'vue'
   import CheckBox from '../components/check-box.vue'
   import RadioBox from '../components/radio-box.vue'
   import DatePicker from '../components/date-picker'
-  import Vue from 'vue'
 
+  import {dateFmt} from '../config/myUtils'
   createAPI(Vue, DatePicker, ['select', 'cancel'], false)
   Array.prototype.arrClear = function () {
     this.splice(0, this.length);
@@ -99,10 +107,12 @@
         selectSex: false,
         selectSex2: false,
         sexArr: [
+          {label: '全部', value: ''},
           {label: '男', value: '1'},
           {label: '女', value: '2'}
         ],
         ageArr: [
+          {label: '全部', value: ''},
           {label: '70后', value: '70后'},
           {label: '80后', value: '80后'},
           {label: '90后', value: '90后'},
@@ -112,6 +122,8 @@
         sex: '',     //性别
         age: '',     //年龄
         priceRange: '价格范围',
+        minprice: '',
+        maxprice: '',
         selecteGroup: '2',
         isGroup: '', //是否开团
         reserveTime: '',// 预约时间
@@ -122,7 +134,8 @@
         serverType: '',
         serverTypeArr: [
           {label: '代买车票', value: '1'},
-          {label: '包接送', value: '2'}
+          {label: '有车', value: '2'},
+          {label: '包接送', value: '3'}
         ],
         selecteTicket: '2',
         isbuyticket: false,
@@ -169,6 +182,7 @@
       this.mutiPicker = this.$createPicker({
         title: '价格范围',
         data: [this.priceRang],
+        value: '200-300',
         alias: {
           value: 'id',
           text: 'range'
@@ -177,9 +191,33 @@
         onCancel: this.cancelHandle
       })
 
+      //获取当前日期,s设置日期初始时间点
+      let nowTime = new Date(), startTime = [];
+      let nowday = dateFmt(nowTime, 'yyyy-M-dd-hh');
+      console.log(`现在的日期是${nowday}`)
+      let minDay  = nowday.split('-');
+      let mindate = [];
+      minDay.forEach((v,i)=>{
+        mindate[i] = parseInt(v)
+      });
+      console.log(mindate)
+      if(nowTime.getHours() >= 18) {
+        //超过18点默认订明天
+        nowTime.setTime(nowTime.getTime()+24*60*60*1000);
+        let startDay = dateFmt(nowTime, 'yyyy-M-dd');
+        let startDate  = startDay.split('-');
+        startDate.forEach((v,i)=>{
+          startTime[i] = parseInt(v)
+        });
+      } else {
+        startTime = mindate
+      }
       this.datePicker = this.$createDatePicker({
-        min: [2018, 1, 1],
-        max: [2020, 1, 1],
+        title: '出行日期',
+        min: mindate,
+        max: [2020, 12, 31],
+        value: startTime,
+        columnCount: 3,
         onSelect: this.selecTimetHandle,
         onCancel: this.cancelHandle
       })
@@ -357,20 +395,22 @@
       },
       sureProSelect() {
         let proCondition = [];
-        proCondition.push({sex: this.sex})
-        proCondition.push({age: this.age})
-        proCondition.push({isGroup: this.isGroup})
-        proCondition.push({serverType: this.serverType})
-        proCondition.push({minprice: this.minprice})
-        proCondition.push({maxprice: this.maxprice})
-        proCondition.push({reserveTime: this.reserveTime})
-        proCondition.push({orderTime: this.orderTime})
+        proCondition.push({type: 'sex', value : this.sex})
+        proCondition.push({type: 'agetype', value : this.age})
+        proCondition.push({type: 'isGroup', value : this.isGroup})
+        proCondition.push({type: 'serverType', value : this.serverType})
+        proCondition.push({type: 'minprice', value : this.minprice})
+        proCondition.push({type: 'maxprice', value : this.maxprice})
+        proCondition.push({type: 'reserveTime', value : this.reserveTime})
+        proCondition.push({type: 'orderTime', value : this.orderTime})
         console.error(JSON.stringify(proCondition))
         this.hideWrapper();
+        this.proShow = false;
         this.$emit('selectCallback', proCondition);
       },
       resetCon() {
         this.sex = '';
+        this.age = '';
         this.isGroup = '';
         this.serverType = '';
         this.reserveTime = '';

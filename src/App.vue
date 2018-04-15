@@ -3,11 +3,11 @@
     <transition name="router-fade" mode="out-in">
       <!--此处是要做缓存用，数据加载过多的页面使用 keepAlive-->
       <keep-alive>
-        <router-view v-if="$route.meta.keepAlive"></router-view>
+        <router-view v-if="$route.meta.keepAlive"  :key="$route.fullpath"></router-view>
       </keep-alive>
     </transition>
     <transition name="router-fade" mode="out-in">
-      <router-view v-if="!$route.meta.keepAlive"></router-view>
+      <router-view v-if="!$route.meta.keepAlive"  :key="$route.fullpath"></router-view>
     </transition>
   </div>
 </template>

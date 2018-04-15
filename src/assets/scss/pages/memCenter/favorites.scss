@@ -119,21 +119,18 @@
   }
 
   .playway-wrapper {
-    padding: px2rem(10px);
-
-    .region-list {
+    //padding: px2rem(10px);
+    margin-top: px2rem(10px);
+    .methos-list {
       padding: 0 px2rem(10px);
-      background: #fff;
-
+      background: $white;
     }
-
-    .region {
+    .methods {
       width: 100%;
-
-      padding: px2rem(20px) 0;
-      border-bottom: 2px solid #ccc;
-
-      .region-img {
+      padding: px2rem(10px) px2rem(10px);
+      background: $white;
+      border-bottom: 1px solid $color-body-bg;
+      .method-img {
         height: px2rem(75px);
         width: px2rem(120px);
         margin-right: px2rem(12px);
@@ -143,67 +140,51 @@
         }
       }
 
-      .region-name {
-        width: px2rem(180px);
-        height: px2rem(60px);
-        line-height: px2rem(15px);
-        @include font-dpr(15px);
-        color: $color-gray-primary;
-        overflow: hidden;
-        white-space: nowrap;
-        text-overflow: ellipsis;
-        span {
+      .method-detail {
+        width: px2rem(200px);
+        .method-name {
           @include font-dpr(15px);
-          width: px2rem(180px);
-          height:px2rem(60px);
-          word-break:break-all;
-          word-wrap:break-word;
-          overflow: hidden;
+          line-height: px2rem(25px);
           color: $color-black;
-          line-height: 19px;
-          vertical-align: middle;
-          white-space: pre-line;
-          text-overflow: ellipsis;
+          @include setSize(100%, px2rem(25px));
+        }
+        .method-desc {
+          @include setSize(100%, px2rem(25px));
+          @include font-dpr(14px);
+          @include cliptxt(2);
+          color: $color-black-secondary;
+          line-height: px2rem(25px);
+          span {
+            padding-right: px2rem(15px);
+          }
+        }
+
+        .method-tip {
+          text-align: left;
+          line-height: px2rem(25px);
+          @include font-dpr(13px);
+          color: $color-black-secondary;
+          span {
+            padding-right: px2rem(10px);
+          }
         }
       }
 
-      .region-level {
-        margin: px2rem(8px) 0;
-        height: px2rem(20px);
-        line-height: px2rem(20px);
-        @include font-dpr(14px);
-        color: $color-black;
-      }
 
-      .region-price {
-        width: auto;
-        margin-top: px2rem(10px);
-        line-height: px2rem(20px);
-        @include font-dpr(12px);
-        color: $color-red;
-        text-align: right;
-        span {
-          @include font-dpr(16px);
-          color: $color-red;
+      .method-txt {
+        margin-top: px2rem(16px);
+        @include setSize(100%, px2rem(64px));
+        padding: px2rem(10px);
+        background: $color-body-bg;
+        p {
+          line-height: px2rem(22px);
+          width: 100%;
+          @include cliptxt(2);
+          @include font-dpr(14px);
         }
       }
     }
-    .region:nth-last-of-type(1) {
-      border: none;
-    }
 
-    .region-txt {
-      margin-top: px2rem(16px);
-      padding: px2rem(12px);
-      height: px2rem(64px);
-      @include font-dpr(12px);
-      background: $color-senior-bg;
-      p {
-        @include cliptxt(2);
-        line-height: px2rem(20px);
-      }
-
-    }
 
   }
 

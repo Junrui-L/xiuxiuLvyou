@@ -8,10 +8,14 @@
           <span class="cityname ">{{scenicInfo.name}}</span>
         </div>
       </HeadTop>
-      <img class="head-img" :src="basePath + scenicInfo.cityimg" alt="">
+      <img  class="head-img" :src="basePath + scenicInfo.cityimg" alt="">
     </header>
-    <drop-down :dropDownData="dropDownData" :selectCallback="selectCallback"></drop-down>
+    <div >
+      <drop-down :dropDownData="dropDownData" @selectCallback="selectCallback"></drop-down>
+
+    </div>
     <div class="guide-wrapper">
+
       <ul class="guide-list">
         <li v-if="guidesList.length == 0" class="noGuide">暂无向导</li>
         <li v-else class="guide" v-for="item in guidesList"  @click="$router.push({path: '/guideDetail',  query: {id:item.visitorid}})">
@@ -111,12 +115,12 @@
       this.cityPicker = this.$createCascadePicker({
         title: '选择区域',
         data: cityData,
-        onSelect: this.selectHandle,
+         onSelect: this.selectHandle,
         onCancel: this.cancelHandle
       })
 
       this.sendData.citySn = this.$route.query.citySn;
-      // this.sendData.citySn = 440100;
+     // this.sendData.citySn = 440100;
       console.log(this.sendData);
       this.getGuideList(this.sendData);
 
@@ -147,10 +151,16 @@
       selectCallback(cbData) {
         console.error(JSON.stringify(cbData))
         cbData.forEach(item => {
-          this.sendData[item.type] = item.value
+          if(item.value == '') {
+            this.sendData[item.type] = ''
+          } else {
+            this.sendData[item.type] = item.value
+          }
         })
+        console.log('------请求数据------')
         console.warn(JSON.stringify(this.sendData))
-        this.getGuideList(this.sendData)
+        this.getGuideList(this.sendData);
+
       },
       getGuideList(data) {
         console.log('请求参数' + JSON.stringify(data))
