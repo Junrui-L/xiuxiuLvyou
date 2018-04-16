@@ -107,6 +107,7 @@
         selectSex: false,
         selectSex2: false,
         sexArr: [
+          // TODO:这里的全部value为空就有问题了,如果全选就传空值给后台
           {label: '全部', value: ''},
           {label: '男', value: '1'},
           {label: '女', value: '2'}
@@ -394,6 +395,7 @@
         // }).show()
       },
       sureProSelect() {
+        // TODO: 这里组装要传给后台的值
         let proCondition = [];
         proCondition.push({type: 'sex', value : this.sex})
         proCondition.push({type: 'agetype', value : this.age})

@@ -566,7 +566,6 @@
           })
         })
       },
-      // todo 需要根据changeShowType 分别判断进入区域和景点 点击左侧食品列表标题，相应列表移动到最顶层
       chooseMenu(index){
         this.$router.replace({path: `/search/${this.areaList[index].areasn}`})
         this.menuIndex = index;

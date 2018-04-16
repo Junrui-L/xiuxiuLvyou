@@ -18,7 +18,7 @@
   const EVENT_INPUT = 'input'
   const EVENT_CHECKED = 'checked'
   const EVENT_CANCLE_CHECKED = 'cancel-checked'
-
+// TODO: 我想可能是这里的props的 value传递有问题，不能传空值
   export default {
     name: COMPONENT_NAME,
     props: {
