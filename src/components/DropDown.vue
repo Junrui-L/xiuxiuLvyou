@@ -108,12 +108,12 @@
         selectSex2: false,
         sexArr: [
           // TODO:这里的全部value为空就有问题了,如果全选就传空值给后台
-          {label: '全部', value: ''},
+          {label: '全部', value: '100'},
           {label: '男', value: '1'},
           {label: '女', value: '2'}
         ],
         ageArr: [
-          {label: '全部', value: ''},
+          {label: '全部', value: '100'},
           {label: '70后', value: '70后'},
           {label: '80后', value: '80后'},
           {label: '90后', value: '90后'},
@@ -397,8 +397,17 @@
       sureProSelect() {
         // TODO: 这里组装要传给后台的值
         let proCondition = [];
-        proCondition.push({type: 'sex', value : this.sex})
-        proCondition.push({type: 'agetype', value : this.age})
+        if(this.sex==100){
+          proCondition.push({type: 'sex', value : ''})
+        }else{
+          proCondition.push({type: 'sex', value : this.sex})
+        }
+        if(this.age==100){
+          proCondition.push({type: 'agetype', value : ''})
+        }else {
+          proCondition.push({type: 'agetype', value : this.age})
+        }
+
         proCondition.push({type: 'isGroup', value : this.isGroup})
         proCondition.push({type: 'serverType', value : this.serverType})
         proCondition.push({type: 'minprice', value : this.minprice})
