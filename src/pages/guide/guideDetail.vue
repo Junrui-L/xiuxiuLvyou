@@ -242,6 +242,7 @@
         newPricePackelist: [],
         plays: {},
         isCollect: false,// 是否收藏
+        unitMap:{1:'1人/天',2:'1单/天',3:'1人/次',4:'1单/次'}
       }
     },
     computed: {
@@ -354,7 +355,8 @@
         loadPackage(godate,timehour, accountId, playId).then(res => {
           this.newPricePackelist = res.pricepackageList;   //根据日期的套餐集合
           for(let i=0; i< this.newPricePackelist.length; i++) {
-            this.mealdata[i] = {value:this.newPricePackelist[i].id, text: this.newPricePackelist[i].name}
+            this.mealdata[i] = {value:this.newPricePackelist[i].id,
+              text: this.newPricePackelist[i].name+'('+this.newPricePackelist[i].price+'元'+this.unitMap[this.newPricePackelist[i].unit]+')'}
           }
           let tcData = JSON.parse(JSON.stringify(this.mealdata));
           this.mealPicker = this.$createPicker({
