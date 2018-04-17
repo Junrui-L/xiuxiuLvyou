@@ -386,23 +386,23 @@
           }).show();
         } else {
           // console.log(this.mpPackage.mpPackageId)
-          creatOrder(
-            this.godate,
-            this.playday,
-            this.accountId,
-            this.playId,
-            this.tripsnum,
-            this.packageid,
-            this.mpPackage.mpPackageId,
-            this.mpPackagecount,
-            this.istuan,
-            this.source,
-            this.tipmount,
-            this.linkman,
-            this.linkPhone,
-            this.requiretxt,
-            this.yhjId
-          ).then(res => {
+          creatOrder({
+            godate: this.godate,
+            playDay: this.playday,
+            accountId: this.accountId,
+            playId: this.playId,
+            tripsnum: this.tripsnum,
+            packageid: this.packageid,
+            mpPackageid: this.mpPackage.mpPackageId,
+            mpPackagecount: this.mpPackagecount,
+            istuan: this.istuan,
+            source: this.source,
+            tipamount: this.tipmount,
+            limkman: this.linkman,
+            linkPhone: this.linkPhone,
+            require: this.requiretxt,
+            yhjId: this.yhjId
+          }).then(res => {
             let self = this;
             console.log(res)
             console.log('---------新下的订单返回了-----------')

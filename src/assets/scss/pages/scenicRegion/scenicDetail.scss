@@ -195,9 +195,14 @@
         .item-tit {
           padding: 0 px2rem(20px);
           @include setSize(100%, px2rem(60px));
+
           line-height: px2rem(60px);
           @include font-dpr(16px);
           border-top: 1px solid $color-body-bg;
+          .mp-name {
+            @include setSize(60%, px2rem(60px));
+            @include ellipsis;
+          }
           span {
             color: $color-red;
             padding-right: px2rem(20px);

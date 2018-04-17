@@ -209,7 +209,7 @@
         <li class="info-item clearfix">联系人 <span class="fr">{{orderInfo.limkman}}</span></li>
         <li class="info-item clearfix" >联系电话 <span class="fr">{{orderInfo.linkPhone}}</span></li>
         <li class="info-item clearfix">游玩天数 <span class="fr">{{ orderInfo.playDay }} 天</span></li>
-        <li class="info-item clearfix">游玩日期 <span class="fr">{{ orderInfo.godate }}</span></li>
+        <li class="info-item clearfix">游玩日期 <span class="fr">{{ orderInfo.godate | fmtDate('yyyy年M月d日')}}</span></li>
         <li class="info-item clearfix">结束日期 <span class="fr">{{ orderInfo.godate }}</span></li>
         <li class="info-item clearfix">出行人数 <span class="fr">{{ orderInfo.tripsnum}} 人</span></li>
         <li class="info-item clearfix">是否团游 <span class="fr">{{orderInfo.sfty == 1 ? '是' : '否'}}</span>
@@ -280,6 +280,7 @@
 <script type="text/ecmascript-6">
   import {orderDetail, updateOrder,cancelOrder} from "../../http/getDate";
   import {mapState, mapMutations} from 'vuex'
+  import {dateFmt} from '../../config/myUtils'
   import TimeCountDown from '../../components/timeCountDown.vue'
   import TimeCountUp from  '../../components/timeCountUp.vue'
   import CancelBox from '../../components/cancelBox.vue'

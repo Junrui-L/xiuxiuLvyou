@@ -115,11 +115,10 @@ export const guideDetails = (scenicspot, accountId) => $http.post('/siteH5/guide
 /**
  * 加载套餐集合/order.json?act=loadPackage
  * */
-export const loadPackage = (godate, timehour,accountId, playId) => $http.post('/siteH5/order.json?act=loadPackage', {
-  godate: godate,
-  timehour: timehour,
-  accountId: accountId,
-  playId: playId
+export const loadPackage = (data) => $http.post('/siteH5/order.json?act=loadPackage', {
+  godate: data.godate,
+  accountId: data.accountId,
+  playId: data.playId
 });
 
 
@@ -159,15 +158,16 @@ export const getNearGuide = (latitude, longitude, sex) => $http.get('/siteH5/gui
  * 初始化订单
  * */
 
-export const initOrder = (godate, playday,accountId, playId, tripsnum, packageid, source, tipamount) => $http.post('/siteH5/order.json?act=init', {
-  godate: godate,
-  playday: playday,
-  accountId: accountId,
-  playId: playId,
-  tripsnum: tripsnum,
-  packageid: packageid,
-  source: source,
-  tipamount: tipamount
+export const initOrder = (data) => $http.post('/siteH5/order.json?act=init', {
+  godate: data.godate,
+  timehour: data.timehour,
+  playday: data.playday,
+  accountId: data.accountId,
+  playId: data.playId,
+  tripsnum: data.tripsnum,
+  packageid: data.packageid,
+  source: data.source,
+  tipamount: data.tipamount
 
 });
 
@@ -185,36 +185,22 @@ export const loadOrder = () => $http.get('/siteH5/order.json?act=loadOrder', {})
  *新增订单(14参数)
  * */
 
-export const creatOrder = (godate,
-                           playDay,
-                           accountId,
-                           playId,
-                           tripsnum,
-                           packageid,
-                           mpPackageid,
-                           mpPackagecount,
-                           istuan,
-                           source,
-                           tipamount,
-                           limkman,
-                           linkPhone,
-                           require,
-                           yhjId) => $http.post('/siteH5/order.json?act=create', {
-  godate: godate,
-  playDay: playDay,
-  accountId: accountId,
-  playId: playId,
-  tripsnum: tripsnum,
-  packageid: packageid,
-  mpPackageid: mpPackageid,
-  mpPackagecount: mpPackagecount,
-  istuan: istuan,
-  source: source,
-  tipamount: tipamount,
-  limkman: limkman,
-  linkPhone: linkPhone,
-  require: require,
-  yhjId: yhjId
+export const creatOrder = (data) => $http.post('/siteH5/order.json?act=create', {
+  godate: data.godate,
+  playDay: data.playDay,
+  accountId: data.accountId,
+  playId: data.playId,
+  tripsnum: data.tripsnum,
+  packageid: data.packageid,
+  mpPackageid: data.mpPackageid,
+  mpPackagecount: data.mpPackagecount,
+  istuan: data.istuan,
+  source: data.source,
+  tipamount: data.tipamount,
+  limkman: data.limkman,
+  linkPhone: data.linkPhone,
+  require: data.require,
+  yhjId: data.yhjId
 });
 
 

@@ -75,7 +75,7 @@
                 </ul>
                 <h4 class="tite sub-title">门票套餐</h4>
                 <ul class="list-wrapper">
-                    <li class="list-item" v-for="item in mpPackelist" @click="showPanTicket = !showPanTicket"><div class="item-tit">{{item.name}} <span class="fr" :class="{'up': showPanTicket}">￥{{item.price}}
+                    <li class="list-item" v-for="item in mpPackelist" @click="showPanTicket = !showPanTicket"><div class="item-tit"> <div class= "mp-name fl">{{item.name}}</div><span class="fr" :class="{'up': showPanTicket}">￥{{item.price}}
                       <template v-if="item.unit == 1">
                         元/天
                       </template>
@@ -298,6 +298,7 @@
                 priceRanges: [],
                 mealdata: [],
                 travalDate: '',
+                timehour: '',
                 travalDay: {
                   value: 1,
                   txt: '1天'
@@ -453,11 +454,20 @@
               // console.log(this.otherPlays)
             })
           },
-          priceList(godate,timehour, accountId, playId) {
-            loadPackage(godate,timehour, accountId, playId).then(res => {
+          priceList(data) {
+            loadPackage({godate:data.godate,accountId: data.accountId,
+              playId: data.playId}).then(res => {
               this.newPricePackelist = res.pricepackageList;   //根据日期的套餐集合
               for(let i=0; i< this.newPricePackelist.length; i++) {
-                this.mealdata[i] = {value:this.newPricePackelist[i].id, text: this.newPricePackelist[i].name}
+                if(this.newPricePackelist[i].unit == 1) {
+                  this.mealdata[i] = {value:this.newPricePackelist[i].id, text: this.newPricePackelist[i].name + '(￥'+this.newPricePackelist[i].price+'/人/天)'}
+                } else if(this.newPricePackelist[i].unit == 2) {
+                  this.mealdata[i] = {value:this.newPricePackelist[i].id, text: this.newPricePackelist[i].name + '(￥'+this.newPricePackelist[i].price+'/团/天)'}
+                } else if(this.newPricePackelist[i].unit == 3) {
+                  this.mealdata[i] = {value:this.newPricePackelist[i].id, text: this.newPricePackelist[i].name + '(￥'+this.newPricePackelist[i].price+'/人/次)'}
+                }else if(this.newPricePackelist[i].unit == 4) {
+                  this.mealdata[i] = {value:this.newPricePackelist[i].id, text: this.newPricePackelist[i].name + '(￥'+this.newPricePackelist[i].price+'/单/次)'}
+                }
               }
               let tcData = JSON.parse(JSON.stringify(this.mealdata));
               this.mealPicker = this.$createPicker({
@@ -492,8 +502,12 @@
             this.dayPicker.show();
           },
           selecTimetHandle(selectedVal, selectedIndex, selectedText) {
+            this.timehour = selectedVal.getHours();
             this.travalDate = {value: dateFmt(selectedVal, 'yyyy-M-d'), txt: selectedText.join('')}
-            this.priceList(this.travalDate.value,selectedVal.getHours(), this.scenicspot, this.plays.id )
+            this.priceList({godate: this.travalDate.value,
+              accountId: this.scenicspot,
+              playId: this.plays.id
+            })
           },
           selectDayHandle(selectedVal, selectedIndex, selectedText){
             // this.dayPicker.show();
@@ -549,8 +563,18 @@
             } else if(this.travalDate != '' && this.mealType!= '' && this.peopleNum != '' && this.travalDay.value >= this.plays.playDay) {
 
              //初始化订单 更新初步订单到数据仓库
-              console.log('去下一步')
-              initOrder(this.travalDate.value,this.travalDay.value, this.accountId, this.playId, this.peopleNum.value, this.mealType.id, 0, 0).then(res => {
+              console.log('去下一步' + this.timehour)
+              initOrder({
+                godate: this.travalDate.value,
+                timehour: this.timehour,
+                playday:this.travalDay.value,
+                accountId:this.accountId,
+                playId:this.playId,
+                tripsnum: this.peopleNum.value,
+                packageid: this.mealType.id,
+                source: 0,
+                tipamount:0
+              }).then(res => {
                 console.log(res);
                 if(res.msg){
                   this.$createDialog({
