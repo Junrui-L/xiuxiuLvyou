@@ -505,7 +505,7 @@
             this.timehour = selectedVal.getHours();
             this.travalDate = {value: dateFmt(selectedVal, 'yyyy-M-d'), txt: selectedText.join('')}
             this.priceList({godate: this.travalDate.value,
-              accountId: this.scenicspot,
+              accountId: this.plays.accountid,
               playId: this.plays.id
             })
           },

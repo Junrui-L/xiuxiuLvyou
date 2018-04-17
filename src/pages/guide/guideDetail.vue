@@ -230,6 +230,7 @@
         playList: [], //玩法列表
         mealdata: [], //套餐列表
         travalDate: '',
+        timehour: '', //游玩点数
         travalDay: {
           value: 1,
           txt: '1天'
@@ -242,7 +243,7 @@
         newPricePackelist: [],
         plays: {},
         isCollect: false,// 是否收藏
-        unitMap:{1:'1人/天',2:'1单/天',3:'1人/次',4:'1单/次'}
+        unitMap:{1:'/人/天',2:'/单/天',3:'/人/次',4:'/单/次'}
       }
     },
     computed: {
@@ -351,12 +352,13 @@
           }
         })
       },
-      priceList(godate,timehour, accountId, playId) {
-        loadPackage(godate,timehour, accountId, playId).then(res => {
+      priceList(data) {
+        loadPackage({godate:data.godate,accountId: data.accountId,
+          playId: data.playId}).then(res => {
           this.newPricePackelist = res.pricepackageList;   //根据日期的套餐集合
           for(let i=0; i< this.newPricePackelist.length; i++) {
             this.mealdata[i] = {value:this.newPricePackelist[i].id,
-              text: this.newPricePackelist[i].name+'('+this.newPricePackelist[i].price+'元'+this.unitMap[this.newPricePackelist[i].unit]+')'}
+              text: this.newPricePackelist[i].name+'(￥'+this.newPricePackelist[i].price+this.unitMap[this.newPricePackelist[i].unit]+')'}
           }
           let tcData = JSON.parse(JSON.stringify(this.mealdata));
           this.mealPicker = this.$createPicker({
@@ -407,8 +409,14 @@
         this.dayPicker.show();
       },
       selecTimetHandle(selectedVal, selectedIndex, selectedText) {
+        this.timehour = selectedVal.getHours();
         this.travalDate = {value: dateFmt(selectedVal, 'yyyy-M-d'), txt: selectedText.join('')}
-        this.priceList(this.travalDate.value,selectedVal.getHours(), this.plays.accountid, this.plays.id)
+        this.priceList(
+          {
+            godate: this.travalDate.value,
+            accountId: this.plays.accountid,
+            playId: this.plays.id
+          })
       },
       selectDayHandle(selectedVal, selectedIndex, selectedText) {
 
