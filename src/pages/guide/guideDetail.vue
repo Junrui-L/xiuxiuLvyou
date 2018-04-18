@@ -30,7 +30,7 @@
     </div>
     <ul class="guide-date clearfix">
       <li class="date-item fl">
-        <strong>3600</strong>
+        <strong>{{guideInfos.browsecount}}</strong>
         <p>浏览量</p>
       </li>
       <li class="date-item fl">
@@ -484,7 +484,18 @@
 
           //初始化订单 更新初步订单到数据仓库
           console.log('去下一步')
-          initOrder(this.travalDate.value,this.travalDay.value, this.plays.accountid, this.plays.id, this.peopleNum.value, this.mealType.id, 0, 0).then(res => {
+          initOrder({
+            godate: this.travalDate.value,
+            timehour: this.timehour,
+            playday: this.travalDay.value,
+            accountId: this.plays.accountid,
+            playId: this.plays.id,
+            tripsnum: this.peopleNum.value,
+            packageid: this.mealType.id,
+            source: 0,
+            tipamount: 0
+
+          }).then(res => {
             console.log(res);
             if(res.msg){
               this.$createDialog({

@@ -120,8 +120,7 @@
                     {{item.dails.username}}
                   </dt>
                   <dd class="guide-txt">
-                    {{item.dails.signature}}
-                    <!--算计打开了打发的，当台湾导游多年，每年夏天都带家人到垦丁，行驶在太平洋边上，国境之南，风吹沙当台湾导游多年，每年夏天都带家人到垦丁，行驶在太平洋边上，国境之南，风吹沙-->
+                    {{item.dails.abstract}}
                   </dd>
                 </dl>
               </div>

@@ -168,7 +168,6 @@ export const initOrder = (data) => $http.post('/siteH5/order.json?act=init', {
   packageid: data.packageid,
   source: data.source,
   tipamount: data.tipamount
-
 });
 
 
