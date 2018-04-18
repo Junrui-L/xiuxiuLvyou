@@ -6,6 +6,7 @@
         <div slot="select-title" class="select-title">
           <span class="spotname ">{{scenicInfo.name}} </span>
         </div>
+        <div class="favorate" :class="{'favarated': isCollect}" slot="favorate" @click="addCollect">收藏</div>
       </HeadTop>
       <img class="head-img" v-if="scenicInfo.scenicimg" :src="baseUrl + scenicInfo.scenicimg" alt="">
     </header>
@@ -39,7 +40,7 @@
 </template>
 
 <script type="text/ecmascript-6">
-  import {guideList, guideDetails} from '../../http/getDate'
+  import {guideList,addCollection, delCollection, guideDetails} from '../../http/getDate'
   import HeadTop from '../../components/HeadTop.vue'
   import {throttle} from '../../config/myUtils'
   import DropDown from '../../components/DropDown.vue'
@@ -94,7 +95,8 @@
           isbuyticket: '',
           isshuttle: '',
           sort: ''
-        }
+        },
+        isCollect: false  //是否收藏
       }
     },
     components: {
@@ -141,6 +143,50 @@
         } else {
           //其他向导
           this.$router.push({path: '/guideDetail',  query: {id: id}})
+        }
+      },
+      addCollect(){
+        //添加or取消收藏
+        if(this.isCollect) {
+          delCollection({gzkey: this.scenicInfo.id,type: 3}).then(res => {
+            //取消收藏
+            if(res.msg) {
+              this.$createDialog({
+                type: 'alert',
+                title: '提示',
+                content: res.msg
+              }).show()
+            } else {
+              this.$createToast({
+                txt: '取消收藏',
+                type: 'correct',
+                mask: true,
+                time: 2000
+              }).show();
+              this.isCollect = false;
+            }
+          })
+        }else {
+          addCollection({ gzkey: this.scenicInfo.id,type: 3,name: this.scenicInfo.name}).then(res=>{
+            //添加收藏
+            console.log(res);
+            if(res.msg) {
+              this.$createDialog({
+                type: 'alert',
+                title: '提示',
+                content: res.msg
+              }).show()
+            } else {
+              this.$createToast({
+                txt: '收藏成功',
+                type: 'correct',
+                mask: true,
+                time: 2000
+              }).show();
+              this.isCollect = true;
+            }
+          })
+
         }
       }
 

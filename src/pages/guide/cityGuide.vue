@@ -7,6 +7,7 @@
         <div slot="select-title" class="select-title" @click="showCityPicker">
           <span class="cityname ">{{scenicInfo.name}}</span>
         </div>
+
       </HeadTop>
       <img  class="head-img" :src="basePath + scenicInfo.cityimg" alt="">
     </header>

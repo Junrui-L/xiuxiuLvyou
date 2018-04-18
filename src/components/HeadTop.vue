@@ -23,6 +23,7 @@
         <slot name="select-title"></slot>
         <slot name="message"></slot>
         <slot name="selectoption"></slot>
+        <slot name="favorate"></slot>
     </div>
 </template>
 <script>

@@ -123,3 +123,19 @@
   background: url(../../assets/img/moreselect.png) no-repeat center;
   background-size: 80%;
 }
+
+.favorate {
+  @include centerTop;
+  right: px2rem(25px);
+  padding-right: px2rem(30px);
+  height: px2rem(30px);
+  color: #fff;
+  @include font-dpr(13px);
+  line-height: px2rem(30px);
+  background: url(../../assets/img/details_icon_mark@2x.png) no-repeat  px2rem(35px) center;
+  background-size: px2rem(22px) px2rem(22px);
+}
+
+.favarated {
+  background-image: url(../../assets/img/details_icon_mark_on@2x.png);
+}
