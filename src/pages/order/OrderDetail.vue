@@ -34,8 +34,8 @@
         <li class="info-item">价格套餐 <span class="fr">{{pricePackages.name}}/ ￥{{pricePackages.price }}/{{pricePackages.unit | unitText}}</span></li>
       </ul>
     </div>
-    <div class="group-trip" v-if="pricePackages.sfzcty == 1">
-      <switch-option name="开启团游" :isDisable = "pricePackages.sfzcty == 0 ? true : false"  @update:value="onGroup" ></switch-option>
+    <div class="group-trip" v-show="pricePackages.sfzcty == 1">
+      <switch-option ref="switchs" name="开启团游" :isDisable = " mustTuan"  @update:value="onGroup" ></switch-option>
     </div>
     <div class="notify group-notify" v-if="pricePackages.sfzcty == 1">
       <p >团游优惠模式：{{ plays.tytype | tymodeText}}    <template v-if="pricePackages.tytype == 2">{{ pricePackages.tyval}}折</template></p>
@@ -137,7 +137,7 @@
 
 <script>
   import {mapState, mapMutations} from 'vuex'
-  import {initOrder, loadOrder, creatOrder,getCanUseyhj,getVeryCode, userUpdateMobile} from '../../http/getDate'
+  import {initOrder, loadOrder, creatOrder,getCanUseyhj, getCouponsListType,getVeryCode, userUpdateMobile} from '../../http/getDate'
   import {dateFmt} from '../../config/myUtils'
   import {peopleNum} from '../../config/datajs'
   import {localStore} from '../../config/myUtils'
@@ -163,6 +163,7 @@
           mpPackageNotice: '',
           mpPackageName: ''
         },
+        mustTuan: false, //必须团
         tuanOrder: null, //团信息
         mpPackagecount: '',
         istuan: 0,
@@ -280,8 +281,9 @@
         this.mpPackagecount = v[0]
       },
       // 获取未使用的优惠券
-      getCanUseYHJ (){
-        getCanUseyhj().then(res=>{
+      getCanUseYHJ (type){
+
+        getCouponsListType(type).then(res=>{
           this.yjhArr=res.list
 
           let yhjData = [];
@@ -354,8 +356,15 @@
           this.GET_USERINFO(res.visitor)
 
           this.tuanOrder = res.tuanOrder; //当天团游信息
+
+          if(this.tuanOrder && this.tuanOrder.count > 0) {
+            //若当日已有团则必须参团
+            this.mustTuan = true;
+            this.$refs.switchs.clickSwitch()
+          }
           //获取订单详情后再获取优惠券进行比对
-          this.getCanUseYHJ()
+          this.getCanUseYHJ(this.plays.servicetype)
+
         })
 
       },

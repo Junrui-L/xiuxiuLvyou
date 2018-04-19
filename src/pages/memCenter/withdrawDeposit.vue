@@ -33,7 +33,7 @@
 </template>
 
 <script>
-  import {userBanks,userAccounts, getCanUseyhj,withdraw} from '../../http/getDate'
+  import {userBanks,userAccounts, getCanUseyhj, getCouponsListType,withdraw} from '../../http/getDate'
     export default {
         name: "withdrawDeposit",
       data(){
@@ -163,11 +163,11 @@
         },
         // 获取未使用的优惠券
         getCanUseYHJ (){
-          getCanUseyhj().then(res=>{
+          getCouponsListType(6).then(res=>{
             this.yjhArr=res.list
 
             let yhjData = [];
-            if(res.list.length > 0) {
+            if(res.list && res.list.length > 0) {
               for(let i=0; i<res.list.length; i++) {
                 if(res.list[i].type == 6){
                   yhjData.push({value: res.list[i].id, text: res.list[i].name, price: res.list[i].toprice, minprice: res.list[i].minprice})

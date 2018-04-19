@@ -297,6 +297,14 @@ export const userPerDetail = (dict, val) => $http.get('/siteH5/user.json?act=dai
 });
 
 /**
+ * 根据类型加载优惠券/siteH5/coupon.json?act=loadyhjByType&type
+ * */
+
+export const getCouponsListType = (type) => $http.get('/siteH5/coupon.json?act=loadyhjByType', {
+  type: type
+});
+
+/**
  *
  *优惠劵列表
 

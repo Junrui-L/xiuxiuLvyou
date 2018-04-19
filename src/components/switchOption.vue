@@ -18,7 +18,7 @@
       value: null,
       isDisable: {
         type: Boolean,
-        default: false
+        default: true
       }
     },
     data() {
@@ -34,16 +34,17 @@
     },
     methods: {
       clickSwitch () {
-        if(!this.isDisable) {
-          this.checked = !this.checked
-        } else {
-          this.$createToast({
-            txt: '该玩不支持团游',
-            type: 'error',
-            mask: true,
-            time: 2000
-          }).show();
+        if(this.isDisable) {
+          this.checked = true
+          this.$createDialog({
+            type: 'alert',
+            title: '温馨提示',
+            content: '很抱歉，您想预约的向导在该日期已组团，请选参加团游或重新下单！'
+          }).show()
           return
+        } else {
+          this.checked = !this.checked
+
         }
 
       }
