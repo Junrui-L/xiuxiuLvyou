@@ -39,6 +39,7 @@
 </template>
 
 <script type="text/ecmascript-6">
+    import {mapState, mapMutations} from 'vuex'
     import HeadTop from '../../components/HeadTop.vue'
     import {spotsList, cityScenicspots} from '../../http/getDate'
     import {throttle} from '../../config/myUtils'
@@ -66,6 +67,11 @@
         components: {
           HeadTop
         },
+      computed: {
+        ...mapState([
+          'basePath','orderDetail'
+        ]),
+      },
         mounted() {
           this.cityPicker = this.$createCascadePicker({
             title: '选择城市',
