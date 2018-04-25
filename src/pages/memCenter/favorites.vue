@@ -11,6 +11,7 @@
       <!--收藏导游-->
       <ul class="guide-list">
         <li class="guide" v-for="gui in collectionList">
+          <router-link class="nav-link" :to="{path: '/guideDetail',  query: {id: gui.gzkey}}">
           <div class="guide-t clearfix">
             <div class="guide-img fl">
               <img :src="gui.userImg" alt="">
@@ -18,9 +19,10 @@
             <div class="guide-detail fl">
               <h5 class="guide-name"><span class="fl">{{gui.userName}}</span><span class="fl guide-type">{{ gui.servicetype | guideTypeText }}</span></h5>
               <div class="region-level"><span>{{gui.wfcount}}种玩法 </span></div>
-              <!--<div class="guide-star"><span>类别：</span>历史古迹、历史博物馆</div>-->
+     ·           <!--<div class="guide-star"><span>类别：</span>历史古迹、历史博物馆</div>-->
             </div>
           </div>
+        </router-link>
         </li>
       </ul>
       <div v-if="collectionList.length!== 0">
