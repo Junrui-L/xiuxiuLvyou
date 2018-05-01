@@ -134,6 +134,10 @@
           console.log(res);
           this.scenicInfo = res.scenicspotMap;
           this.guidesList = res.guideslist;
+          if(res.conllectionMap){
+            this.isCollect = res.conllectionMap.scenicspot;
+          }
+
         })
       },
       goDetail(type,id){

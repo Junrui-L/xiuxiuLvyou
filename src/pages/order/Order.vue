@@ -10,7 +10,7 @@
         </div>
         <!--<TimeCountDown :endTime="endT" :nowTime="nowT" :countCallback="endLog"/>-->
         <div class="btn-topay clearfix">
-          <button class="cancel btn fl" @click="showCancel = true">取消订单</button>
+          <button class="cancel btn fl" @click="showCancelList">取消订单</button>
           <button class="confirm btn fr" @click="waitGuide">联系向导</button>
         </div>
       </div>
@@ -26,7 +26,7 @@
         </div>
         <TimeCountDown :endTime="endT"  :countCallback="endLog"/>
         <div class="btn-topay clearfix">
-          <button class="cancel btn fl" @click="showCancel = true">取消订单</button>
+          <button class="cancel btn fl" @click="showCancelList">取消订单</button>
           <button class=" btn fr" @click="goPay">去付款</button>
         </div>
       </div>
@@ -41,7 +41,7 @@
         </div>
         <TimeCountUp :startTime="payT" countText="汇合已耗时"  :countCallback="endLog"/>
         <div class="btn-topay btn-triped clearfix">
-          <button class="cancel btn fl" @click="showCancel = true">取消订单</button>
+          <button class="cancel btn fl" @click="showCancelList">取消订单</button>
           <button class="backpay btn fl" @click="updateOrder(4)">已接待</button>
           <button class="backpay btn fr" @click="updateOrder(5)">已出行</button>
         </div>
@@ -210,7 +210,7 @@
         <li class="info-item clearfix" >联系电话 <span class="fr">{{orderInfo.linkPhone}}</span></li>
         <li class="info-item clearfix">游玩天数 <span class="fr">{{ orderInfo.playDay }} 天</span></li>
         <li class="info-item clearfix">游玩日期 <span class="fr">{{ orderInfo.godate | fmtDate('yyyy年M月d日')}}</span></li>
-        <li class="info-item clearfix">结束日期 <span class="fr">{{ orderInfo.godate }}</span></li>
+        <li class="info-item clearfix">结束日期 <span class="fr">{{ endate }}</span></li>
         <li class="info-item clearfix">出行人数 <span class="fr">{{ orderInfo.tripsnum}} 人</span></li>
         <li class="info-item clearfix">是否团游 <span class="fr">{{orderInfo.sfty == 1 ? '是' : '否'}}</span>
         </li>
@@ -288,6 +288,7 @@
     data() {
       return {
         orderNum: this.$route.query.orderNum,
+        endate: '', //结束游玩时间
         endT: '',  //付款截止时间
         takeT: '', //向导接单时间
         payT: '', //付款时间
@@ -305,7 +306,7 @@
     computed: {
       ...mapState([
         'basePath', 'userInfo', 'baseOrder', 'guideInfo', 'play', 'pricePackage'
-      ]),
+      ])
     },
     mounted() {
       this.getOrderInfo();
@@ -316,6 +317,12 @@
         orderDetail(this.orderNum).then(res => {
           console.log(res)
           this.orderInfo = res.order;
+
+          //结束游玩时间
+          let da = new Date(this.orderInfo.godate)
+          da.setTime(da.getTime()+ (this.orderInfo.playDay - 1)*24*60*60*1000)
+          console.log(da)
+          this.endate = dateFmt(da, 'yyyy年M月d日'); //游玩结束日期
 
 
           let creatT = new Date(res.order.created_at.replace(/-/g,'/')).getTime();  //创建订单时间
@@ -351,8 +358,72 @@
         // console.log(this.showCancel)
 
       },
+      showCancelList(){
+        console.log('是否取消订单')
+        this.$createActionSheet({
+          title: '取消原因',
+          data: [
+            {
+              content: '太久没人接单',
+              type: 1,
+              align: 'left'
+            },
+            {
+              content: '微信没钱付款',
+              type:2,
+              align: 'left'
+
+            },
+            {
+              content: '行程有变',
+              type:3,
+              align: 'left'
+            },
+            {
+              content: '价格太贵',
+              type:4,
+              align: 'left'
+            },
+            {
+              content: '玩法不满意',
+              type:5,
+              align: 'left'
+            },
+            {
+              content: '向导态度不好',
+              type:6,
+              align: 'left'
+            },{
+              content: '向导带导不满足我要求',
+              type:7,
+              align: 'left'
+            },
+            {
+              content: '其他',
+              type:8,
+              align: 'left'
+            },
+
+          ],
+          onSelect: (item, index) => {
+          if(index == 7) {
+            this.showCancel = true;
+          } else {
+            console.log('订单取消原因' + item.content)
+            this.cancelOdr(item.content)
+          }
+        },
+          onCancel: () => {
+          console.log('取消了')
+        }
+        }).show();
+
+      },
       cancelOdr(msg) {
-        this.showCancel = false;
+        if(this.showCancel) {
+          this.showCancel = false
+        }
+        //取消订单
         cancelOrder(this.orderNum, msg).then(res => {
           console.log(res);
           if (res.msg) {

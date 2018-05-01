@@ -45,6 +45,9 @@ const TradeCode = r => require.ensure([], () => r(require('@/pages/memCenter/saf
 const BankCardList = r => require.ensure([], () => r(require('@/pages/memCenter/bankCard/bankCardList')), 'bankCardList')
 const AddBankCard = r => require.ensure([], () => r(require('@/pages/memCenter/bankCard/addBankCard')), 'addBankCard')
 
+//聊天
+const ChatList = r => require.ensure([], () => r(require('@/pages/webChat/ChatList')), 'chatList')
+
 Vue.use(Router)
 
 const router = new Router({
@@ -260,6 +263,11 @@ const router = new Router({
       path: '/addBankCard',
       name: 'addBankCard',
       component: AddBankCard
+    },{
+      //添加新银行卡
+      path: '/chatList',
+      name: 'chatList',
+      component: ChatList
     }
   ],
   strict: process.env.NODE_ENV !== 'production',

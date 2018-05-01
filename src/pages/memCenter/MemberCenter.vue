@@ -69,7 +69,7 @@
           </div>
 
             <div class="fr">
-              <button class="order-handle-btn" v-if="v.status===0" @click="cancleOrder(v)" >取消订单</button>
+              <button class="order-handle-btn" v-if="v.status===0" @click="cancleOrderConfirm(v)" >取消订单</button>
             <button class="to-pay" v-if="v.status===1">
               <router-link :to="{path: '/order' , query: { orderNum: v.ordernumber}}">去付款</router-link>
             </button>
@@ -89,13 +89,14 @@
       </div>
 
     </div>
-
+    <CancelBox v-if="showCancel" confirmText="请输入取消原因" :showCancelBox = "showCancel" @closeTip = ' shows '  @confirmCancel="cancelOdr()"></CancelBox>
   </div>
 </template>
 
 <script>
   import {mapState, mapMutations} from 'vuex'
   import {userLogin, userPersonal, cancelOrder, getMyOrderList, userAccounts} from '../../http/getDate'
+  import CancelBox from '../../components/cancelBox.vue'
 
   export default {
     name: "member-center",
@@ -109,6 +110,7 @@
           collect: 0,
           accountBalance: 0,
         },
+        showCancel: false,
         staticNum: {},// 统计数字,积分,优惠券
         currentTab: 'doing',// 当前选中的订单tab
         orderList: [],// 订单列表
@@ -116,6 +118,9 @@
         page: 1,
         nomore: false
       }
+    },
+    components: {
+      CancelBox
     },
     computed: {
       ...mapState([
@@ -158,7 +163,7 @@
         })
       },
       // 取消订单
-      cancleOrder(obj){
+      cancleOrderConfirm(obj){
         this.$createDialog({
           type: 'confirm',
           title: '取消订单',
@@ -170,7 +175,8 @@
             href: 'javascript:;'
           },
           onConfirm: () => {
-            this.caccleOrder(obj.ordernumber)
+            console.log('确认取消订单')
+            this.showCancelList(obj.ordernumber)
           }
         }).show()
       },
@@ -181,15 +187,99 @@
         this.nomore = false
         this.getOrderList()
       },
+      shows(msg){
+        this.showCancel = false;
+        // console.log(this.showCancel)
+
+      },
+      showCancelList(orderNo){
+        console.log('是否取消订单')
+        let orderNom  = orderNo;
+        this.$createActionSheet({
+          title: '取消原因',
+          data: [
+            {
+              content: '太久没人接单',
+              type: 1,
+              align: 'left'
+            },
+            {
+              content: '微信没钱付款',
+              type:2,
+              align: 'left'
+
+            },
+            {
+              content: '行程有变',
+              type:3,
+              align: 'left'
+            },
+            {
+              content: '价格太贵',
+              type:4,
+              align: 'left'
+            },
+            {
+              content: '玩法不满意',
+              type:5,
+              align: 'left'
+            },
+            {
+              content: '向导态度不好',
+              type:6,
+              align: 'left'
+            },{
+              content: '向导带导不满足我要求',
+              type:7,
+              align: 'left'
+            },
+            {
+              content: '其他',
+              type:8,
+              align: 'left'
+            },
+
+          ],
+          onSelect: (item, index) => {
+            if(index == 7) {
+              this.showCancel = true;
+            } else {
+              console.log('订单取消原因' + item.content + orderNom)
+              this.cancelOdr( item.content, orderNom )
+            }
+          },
+          onCancel: () => {
+            console.log('取消了')
+          }
+        }).show();
+
+      },
       // 取消订单
-      caccleOrder(ordernumber) {
-        cancelOrder(ordernumber,2).then(res => {
-          this.$createDialog({
-            type: 'alert',
-            title: '提示',
-            content: '取消成功'
-          }).show()
-          this.$router.go(0)
+      cancelOdr(msg, ordernumber) {
+        console.log(msg)
+        if(this.showCancel) {
+          this.showCancel = false
+        }
+        cancelOrder(ordernumber, msg).then(res => {
+          if (res.msg) {
+            this.$createDialog({
+              type: 'alert',
+              title: '提示',
+              content: res.msg
+            }).show()
+          } else {
+            this.$createToast({
+              txt: '取消成功',
+              type: 'correct',
+              mask: true,
+              time: 2000
+            }).show();
+            setTimeout(()=> {
+              this.getUserInfo();
+              this.getOrderList();
+              this.queryWallet();
+            }, 1000)
+          }
         })
       },
       // 查询钱包

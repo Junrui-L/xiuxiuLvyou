@@ -267,6 +267,14 @@ export const cancelOrder = (orderNo, canceltitle) => $http.post('/siteH5/order.j
   canceltitle: canceltitle
 });
 
+/**
+ * 取消订单获取违约金
+ * */
+
+export const cancelOrderKmoney = (orderNo) => $http.post('/siteH5/order.json?act=cancelKmoney', {
+  ordernumber: orderNo
+});
+
 
 //个人中心
 
