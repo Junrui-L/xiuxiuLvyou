@@ -7,7 +7,7 @@
   z-index: 10;
   background: #fff;
   .chat-header {
-    padding:0 px2rem(20px);
+    padding: 0 px2rem(20px);
     border-bottom: 1px solid #d6dce0;
     -webkit-box-sizing: border-box;
     box-sizing: border-box;
@@ -33,7 +33,52 @@
     right: 0;
     top: px2rem(50px);
     bottom: px2rem(100px);
+    padding: 0 px2rem(16px);
     overflow: scroll;
+    .no-msg {
+      width: px2rem(150px);
+      height: px2rem(30px);
+      line-height: px2rem(30px);
+      background-color: rgb(136, 136, 136);
+      color: rgb(255, 255, 255);
+      border-radius: px2rem(15px);
+      text-align: center;
+      margin: px2rem(10px) auto;
+    }
+    .x-message-group {
+      padding-top: 3px;
+      @include font-dpr(14px);
+      line-height: 1.5;
+      .x-message-user {
+        color: #1c2238;
+      }
+      .x-message-text {
+        display: inline-block;
+        padding: px2rem(10px) px2rem(15px);
+        margin-top: px2rem(6px);
+        border-radius: px2rem(25px);
+        border: 1px solid #eceff1;
+        min-width: 100px;
+      }
+      .x-message-time {
+        padding: 0 px2rem(2px) 0 px2rem(3px);
+        @include font-dpr(12px);
+        color: #888c98;
+      }
+
+    }
+
+    .x-message-right {
+      text-align: right;
+
+      .x-message-text {
+        max-width: 80%;
+        text-align: left;
+        background: #eceff1;
+        word-wrap: break-word;
+      }
+    }
+
 
   }
 
@@ -94,7 +139,7 @@
         padding: 0;
         -webkit-box-shadow: 0 0 0 0;
         box-shadow: 0 0 0 0;
-
+        @include font-dpr(13px)
       }
 
       .input-group-addon {
@@ -116,6 +161,5 @@
       }
     }
   }
-
 
 }
