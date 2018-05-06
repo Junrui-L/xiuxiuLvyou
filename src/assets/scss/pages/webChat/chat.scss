@@ -1,0 +1,121 @@
+.Chat {
+  position: absolute;
+  top: px2rem(50px);
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 10;
+  background: #fff;
+  .chat-header {
+    padding:0 px2rem(20px);
+    border-bottom: 1px solid #d6dce0;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    height: px2rem(50px);
+    line-height: px2rem(50px);
+    color: #999;
+    @include font-dpr(13px);
+    svg {
+      fill: #555;
+      @include setSize(px2rem(18px), px2rem(18px));
+      vertical-align: middle;
+    }
+
+    .chat-action {
+      @include font-dpr(18px);
+      color: #999;
+    }
+  }
+
+  .chat-content {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: px2rem(50px);
+    bottom: px2rem(100px);
+    overflow: scroll;
+
+  }
+
+  .chat-footer {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: px2rem(100px);
+    line-height: px2rem(50px);
+    background: #fff;
+    border-top: 1px solid #d6dce0;
+    .chat-ops {
+      padding: 0 px2rem(8px);
+      outline: none;
+      margin-bottom: 0;
+      list-style: none;
+      z-index: 1050;
+      color: rgba(0, 0, 0, 0.65);
+      background: #fff;
+      @include font-dpr(12px);
+      line-height: px2rem(42px);
+      height: px2rem(50px);
+      overflow: hidden;
+      -o-text-overflow: ellipsis;
+      text-overflow: ellipsis;
+      .chat-ops-icon {
+        @include font-dpr(20px);
+        display: inline-block;
+        padding: 0 px2rem(10px);
+        cursor: pointer;
+      }
+    }
+
+    .chat-send {
+      width: 100%;
+      height: px2rem(50px);
+      padding: px2rem(10px) px2rem(16px) 0;
+      box-sizing: border-box;
+      .input-wrapper {
+        position: relative;
+        display: table;
+        border-collapse: separate;
+        border-spacing: 0;
+        width: 100%;
+      }
+
+      .input-txt {
+        float: left;
+        width: 100%;
+        margin-bottom: 0;
+        display: table-cell;
+        box-sizing: border-box;
+        height: px2rem(28px);
+        line-height: px2rem(28px);
+        border: 0;
+        @include font-dpr(14px);
+        padding: 0;
+        -webkit-box-shadow: 0 0 0 0;
+        box-shadow: 0 0 0 0;
+
+      }
+
+      .input-group-addon {
+        display: table-cell;
+        padding: 4px px2rem(7px);
+        @include font-dpr(12px);
+        font-weight: normal;
+        line-height: 1;
+        color: rgba(0, 0, 0, 0.65);
+        text-align: center;
+        background-color: #eee;
+        border: 1px solid #d9d9d9;
+        border-radius: 2px;
+      }
+      .paper-plane {
+        position: absolute;
+        top: 0;
+        right: px2rem(16px);
+      }
+    }
+  }
+
+
+}

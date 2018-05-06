@@ -1,0 +1,69 @@
+.ChatList {
+  height: 100%;
+  background: $white;
+  .header {
+    height: px2rem(50px);
+    background: #333;
+
+    .menu-horizontal {
+      text-align: center;
+      background-color: #000;
+      color: #adb9c1;
+      height: px2rem(50px);
+      border-bottom: 1px solid #e9e9e9;
+
+      .menu-item {
+        float: left;
+        width: 50%;
+        padding-top: px2rem(24px);
+        box-sizing: border-box;
+        line-height: px2rem(20px);
+        @include font-dpr(12px)
+      }
+
+      .item-selected {
+        border-bottom: 2px solid #00ba6e;
+        color: #fff;
+      }
+    }
+  }
+
+  .main-content {
+    width: 100%;
+
+    .chats-list {
+      width: 100%;
+
+      .chat-item {
+        padding: 0 px2rem(12px) 0 px2rem(16px);
+        @include font-dpr(14px);
+
+        //height: px2rem(60px);
+        border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+        position: relative;
+        .nav-text {
+          padding: px2rem(20px);
+          width: 90%;
+          @include ellipsis;
+          line-height: 1.43;
+          .nav-text-desc {
+            margin-top: 3px;
+            color: #8798a4;
+          }
+
+        }
+
+        .nav-op {
+          position: absolute;
+          right: px2rem(20px);
+          top: px2rem(20px);
+          color: #8798a4;
+          font-size: px2rem(12px);
+          line-height: 1.64;
+        }
+      }
+    }
+  }
+
+
+}

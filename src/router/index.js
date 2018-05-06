@@ -47,6 +47,7 @@ const AddBankCard = r => require.ensure([], () => r(require('@/pages/memCenter/b
 
 //聊天
 const ChatList = r => require.ensure([], () => r(require('@/pages/webChat/ChatList')), 'chatList')
+const Chat = r => require.ensure([], () => r(require('@/pages/webChat/Chat')), 'chat')
 
 Vue.use(Router)
 
@@ -267,7 +268,11 @@ const router = new Router({
       //添加新银行卡
       path: '/chatList',
       name: 'chatList',
-      component: ChatList
+      component: ChatList,
+      children: [{
+        path: ':id',
+        component: Chat
+      }]
     }
   ],
   strict: process.env.NODE_ENV !== 'production',

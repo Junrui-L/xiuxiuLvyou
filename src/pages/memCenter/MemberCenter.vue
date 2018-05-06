@@ -89,7 +89,7 @@
       </div>
 
     </div>
-    <CancelBox v-if="showCancel" confirmText="请输入取消原因" :showCancelBox = "showCancel" @closeTip = ' shows '  @confirmCancel="cancelOdr()"></CancelBox>
+    <CancelBox v-if="showCancel" confirmText="请输入取消原因" :showCancelBox = "showCancel" @closeTip = ' shows '  @confirmCancel="cancelOdr"></CancelBox>
   </div>
 </template>
 
@@ -110,6 +110,7 @@
           collect: 0,
           accountBalance: 0,
         },
+        ordernum: '',
         showCancel: false,
         staticNum: {},// 统计数字,积分,优惠券
         currentTab: 'doing',// 当前选中的订单tab
@@ -176,7 +177,10 @@
           },
           onConfirm: () => {
             console.log('确认取消订单')
-            this.showCancelList(obj.ordernumber)
+            //TODO: 按单号取消订单
+            //取消订单
+            this.showCancelList(obj.ordernumber);
+            this.ordernum = obj.ordernumber;
           }
         }).show()
       },
@@ -255,12 +259,12 @@
 
       },
       // 取消订单
-      cancelOdr(msg, ordernumber) {
+      cancelOdr(msg) {
         console.log(msg)
         if(this.showCancel) {
           this.showCancel = false
         }
-        cancelOrder(ordernumber, msg).then(res => {
+        cancelOrder(this.ordernum, msg).then(res => {
           if (res.msg) {
             this.$createDialog({
               type: 'alert',
