@@ -143,21 +143,21 @@
       }
 
       .input-group-addon {
+        width: px2rem(32px);
+        height: px2rem(32px);
         display: table-cell;
-        padding: 4px px2rem(7px);
-        @include font-dpr(12px);
+        @include font-dpr(24px);
         font-weight: normal;
         line-height: 1;
         color: rgba(0, 0, 0, 0.65);
         text-align: center;
-        background-color: #eee;
-        border: 1px solid #d9d9d9;
         border-radius: 2px;
+        padding: 0;
       }
-      .paper-plane {
+      .icon-send {
         position: absolute;
-        top: 0;
-        right: px2rem(16px);
+        top: px2rem(8px);
+        right: px2rem(8px);
       }
     }
   }

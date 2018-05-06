@@ -15,10 +15,16 @@
       .menu-item {
         float: left;
         width: 50%;
-        padding-top: px2rem(24px);
+        //padding-top: px2rem(10px);
         box-sizing: border-box;
-        line-height: px2rem(20px);
-        @include font-dpr(12px)
+        height: px2rem(48px);
+        line-height: px2rem(48px);
+        @include font-dpr(12px);
+        .iconfont {
+          @include font-dpr(12px);
+          margin-left: px2rem(12px);
+          vertical-align: middle;
+        }
       }
 
       .item-selected {

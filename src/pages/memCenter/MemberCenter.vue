@@ -4,14 +4,14 @@
       <div class="hd">
         <router-link to="/memberInfo">
         <div class="img-wrapper fl"><img :src="userInfo.headimgurl" alt=""></div>
-        <span to="/memberInfo" class="username fl">{{userInfo.userName || '--'}}
+        <span class="username fl">{{userInfo.userName || '--'}}
 
           <svg>
             <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#arrow-right"></use>
           </svg>
         </span>
         </router-link>
-        <div class="message"></div>
+        <div class="message" @click="$router.push({path: '/chatList' })"></div>
       </div>
       <ul class="mem-wrap clearfix">
         <router-link tag="li" to="/scores" class="mem-item fl">
