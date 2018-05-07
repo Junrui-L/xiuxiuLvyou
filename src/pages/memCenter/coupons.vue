@@ -43,7 +43,7 @@
 </template>
 
 <script>
-  import {getCanUseyhj,getOutDateyhj,getHaveUseyhj} from '../../http/getDate'
+  import {getCanUseyhj,getOutDateyhj,getHaveUseyhj,getCouponsListType} from '../../http/getDate'
   import HeadTop from '../../components/HeadTop.vue'
 
   export default {

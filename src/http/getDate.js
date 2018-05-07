@@ -539,4 +539,4 @@ export const getOutDateyhj = (data) => $http.post('/siteH5/order.json?act=loadOv
 /**
  * 加载已使用的优惠券
  * */
-export const getHaveUseyhj = (data) => $http.post('/siteH5/order.json?act=loadmakeyhjj', {})
+export const getHaveUseyhj = (data) => $http.post('/siteH5/order.json?act=loadmakeyhj', {})

@@ -111,6 +111,9 @@
         padding: 0 px2rem(10px);
         cursor: pointer;
       }
+      .iconfont {
+        @include font-dpr(16px);
+      }
     }
 
     .chat-send {
@@ -158,6 +161,7 @@
         position: absolute;
         top: px2rem(8px);
         right: px2rem(8px);
+        @include font-dpr(18px)
       }
     }
   }

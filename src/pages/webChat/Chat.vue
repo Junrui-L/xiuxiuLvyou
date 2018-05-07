@@ -215,9 +215,9 @@
     },
     mounted () {
       // URL格式 http://localhost:8081/#/chatList/?from_username=1&to_username=2
-      this.from_username = this.getQueryString('from_username')
-      this.to_username = this.getQueryString('to_username')
-      this.loginEasemob()
+      // this.from_username = this.getQueryString('from_username')
+      // this.to_username = this.getQueryString('to_username')
+      // this.loginEasemob()
     },
     methods: {
       // 登录环信
