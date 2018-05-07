@@ -16,6 +16,7 @@
     "axios": "^0.17.1",
     "better-scroll": "^1.6.3",
     "cube-ui": "^1.3.1",
+    "easemob-websdk": "^1.4.15",
     "style": "^0.0.3",
     "vue": "^2.5.13",
     "vue-awesome-swiper": "^3.1.3",

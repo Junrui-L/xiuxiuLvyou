@@ -15,7 +15,7 @@
       </div>
     </div>
     <div class="chat-content">
-      <div class="no-msg" >没有更多消息啦~</div>
+      <div class="no-msg">没有更多消息啦~</div>
       <div class="x-message-group">
         <div class="x-message-user">heigukeji</div>
         <div class="x-message-content">
@@ -24,9 +24,9 @@
           </p>
         </div>
         <div class="x-message-time">
-            05-06 11:35 AM
-        <span class="x-message-status"></span>
-      </div>
+          05-06 11:35 AM
+          <span class="x-message-status"></span>
+        </div>
       </div>
       <div class="x-message-group x-message-right">
         <div class="x-message-user"></div>
@@ -185,7 +185,7 @@
       <div class="chat-send">
         <span class="input-group-wrapper">
           <span class="input-wrapper">
-            <input type="text" placeholder="输入消息" class="input-txt fl">
+            <input type="text" placeholder="输入消息" id="inputcontent" class="input-txt fl">
             <span class="input-group-addon">
                <i class="iconfont icon-send" style="cursor: pointer;">
             </i>
@@ -199,8 +199,86 @@
 </template>
 
 <script>
+//  require('@/assets/lib/easemob-sdk/webim.config.js')
+//  require('@/assets/lib/easemob-sdk/strophe-1.2.8.js')
+//  require('@/assets/lib/easemob-sdk/websdk-1.4.13.js')
   export default {
-    name: "chat-list"
+    name: 'chat-list',
+    data () {
+      return {
+        from_username: '', // url中的发起方用户名
+        to_username: '', // url中的接收方用户名
+        conn: {}, // 与环信的通信长连接
+        chatHistory: [], // 聊天记录数组
+        currentUserpwd: 'xiuxiutrip123456' // 当前用户环信密码
+      }
+    },
+    mounted () {
+      // URL格式 http://localhost:8081/#/chatList/?from_username=1&to_username=2
+      this.from_username = this.getQueryString('from_username')
+      this.to_username = this.getQueryString('to_username')
+      this.loginEasemob()
+    },
+    methods: {
+      // 登录环信
+      loginEasemob () {
+        this.conn = new WebIM.connection({
+          isMultiLoginSessions: WebIM.config.isMultiLoginSessions,
+          https: typeof WebIM.config.https === 'boolean' ? WebIM.config.https : location.protocol === 'https:',
+          url: WebIM.config.xmppURL,
+          heartBeatWait: WebIM.config.heartBeatWait,
+          autoReconnectNumMax: WebIM.config.autoReconnectNumMax,
+          autoReconnectInterval: WebIM.config.autoReconnectInterval,
+          apiUrl: WebIM.config.apiURL,
+          isAutoLogin: true
+        })
+        this.conn.open({
+          apiUrl: WebIM.config.apiURL,
+          user: this.from_username,
+          pwd: this.currentUserpwd,
+          appKey: WebIM.config.appkey,
+          success: function (token) { },
+          error: function () { }
+        })
+      },
+      // 接受文本消息
+      receiveTextMsg () {
+
+      },
+      // 发送文本消息
+      sendTextMsg () {
+        var text = document.querySelector('#inputcontent').value
+        var id = conn.getUniqueId()                 // 生成本地消息id
+        var msg = new WebIM.message('txt', id)      // 创建文本消息
+        msg.set({
+          msg: text,                  // 消息内容
+          to: this.to_username,
+          roomType: false,
+          success: function (id, serverMsgId) {
+            this.chatHistory.push({
+              msgcontent: text,
+              msgtype: 'text',
+              createTime: new Date(),
+              createUser: this.to_username
+            })
+            document.querySelector('#inputcontent').value = ''
+          },
+          fail: function (e) {
+            console.log('Send private text error')
+          }
+        })
+        msg.body.chatType = 'singleChat'
+        conn.send(msg.body)
+      },
+      // 获取url中的当前用户环信账号和聊天对象账号
+      getParamsFromUrl (name) {
+        var reg = new RegExp('(^|&)' + name + '=([^&]*)(&|$)', 'i')
+        var r = window.location.search.substr(1).match(reg)
+        if (r != null) return unescape(r[2])
+        return null
+      },
+
+    }
   }
 </script>
 
