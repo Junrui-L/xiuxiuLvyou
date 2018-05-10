@@ -219,39 +219,18 @@
     methods: {
       // 登录环信
       loginEasemob () {
-        this.conn = new WebIM.connection({
-          isMultiLoginSessions: WebIM.config.isMultiLoginSessions,
-          https: typeof WebIM.config.https === 'boolean' ? WebIM.config.https : location.protocol === 'https:',
-          url: WebIM.config.xmppURL,
-          heartBeatWait: WebIM.config.heartBeatWait,
-          autoReconnectNumMax: WebIM.config.autoReconnectNumMax,
-          autoReconnectInterval: WebIM.config.autoReconnectInterval,
-          apiUrl: WebIM.config.apiURL,
-          isAutoLogin: true,
-        })
-        // 登录参数
-        let loginOptions = {
-          apiUrl: WebIM.config.apiURL,
-          user: this.from_username,
-          pwd: this.currentUserpwd,
-          appKey: WebIM.config.appkey,
-          success: function (token) {
-            alert('this.conn.open 登录成功')
+        this.$imoption.user = this.from_username
+        this.$imoption.pwd = this.currentUserpwd
+        this.$imconn.open(this.$imoption)
+        this.$imconn.listen({
+          onOpened: function (message) {
+            console.log('用户已上线')
           },
-          error: function (err) {
-            console.log(err)
-          }
-        }
-        this.conn.open(loginOptions)
-        // FIXME 无法触发监听函数
-        this.conn.listen({
-          onOpened: function (message) {          //连接成功回调
-            // 获取好友列表
-            alert('onOpenedonOpened')
+          onClosed: function (message) {
+            console.log('用户已下线')
           },
-          // 接受文本消息
           onTextMessage: function (message) {
-            alert(message.sourceMsg)
+            alert('收到文本消息' + JSON.stringify(message))
           }
         })
       },
