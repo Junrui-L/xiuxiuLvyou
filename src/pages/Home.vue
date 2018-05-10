@@ -12,27 +12,36 @@
     </div>
     <div class="banner">
       <!--<img src="../assets/img/home_banner.jpg" alt=''/>-->
-      <div ref="slideWrapper" class="slide-container">
-        <cube-slide
-          ref="silde"
-          :initial-index="initialIndex"
-          :loop="loop"
-          :auto-play="autoPlay"
-          :interval="interval"
-          :threshold="threshold"
-          :speed="speed"
-          :allow-vertical="allowVertical"
-         >
+      <!--<div ref="slideWrapper" class="slide-container">-->
+        <!--<cube-slide-->
+          <!--ref="silde"-->
+          <!--:initial-index="initialIndex"-->
+          <!--:loop="loop"-->
+          <!--:auto-play="autoPlay"-->
+          <!--:interval="interval"-->
+          <!--:threshold="threshold"-->
+          <!--:speed="speed"-->
+          <!--:allow-vertical="allowVertical"-->
+         <!--&gt;-->
 
-          <cube-slide-item v-for="(item, index) in banners" :key="index">
-            <a :href="item.url">
-              <img :src="basePath + item.img">
-            </a>
-          </cube-slide-item>
-        </cube-slide>
+          <!--<cube-slide-item v-for="(item, index) in banners"  :key="index">-->
+            <!--<a :href="item.url">-->
+              <!--<img :src="basePath + item.img" />-->
+            <!--</a>-->
+          <!--</cube-slide-item>-->
+        <!--</cube-slide>-->
 
-      </div>
-
+      <!--</div>-->
+      <swiper :options="swiperOption"  ref="mySwiper">
+        <!-- 这部分放你要渲染的那些内容 -->
+        <swiper-slide v-for="(item, index) in banners" :key="index">
+          <a href="#">
+            <img :src="basePath + item.img" class="index_img">
+          </a>
+        </swiper-slide>
+        <!-- 这是轮播的小圆点 -->
+        <div class="swiper-pagination" slot="pagination"></div>
+      </swiper>
     </div>
     <ul class="nav clearfix">
       <li class="nav-item fl">
@@ -209,12 +218,13 @@
 
 <script type="text/ecmascript-6">
   import {mapState, mapMutations} from 'vuex'
+  import { swiper, swiperSlide } from 'vue-awesome-swiper'
   import {homeData,getUserArea, userLogin, ConfigWx} from '../http/getDate'
   import HoriSlider from '../components/HoriSlider.vue'
   import EvaluateStar from '../components/EvaluateStar.vue'
   import AlertTip from '../components/alertTip.vue'
-  import Swiper from '../components/Swiper.vue'
-  import Banner from '../components/Banner.vue'
+  // import Swiper from '../components/Swiper.vue'
+  // import Banner from '../components/Banner.vue'
   import {localStore} from '../config/myUtils'
   let localSn =  localStore('localSn', 'localStorage')
   export default {
@@ -232,6 +242,26 @@
         alertText: '',
         banners: [
         ],
+        swiperOption: {
+          pagination: {
+            el: '.swiper-pagination',
+          },
+          slidesPerView: 'auto',
+          centeredSlides: true,
+          autoplay: {
+            delay: 3000,
+            stopOnLastSlide: false,
+            disableOnInteraction: false,
+          },
+          // loop: true,
+          // autoPlay: true,
+          paginationClickable: true,
+          onSlideChangeEnd: swiper => {
+            //这个位置放swiper的回调方法
+            // this.page = swiper.realIndex+1;
+            // this.index = swiper.realIndex;
+          },
+        },
         swiperid: '',   //轮播图片
         loop: true,
         autoPlay: true,
@@ -249,8 +279,8 @@
       HoriSlider,
       EvaluateStar,
       AlertTip,
-      Swiper,
-      Banner
+      swiper,
+      swiperSlide
     },
     computed: {
       ...mapState([
@@ -265,7 +295,7 @@
       //
       // })
       setTimeout(() => {
-        _this.$refs.silde.refresh();
+        // _this.$refs.silde.refresh();
         _this.$refs.silde2.refresh();
       }, 1000)
       this.memoryLocation(); //查找本地记录
@@ -285,7 +315,8 @@
             this.locations.areasn = resp.position.newcitySn;
           }
           this.banners = resp[1]   //banner图
-
+          console.log(this.banners);
+          console.log('轮播图呢')
           this.hotArea = resp[3]; //热门区域
 
           setTimeout(() => {

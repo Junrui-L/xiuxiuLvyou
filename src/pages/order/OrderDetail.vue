@@ -363,7 +363,7 @@
             this.$refs.switchs.clickSwitch()
           }
           //获取订单详情后再获取优惠券进行比对
-          this.getCanUseYHJ(this.plays.servicetype)
+          this.getCanUseYHJ(this.guideInfos.servicetype)
 
         })
 
