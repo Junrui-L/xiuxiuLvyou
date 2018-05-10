@@ -14,7 +14,35 @@ import loadingImg from './assets/img/loading-spin.svg' //loading图片
 //全局引用cube
 // import Cube from './assets/lib/cube-ui'
 import Cube from 'cube-ui'
+require('./assets/lib/easemob-sdk/webim.config.js')
+let WebIM = require('easemob-websdk')
+Vue.prototype.$webim = WebIM
 
+const conn = new WebIM.connection({
+  isMultiLoginSessions: WebIM.config.isMultiLoginSessions,
+  https: typeof WebIM.config.https === 'boolean' ? WebIM.config.https : location.protocol === 'https:',
+  url: WebIM.config.xmppURL,
+  heartBeatWait: WebIM.config.heartBeatWait,
+  autoReconnectNumMax: WebIM.config.autoReconnectNumMax,
+  autoReconnectInterval: WebIM.config.autoReconnectInterval,
+  apiUrl: WebIM.config.apiURL,
+  isAutoLogin: true
+})
+
+const options = {
+  apiUrl: WebIM.config.apiURL,
+  user: '1',
+  pwd: 'xiuxiutrip123456',
+  appKey: WebIM.config.appkey,
+  success:function (re) {
+    console.log('链接服务器正常')
+  },
+  error:function (err) {
+    alert(err)
+  }
+}
+Vue.prototype.$imconn = conn
+Vue.prototype.$imoption = options
 Vue.use(Cube);
 Vue.use(VueAwesomeSwiper)
 import './config/filter' //过滤器

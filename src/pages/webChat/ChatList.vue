@@ -15,17 +15,17 @@
     </div>
     <div class="main-content">
       <ul class="chats-list" v-if="currentTab == 'chats'">
-        <li class="chat-item" @click = "$router.push({path: '/chatList/33', query: {username: 1}})">
-          <div class="nav-text">
-            <div>wk19991024<span
-              class="ant-badge ant-badge-not-a-wrapper">33</span></div>
-            <div class="nav-text-desc">
-                    sss
-            </div>
-          </div>
-          <div class="nav-op">05-06 01:14 AM</div>
-        </li>
-        <li class="chat-item" @click = "$router.push({path: '/chatList/而且', query: {username: 1}})">
+        <!--<li class="chat-item" @click = "$router.push({path: '/chatList/33', query: {username: 1}})">-->
+          <!--<div class="nav-text">-->
+            <!--<div>wk19991024<span-->
+              <!--class="ant-badge ant-badge-not-a-wrapper">33</span></div>-->
+            <!--<div class="nav-text-desc">-->
+                    <!--sss-->
+            <!--</div>-->
+          <!--</div>-->
+          <!--<div class="nav-op">05-06 01:14 AM</div>-->
+        <!--</li>-->
+        <li class="chat-item" @click = "$router.push({path: '/chatList/me', query: {from_username: 1,to_username:2}})">
           <div class="nav-text">
             <div>张三丰<span
               class="ant-badge ant-badge-not-a-wrapper">33</span></div>
@@ -35,7 +35,7 @@
           </div>
           <div class="nav-op">05-06 01:14 AM</div>
         </li>
-        <li class="chat-item" @click = "$router.push({path: '/chatList/xdeaw', query: {username: 1}})">
+        <li class="chat-item" @click = "$router.push({path: '/chatList/me', query: {from_username: 2,to_username:1}})">
           <div class="nav-text">
             <div>李小龙<span
               class="ant-badge ant-badge-not-a-wrapper">33</span></div>

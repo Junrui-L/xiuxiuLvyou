@@ -16,150 +16,22 @@
     </div>
     <div class="chat-content">
       <div class="no-msg">没有更多消息啦~</div>
-      <div class="x-message-group">
-        <div class="x-message-user">heigukeji</div>
+
+
+      <div class="x-message-group" :class="item.from==from_username ? 'x-message-right' : ''"
+           v-for="item in chatHistory">
+        <div class="x-message-user">{{item.from}}</div>
         <div class="x-message-content">
           <p class="x-message-text">
-            哈哈哈哈
+            {{item.sourceMsg}}
           </p>
         </div>
         <div class="x-message-time">
-          05-06 11:35 AM
+          {{item.time}}
           <span class="x-message-status"></span>
         </div>
       </div>
-      <div class="x-message-group x-message-right">
-        <div class="x-message-user"></div>
-        <div class="x-message-content">
-          <p class="x-message-text">
-            好啊
-          </p>
-        </div>
-        <div class="x-message-time">
-          05-06 11:35 AM
-          <span class="x-message-status"></span>
-        </div>
-      </div>
-      <div class="x-message-group">
-        <div class="x-message-user">heigukeji</div>
-        <div class="x-message-content">
-          <p class="x-message-text">
-            好开心啊，是不是啊
-          </p>
-        </div>
-        <div class="x-message-time">
-          05-06 11:35 AM
-          <span class="x-message-status"></span>
-        </div>
-      </div>
-      <div class="x-message-group x-message-right">
-        <div class="x-message-user"></div>
-        <div class="x-message-content">
-          <p class="x-message-text">
-            好啊
-          </p>
-        </div>
-        <div class="x-message-time">
-          05-06 11:35 AM
-          <span class="x-message-status"></span>
-        </div>
-      </div>
-      <div class="x-message-group">
-        <div class="x-message-user">heigukeji</div>
-        <div class="x-message-content">
-          <p class="x-message-text">
-            好开心啊，是不是啊
-          </p>
-        </div>
-        <div class="x-message-time">
-          05-06 11:35 AM
-          <span class="x-message-status"></span>
-        </div>
-      </div>
-      <div class="x-message-group x-message-right">
-        <div class="x-message-user"></div>
-        <div class="x-message-content">
-          <p class="x-message-text">
-            好啊
-          </p>
-        </div>
-        <div class="x-message-time">
-          05-06 11:35 AM
-          <span class="x-message-status"></span>
-        </div>
-      </div>
-      <div class="x-message-group">
-        <div class="x-message-user">heigukeji</div>
-        <div class="x-message-content">
-          <p class="x-message-text">
-            好开心啊，是不是啊
-          </p>
-        </div>
-        <div class="x-message-time">
-          05-06 11:35 AM
-          <span class="x-message-status"></span>
-        </div>
-      </div>
-      <div class="x-message-group x-message-right">
-        <div class="x-message-user"></div>
-        <div class="x-message-content">
-          <p class="x-message-text">
-            好啊
-          </p>
-        </div>
-        <div class="x-message-time">
-          05-06 11:35 AM
-          <span class="x-message-status"></span>
-        </div>
-      </div>
-      <div class="x-message-group">
-        <div class="x-message-user">heigukeji</div>
-        <div class="x-message-content">
-          <p class="x-message-text">
-            好开心啊，是不是啊
-          </p>
-        </div>
-        <div class="x-message-time">
-          05-06 11:35 AM
-          <span class="x-message-status"></span>
-        </div>
-      </div>
-      <div class="x-message-group x-message-right">
-        <div class="x-message-user"></div>
-        <div class="x-message-content">
-          <p class="x-message-text">
-            好啊
-          </p>
-        </div>
-        <div class="x-message-time">
-          05-06 11:35 AM
-          <span class="x-message-status"></span>
-        </div>
-      </div>
-      <div class="x-message-group">
-        <div class="x-message-user">heigukeji</div>
-        <div class="x-message-content">
-          <p class="x-message-text">
-            好开心啊，是不是啊
-          </p>
-        </div>
-        <div class="x-message-time">
-          05-06 11:35 AM
-          <span class="x-message-status"></span>
-        </div>
-      </div>
-      <div class="x-message-group x-message-right">
-        <div class="x-message-user"></div>
-        <div class="x-message-content">
-          <p class="x-message-text">
-            好啊
-          </p>
-        </div>
-        <div class="x-message-time">
-          05-06 11:35 AM
-          <span class="x-message-status"></span>
-        </div>
-      </div>
+
     </div>
     <div class="chat-footer">
       <div class="chat-ops">
@@ -178,15 +50,15 @@
           <i class="iconfont icon-wenjian"></i>
           <input type="file" id="uploadFile" class="hide">
         </label>
-        <label for="clearMessage" class="chat-ops-icon ib">
+        <label class="chat-ops-icon ib">
           <i class="iconfont icon-shanchu"></i>
         </label>
       </div>
       <div class="chat-send">
         <span class="input-group-wrapper">
           <span class="input-wrapper">
-            <input type="text" placeholder="输入消息" id="inputcontent" class="input-txt fl">
-            <span class="input-group-addon">
+            <input type="text" placeholder="输入消息" id="inputcontent" @keyup.enter="sendTextMsg()" class="input-txt fl">
+            <span class="input-group-addon"  @click="sendTextMsg">
                <i class="iconfont icon-send" style="cursor: pointer;">
             </i>
             </span>
@@ -199,9 +71,6 @@
 </template>
 
 <script>
-//  require('@/assets/lib/easemob-sdk/webim.config.js')
-//  require('@/assets/lib/easemob-sdk/strophe-1.2.8.js')
-//  require('@/assets/lib/easemob-sdk/websdk-1.4.13.js')
   export default {
     name: 'chat-list',
     data () {
@@ -214,68 +83,107 @@
       }
     },
     mounted () {
-      // URL格式 http://localhost:8081/#/chatList/?from_username=1&to_username=2
-      // this.from_username = this.getQueryString('from_username')
-      // this.to_username = this.getQueryString('to_username')
-      // this.loginEasemob()
+      // URL格式 http://localhost:8082/#/chatList/me/?from_username=1&to_username=2
+      document.querySelector('#inputcontent').focus()
+      let urlParams = this.getParamsFromUrl()
+      if (urlParams.from_username && urlParams.to_username) {
+        this.from_username = urlParams.from_username
+        this.to_username = urlParams.to_username
+        this.loginEasemob()
+      } else {
+        this.$createDialog({
+          type: 'alert',
+          title: '温馨提示',
+          content: '路径错误,缺少from_username和to_username'
+        }).show()
+      }
     },
     methods: {
       // 登录环信
       loginEasemob () {
-        this.conn = new WebIM.connection({
-          isMultiLoginSessions: WebIM.config.isMultiLoginSessions,
-          https: typeof WebIM.config.https === 'boolean' ? WebIM.config.https : location.protocol === 'https:',
-          url: WebIM.config.xmppURL,
-          heartBeatWait: WebIM.config.heartBeatWait,
-          autoReconnectNumMax: WebIM.config.autoReconnectNumMax,
-          autoReconnectInterval: WebIM.config.autoReconnectInterval,
-          apiUrl: WebIM.config.apiURL,
-          isAutoLogin: true
-        })
-        this.conn.open({
-          apiUrl: WebIM.config.apiURL,
-          user: this.from_username,
-          pwd: this.currentUserpwd,
-          appKey: WebIM.config.appkey,
-          success: function (token) { },
-          error: function () { }
+        this.$imoption.user = this.from_username
+        this.$imoption.pwd = this.currentUserpwd
+        this.$imconn.open(this.$imoption)
+        this.$imconn.listen({
+          onOpened: function (message) {
+            console.log('用户已上线')
+          },
+          onClosed: function (message) {
+            console.log('用户已下线')
+          },
+          onEmojiMessage: this.receiveEmojiMessage,
+          onPictureMessage: this.receivePictureMessage,
+          onTextMessage: this.receiveTextMsg
         })
       },
       // 接受文本消息
-      receiveTextMsg () {
-
+      receiveTextMsg (message) {
+        // message:{"id":"465540634703299052","type":"chat","from":"1","to":"2","data":"5共和国","ext":{"weichat":{"originType":"webim"}},"sourceMsg":"5共和国","error":false,"errorText":"","errorCode":"","time":"2018-05-10T12:55:27.432Z"}
+        message.time = new Date()
+        let receiveMessage = {
+          from: message.from,
+          sourceMsg: message.sourceMsg,
+          time: new Date()
+        }
+        this.chatHistory.push(receiveMessage)
+      },
+      // 接受表情消息
+      receiveEmojiMessage (message) {
+        this.chatHistory.push(message)
+      },
+      // 接受图片消息
+      receivePictureMessage (message) {
+        this.chatHistory.push(message)
       },
       // 发送文本消息
       sendTextMsg () {
         var text = document.querySelector('#inputcontent').value
-        var id = conn.getUniqueId()                 // 生成本地消息id
-        var msg = new WebIM.message('txt', id)      // 创建文本消息
+        if (!text) {
+          this.$createDialog({
+            type: 'alert',
+            title: '温馨提示',
+            content: '请先输入发送内容'
+          }).show()
+          return
+        }
+        var id = this.$imconn.getUniqueId()
+        var msg = new WebIM.message('txt', id)
+        let fromUserName = this.from_username
+        let _thisChatHistory = this.chatHistory
         msg.set({
-          msg: text,                  // 消息内容
+          msg: text,
           to: this.to_username,
           roomType: false,
           success: function (id, serverMsgId) {
-            this.chatHistory.push({
-              msgcontent: text,
-              msgtype: 'text',
-              createTime: new Date(),
-              createUser: this.to_username
-            })
             document.querySelector('#inputcontent').value = ''
+            let sendMessage = {
+              from: fromUserName,
+              sourceMsg: text,
+              time: new Date()
+            }
+            _thisChatHistory.push(sendMessage)
           },
           fail: function (e) {
             console.log('Send private text error')
           }
         })
         msg.body.chatType = 'singleChat'
-        conn.send(msg.body)
+        this.$imconn.send(msg.body)
       },
       // 获取url中的当前用户环信账号和聊天对象账号
-      getParamsFromUrl (name) {
-        var reg = new RegExp('(^|&)' + name + '=([^&]*)(&|$)', 'i')
-        var r = window.location.search.substr(1).match(reg)
-        if (r != null) return unescape(r[2])
-        return null
+      getParamsFromUrl () {
+        var urlhash = location.hash //获取url中"?"符后的字串
+        var theRequest = {}
+        if (urlhash.indexOf('?') != -1) {
+          var index = urlhash.indexOf('?') + parseInt(1)
+          var str = urlhash.substr(index)
+          var strArr = str.split('&')
+          for (var i = 0; i < strArr.length; i++) {
+            let arr = strArr[i].split('=')
+            theRequest[arr[0]] = arr[1]
+          }
+        }
+        return theRequest
       },
 
     }
