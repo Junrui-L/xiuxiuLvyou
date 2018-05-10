@@ -178,7 +178,7 @@
           <i class="iconfont icon-wenjian"></i>
           <input type="file" id="uploadFile" class="hide">
         </label>
-        <label for="clearMessage" class="chat-ops-icon ib">
+        <label class="chat-ops-icon ib">
           <i class="iconfont icon-shanchu"></i>
         </label>
       </div>
@@ -199,9 +199,6 @@
 </template>
 
 <script>
-//  require('@/assets/lib/easemob-sdk/webim.config.js')
-//  require('@/assets/lib/easemob-sdk/strophe-1.2.8.js')
-//  require('@/assets/lib/easemob-sdk/websdk-1.4.13.js')
   export default {
     name: 'chat-list',
     data () {
@@ -215,9 +212,9 @@
     },
     mounted () {
       // URL格式 http://localhost:8081/#/chatList/?from_username=1&to_username=2
-      // this.from_username = this.getQueryString('from_username')
-      // this.to_username = this.getQueryString('to_username')
-      // this.loginEasemob()
+      this.from_username = this.getParamsFromUrl('from_username') || 1
+      this.to_username = this.getParamsFromUrl('to_username') || 2
+      this.loginEasemob()
     },
     methods: {
       // 登录环信
@@ -230,15 +227,32 @@
           autoReconnectNumMax: WebIM.config.autoReconnectNumMax,
           autoReconnectInterval: WebIM.config.autoReconnectInterval,
           apiUrl: WebIM.config.apiURL,
-          isAutoLogin: true
+          isAutoLogin: true,
         })
-        this.conn.open({
+        // 登录参数
+        let loginOptions = {
           apiUrl: WebIM.config.apiURL,
           user: this.from_username,
           pwd: this.currentUserpwd,
           appKey: WebIM.config.appkey,
-          success: function (token) { },
-          error: function () { }
+          success: function (token) {
+            alert('this.conn.open 登录成功')
+          },
+          error: function (err) {
+            console.log(err)
+          }
+        }
+        this.conn.open(loginOptions)
+        // FIXME 无法触发监听函数
+        this.conn.listen({
+          onOpened: function (message) {          //连接成功回调
+            // 获取好友列表
+            alert('onOpenedonOpened')
+          },
+          // 接受文本消息
+          onTextMessage: function (message) {
+            alert(message.sourceMsg)
+          }
         })
       },
       // 接受文本消息

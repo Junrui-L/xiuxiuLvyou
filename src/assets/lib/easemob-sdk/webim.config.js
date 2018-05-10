@@ -5,7 +5,7 @@
  * In this way , others won't be influenced by this config while git pull.
  *
  */
-var WebIM = {};
+var WebIM = window.WebIM || {};
 WebIM.config = {
     /*
      * XMPP server
@@ -18,7 +18,7 @@ WebIM.config = {
     /*
      * Application AppKey
      */
-    appkey: '1191171204178871#xiuxiutrip',
+    appkey: '1138180320146984#testxiuxiu',
 
     /*
      * Whether to use wss
@@ -113,3 +113,4 @@ WebIM.config = {
         type: 'none'
     }
 };
+window.WebIM = WebIM

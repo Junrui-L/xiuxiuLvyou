@@ -14,6 +14,9 @@ import loadingImg from './assets/img/loading-spin.svg' //loading图片
 // import Cube from './assets/lib/cube-ui'
 import Cube from 'cube-ui'
 
+require('./assets/lib/easemob-sdk/webim.config.js')
+require('easemob-websdk')
+
 Vue.use(Cube);
 
 import './config/filter' //过滤器

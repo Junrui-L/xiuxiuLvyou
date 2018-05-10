@@ -21,7 +21,7 @@
 /* jshint ignore:start */
 (function (callback) {
     /* jshint ignore:end */
-
+  if(window.Strophe) return
 // This code was written by Tyler Akins and has been placed in the
 // public domain.  It would be nice if you left this header intact.
 // Base64 code from Tyler Akins -- http://rumkin.com
@@ -5697,21 +5697,21 @@
 
     /* jshint ignore:start */
     if (callback) {
-        if (typeof define === 'function' && define.amd) {
-            //For backwards compatability
-            var n_callback = callback;
-            if (typeof requirejs === 'function') {
-                requirejs(["strophe"], function (o) {
-                    n_callback(o.Strophe, o.$build, o.$msg, o.$iq, o.$pres);
-                });
-            } else {
-                require(["strophe"], function (o) {
-                    n_callback(o.Strophe, o.$build, o.$msg, o.$iq, o.$pres);
-                });
-            }
-        } else {
+        // if (typeof define === 'function' && define.amd) {
+        //     //For backwards compatability
+        //     var n_callback = callback;
+        //     if (typeof requirejs === 'function') {
+        //         requirejs(["strophe"], function (o) {
+        //             n_callback(o.Strophe, o.$build, o.$msg, o.$iq, o.$pres);
+        //         });
+        //     } else {
+        //         require(["strophe"], function (o) {
+        //             n_callback(o.Strophe, o.$build, o.$msg, o.$iq, o.$pres);
+        //         });
+        //     }
+        // } else {
             return callback(Strophe, $build, $msg, $iq, $pres);
-        }
+        // }
     }
 
 
