@@ -17,7 +17,6 @@
     <div class="chat-content">
       <div class="no-msg">没有更多消息啦~</div>
 
-
       <div class="x-message-group" :class="item.from==from_username ? 'x-message-right' : ''"
            v-for="item in chatHistory">
         <div class="x-message-user">{{item.from}}</div>
@@ -58,7 +57,7 @@
         <span class="input-group-wrapper">
           <span class="input-wrapper">
             <input type="text" placeholder="输入消息" id="inputcontent" @keyup.enter="sendTextMsg()" class="input-txt fl">
-            <span class="input-group-addon"  @click="sendTextMsg">
+            <span class="input-group-addon" @click="sendTextMsg">
                <i class="iconfont icon-send" style="cursor: pointer;">
             </i>
             </span>

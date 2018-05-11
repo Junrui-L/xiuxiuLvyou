@@ -11,7 +11,7 @@
           </svg>
         </span>
         </router-link>
-        <div class="message" @click="$router.push({path: '/chatList' })"></div>
+        <div class="message" @click="$router.push({path: '/chatList', query: {from_username: currentUserName}})"></div>
       </div>
       <ul class="mem-wrap clearfix">
         <router-link tag="li" to="/scores" class="mem-item fl">
@@ -117,7 +117,8 @@
         orderList: [],// 订单列表
         tabMap: {'all': 0, 'waitpay': 1, 'doing': 2, 'waitEvaluate': 3, 'haveCancle': 4},
         page: 1,
-        nomore: false
+        nomore: false,
+        currentUserName:'1', // 当前登录人的环信账号
       }
     },
     components: {
@@ -153,7 +154,7 @@
           }
         })
       },
-      // 获取个人信息
+      // TODO 获取个人信息 需要知道当前用户的环信账号
       getUserInfo() {
         userPersonal().then(res => {
           this.userInfo.headimgurl = res.headimgurl

@@ -15,53 +15,22 @@
     </div>
     <div class="main-content">
       <ul class="chats-list" v-if="currentTab == 'chats'">
-        <!--<li class="chat-item" @click = "$router.push({path: '/chatList/33', query: {username: 1}})">-->
-          <!--<div class="nav-text">-->
-            <!--<div>wk19991024<span-->
-              <!--class="ant-badge ant-badge-not-a-wrapper">33</span></div>-->
-            <!--<div class="nav-text-desc">-->
-                    <!--sss-->
-            <!--</div>-->
-          <!--</div>-->
-          <!--<div class="nav-op">05-06 01:14 AM</div>-->
-        <!--</li>-->
-        <li class="chat-item" @click = "$router.push({path: '/chatList/me', query: {from_username: 1,to_username:2}})">
+
+        <li class="chat-item" v-for="item in chatList"
+            @click="$router.push({path: '/chatList/me', query: {from_username: currentUserName,to_username:item.sendMsgUsername}})">
           <div class="nav-text">
-            <div>张三丰<span
-              class="ant-badge ant-badge-not-a-wrapper">33</span></div>
-            <div class="nav-text-desc">
-              sss
-            </div>
+            <div>{{item.nickName}}<span class="ant-badge ant-badge-not-a-wrapper">33</span></div>
+            <div class="nav-text-desc">{{item.lastmsg}}</div>
           </div>
-          <div class="nav-op">05-06 01:14 AM</div>
-        </li>
-        <li class="chat-item" @click = "$router.push({path: '/chatList/me', query: {from_username: 2,to_username:1}})">
-          <div class="nav-text">
-            <div>李小龙<span
-              class="ant-badge ant-badge-not-a-wrapper">33</span></div>
-            <div class="nav-text-desc">
-            </div>
-          </div>
-          <div class="nav-op">05-06 01:14 PM</div>
+          <div class="nav-op">{{item.updateTime}}</div>
         </li>
 
       </ul>
       <ul class="chats-list records-list" v-if="currentTab == 'records'">
-        <li class="chat-item">
+        <li class="chat-item" v-for="item in groupList">
           <div class="nav-text">
-            wk19991024
+            {{item.groupName}}
           </div>
-        </li>
-        <li class="chat-item">
-          <div class="nav-text">
-            张三丰
-          </div>
-        </li>
-        <li class="chat-item">
-          <div class="nav-text">
-            李小龙
-          </div>
-
         </li>
       </ul>
     </div>
@@ -73,25 +42,88 @@
 
 <script>
   export default {
-    name: "chatlist",
-    data() {
+    name: 'chatlist',
+    data () {
       return {
-        currentTab: 'chats'
+        currentTab: 'chats',
+        currentUserName: '1', // 当前人的环信账号
+        chatList: [{
+          sendMsgUsername: '2',
+          nickName: '张三丰',
+          lastmsg: '我要吃饭',
+          updateTime: '05-06 01:14 AM'
+        }, {
+          sendMsgUsername: '3',
+          nickName: '刘备',
+          lastmsg: '我不加班',
+          updateTime: '05-06 01:14 AM'
+        }, {
+          sendMsgUsername: '4',
+          nickName: '陆逊',
+          lastmsg: '得之淡然,失之坦然',
+          updateTime: '05-06 01:14 AM'
+        }], // 聊天列表
+        groupList: [{groupName: '三国群英'}, {groupName: '桃园三结义'}, {groupName: '附近兼职妹'}], // 群组列表
       }
     },
-    mounted() {
-
+    mounted () {
+      let urlParams = this.getParamsFromUrl()
+      if (!urlParams.from_username) {
+        this.$createDialog({
+          type: 'alert',
+          title: '温馨提示',
+          content: '路径错误,缺少from_username和to_username'
+        }).show()
+      } else {
+        this.currentUserName = urlParams.from_username
+      }
     },
     methods: {
-      changeType(type) {
-        //返回消息列表
-        this.$router.push({path: '/chatList'})
-        this.currentTab = type;
+      changeType (type) {
+        this.currentTab = type
         if (type == 'chats') {
-          //TODO: 聊天列表
+          this.getChatListData()
         } else {
-          //联系人列表
+          this.getGroupListData()
         }
+      },
+      // 获取url中的当前用户环信账号和聊天对象账号
+      getParamsFromUrl () {
+        var urlhash = location.hash //获取url中"?"符后的字串
+        var theRequest = {}
+        if (urlhash.indexOf('?') != -1) {
+          var index = urlhash.indexOf('?') + parseInt(1)
+          var str = urlhash.substr(index)
+          var strArr = str.split('&')
+          for (var i = 0; i < strArr.length; i++) {
+            let arr = strArr[i].split('=')
+            theRequest[arr[0]] = arr[1]
+          }
+        }
+        return theRequest
+      },
+      // TODO 获取聊天列表
+      getChatListData () {
+        this.chatList = [{
+          sendMsgUsername: '2',
+          nickName: '张三丰',
+          lastmsg: '我要吃饭',
+          updateTime: '05-06 01:14 AM'
+        }, {
+          sendMsgUsername: '3',
+          nickName: '刘备',
+          lastmsg: '我不加班',
+          updateTime: '05-06 01:14 AM'
+        }, {
+          sendMsgUsername: '4',
+          nickName: '陆逊',
+          lastmsg: '得之淡然,失之坦然',
+          updateTime: '05-06 01:14 AM'
+        }]
+      },
+      // TODO 获取群组列表
+      getGroupListData () {
+        this.groupList = [{groupName: '三国群英'}, {groupName: '桃园三结义'}, {groupName: '附近兼职妹'}]
       }
     }
   }
