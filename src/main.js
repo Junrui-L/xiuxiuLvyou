@@ -7,7 +7,8 @@ import http from './http'               //请求数据
 import './config/setView'               //不同dpr手机兼容
 import './assets/scss/app.scss'         //引入全局的css文件包
 import './assets/lib/swiper/css/swiper.css' //swiper样式
-import VueLazyload from 'vue-lazyload'  //图片模板等懒加载
+import VueLazyload from 'vue-lazyload';  //图片模板等懒加载
+import VueAwesomeSwiper from 'vue-awesome-swiper'
 import errImg from './assets/img/404.png' //404图片
 import loadingImg from './assets/img/loading-spin.svg' //loading图片
 //全局引用cube
@@ -43,7 +44,7 @@ const options = {
 Vue.prototype.$imconn = conn
 Vue.prototype.$imoption = options
 Vue.use(Cube);
-
+Vue.use(VueAwesomeSwiper)
 import './config/filter' //过滤器
 window.createAPI = Cube.createAPI;
 import router from './router'
@@ -74,5 +75,5 @@ new Vue({
   router,
   store,
   template: '<App/>',
-  components: { App }
+  components: {App}
 })

@@ -27,7 +27,7 @@
             </div>
             <div class="shuoming fl" :class="currentTab!='notuse' ? 'nouseful' : '' ">
               <p class="name">{{cou.name}}</p>
-              <p class="date">有效时间:{{cou.maketime}}</p>
+              <p class="date">有效时间:{{cou.maketime}} {{cou.overtime}}</p>
             </div>
             <span class="left"></span>
             <span class="right"></span>
