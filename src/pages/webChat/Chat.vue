@@ -36,8 +36,13 @@
       <div class="chat-ops">
         <div class="chat-ops-icon ib">
           <div class="ib">
-            <a class="adropdown-trigger" href="#">
+            <a class="adropdown-trigger" @click="showEmoji=true">
               <i class="iconfont icon-biaoqing2" style="color: rgba(0, 0, 0, 0.65);"></i>
+              <ul class="faces-ul" v-if="showEmoji">
+                <li v-for="(value,key) in emojiMap" :key="key" @click="clickFace(key)" class="webim-emoji-item">
+                  <img :src="value"/>
+                </li>
+              </ul>
             </a>
           </div>
         </div>
@@ -65,11 +70,47 @@
         </span>
       </div>
     </div>
-
   </div>
 </template>
 
 <script>
+  import axios from 'axios'
+  import ee_1 from '../../assets/img/faces/ee_1.png'
+  import ee_2 from '../../assets/img/faces/ee_2.png'
+  import ee_3 from '../../assets/img/faces/ee_3.png'
+  import ee_4 from '../../assets/img/faces/ee_4.png'
+  import ee_5 from '../../assets/img/faces/ee_5.png'
+  import ee_6 from '../../assets/img/faces/ee_6.png'
+  import ee_7 from '../../assets/img/faces/ee_7.png'
+  import ee_8 from '../../assets/img/faces/ee_8.png'
+  import ee_9 from '../../assets/img/faces/ee_9.png'
+  import ee_10 from '../../assets/img/faces/ee_10.png'
+  import ee_11 from '../../assets/img/faces/ee_11.png'
+  import ee_12 from '../../assets/img/faces/ee_12.png'
+  import ee_13 from '../../assets/img/faces/ee_13.png'
+  import ee_14 from '../../assets/img/faces/ee_14.png'
+  import ee_15 from '../../assets/img/faces/ee_15.png'
+  import ee_16 from '../../assets/img/faces/ee_16.png'
+  import ee_17 from '../../assets/img/faces/ee_17.png'
+  import ee_18 from '../../assets/img/faces/ee_18.png'
+  import ee_19 from '../../assets/img/faces/ee_19.png'
+  import ee_20 from '../../assets/img/faces/ee_20.png'
+  import ee_21 from '../../assets/img/faces/ee_21.png'
+  import ee_22 from '../../assets/img/faces/ee_22.png'
+  import ee_23 from '../../assets/img/faces/ee_23.png'
+  import ee_24 from '../../assets/img/faces/ee_24.png'
+  import ee_25 from '../../assets/img/faces/ee_25.png'
+  import ee_26 from '../../assets/img/faces/ee_26.png'
+  import ee_27 from '../../assets/img/faces/ee_27.png'
+  import ee_28 from '../../assets/img/faces/ee_28.png'
+  import ee_29 from '../../assets/img/faces/ee_29.png'
+  import ee_30 from '../../assets/img/faces/ee_30.png'
+  import ee_31 from '../../assets/img/faces/ee_31.png'
+  import ee_32 from '../../assets/img/faces/ee_32.png'
+  import ee_33 from '../../assets/img/faces/ee_33.png'
+  import ee_34 from '../../assets/img/faces/ee_34.png'
+  import ee_35 from '../../assets/img/faces/ee_35.png'
+
   export default {
     name: 'chat-list',
     data () {
@@ -78,7 +119,46 @@
         to_username: '', // url中的接收方用户名
         conn: {}, // 与环信的通信长连接
         chatHistory: [], // 聊天记录数组
-        currentUserpwd: 'xiuxiutrip123456' // 当前用户环信密码
+        currentUserpwd: 'xiuxiutrip123456', // 当前用户环信密码
+        accence_token: '', // 权限token
+        emojiMap: {
+          '[):]': ee_1,
+          '[:D]': ee_2,
+          '[;)]': ee_3,
+          '[:-o]': ee_4,
+          '[:p]': ee_5,
+          '[(H)]': ee_6,
+          '[:@]': ee_7,
+          '[:s]': ee_8,
+          '[:$]': ee_9,
+          '[:(]': ee_10,
+          '[:\'(]': ee_11,
+          '[:|]': ee_12,
+          '[(a)]': ee_13,
+          '[8o|]': ee_14,
+          '[8-|]': ee_15,
+          '[+o(]': ee_16,
+          '[<o)]': ee_17,
+          '[|-)]': ee_18,
+          '[*-)]': ee_19,
+          '[:-#]': ee_20,
+          '[:-*]': ee_21,
+          '[^o)]': ee_22,
+          '[8-)]': ee_23,
+          '[(|)]': ee_24,
+          '[(u)]': ee_25,
+          '[(S)]': ee_26,
+          '[(*)]': ee_27,
+          '[(#)]': ee_28,
+          '[(R)]': ee_29,
+          '[({)]': ee_30,
+          '[(})]': ee_31,
+          '[(k)]': ee_32,
+          '[(F)]': ee_33,
+          '[(W)]':ee_34,
+          '[(D)]':ee_35
+        }, // 表情集合
+        showEmoji: false // 是否显示表情
       }
     },
     mounted () {
@@ -102,6 +182,10 @@
       loginEasemob () {
         this.$imoption.user = this.from_username
         this.$imoption.pwd = this.currentUserpwd
+        this.$imoption.success = function (res) {
+          this.accence_token = res.access_token
+          this.getChatHistortData()
+        }
         this.$imconn.open(this.$imoption)
         this.$imconn.listen({
           onOpened: function (message) {
@@ -113,6 +197,16 @@
           onEmojiMessage: this.receiveEmojiMessage,
           onPictureMessage: this.receivePictureMessage,
           onTextMessage: this.receiveTextMsg
+        })
+      },
+      // 获取聊天历史记录
+      getChatHistortData () {
+        axios.get('http://a1.easemob.com/1138180320146984/testxiuxiu/chatmessages', {
+          params: {
+            org_name: '1138180320146984',
+            app_name: 'testxiuxiu',
+            Authorization: `Bearer ${this.accence_token}`
+          }
         })
       },
       // 接受文本消息
@@ -184,11 +278,36 @@
         }
         return theRequest
       },
+      // 选中一个表情
+      clickFace (key) {
+        this.showEmoji = false
+        var text = document.querySelector('#inputcontent').value
+        document.querySelector('#inputcontent').value = text + '' + key
 
+      }
     }
   }
 </script>
 
-<style scoped>
-
+<style lang="scss" scoped>
+  .faces-ul {
+    z-index: 1;
+    position: absolute;
+    width: 280px;
+    height: 194px;
+    bottom: 180px;
+    left: 0px;
+    border-radius: 2px;
+    background: #fff;
+    box-sizing: border-box;
+    padding: 4px;
+    box-shadow: rgba(0, 0, 0, 0.298039) 0px 4px 12px 0px;
+    .webim-emoji-item {
+      cursor: pointer;
+      display: inline-block;
+      margin: 2px 3px 0 3px;
+      height: 35px;
+      line-height: 1
+    }
+  }
 </style>

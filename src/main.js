@@ -38,7 +38,7 @@ const options = {
     console.log('链接服务器正常')
   },
   error:function (err) {
-    alert(err)
+    console.log(err)
   }
 }
 Vue.prototype.$imconn = conn
