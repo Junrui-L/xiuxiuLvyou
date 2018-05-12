@@ -155,8 +155,8 @@
           '[(})]': ee_31,
           '[(k)]': ee_32,
           '[(F)]': ee_33,
-          '[(W)]':ee_34,
-          '[(D)]':ee_35
+          '[(W)]': ee_34,
+          '[(D)]': ee_35
         }, // 表情集合
         showEmoji: false // 是否显示表情
       }
@@ -284,6 +284,16 @@
         var text = document.querySelector('#inputcontent').value
         document.querySelector('#inputcontent').value = text + '' + key
 
+      }
+    },
+    filters: {
+      // 消息文本过滤
+      msgfilter (msg) {
+        let emMap = this.emojiMap
+        let re = /[):]|[:D]/g
+        return msg.replace(re, function (match) {
+          return match.replace(/./g, emMap[match])
+        })
       }
     }
   }
