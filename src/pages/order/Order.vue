@@ -274,6 +274,7 @@
     </ul>
     <div class="foot-blank"></div>
     <CancelBox v-if="showCancel" confirmText="请输入取消原因" :showCancelBox = "showCancel" @closeTip = ' shows '  @confirmCancel="cancelOdr"></CancelBox>
+    <loading v-show="loading"></loading>
   </div>
 </template>
 
@@ -295,7 +296,8 @@
         startGoT: '', //开始出发时间
         orderInfo: '', //订单信息
         cancelR: '',
-        showCancel: false
+        showCancel: false,
+        loading: true
       }
     },
     components: {
@@ -317,7 +319,7 @@
         orderDetail(this.orderNum).then(res => {
           console.log(res)
           this.orderInfo = res.order;
-
+          this.loading = false;
           //结束游玩时间
           let da = new Date(this.orderInfo.godate)
           da.setTime(da.getTime()+ (this.orderInfo.playDay - 1)*24*60*60*1000)

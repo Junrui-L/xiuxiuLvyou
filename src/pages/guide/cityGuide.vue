@@ -41,6 +41,7 @@
 
       </ul>
     </div>
+    <loading v-show="loading"></loading>
   </div>
 </template>
 
@@ -99,7 +100,8 @@
           isbuyticket: '',
           isshuttle: '',
           havecar: '',
-          sort: ''
+          sort: '',
+          loading: true
         }
       }
     },
@@ -164,12 +166,15 @@
 
       },
       getGuideList(data) {
+        this.loading = true;
         console.log('请求参数' + JSON.stringify(data))
         cityGuideList(data).then(res => {
+
           console.log('区导列表返回。。。。。')
           console.log(res);
           this.scenicInfo = res.cityMap;  //地区信息
           this.guidesList = res.list;    //向导列表
+          this.loading = false;
         })
       }
 

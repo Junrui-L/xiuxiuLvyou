@@ -264,15 +264,22 @@ const router = new Router({
       path: '/addBankCard',
       name: 'addBankCard',
       component: AddBankCard
-    },{
-      //添加新银行卡
+    },
+    {
+      //聊天列表
       path: '/chatList',
       name: 'chatList',
       component: ChatList,
-      children: [{
-        path: ':id',
-        component: Chat
-      }]
+      // children: [{
+      //   path: ':id',
+      //   component: Chat
+      // }]
+    },
+    {
+      //聊天窗口
+      path: '/Chat',
+      name: 'chat',
+      component: Chat
     }
   ],
   strict: process.env.NODE_ENV !== 'production',

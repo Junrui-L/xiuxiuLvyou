@@ -30,11 +30,11 @@
     </div>
     <ul class="guide-date clearfix">
       <li class="date-item fl">
-        <strong>{{guideInfos.browsecount}}</strong>
+        <strong>{{ guideInfos.browsecount }}</strong>
         <p>浏览量</p>
       </li>
       <li class="date-item fl">
-        <strong>{{guideInfos.fwcount}}</strong>
+        <strong>{{ guideInfos.fwcount }}</strong>
         <p>接单量</p>
       </li>
       <li class="date-item fl">
@@ -42,7 +42,7 @@
         <p>评价数</p>
       </li>
       <li class="date-item fl" v-if="guideInfos.dayprice">
-        <strong class="guid-p">  ￥{{guideInfos.dayprice}} <span>起</span></strong>
+        <strong class="guid-p">￥{{guideInfos.dayprice}} <span>起</span></strong>
         <p>价格</p>
       </li>
     </ul>
@@ -108,12 +108,22 @@
       <div class="clearfix">
         <div class="fucc fl">
           <span class="favarate" :class="{'favarated': isCollect}" @click="addCollect">收藏</span>
-          <span class="chat">咨询</span>
+          <span class="chat" @click="showContactPopup">咨询</span>
         </div>
         <button class="order-btn fr" @click="touchMe">找我预约</button>
       </div>
     </div>
-    <cube-popup type="plays-popup" :center="false" ref="choosePopup">
+    <cube-popup type="content-popup" :center="true" ref="chooseContact" @mask-click= "hideContactPopup">
+      <div class="connection-contain">
+        <h3>选择咨询方式</h3>
+        <i class="close" @click="hideContactPopup" ></i>
+        <ul class="connection-wrap">
+          <li class="con-item con-tel"><a :href=" 'tel:'+  guideInfos.mobile">电话咨询</a></li>
+          <li class="con-item con-chat" @click="$router.push({path: '/chat', query: {from_username: myOpid,to_username: guideInfos.openid}})">在线咨询</li>
+        </ul>
+      </div>
+    </cube-popup>
+    <cube-popup type="plays-popup" :center="false" ref="choosePopup" @mask-click="hideChoosePopup">
       <div class="plays-content">
         <i class="close" @click="hideChoosePopup"></i>
         <h3 class="head-tit">
@@ -124,7 +134,7 @@
           <li v-else class="choose-item choose-playmethos clearfix" v-for="item in playList" @click="$router.push({name: 'scenicDetail',  query: {playId: item.id, accountId: item.accountid}})">
             <dl class="clearfix methods">
               <dt class="method-img fl">
-                <img :src="basePath + item.wfimg" alt="">
+                <img :src="basePath + item.wfimg" alt="" />
               </dt>
               <dd class="method-detail fl">
                 <div class="method-name">{{item.wfname}}</div>
@@ -141,29 +151,27 @@
         </ul>
       </div>
     </cube-popup>
-    <cube-popup type="choose-popup" :center="false" ref="orderPopup">
+    <cube-popup type="choose-popup" :center="false" ref="orderPopup" @mask-click="hideOrderPopup">
       <div class="bootom-cotent">
         <i class="close" @click="hideOrderPopup"></i>
-
         <div class="head-wrapper">
-          <h3 class="region-name">{{plays.servicecity}}-{{plays.scenicspot}} <span v-show="plays.sfzcty == 1">可团游</span>
+          <h3 class="region-name">{{plays.servicecity}}-{{plays.scenicspot}}<span v-show="plays.sfzcty == 1">可团游</span>
           </h3>
           <div class="region-adress">{{plays.serviceCity}} <span>{{plays.wfname}}</span></div>
           <ul class="tips clearfix">
             <li class="tip fl" v-for="word in getStr(plays.wfbq)">{{word}}</li>
-
           </ul>
         </div>
         <ul class="choose-wrap">
           <li class="choose-item clearfix" @click="showDatePicker">选择出行日期 <span class="fr">{{travalDate.txt ? travalDate.txt : '请选择'}}
                 <svg>
-                       <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#arrow-right"></use>
+                  <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#arrow-right"></use>
                 </svg>
               </span>
           </li>
           <li class="choose-item clearfix" @click="showDayPicker">游玩天数 <span class="fr">{{travalDay.txt }}
                 <svg>
-                       <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#arrow-right"></use>
+                  <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#arrow-right"></use>
                 </svg>
               </span>
           </li>
@@ -176,44 +184,44 @@
           </li>
           <li class="choose-item clearfix" @click="showPeoplePicker">出行人数
             <span class="fr">{{peopleNum.txt}}
-                   <svg>
+                <svg>
                   <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#arrow-right"></use>
                 </svg>
-                </span>
+            </span>
           </li>
         </ul>
-
         <div class="secnic-footer ">
           <div class="clearfix">
             <div class="fucc fl">
               <span class="favarate" :class="{'favarated': isCollect}" @click="addCollect">收藏</span>
-              <span class="chat">咨询</span>
+              <span class="chat" @click="showContactPopup">咨询</span>
             </div>
             <button class="order-btn fr" @click="nextStep">下一步</button>
           </div>
-        </div>
+         </div>
       </div>
     </cube-popup>
+    <loading v-show="loading"></loading>
   </div>
 </template>
 
 <script type="text/ecmascript-6">
   import Vue from 'vue'
   import {mapState, mapMutations} from 'vuex'
-  import {guideHome, loadPackage, initOrder, addCollection, delCollection} from '../../http/getDate'
-  import {dateFmt, throttle} from '../../config/myUtils'
+  import {guideHome, loadPackage, initOrder, addCollection, delCollection, userPerDetail} from '../../http/getDate'
+  import {dateFmt, throttle, localStore} from '../../config/myUtils'
   import HeadTop from '../../components/HeadTop.vue'
   import Banner from '../../components/Banner.vue'
   import { swiper, swiperSlide } from 'vue-awesome-swiper'
   import EvaluateStar from '../../components/EvaluateStar.vue'
   import DatePicker from '../../components/date-picker'
   import {peopleNum, peoleData} from '../../config/datajs'
-  createAPI(Vue, DatePicker, ['select', 'cancel'], false)
+  createAPI(Vue, DatePicker, ['select', 'cancel'], false);
+  let UserInfo = localStore('userInfo', 'localStorage')
   export default {
     data() {
       return {
         headBg: false,
-
         swiperOption: {
           loop: true,     //轮播图配置
           autoplay: 5000,
@@ -243,7 +251,9 @@
         newPricePackelist: [],
         plays: {},
         isCollect: false,// 是否收藏
-        unitMap:{1:'/人/天',2:'/单/天',3:'/人/次',4:'/单/次'}
+        unitMap:{1:'/人/天',2:'/单/天',3:'/人/次',4:'/单/次'},
+        myOpid: '',
+        loading: true
       }
     },
     computed: {
@@ -350,11 +360,15 @@
           if(res.conllectionMap) {
             this.isCollect = res.conllectionMap.guide;//是否收藏当前
           }
+
+          this.loading = false
         })
       },
       priceList(data) {
+        this.loading = true;
         loadPackage({godate:data.godate,accountId: data.accountId,
           playId: data.playId}).then(res => {
+           this.loading = false;
           this.newPricePackelist = res.pricepackageList;   //根据日期的套餐集合
           for(let i=0; i< this.newPricePackelist.length; i++) {
             this.mealdata[i] = {value:this.newPricePackelist[i].id,
@@ -374,6 +388,22 @@
       showChoosPopup() {
         const component = this.$refs.choosePopup
         component.show()
+      },
+      showContactPopup(){
+        console.log('点击聊天')
+        const component = this.$refs.chooseContact
+        component.show();
+        let opid = UserInfo.get('userInfo').openid;
+        console.error(opid)
+        if(opid !== null) {
+          this.myOpid = opid;
+        }
+
+
+      },
+      hideContactPopup(){
+        const component = this.$refs.chooseContact
+        component.hide()
       },
       hideChoosePopup() {
         const component = this.$refs.choosePopup;

@@ -48,6 +48,7 @@
         </li>
       </ul>
     </div>
+    <loading v-show="loading"></loading>
   </div>
 </template>
 
@@ -106,7 +107,8 @@
           latitude: '',
           longitude: ''
         },
-        guidesList: []
+        guidesList: [],
+        loading: true
       }
     },
     components: {
@@ -148,14 +150,18 @@
         this.getGuideList(this.sendData)
       },
       getGuideList(sex) {
+
         if( this.locations.latitude != '' && this.locations.longitud != '') {
+          this.loading = true;
           getNearGuide(this.locations.latitude, this.locations.longitude, sex).then(res => {
+            this.loading = false;
             console.log('区导列表返回。。。。。')
             console.log(res);
             this.guidesList = res.list;
           })
           // this.getNearGuide(this.locations.latitude, this.locations.longitude);
         } else {
+          this.loading = false;
           this.$createToast({
             txt: `未获取到您的位置，请返回首页重新进入`,
             type: 'error',

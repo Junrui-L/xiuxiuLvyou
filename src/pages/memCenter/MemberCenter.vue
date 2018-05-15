@@ -90,6 +90,7 @@
 
     </div>
     <CancelBox v-if="showCancel" confirmText="请输入取消原因" :showCancelBox = "showCancel" @closeTip = ' shows '  @confirmCancel="cancelOdr"></CancelBox>
+    <loading v-show="loading"></loading>
   </div>
 </template>
 
@@ -118,6 +119,7 @@
         tabMap: {'all': 0, 'waitpay': 1, 'doing': 2, 'waitEvaluate': 3, 'haveCancle': 4},
         page: 1,
         nomore: false,
+        loading: true,
         currentUserName:'1', // 当前登录人的环信账号
       }
     },
@@ -162,6 +164,7 @@
           this.userInfo.tourismScore = res.tourismScore
           this.userInfo.yhjcount = res.yhjcount
           this.userInfo.collect = res.collect
+          this.loading = false
         })
       },
       // 取消订单

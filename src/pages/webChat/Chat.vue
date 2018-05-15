@@ -1,18 +1,19 @@
 <template>
   <div class="Chat">
     <div class="chat-header">
-      <div class="fl" @click="$router.go(-1)">
+      <div class="goback fl" @click="$router.go(-1)">
         <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" version="1.1">
           <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#arrow-left"></use>
           <!--<polyline points="12,18 4,9 12,0" style="fill:none;stroke:rgb(153,153,153);stroke-width:2"/>-->
         </svg>
-        张三丰
+
       </div>
-      <div class="fr">
-        <span class="chat-action">
-            ...
-         </span>
-      </div>
+      张三丰
+      <!--<div class="fr">-->
+        <!--<span class="chat-action">-->
+            <!--...-->
+         <!--</span>-->
+      <!--</div>-->
     </div>
     <div class="chat-content">
       <div class="no-msg">没有更多消息啦~</div>
@@ -93,7 +94,7 @@
         this.$createDialog({
           type: 'alert',
           title: '温馨提示',
-          content: '路径错误,缺少from_username和to_username'
+          content: '路径错误,缺少用户名'
         }).show()
       }
     },

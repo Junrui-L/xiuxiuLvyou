@@ -18,7 +18,7 @@
       </div>
       <div class="tit">评论内容</div>
       <div class="comment-content">
-        <textarea v-model="contentTxt" name="com" maxlength="50" id="commm" placeholder="请输入您的评论内容" cols="30" rows="10"></textarea>
+        <textarea v-model="contentTxt" name="com" maxlength="150" id="commm" placeholder="请输入您的评论内容(最多150字)" cols="30" rows="10"></textarea>
       </div>
       <div class="tit">精彩图片</div>
       <div class="img-wrap clearfix">

@@ -36,6 +36,7 @@
         </li>
       </ul>
     </div>
+    <loading v-show="loading"></loading>
   </div>
 </template>
 
@@ -96,6 +97,7 @@
           isshuttle: '',
           sort: ''
         },
+        loading: true,
         isCollect: false  //是否收藏
       }
     },
@@ -137,7 +139,7 @@
           if(res.conllectionMap){
             this.isCollect = res.conllectionMap.scenicspot;
           }
-
+          this.loading = false
         })
       },
       goDetail(type,id){
@@ -150,9 +152,11 @@
         }
       },
       addCollect(){
+        this.loading = true;
         //添加or取消收藏
         if(this.isCollect) {
           delCollection({gzkey: this.scenicInfo.id,type: 3}).then(res => {
+            this.loading = false
             //取消收藏
             if(res.msg) {
               this.$createDialog({
@@ -172,6 +176,7 @@
           })
         }else {
           addCollection({ gzkey: this.scenicInfo.id,type: 3,name: this.scenicInfo.name}).then(res=>{
+            this.loading = false;
             //添加收藏
             console.log(res);
             if(res.msg) {

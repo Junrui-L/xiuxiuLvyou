@@ -39,7 +39,7 @@
     <transition name="tip-scale">
       <alert-tip v-if="showAlert" :showHide="showAlert" @closeTip="paySuccess" :alertText="alertText"></alert-tip>
     </transition>
-
+    <loading v-show="loading"></loading>
   </div>
 </template>
 
@@ -64,7 +64,8 @@
         canWxPay:false,
         canAccountPay: false,
         showAlert: false,
-        alertText: ''
+        alertText: '',
+        loading: true
       }
     },
     components: {
@@ -119,6 +120,7 @@
           console.log('===去支付页返回====')
           this.userAccount = res.capitalcenter;
           this.payOrderDetail = res.orderMap;
+          this.loading = false
           //设置支付倒计时
           let creatT = new Date(res.orderMap.created_at.replace(/-/g,'/')).getTime();
           this.endT = new Date(creatT + 1000 * 60 * 30).getTime();
@@ -229,10 +231,12 @@
         let that = this;
         console.log('支付请求');
         console.log('订单号：' + that.$route.query.orn)
+        this.loading = true
         let signUrl = location.href;
         payOrderWx(that.$route.query.orn, signUrl).then(res => {
           let that = this;
           console.log('===支付参数返回====')
+          this.loading = false;
           wx.config({
             debug: false,
             appId: res.configMap.appid,

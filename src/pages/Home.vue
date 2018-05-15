@@ -35,7 +35,7 @@
       <swiper :options="swiperOption"  ref="mySwiper">
         <!-- 这部分放你要渲染的那些内容 -->
         <swiper-slide v-for="(item, index) in banners" :key="index">
-          <a href="#">
+          <a :href="item.url">
             <img :src="basePath + item.img" class="index_img">
           </a>
         </swiper-slide>
@@ -213,20 +213,22 @@
     </div>
       <!--<cube-button @click="showDialog">show dialog</cube-button>-->
     <div class="footer">拉到底了~<br/>可以尝试搜索看看</div>
+    <loading v-show="loading"></loading>
   </div>
 </template>
 
 <script type="text/ecmascript-6">
   import {mapState, mapMutations} from 'vuex'
   import { swiper, swiperSlide } from 'vue-awesome-swiper'
-  import {homeData,getUserArea, userLogin, ConfigWx} from '../http/getDate'
+  import {homeData,getUserArea, userLogin, ConfigWx, userPerDetail} from '../http/getDate'
   import HoriSlider from '../components/HoriSlider.vue'
   import EvaluateStar from '../components/EvaluateStar.vue'
   import AlertTip from '../components/alertTip.vue'
   // import Swiper from '../components/Swiper.vue'
   // import Banner from '../components/Banner.vue'
   import {localStore} from '../config/myUtils'
-  let localSn =  localStore('localSn', 'localStorage')
+  let localSn =  localStore('localSn', 'localStorage');
+  let UserInfo = localStore('userInfo', 'localStorage')
   export default {
     name: 'Home',
     data() {
@@ -272,7 +274,8 @@
         initialIndex: 1,
         dotsSlot: false,
         addItem3: false,
-        configMap: {}
+        configMap: {},
+        loading: true //加载动画
       }
     },
     components: {
@@ -331,6 +334,15 @@
 
           this.hotLine = resp[5];  //热门路线
           // console.log(resp[5])
+          this.loading = false
+          userPerDetail().then(res => {
+            console.error('---------获取的个人信息-----------')
+            console.log(res);
+            if(res.visitor) {
+              UserInfo.set('userInfo', res.visitor)
+            }
+
+          })
         }).catch(err => {
 
           console.log(err)

@@ -267,6 +267,7 @@
             </div>
           </div>
         </cube-popup>
+      <loading v-show="loading"></loading>
     </div>
 </template>
 
@@ -315,7 +316,8 @@
                 showPanGuide: false,
                 showPanPlant: false,
                 showPanPoilcy: false,
-                isCollect: false  //是否收藏
+                isCollect: false,  //是否收藏
+                loading: true
             }
         },
         components: {
@@ -433,6 +435,7 @@
                 this.SAVE_GUIDE(res.guide);
                 this.SAVE_PLAY(res.play)
               }
+              this.loading = false;
 
             })
           },
@@ -452,6 +455,7 @@
               this.SAVE_GUIDE(res.guide);
               this.SAVE_PLAY(res.play)
               // console.log(this.otherPlays)
+              this.loading = false;
             })
           },
           priceList(data) {

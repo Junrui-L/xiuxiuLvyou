@@ -35,6 +35,7 @@
 
             </ul>
         </div>
+       <loading v-show="loading"></loading>
     </div>
 </template>
 
@@ -61,7 +62,8 @@
               citySenic:[{
                 cityimg:''
               }],
-              senicList: []
+              senicList: [],
+              loading: true
             }
         },
         components: {
@@ -116,6 +118,7 @@
               this.citySenic = res.cityMap;
               this.city = res.cityMap.name;
               this.senicList = res.scenicspotList;
+              this.loading = false;
               console.log(this.citySenic)
             })
           },

@@ -1,23 +1,23 @@
 <template>
   <div class="ChatList">
-    <div class="header">
-      <ul class="menu-horizontal clearfix"
-          id="x-header-tab" tabindex="0">
-        <li class="menu-item " :class="currentTab == 'chats' && 'item-selected'" @click="changeType('chats')">
-          聊天列表
-          <i class="iconfont icon-liaotianweixuanzhong" :class="currentTab == 'chats' && 'icon-liaotianxuanzhong1'"></i>
-        </li>
-        <li class="menu-item" :class="currentTab == 'records' && 'item-selected'" @click="changeType('records')">
-          群组
-          <i class="iconfont icon-05qunzu" :class="currentTab == 'records' && 'icon-05qunzufill'"></i>
-        </li>
-      </ul>
-    </div>
+    <!--<div class="header">-->
+      <!--<ul class="menu-horizontal clearfix"-->
+          <!--id="x-header-tab" tabindex="0">-->
+        <!--<li class="menu-item " :class="currentTab == 'chats' && 'item-selected'" @click="changeType('chats')">-->
+          <!--聊天列表-->
+          <!--<i class="iconfont icon-liaotianweixuanzhong" :class="currentTab == 'chats' && 'icon-liaotianxuanzhong1'"></i>-->
+        <!--</li>-->
+        <!--<li class="menu-item" :class="currentTab == 'records' && 'item-selected'" @click="changeType('records')">-->
+          <!--群组-->
+          <!--<i class="iconfont icon-05qunzu" :class="currentTab == 'records' && 'icon-05qunzufill'"></i>-->
+        <!--</li>-->
+      <!--</ul>-->
+    <!--</div>-->
     <div class="main-content">
       <ul class="chats-list" v-if="currentTab == 'chats'">
 
         <li class="chat-item" v-for="item in chatList"
-            @click="$router.push({path: '/chatList/me', query: {from_username: currentUserName,to_username:item.sendMsgUsername}})">
+            @click="$router.push({path: '/chat', query: {from_username: currentUserName,to_username:item.sendMsgUsername}})">
           <div class="nav-text">
             <div>{{item.nickName}}<span class="ant-badge ant-badge-not-a-wrapper">33</span></div>
             <div class="nav-text-desc">{{item.lastmsg}}</div>

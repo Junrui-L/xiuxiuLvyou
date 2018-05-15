@@ -11,11 +11,11 @@
         <li class="no-assess" v-if="commenList.length === 0">暂无评论</li>
         <li class="assess-wrapper" v-for="item in commenList">
           <dl class="clearfix">
-            <dt class="visitor-img fl"><img src="../../assets/img/taiwdy.png" alt=""></dt>
+            <dt class="visitor-img fl"><img :src="item.visitorImg || defalutHead" alt=""></dt>
             <dd class="user-name fl">{{item.accoutnName}}</dd>
             <dd class="evlu-wrap fr"><EvaluateStar :code="item.score/2"></EvaluateStar></dd>
           </dl>
-          <div class="time-name">2018-03-09 {{item.orderdoc}}</div>
+          <div class="time-name">{{item.created_at}} {{item.orderdoc}}</div>
           <div class="assess-txt">
             {{item.content}}
           </div>
@@ -48,16 +48,17 @@
         <!--</li>-->
       </ul>
 
-      <div v-if="commenList.length!== 0">
+      <div v-if="commenList.length !== 0">
         <p class="load-more" v-show="!nomore" @click="loadMore">加载更多</p>
         <p class="load-more" v-show="nomore">没有更多了</p>
       </div>
+      <loading v-show="loading"></loading>
     </div>
 </template>
 
 <script>
-  import {mapState, mapMutations} from 'vuex'
-  import { getAssessPlayList} from '../../http/getDate'
+  import { mapState, mapMutations} from 'vuex'
+  import { getAssessPlayList } from '../../http/getDate'
   import HeadTop from '../../components/HeadTop.vue'
   import EvaluateStar from '../../components/EvaluateStar.vue'
     export default {
@@ -68,7 +69,9 @@
             playId: this.$route.query.playId,
             guideId: this.$route.query.guideId,
             commenList: [],
-            nomore: false
+            nomore: false,
+            loading: true,
+            defalutHead: require('../../assets/img/defalutHead.jpg')
           }
       },
       computed: {
@@ -102,6 +105,7 @@
                 this.nomore = true
               }
             }
+            this.loading = false
           })
         },
         loadMore(){

@@ -1,6 +1,6 @@
 .Chat {
   position: absolute;
-  top: px2rem(50px);
+  top: 0;
   left: 0;
   right: 0;
   bottom: 0;
@@ -14,7 +14,11 @@
     height: px2rem(50px);
     line-height: px2rem(50px);
     color: #999;
+    text-align: center;
     @include font-dpr(13px);
+    .goback {
+      width: px2rem(30px);
+    }
     svg {
       fill: #555;
       @include setSize(px2rem(18px), px2rem(18px));

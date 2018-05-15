@@ -131,7 +131,7 @@
         <div class="save-wrapper"><button class="save-btn" @click="setPhone">保存</button></div>
       </div>
     </cube-popup>
-
+    <loading v-show="loading"></loading>
   </div>
 </template>
 
@@ -180,6 +180,7 @@
         verifyCode: '',
         btnText: '获取验证码',
         isDisabled: false,
+        loading: true
       }
     },
     components: {
@@ -285,7 +286,7 @@
 
         getCouponsListType(type).then(res=>{
           this.yjhArr=res.list
-
+          this.loading = false;
           let yhjData = [];
           if(res.list.length > 0) {
             for(let i=0; i<res.list.length; i++) {
