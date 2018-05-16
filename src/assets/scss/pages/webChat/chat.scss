@@ -86,6 +86,27 @@
 
   }
 
+  .faces-ul {
+    z-index: 1;
+    position: absolute;
+    width: 100%;
+    height: px2rem(200px);
+    bottom: px2rem(105px);
+    left: 0;
+    border-radius: 2px;
+    background: #fff;
+    box-sizing: border-box;
+    padding: 4px;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 6px 0px;
+    .webim-emoji-item {
+      cursor: pointer;
+      display: inline-block;
+      margin: 2px 3px 0 3px;
+      height: 35px;
+      line-height: 1
+    }
+  }
+
   .chat-footer {
     position: absolute;
     left: 0;

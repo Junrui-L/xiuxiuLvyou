@@ -18,7 +18,7 @@
     <div class="chat-content">
       <div class="no-msg">没有更多消息啦~</div>
 
-      <div class="x-message-group" :class="item.from==from_username ? 'x-message-right' : ''"
+      <div class="x-message-group" :class="item.from == from_username ? 'x-message-right' : ''"
            v-for="item in chatHistory">
         <div class="x-message-user">{{item.nickName}}</div>
         <div class="x-message-content">
@@ -37,35 +37,34 @@
       <div class="chat-ops">
         <div class="chat-ops-icon ib">
           <div class="ib">
-            <a class="adropdown-trigger" @click="showEmoji=true">
+            <a class="adropdown-trigger" @click="showEmoji = !showEmoji">
               <i class="iconfont icon-biaoqing2" style="color: rgba(0, 0, 0, 0.65);"></i>
-              <ul class="faces-ul" v-if="showEmoji">
+              <ul class="faces-ul" v-show="showEmoji">
                 <li v-for="(value,key) in emojiMap" :key="key" @click="clickFace(key)" class="webim-emoji-item">
-                  <img :src="value"/>
+                  <img :src="value" alt="emoj"/>
                 </li>
               </ul>
             </a>
           </div>
         </div>
-        <label for="uploadImage" class="chat-ops-icon ib">
-          <i class="iconfont icon-tupian"></i>
-          <input type="file" id="uploadImage" class="hide">
-        </label>
-        <label for="uploadFile" class="chat-ops-icon ib">
-          <i class="iconfont icon-wenjian"></i>
-          <input type="file" id="uploadFile" class="hide">
-        </label>
-        <label class="chat-ops-icon ib">
+        <!--<label for="uploadImage" class="chat-ops-icon ib">-->
+          <!--<i class="iconfont icon-tupian"></i>-->
+          <!--<input type="file" id="uploadImage" class="hide">-->
+        <!--</label>-->
+        <!--<label for="uploadFile" class="chat-ops-icon ib">-->
+          <!--<i class="iconfont icon-wenjian"></i>-->
+          <!--<input type="file" id="uploadFile" class="hide">-->
+        <!--</label>-->
+        <label class="chat-ops-icon ib" @click="clearChat">
           <i class="iconfont icon-shanchu"></i>
         </label>
       </div>
       <div class="chat-send">
         <span class="input-group-wrapper">
-          <span class="input-wrapper">
+          <span class="input-wrapper" @click="showEmoji = false">
             <input type="text" placeholder="输入消息" id="inputcontent" @keyup.enter="sendTextMsg()" class="input-txt fl">
             <span class="input-group-addon" @click="sendTextMsg">
-               <i class="iconfont icon-send" style="cursor: pointer;">
-            </i>
+               <i class="iconfont icon-send" style="cursor: pointer;"></i>
             </span>
           </span>
         </span>
@@ -271,7 +270,7 @@
           this.$createDialog({
             type: 'alert',
             title: '温馨提示',
-            content: '请先输入发送内容'
+            content: '发送内容不能为空'
           }).show()
           return
         }
@@ -281,8 +280,9 @@
         let to_username = this.to_username
         let _thisChatHistory = this.chatHistory
         let sendTime = this.getNowTime()
-        console.log(this.myNickName + 'this.myNickName')
         let myNickName = this.getMyNickName
+        console.log(this.myNickName + 'this.myNickName')
+
         msg.set({
           msg: text,
           to: this.to_username,
@@ -336,12 +336,20 @@
         }
         return theRequest
       },
+      //清空当前聊天记录
+      clearChat(){
+        localStorage.removeItem('chatData')
+        this.chatHistory = [];
+      },
       // 选中一个表情
       clickFace (key) {
-        this.showEmoji = false
+        console.log(`这个表情包还显不显示了${this.showEmoji}`)
         var text = document.querySelector('#inputcontent').value
         document.querySelector('#inputcontent').value = text + '' + key
 
+      },
+      hideEmoji(){
+        this.showEmoji = false
       }
     },
     filters: {
@@ -357,25 +365,6 @@
   }
 </script>
 
-<style lang="scss" scoped>
-  .faces-ul {
-    z-index: 1;
-    position: absolute;
-    width: 280px;
-    height: 194px;
-    bottom: 180px;
-    left: 0px;
-    border-radius: 2px;
-    background: #fff;
-    box-sizing: border-box;
-    padding: 4px;
-    box-shadow: rgba(0, 0, 0, 0.298039) 0px 4px 12px 0px;
-    .webim-emoji-item {
-      cursor: pointer;
-      display: inline-block;
-      margin: 2px 3px 0 3px;
-      height: 35px;
-      line-height: 1
-    }
-  }
+<style lang="scss">
+
 </style>
