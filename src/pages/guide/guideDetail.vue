@@ -119,7 +119,7 @@
         <i class="close" @click="hideContactPopup" ></i>
         <ul class="connection-wrap">
           <li class="con-item con-tel"><a :href=" 'tel:'+  guideInfos.mobile">电话咨询</a></li>
-          <li class="con-item con-chat" @click="$router.push({path: '/chat', query: {from_username: myOpid,to_username: guideInfos.openid}})">在线咨询</li>
+          <li class="con-item con-chat" @click="$router.push({path: '/chat', query: {from_username: myOpid,to_username: guideInfos.openid,to_nickname:guideInfos.userName}})">在线咨询</li>
         </ul>
       </div>
 
