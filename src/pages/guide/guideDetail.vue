@@ -122,6 +122,7 @@
           <li class="con-item con-chat" @click="$router.push({path: '/chat', query: {from_username: myOpid,to_username: guideInfos.openid}})">在线咨询</li>
         </ul>
       </div>
+
     </cube-popup>
     <cube-popup type="plays-popup" :center="false" ref="choosePopup" @mask-click="hideChoosePopup">
       <div class="plays-content">
@@ -139,7 +140,7 @@
               <dd class="method-detail fl">
                 <div class="method-name">{{item.wfname}}</div>
                 <div class="method-desc"><span>{{item.servicetype | servicetypeText}}</span> {{ item.servicecity}}</div>
-                <!--<div class="method-tip">类别：<span v-for="i in getStr(item.wfbq)">{{i }}</span></div>-->
+                <!--<div class="method-tip">类别：<span v-for="i in getStr(item.wfbq)">{{i}}</span></div>-->
               </dd>
               <dd class="fr">
                 <svg>
