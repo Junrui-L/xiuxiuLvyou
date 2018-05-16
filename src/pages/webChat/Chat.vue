@@ -8,11 +8,11 @@
         </svg>
 
       </div>
-      张三丰
+      {{receiveNickName}}
       <!--<div class="fr">-->
-        <!--<span class="chat-action">-->
-            <!--...-->
-         <!--</span>-->
+      <!--<span class="chat-action">-->
+      <!--...-->
+      <!--</span>-->
       <!--</div>-->
     </div>
     <div class="chat-content">
@@ -20,7 +20,7 @@
 
       <div class="x-message-group" :class="item.from==from_username ? 'x-message-right' : ''"
            v-for="item in chatHistory">
-        <div class="x-message-user">{{item.from}}</div>
+        <div class="x-message-user">{{item.nickName}}</div>
         <div class="x-message-content">
           <p class="x-message-text">
             {{item.sourceMsg}}
@@ -159,7 +159,14 @@
           '[(W)]': ee_34,
           '[(D)]': ee_35
         }, // 表情集合
-        showEmoji: false // 是否显示表情
+        showEmoji: false, // 是否显示表情
+        myNickName: '', // 发送人昵称
+        receiveNickName: '' //接收人昵称
+      }
+    },
+    computed: {
+      getMyNickName () {
+        return this.myNickName
       }
     },
     mounted () {
@@ -169,6 +176,8 @@
       if (urlParams.from_username && urlParams.to_username) {
         this.from_username = urlParams.from_username
         this.to_username = urlParams.to_username
+        this.receiveNickName = decodeURI(urlParams.to_nickname)
+        this.getChatListDataFromLocal()
         this.loginEasemob()
       } else {
         this.$createDialog({
@@ -183,11 +192,14 @@
       loginEasemob () {
         this.$imoption.user = this.from_username
         this.$imoption.pwd = this.currentUserpwd
-        this.$imoption.success = function (res) {
+        this.$imoption.success = (res) => {
           this.accence_token = res.access_token
-          this.getChatHistortData()
+          this.myNickName = res.user.nickname
+          this.addListen()
         }
         this.$imconn.open(this.$imoption)
+      },
+      addListen () {
         this.$imconn.listen({
           onOpened: function (message) {
             console.log('用户已上线')
@@ -200,7 +212,7 @@
           onTextMessage: this.receiveTextMsg
         })
       },
-      // 获取聊天历史记录
+      // 从环信服务器获取聊天历史记录
       getChatHistortData () {
         axios.get('http://a1.easemob.com/1138180320146984/testxiuxiu/chatmessages', {
           params: {
@@ -211,13 +223,36 @@
         })
       },
       // 接受文本消息
+      // 从localstroage获取聊天历史记录
+      getChatListDataFromLocal () {
+        var chatData = JSON.parse(localStorage.getItem('chatData'))
+        if (chatData) {
+          var currentChatData = chatData.chatHistoryData[this.to_username]
+          if (currentChatData) {
+            this.chatHistory.push(...currentChatData)
+          }
+        }
+      },
+      // 接受文本消息
       receiveTextMsg (message) {
         // message:{"id":"465540634703299052","type":"chat","from":"1","to":"2","data":"5共和国","ext":{"weichat":{"originType":"webim"}},"sourceMsg":"5共和国","error":false,"errorText":"","errorCode":"","time":"2018-05-10T12:55:27.432Z"}
-        message.time = new Date()
+        let sendTimeWZ = message.time ? new Date(message.time) : new Date()
+        let sendTime = sendTimeWZ.getMonth() + 1 + '-' + sendTimeWZ.getDate() + ' ' + sendTimeWZ.getHours() + ':' + sendTimeWZ.getMinutes()
         let receiveMessage = {
           from: message.from,
           sourceMsg: message.sourceMsg,
-          time: new Date()
+          time: sendTime,
+          nickName: this.receiveNickName
+        }
+        let to_username = this.to_username
+        var chatData = JSON.parse(localStorage.getItem('chatData'))
+        if (chatData) {
+          chatData.chatHistoryData[to_username].push(receiveMessage)
+          localStorage.setItem('chatData', JSON.stringify(chatData))
+        } else {
+          let chatHistoryData = {}
+          chatHistoryData[to_username] = [receiveMessage]
+          localStorage.setItem('chatData', JSON.stringify({chatHistoryData}))
         }
         this.chatHistory.push(receiveMessage)
       },
@@ -243,7 +278,11 @@
         var id = this.$imconn.getUniqueId()
         var msg = new WebIM.message('txt', id)
         let fromUserName = this.from_username
+        let to_username = this.to_username
         let _thisChatHistory = this.chatHistory
+        let sendTime = this.getNowTime()
+        console.log(this.myNickName + 'this.myNickName')
+        let myNickName = this.getMyNickName
         msg.set({
           msg: text,
           to: this.to_username,
@@ -253,7 +292,21 @@
             let sendMessage = {
               from: fromUserName,
               sourceMsg: text,
-              time: new Date()
+              time: sendTime,
+              nickName: myNickName
+            }
+            var chatData = JSON.parse(localStorage.getItem('chatData'))
+            if (chatData) {
+              if (chatData.chatHistoryData[to_username]) {
+                chatData.chatHistoryData[to_username].push(sendMessage)
+              } else {
+                chatData.chatHistoryData[to_username] = [sendMessage]
+              }
+              localStorage.setItem('chatData', JSON.stringify(chatData))
+            } else {
+              let chatHistoryData = {}
+              chatHistoryData[to_username] = [sendMessage]
+              localStorage.setItem('chatData', JSON.stringify({chatHistoryData}))
             }
             _thisChatHistory.push(sendMessage)
           },
@@ -263,6 +316,10 @@
         })
         msg.body.chatType = 'singleChat'
         this.$imconn.send(msg.body)
+      },
+      getNowTime () {
+        let now = new Date()
+        return now.getMonth() + 1 + '-' + now.getDate() + ' ' + now.getHours() + ':' + now.getMinutes()
       },
       // 获取url中的当前用户环信账号和聊天对象账号
       getParamsFromUrl () {
