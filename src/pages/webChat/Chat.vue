@@ -6,14 +6,8 @@
           <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#arrow-left"></use>
           <!--<polyline points="12,18 4,9 12,0" style="fill:none;stroke:rgb(153,153,153);stroke-width:2"/>-->
         </svg>
-
       </div>
       {{receiveNickName}}
-      <!--<div class="fr">-->
-      <!--<span class="chat-action">-->
-      <!--...-->
-      <!--</span>-->
-      <!--</div>-->
     </div>
     <div class="chat-content">
       <div class="no-msg">没有更多消息啦~</div>
@@ -22,9 +16,7 @@
            v-for="item in chatHistory">
         <div class="x-message-user">{{item.nickName}}</div>
         <div class="x-message-content">
-          <p class="x-message-text">
-            {{item.sourceMsg}}
-          </p>
+          <p class="x-message-text" v-html="handleMsg(item.sourceMsg)"></p>
         </div>
         <div class="x-message-time">
           {{item.time}}
@@ -47,14 +39,6 @@
             </a>
           </div>
         </div>
-        <!--<label for="uploadImage" class="chat-ops-icon ib">-->
-          <!--<i class="iconfont icon-tupian"></i>-->
-          <!--<input type="file" id="uploadImage" class="hide">-->
-        <!--</label>-->
-        <!--<label for="uploadFile" class="chat-ops-icon ib">-->
-          <!--<i class="iconfont icon-wenjian"></i>-->
-          <!--<input type="file" id="uploadFile" class="hide">-->
-        <!--</label>-->
         <label class="chat-ops-icon ib" @click="clearChat">
           <i class="iconfont icon-shanchu"></i>
         </label>
@@ -337,29 +321,63 @@
         return theRequest
       },
       //清空当前聊天记录
-      clearChat(){
+      clearChat () {
         localStorage.removeItem('chatData')
-        this.chatHistory = [];
+        this.chatHistory = []
       },
-      // 选中一个表情
+      // 选中一个表情 直接发送 不经过输入框直接发送
       clickFace (key) {
-        console.log(`这个表情包还显不显示了${this.showEmoji}`)
-        var text = document.querySelector('#inputcontent').value
-        document.querySelector('#inputcontent').value = text + '' + key
+        var id = this.$imconn.getUniqueId()
+        var msg = new WebIM.message('txt', id)
+        let fromUserName = this.from_username
+        let to_username = this.to_username
+        let _thisChatHistory = this.chatHistory
+        let sendTime = this.getNowTime()
+        let myNickName = this.getMyNickName
+        console.log(this.enj)
 
-      },
-      hideEmoji(){
-        this.showEmoji = false
-      }
-    },
-    filters: {
-      // 消息文本过滤
-      msgfilter (msg) {
-        let emMap = this.emojiMap
-        let re = /[):]|[:D]/g
-        return msg.replace(re, function (match) {
-          return match.replace(/./g, emMap[match])
+        msg.set({
+          msg: key,
+          to: this.to_username,
+          roomType: false,
+          success: function (id, serverMsgId) {
+            let sendMessage = {
+              from: fromUserName,
+              sourceMsg: key,
+              time: sendTime,
+              nickName: myNickName
+            }
+            var chatData = JSON.parse(localStorage.getItem('chatData'))
+            if (chatData) {
+              if (chatData.chatHistoryData[to_username]) {
+                chatData.chatHistoryData[to_username].push(sendMessage)
+              } else {
+                chatData.chatHistoryData[to_username] = [sendMessage]
+              }
+              localStorage.setItem('chatData', JSON.stringify(chatData))
+            } else {
+              let chatHistoryData = {}
+              chatHistoryData[to_username] = [sendMessage]
+              localStorage.setItem('chatData', JSON.stringify({chatHistoryData}))
+            }
+            _thisChatHistory.push(sendMessage)
+          },
+          fail: function (e) {
+            console.log('Send emoji text error')
+          }
         })
+        msg.body.chatType = 'singleChat'
+        this.$imconn.send(msg.body)
+      },
+      hideEmoji () {
+        this.showEmoji = false
+      },
+      handleMsg (msg) {
+        if (this.emojiMap[msg]) {
+          return `<img src="${this.emojiMap[msg]}"/>`
+        } else {
+          return msg
+        }
       }
     }
   }
