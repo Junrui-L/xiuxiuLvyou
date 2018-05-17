@@ -8,6 +8,7 @@
         </svg>
       </div>
       {{receiveNickName}}
+
     </div>
     <div class="chat-content" @click="showEmoji = false">
       <div class="no-msg">没有更多消息啦~</div>
@@ -59,6 +60,7 @@
 
 <script>
   import axios from 'axios'
+  import { userPersonal } from '../../http/getDate'
   import ee_1 from '../../assets/img/faces/ee_1.png'
   import ee_2 from '../../assets/img/faces/ee_2.png'
   import ee_3 from '../../assets/img/faces/ee_3.png'
@@ -144,13 +146,19 @@
         }, // 表情集合
         showEmoji: false, // 是否显示表情
         myNickName: '', // 发送人昵称
-        receiveNickName: '' //接收人昵称
+        receiveNickName: '', //接收人昵称
+        headimgurl:'' // 发送人头像
       }
     },
     computed: {
       getMyNickName () {
         return this.myNickName
       }
+    },
+    created(){
+      userPersonal().then(res => {
+        this.headimgurl = res.headimgurl
+      })
     },
     mounted () {
       // URL格式 http://localhost:8082/#/chatList/me/?from_username=1&to_username=2
@@ -265,10 +273,11 @@
         let _thisChatHistory = this.chatHistory
         let sendTime = this.getNowTime()
         let myNickName = this.getMyNickName
-        console.log(this.myNickName + 'this.myNickName')
-
+        let headimgurl = this.headimgurl
         msg.set({
           msg: text,
+          action: 'action',                     //用户自定义，cmd消息必填
+          ext: {'nickName': myNickName, headimgurl},    //用户自扩展的消息内容（群聊用法相同）
           to: this.to_username,
           roomType: false,
           success: function (id, serverMsgId) {
@@ -334,8 +343,6 @@
         let _thisChatHistory = this.chatHistory
         let sendTime = this.getNowTime()
         let myNickName = this.getMyNickName
-        console.log(this.enj)
-
         msg.set({
           msg: key,
           to: this.to_username,
