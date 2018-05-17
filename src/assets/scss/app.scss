@@ -25,12 +25,6 @@
 @import "components/payRaido";
 @import "components/accountDetail";
 @import "components/rate";
-//@import "components/buttons";
-////@import "components/icon";
-//@import "components/input";
-//@import "components/list";
-//@import "components/font";
-//@import "components/loading";
 @import "../lib/swiper/css/swiper.min.css";
 /*首页*/
 @import "pages/home";
@@ -91,3 +85,8 @@
 @import "../css/iconfont.css";
 @import "pages/webChat/chatList";
 @import "pages/webChat/chat";
+
+/*金融页面*/
+@import "pages/finance/FinanceHome";
+@import "pages/finance/myFinance";
+@import "pages/finance/recharge";

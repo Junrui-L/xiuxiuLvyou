@@ -38,8 +38,11 @@
         </ul>
       </div>
       <div class="button-wrap">
-        <button class="to-get" @click="withDraw">去提现</button>
+        <button class="to-get charge" @click="reCharge">去充值</button><button class="to-get" @click="withDraw">去提现</button>
       </div>
+      <!--<div class="button-wrap">-->
+        <!--<button class="to-get" @click="withDraw">去提现</button>-->
+      <!--</div>-->
     </div>
 
 </template>
@@ -70,6 +73,9 @@
           withDraw(){
             console.log('去取钱')
             this.$router.push({path: '/withdrawDeposit', query: {id: ''}})
+          },
+          reCharge(){
+            this.$router.push({path: '/recharge', query: {id: ''}})
           }
         }
 

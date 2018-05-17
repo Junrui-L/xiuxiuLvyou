@@ -49,6 +49,11 @@ const AddBankCard = r => require.ensure([], () => r(require('@/pages/memCenter/b
 const ChatList = r => require.ensure([], () => r(require('@/pages/webChat/ChatList')), 'chatList')
 const Chat = r => require.ensure([], () => r(require('@/pages/webChat/Chat')), 'chat')
 
+//金融
+const FinanceHome = r => require.ensure([], () => r(require('@/pages/finance/FinanceHome')), 'financeHome')
+const MyFinance = r => require.ensure([], () => r(require('@/pages/finance/myFinance')), 'myFinance')
+const Recharge = r => require.ensure([], () => r(require('@/pages/finance/recharge')), 'recharge')
+
 Vue.use(Router)
 
 const router = new Router({
@@ -280,6 +285,24 @@ const router = new Router({
       path: '/Chat',
       name: 'chat',
       component: Chat
+    },
+    {
+      //金融首页
+      path: '/financeHome',
+      name: 'financeHome',
+      component: FinanceHome
+    },
+    {
+      //金融详情
+      path: '/myFinance',
+      name: 'myFinance',
+      component: MyFinance
+    },
+    {
+      //金融详情
+      path: '/recharge',
+      name: 'recharge',
+      component: Recharge
     }
   ],
   strict: process.env.NODE_ENV !== 'production',
