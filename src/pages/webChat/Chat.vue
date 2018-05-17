@@ -190,9 +190,11 @@
           onClosed: function (message) {
             console.log('用户已下线')
           },
+
           onEmojiMessage: this.receiveEmojiMessage,
           onPictureMessage: this.receivePictureMessage,
-          onTextMessage: this.receiveTextMsg
+          onTextMessage: this.receiveTextMsg,
+          onCmdMessage: this.receiveCmdMsg,     //收到命令消息
         })
       },
       // 从环信服务器获取聊天历史记录
@@ -378,7 +380,16 @@
         } else {
           return msg
         }
+      },
+      // 发送命令消息
+      sendCmdMsg () {
+
+      },
+      // 接受命令消息
+      receiveCmdMsg (message) {
+
       }
+
     }
   }
 </script>
