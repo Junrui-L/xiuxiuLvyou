@@ -9,7 +9,7 @@
       </div>
       {{receiveNickName}}
     </div>
-    <div class="chat-content">
+    <div class="chat-content" @click="showEmoji = false">
       <div class="no-msg">没有更多消息啦~</div>
 
       <div class="x-message-group" :class="item.from == from_username ? 'x-message-right' : ''"

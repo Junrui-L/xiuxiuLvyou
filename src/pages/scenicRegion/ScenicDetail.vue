@@ -1,5 +1,4 @@
 /*Created by soft on 2018/1/9 */
-
 <template>
     <div class="scenic_detail">
         <header ref="uiHeader">
@@ -16,7 +15,6 @@
 
                 </ul>
             </div>
-
             <div class="guide-wrapper clearfix">
                 <div class="guide-content" @click="$router.push({path: '/guideDetail',  query: {id: guide.visitorId}})">
                   <div class="guide-img fl">
@@ -29,7 +27,6 @@
                     <EvaluateStar :code="guide.level"></EvaluateStar>
                   </div>
                 </div>
-
                 <!--<a class="guide-order fl" href="tel:22222"></a>-->
             </div>
         </div>
@@ -209,12 +206,21 @@
             <div class="clearfix">
                 <div class="fucc fl">
                     <span class="favarate" :class="{'favarated': isCollect}" @click="addCollect">收藏</span>
-                    <span class="chat">咨询</span>
+                    <span class="chat"  @click="showContactPopup">咨询</span>
                 </div>
                 <button class="order-btn fr" @click="showChoosPopup">找我预约</button>
             </div>
         </div>
-
+        <cube-popup type="content-popup" :center="true" ref="chooseContact" @mask-click= "hideContactPopup">
+          <div class="connection-contain">
+            <h3>选择咨询方式</h3>
+            <i class="close" @click="hideContactPopup" ></i>
+            <ul class="connection-wrap">
+              <li class="con-item con-tel"><a :href=" 'tel:'+  guide.mobile">电话咨询</a></li>
+              <li class="con-item con-chat" @click="$router.push({path: '/chat', query: {from_username: myOpid,to_username: guide.openid,to_nickname:guide.userName}})">在线咨询</li>
+            </ul>
+          </div>
+        </cube-popup>
         <cube-popup type="choose-popup"  :center="false" ref="choosePopup">
           <div class="bootom-cotent">
             <i class="close" @click="hideChoosePopup"></i>
@@ -260,7 +266,7 @@
               <div class="clearfix">
                 <div class="fucc fl">
                   <span class="favarate" :class="{'favarated': isCollect}" @click="addCollect">收藏</span>
-                  <span class="chat">咨询</span>
+                  <span class="chat"  @click="showContactPopup">咨询</span>
                 </div>
                 <button class="order-btn fr" @click="nextStep">下一步</button>
               </div>
@@ -279,9 +285,10 @@
     import EvaluateStar from '../../components/EvaluateStar.vue'
     import DatePicker from '../../components/date-picker'
     import {peopleNum, peoleData} from '../../config/datajs'
-    import {dateFmt, throttle} from '../../config/myUtils'
+    import {dateFmt, throttle, localStore} from '../../config/myUtils'
     import TransPan from  '../../components/transitionPanel'
     createAPI(Vue, DatePicker, ['select', 'cancel'], false)
+    let UserInfo = localStore('userInfo', 'localStorage')
     let  peoledata = peopleNum
     export default {
         data() {
@@ -313,9 +320,10 @@
                 navItem: 'price',
                 showPanPrice: false,  //各说明的详情下拉展示隐藏
                 showPanTicket: false,
-                showPanGuide: false,
-                showPanPlant: false,
-                showPanPoilcy: false,
+                showPanGuide: true,
+                showPanPlant: true,
+                showPanPoilcy: true,
+                myOpid: '',
                 isCollect: false,  //是否收藏
                 loading: true
             }
@@ -524,6 +532,20 @@
           selectpeopleHandle(selectedVal, selectedIndex, selectedText) {
             // this.peopleNum = selectedVal[0] + '人'
             this.peopleNum = {value:selectedVal[0], txt: selectedText[0] }
+          },
+          showContactPopup(){
+            console.log('点击聊天')
+            const component = this.$refs.chooseContact
+            component.show();
+            let opid = UserInfo.get('userInfo').openid;
+            console.error(opid)
+            if(opid !== null) {
+              this.myOpid = opid;
+            }
+          },
+          hideContactPopup(){
+            const component = this.$refs.chooseContact
+            component.hide()
           },
           showChoosPopup() {
             const component = this.$refs.choosePopup
