@@ -1,0 +1,162 @@
+.recharge {
+  .heads {
+    height: px2rem(45px);
+    line-height: px2rem(45px);
+    text-align: center;
+    @include font-dpr(14px);
+    color: #fff;
+    background: #F96A7E;
+  }
+
+  .charges {
+
+    background: #fff;
+    .charge-choose {
+      padding: 0 px2rem(20px);
+    }
+
+    .tips {
+      padding: px2rem(10px) px2rem(20px);
+      line-height: px2rem(25px);
+      @include font-dpr(12px);
+      color: #F96A7E;
+    }
+  }
+
+  /*tab切换*/
+  .change_show_type{
+    padding:0 px2rem(20px);
+    height:1.2rem;
+    width: 100%;
+    background:#fff;
+    div{
+      width: 50%;
+      height:1.2rem;
+      float:left;
+      text-align:center;
+      font-size: 0;
+
+      span{
+        display: inline-block;
+        width: 100%;
+        line-height:1.2rem;
+        @include font-dpr(16px);
+        &.activity_show{
+          color:#fc8190;
+          border-bottom: .05rem solid #fc8190;
+        }
+      }
+    }
+  }
+
+  .charge_content {
+    padding: px2rem(10px) 0;
+
+    background: $color-body-bg;
+    .cont-item {
+      padding:0 px2rem(20px);
+      @include setSize(100%, px2rem(30px));
+      line-height: px2rem(30px);
+      @include font-dpr(13px);
+      color: $color-black;
+      .item-name {
+        width: px2rem(80px);
+      }
+
+      input {
+        width: px2rem(100px);
+        border: none;
+        outline: none;
+        background: $color-body-bg;
+        border-bottom: 1px solid $color-black;
+      }
+
+    }
+
+
+  }
+
+
+  .btn-wrapper {
+    margin-top: px2rem(50px);
+    padding: px2rem(30px);
+
+    .charge-btn {
+      @include setButton(100%,px2rem(40px), $white, #F96A7E, px2rem(5px));
+      @include font-dpr(14px);
+    }
+  }
+
+  /*确认充值弹窗*/
+  .cube-code-popup .cube-popup-mask {
+    overflow: hidden;
+    background-color: #25262d;
+    opacity: .75;
+  }
+
+  .cube-code-popup .code-wrap{
+    padding: px2rem(20px);
+    width:  px2rem(320px);
+    background: $white;
+    border-radius: px2rem(6px);
+    position: relative;
+    .close {
+      position: absolute;
+      top: px2rem(10px);
+      right: px2rem(10px);
+      @include setSize(px2rem(35px), px2rem(35px));
+      &:before, &:after {
+        content: '';
+        position: absolute;
+        top:  px2rem(15px);
+        right: px2rem(3px);
+        @include setSize(px2rem(20px), 3px);
+        background: #000;
+        @include transform(rotate(45deg));
+      }
+      &:after {
+        @include transform(rotate(135deg));
+      }
+
+    }
+
+    h5 {
+      @include font-dpr(15px);
+      text-align: center;
+      line-height: px2rem(30px);
+      color: $color-black-secondary;
+
+    }
+
+    .charge-info {
+      width: 100%;
+      line-height: 2;
+      @include font-dpr(13px);
+      .info-item {
+        @include setSize(px2rem(80px), px2rem(30px));
+        line-height: px2rem(30px);
+      }
+    }
+    .code-input {
+      border: none;
+      outline: none;
+      //width: 100%;
+      //margin: px2rem(10px) auto px2rem(30px);
+      padding: px2rem(5px);
+      @include setSize(px2rem(120px), px2rem(30px));
+      border-bottom: 1px solid $color-black;
+      line-height: px2rem(20px);
+      @include font-dpr(16px);
+      color: $color-black;
+      text-align: center;
+    }
+
+    .surePay {
+      display: block;
+      margin: px2rem(10px) auto;
+      @include setButton(px2rem(200px), px2rem(40px), $white, $color-red, px2rem(8px))
+    }
+
+  }
+
+}

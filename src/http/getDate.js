@@ -540,3 +540,58 @@ export const getOutDateyhj = (data) => $http.post('/siteH5/coupon.json?act=loadO
  * 加载已使用的优惠券
  * */
 export const getHaveUseyhj = (data) => $http.post('/siteH5/coupon.json?act=loadmakeyhj', {})
+
+
+//金融理财相关
+/**
+* 用户充值初始化银行
+* */
+
+export const mongeyInit = (data) => $http.post('/siteH5/play.json?act=moneyInInit', {
+
+})
+
+/**
+ * 用户充值提交
+ * */
+
+export const moneyInByBan = (data) => $http.post('/siteH5/play.json?act=moneyInByBan', {
+  way: data.way,
+  money: data.money,
+  username: data.username
+})
+
+/**
+ * 理财首页数据
+ * */
+
+export const licaiIndex = (data) => $http.post('/siteH5/licai.json?act=index', {
+
+})
+
+/**
+ * 理财详情页
+ * */
+
+export const licaiDetail = (licaitype) => $http.post('/siteH5/licai.json?act=licaiDails', {
+  licaitype: licaitype
+})
+
+
+/**
+ * 我的理财列表
+ * */
+
+export const myLicai = (page) => $http.post('/siteH5/licai.json?act=licailist', {
+  page: page
+})
+
+/**
+ * 买入理财
+ * */
+
+export const buyLicai = (data) => $http.post('/siteH5/licai.json?act=tolicai', {
+  licaiId: data.licaiId,
+  money: data.money,
+  fundpassword: data.fundpassword
+})

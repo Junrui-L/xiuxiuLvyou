@@ -37,7 +37,12 @@
       border-bottom: 1px solid $color-body-bg;
       position: relative;
       .item-left > h5 {
-        line-height: px2rem(28px);
+          line-height: px2rem(28px);
+          @include font-dpr(16px);
+          color: $color-black;
+        }
+      .item-left > h6 {
+        line-height: px2rem(48px);
         @include font-dpr(16px);
         color: $color-black;
       }
@@ -58,6 +63,7 @@
     }
   }
 
+
   .button-wrap {
     position: fixed;
     left: 0;
@@ -68,11 +74,12 @@
     @include setSize(100%, px2rem(44px));
     box-shadow: 0 0 12px 0 #E4E4E4;
     .to-get {
-      @include setButton(40%, px2rem(44px), $color-red, $white, 0)
+      @include setButton(50%, px2rem(44px), $color-red, $white, 0)
     }
 
     .charge {
       color: $color-green;
+      border-right: 1px solid $color-gray-secondary;
     }
   }
 

@@ -35,6 +35,22 @@
               <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#arrow-right"></use>
             </svg>
           </router-link>
+          <router-link tag="li" to="/financeHome" class="wallet-item clearfix">
+            <div class="item-left fl">
+              <h6>我要理财</h6>
+            </div>
+            <svg class="fr">
+              <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#arrow-right"></use>
+            </svg>
+          </router-link>
+          <router-link tag="li" to="/myFinance" class="wallet-item clearfix">
+            <div class="item-left fl">
+              <h6>我的理财</h6>
+            </div>
+            <svg class="fr">
+              <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#arrow-right"></use>
+            </svg>
+          </router-link>
         </ul>
       </div>
       <div class="button-wrap">

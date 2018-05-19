@@ -8,7 +8,7 @@
   color: $color-black;
   border-bottom: 1px solid $color-body-bg;
   .check-count {
-    padding-top: px2rem(12px);
+    vertical-align: middle;
   }
 
 }
@@ -20,6 +20,7 @@
   border: 1px solid #CCC;
   display: inline-block;
   position: relative;
+  vertical-align: middle;
 }
 .ui-radio.disabled{
   border-color: #ccc;

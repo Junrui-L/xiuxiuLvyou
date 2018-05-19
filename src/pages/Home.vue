@@ -224,8 +224,6 @@
   import HoriSlider from '../components/HoriSlider.vue'
   import EvaluateStar from '../components/EvaluateStar.vue'
   import AlertTip from '../components/alertTip.vue'
-  // import Swiper from '../components/Swiper.vue'
-  // import Banner from '../components/Banner.vue'
   import {localStore} from '../config/myUtils'
   let localSn =  localStore('localSn', 'localStorage');
   let UserInfo = localStore('userInfo', 'localStorage')

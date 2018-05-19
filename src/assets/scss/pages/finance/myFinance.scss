@@ -1,0 +1,227 @@
+.myFinance {
+
+  .selects {
+    @include setSize(px2rem(60px), px2rem(40px));
+    @include centerTop;
+    right: px2rem(10px);
+    @include font-dpr(14px);
+    line-height: px2rem(40px);
+    text-align: center;
+    color: $color-red;
+    .select-bill {
+      @include setButton(px2rem(70px), px2rem(30px),$color-black-secondary,transparent,0);
+      @include font-dpr(13px)
+    }
+  }
+
+  .header-wrap {
+    padding-top: px2rem(40px);
+    @include setSize(100%, px2rem(135px));
+    background: -webkit-gradient(linear, 19% 55%, 0% 100%, from(#FF9F83), to(#F96A7E), color-stop(0.5, #F96A7E));
+    background: linear-gradient(to right, #FF9F83 19%, #F96A7E 55%, #F96A7E 100%);
+    .header {
+      text-align: center;
+      line-height: px2rem(20px);
+      color: $white;
+      .money {
+        @include font-dpr(30px);
+        line-height: px2rem(50px);
+      }
+
+      .aid-rate {
+        @include font-dpr(16px)
+      }
+
+      .rate-num {
+        @include font-dpr(18px)
+      }
+    }
+
+  }
+
+  .tits {
+    padding-left: px2rem(20px);
+    @include setSize(100%, px2rem(40px));
+    line-height: px2rem(40px);
+    border-bottom: 1px solid $color-body-bg;
+    @include font-dpr(16px);
+    position: relative;
+    .buy-num {
+      position: absolute;
+      top: 0;
+      right: px2rem(20px);
+      height: px2rem(40px);
+      line-height: px2rem(40px);
+      @include font-dpr(13px);
+      color: $color-gray-primary;
+    }
+  }
+  .introduce {
+    margin-bottom: px2rem(10px);
+    background: $white;
+  }
+  .intro-list {
+    padding:0 px2rem(20px) px2rem(10px);
+    .intro-item {
+      width: 100%;
+      min-height: px2rem(35px);
+      line-height: px2rem(35px);
+      @include font-dpr(13px);
+      text-indent: 1em;
+      color: $color-black;
+      position: relative;
+      &:before {
+        content: '';
+        display: block;
+        position: absolute;
+        top: px2rem(14px);
+        left: 0;
+        @include setSize(px2rem(8px), px2rem(8px));
+        border-radius: 100%;
+        background-color: $color-red;
+      }
+    }
+  }
+
+
+  .finance-state {
+    background-color: $white;
+    padding-bottom: px2rem(100px);
+    .state-list {
+      padding: 0 px2rem(20px);
+    }
+  }
+
+  .finan-item {
+    padding: px2rem(5px) 0;
+    @include setSize(100%, px2rem(70px));
+    line-height: px2rem(30px);
+    position: relative;
+    border-bottom: 1px solid $color-gray-primary;
+    @include font-dpr(13px);
+    >p {
+     @include font-dpr(13px);
+      line-height: 1.5;
+    }
+
+    .name, .money {
+      width: 30%;
+
+    }
+
+    .info img {
+      display: inline-block;
+      @include setSize(px2rem(20px), px2rem(20px));
+      border-radius: 100%;
+      vertical-align: middle;
+    }
+
+    .money {
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    .balance {
+      position: absolute;
+      top: px2rem(5px);
+      right: 0;
+    }
+
+    &:last-child {
+      border: none;
+    }
+  }
+
+
+
+  .btn-wrapper {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    padding: px2rem(20px);
+    @include setSize(100%, px2rem(90px));
+    background: $white;
+
+    .btn-buyin {
+      @include setButton(100%, px2rem(50px), $white, $color-red, px2rem(8px));
+      .canbuy {
+        @include font-dpr(12px);
+      }
+    }
+  }
+
+  /*确认充值弹窗*/
+  .cube-code-popup .cube-popup-mask {
+    overflow: hidden;
+    background-color: #25262d;
+    opacity: .75;
+  }
+
+  .cube-code-popup .code-wrap{
+    padding: px2rem(20px);
+    width:  px2rem(320px);
+    background: $white;
+    border-radius: px2rem(6px);
+    position: relative;
+    .close {
+      position: absolute;
+      top: px2rem(10px);
+      right: px2rem(10px);
+      @include setSize(px2rem(35px), px2rem(35px));
+      &:before, &:after {
+        content: '';
+        position: absolute;
+        top:  px2rem(15px);
+        right: px2rem(3px);
+        @include setSize(px2rem(20px), 3px);
+        background: #000;
+        @include transform(rotate(45deg));
+      }
+      &:after {
+        @include transform(rotate(135deg));
+      }
+
+    }
+
+    h5 {
+      @include font-dpr(15px);
+      text-align: center;
+      line-height: px2rem(30px);
+      color: $color-black-secondary;
+
+    }
+
+    .charge-info {
+      width: 100%;
+      line-height: 2;
+      @include font-dpr(13px);
+      .info-item {
+        @include setSize(px2rem(80px), px2rem(30px));
+        line-height: px2rem(30px);
+      }
+    }
+    .code-input {
+      border: none;
+      outline: none;
+      padding: px2rem(5px);
+      @include setSize(px2rem(150px), px2rem(30px));
+      border-bottom: 1px solid $color-black;
+      line-height: px2rem(20px);
+      @include font-dpr(16px);
+      color: $color-black;
+    }
+
+    .surePay {
+      display: block;
+      margin: px2rem(10px) auto;
+      @include setButton(px2rem(200px), px2rem(40px), $white, $color-red, px2rem(8px))
+    }
+
+  }
+
+
+
+
+
+
+}

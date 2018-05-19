@@ -1,0 +1,275 @@
+.financeHome {
+  .fixed {
+    position: fixed;
+  }
+  .icons {
+    display: inline-block;
+    background-image: url(../../assets/img/financeIcons.png);
+    background-repeat: no-repeat;
+    background-size: 5.83333rem 4.06667rem;
+  }
+
+
+  .icons-avatar, .icons-money {
+    width: px2rem(25px);
+    height: px2rem(25px);
+    background-size: 5.83333rem 4.06667rem;
+    background-position: -1.7rem -0.9rem;
+  }
+
+  .icons-avatar {
+    background-position: -2.3rem -0.9rem;
+  }
+  .icons-avatar, .icons-money, footer .icon-tel {
+    vertical-align: text-bottom;
+  }
+
+  i {
+    font-style: normal;
+  }
+
+  .box {
+    display: flex;
+  }
+
+  .box-flex {
+    flex: 1;
+    padding: 0 px2rem(5px);
+  }
+  header {
+    width: 100%;
+    height: px2rem(50px);
+    padding: px2rem(8px) px2rem(10px);
+    background: #2A2A2A;
+    z-index: 900;
+
+    .icons-logo {
+      @include setSize(px2rem(260px), px2rem(28px));
+      background-position: 0 0.1rem;
+    }
+    .my-finance {
+      float: right;
+      @include setSize(20%, 100%);
+      line-height: px2rem(44px);
+      @include font-dpr(13px);
+      background-position: 0.1rem -0.7rem;
+
+    }
+
+  }
+
+  .view {
+    position: absolute;
+    top: px2rem(50px);
+    left: 0;
+    right: 0;
+    overflow-x: hidden;
+    overflow-y: auto;
+    background: $white;
+  }
+  .banner {
+    @include setSize(100%, px2rem(200px));
+    .swiper-wrapper {
+      width: 100%;
+      height: px2rem(200px);
+      a {
+        display: block;
+
+      }
+      .index_img {
+        width: 100%;
+        max-height: 100%;
+      }
+
+    }
+
+    .swiper-pagination-bullet {
+      @include setSize(px2rem(8px), px2rem(8px));
+      border-radius: 100%;
+      background: $white;
+      opacity: 0.8;
+    }
+    .swiper-pagination-bullet-active {
+      opacity: 1;
+      background: $color-red;
+    }
+  }
+
+  .slogan {
+    display: flex;
+    @include setSize(100%, px2rem(80px));
+    padding: px2rem(20px) px2rem(30px);
+
+    .box-flex {
+      flex: 1;
+      border-right: 1px dotted #E6E4E1;
+      color: #838383;
+      @include font-dpr(12px);
+      line-height: 1.5;
+      strong {
+        @include font-dpr(13px);
+        line-height: px2rem(30px);
+        font-weight: 700;
+      }
+    }
+
+
+    .box-flex:last-child {
+      border: 0;
+    }
+  }
+
+  .text-ct {
+    text-align: center;
+  }
+  .host-profit {
+    //height: px2rem(300px);
+    padding-bottom: px2rem(10px);
+    background: -webkit-linear-gradient(bottom,rgba(238,232,221,.95),rgba(238,232,221,0));
+    background: linear-gradient(bottom,rgba(238,232,221,.95),rgba(238,232,221,0));
+    position: relative;
+    .rate {
+      height: px2rem(100px);
+      @include font-dpr(50px);
+      color: #9b6926;
+      background: -webkit-gradient(linear,0 30%,0 100%,from(#c2974b),to(#9b6825));
+      background: gradient(linear,0 30%,0 100%,from(#c2974b),to(#9b6825));
+      -webkit-text-fill-color: transparent;
+      text-fill-color: transparent;
+      -webkit-background-clip: text;
+      .big {
+        @include font-dpr(100px);
+        margin-right: px2rem(-20px);
+      }
+
+      .icons-rate {
+        position: absolute;
+        top:  px2rem(30px);
+        right: px2rem(50px);
+        //@include setButton()
+      }
+    }
+
+    .txt-forgame {
+      color: #919191;
+      @include font-dpr(11px);
+      line-height: 2;
+    }
+
+    .icons-btn-buyin {
+      @include setSize(px2rem(219px), px2rem(45px));
+      background-position: 0 -2.76rem;
+    }
+
+    //.btn-buyin {
+    //  margin: px2rem(20px) auto;
+    //  display: block;
+    //  @include setButton(px2rem(200px), px2rem(40px), $white, #c2974b, px2rem(20px));
+    //  @include font-dpr(18px);
+    //}
+
+    .text-danger {
+      color: #cbb999;
+      @include font-dpr(11px);
+      line-height: 2;
+    }
+
+
+  }
+
+  .rate-list {
+    margin-top: px2rem(20px);
+    display: flex;
+    color: $color-black-secondary;
+    .box-flex {
+      flex: 1;
+      @include font-dpr(20px);
+      color: #ba8d43;
+    }
+
+    .text-default {
+      display: inline-block;
+      margin: 0 auto;
+    }
+
+    small {
+      @include font-dpr(14px)
+    }
+  }
+
+  .title-service {
+    background-image: url(../../assets/img/titles-index.png);
+    background-repeat: no-repeat;
+    background-size: 9.23333rem 2.12rem;
+  }
+  .service-list {
+    padding: px2rem(30px) px2rem(30px) px2rem(40px);
+    line-height: px2rem(30px);
+    color: #999;
+    @include font-dpr(20px);
+    background: #F8F8F7;
+    overflow: hidden;
+    .titles-index {
+      display: inline-block;
+      @include setSize(100%, px2rem(40px));
+      background-position: 0 0.05rem;
+    }
+
+    >dd {
+      margin-top: px2rem(30px);
+    }
+
+    .circle {
+      display: inline-block;
+     @include setSize(px2rem(70px), px2rem(70px));
+      padding-top: px2rem(20px);
+      border-radius: 50%;
+      border: 1px solid #F5F5F5;
+      background: #fff;
+      text-align: center;
+
+      i[class*=icons-service] {
+        @include setSize(px2rem(30px), px2rem(30px));
+        background-size: 6rem 3.46667rem;
+      }
+
+      .icons-service-1 {
+        background-position: -2.9rem -0.7rem;
+      }
+
+      .icons-service-2 {
+        background-position: -3.6rem -0.7rem;
+      }
+      .icons-service-3 {
+        background-position: -4.25rem -0.7rem;
+      }
+      .icons-service-4 {
+        background-position: -4.9rem -0.7rem;
+      }
+    }
+
+    h2 {
+      margin: px2rem(19px) 0 2px;
+      color: #666;
+      @include font-dpr(13px);
+      line-height: px2rem(24px);
+    }
+
+    p {
+      @include font-dpr(11px);
+      color: $color-gray-secondary;
+      line-height: 1.5;
+    }
+
+  }
+
+
+  .inOut-list {
+    padding-top: px2rem(45px);
+    .title-inOut {
+      display: inline-block;
+      @include setSize(100%, px2rem(40px));
+      background-position: 0 -1.05rem;
+    }
+  }
+}
