@@ -555,7 +555,7 @@ export const mongeyInit = (data) => $http.post('/siteH5/play.json?act=moneyInIni
  * 用户充值提交
  * */
 
-export const moneyInByBan = (data) => $http.post('/siteH5/play.json?act=moneyInByBan', {
+export const moneyInByBan = (data) => $http.post('/siteH5/play.json?act=moneyInByBank', {
   way: data.way,
   money: data.money,
   username: data.username

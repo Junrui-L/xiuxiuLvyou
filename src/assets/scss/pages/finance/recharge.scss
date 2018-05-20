@@ -51,7 +51,7 @@
 
   .charge_content {
     padding: px2rem(10px) 0;
-
+    user-select: text;
     background: $color-body-bg;
     .cont-item {
       padding:0 px2rem(20px);

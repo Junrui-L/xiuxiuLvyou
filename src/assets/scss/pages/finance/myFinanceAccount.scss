@@ -1,0 +1,88 @@
+.myFinanceAccount {
+
+  height: 100%;
+  background: $white;
+  .header-wrap {
+    padding: px2rem(18px) px2rem(24px);
+    .header {
+      padding-top: px2rem(30px);
+      @include setSize(100%, px2rem(127px));
+      border-radius: px2rem(5px);
+      background: -webkit-gradient(linear, 19% 55%, 0% 100%, from(#FF9F83), to(#F96A7E), color-stop(0.5, #F96A7E));
+      //background: linear-gradient(to right, #FF9F83 19%, #F96A7E 55%, #F96A7E 100%);
+      .money {
+        text-align: center;
+        height: px2rem(50px);
+        line-height: px2rem(50px);
+        @include font-dpr(28px);
+        color: $white;
+      }
+      .money-txt {
+        text-align: center;
+        height: px2rem(20px);
+        line-height: px2rem(20px);
+        @include font-dpr(14px);
+        opacity: 0.58;
+        color: $white;
+      }
+    }
+
+  }
+
+
+  .finance-state {
+    background-color: $white;
+    padding-bottom: px2rem(100px);
+    .state-list {
+      padding: 0 px2rem(20px);
+    }
+
+    .no-list {
+      @include font-dpr(13px);
+      text-align: center;
+      line-height: px2rem(30px);
+    }
+  }
+
+  .finan-item {
+    padding: px2rem(5px) 0;
+    @include setSize(100%, px2rem(70px));
+    line-height: px2rem(30px);
+    position: relative;
+    border-bottom: 1px solid $color-gray-primary;
+    @include font-dpr(13px);
+    >p {
+      @include font-dpr(13px);
+      line-height: 1.5;
+    }
+
+    .name, .money {
+      width: 30%;
+
+    }
+
+    .info img {
+      display: inline-block;
+      @include setSize(px2rem(20px), px2rem(20px));
+      border-radius: 100%;
+      vertical-align: middle;
+    }
+
+    .money {
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    .balance {
+      position: absolute;
+      top: px2rem(5px);
+      right: 0;
+    }
+
+    &:last-child {
+      border: none;
+    }
+  }
+
+
+}

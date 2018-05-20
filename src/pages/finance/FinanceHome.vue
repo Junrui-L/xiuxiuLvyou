@@ -2,17 +2,15 @@
   <div class="financeHome">
     <header class="fixed">
       <i class="icons icons-logo fl"></i>
-      <router-link  to="/myFinance" class="my-finance icons clearfix">
-      </router-link>
+      <!--<router-link  to="/myFinanceAccount" class="my-finance icons clearfix">-->
+      <!--</router-link>-->
     </header>
     <section class="view">
       <div class="banner">
         <swiper :options="swiperOption"  ref="mySwiper">
           <!-- 这部分放你要渲染的那些内容 -->
           <swiper-slide v-for="(item, index) in banners" :key="index">
-
               <img :src="item" class="index_img">
-
           </swiper-slide>
           <!-- 这是轮播的小圆点 -->
           <div class="swiper-pagination" slot="pagination"></div>
@@ -35,17 +33,17 @@
           </a>
         </li>
       </ul>
-      <article class="host-profit text-ct relative">
+      <article class="host-profit text-ct">
         <div class="text-ct relative rate">
           <span class="big">{{homeInfo.shouyi}}</span>
           <span>{{homeInfo.shouyiUnit}}</span>%
-          <i class="icons icons-rate absolute"></i>
+          <i class="icons icons-rate "></i>
         </div>
         <p class="text-ct txt-forgame fs22">
           咻咻向导旗下 合规赚取合理收益
         </p>
         <!--<button class="btn-buyin" >立即买入</button>-->
-        <i class="icons icons-btn-buyin"></i>
+        <i class="icons icons-btn-buyin" @click="toBuy"></i>
         <p class="text-danger text-ct">
           理财非存款 投资需谨慎
         </p>
@@ -199,6 +197,9 @@
           this.homeInfo = res.zouzoulicai;
 
         })
+      },
+      toBuy() {
+        this.$router.push({path: '/zhouFinance'})
       },
       handleBank(str){
         if( str && str.length > 0) {

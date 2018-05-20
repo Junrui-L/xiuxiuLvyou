@@ -6,19 +6,18 @@
     display: inline-block;
     background-image: url(../../assets/img/financeIcons.png);
     background-repeat: no-repeat;
-    background-size: 5.83333rem 4.06667rem;
+    background-size: 7.03333rem 4.06667rem;
   }
 
 
   .icons-avatar, .icons-money {
     width: px2rem(25px);
     height: px2rem(25px);
-    background-size: 5.83333rem 4.06667rem;
-    background-position: -1.7rem -0.9rem;
+    background-position: -2.1rem -0.9rem;
   }
 
   .icons-avatar {
-    background-position: -2.3rem -0.9rem;
+    background-position: -2.8rem -0.9rem;
   }
   .icons-avatar, .icons-money, footer .icon-tel {
     vertical-align: text-bottom;
@@ -68,17 +67,16 @@
     background: $white;
   }
   .banner {
-    @include setSize(100%, px2rem(200px));
+    @include setSize(100%, px2rem(160px));
     .swiper-wrapper {
       width: 100%;
-      height: px2rem(200px);
+      height: px2rem(160px);
       a {
         display: block;
-
       }
       .index_img {
         width: 100%;
-        max-height: 100%;
+        height: 100%;
       }
 
     }
@@ -126,17 +124,18 @@
     //height: px2rem(300px);
     padding-bottom: px2rem(10px);
     background: -webkit-linear-gradient(bottom,rgba(238,232,221,.95),rgba(238,232,221,0));
-    background: linear-gradient(bottom,rgba(238,232,221,.95),rgba(238,232,221,0));
+    background: linear-gradient(to bottom,rgba(238,232,221,.95),rgba(238,232,221,0));
     position: relative;
     .rate {
       height: px2rem(100px);
       @include font-dpr(50px);
       color: #9b6926;
       background: -webkit-gradient(linear,0 30%,0 100%,from(#c2974b),to(#9b6825));
-      background: gradient(linear,0 30%,0 100%,from(#c2974b),to(#9b6825));
+      background: linear-gradient(to right,#c2974b 30%,#9b6825 100%);
       -webkit-text-fill-color: transparent;
       text-fill-color: transparent;
       -webkit-background-clip: text;
+      position: relative;
       .big {
         @include font-dpr(100px);
         margin-right: px2rem(-20px);
@@ -144,9 +143,10 @@
 
       .icons-rate {
         position: absolute;
-        top:  px2rem(30px);
-        right: px2rem(50px);
-        //@include setButton()
+        top: px2rem(10px);
+        right: px2rem(90px);
+       @include setSize(px2rem(85px), px2rem(42px));
+        background-position: 0 -1.58rem;
       }
     }
 
@@ -157,7 +157,7 @@
     }
 
     .icons-btn-buyin {
-      @include setSize(px2rem(219px), px2rem(45px));
+      @include setSize(px2rem(265px), px2rem(45px));
       background-position: 0 -2.76rem;
     }
 
@@ -230,21 +230,21 @@
 
       i[class*=icons-service] {
         @include setSize(px2rem(30px), px2rem(30px));
-        background-size: 6rem 3.46667rem;
+        background-size: 7.1rem 3.9rem;
       }
 
       .icons-service-1 {
-        background-position: -2.9rem -0.7rem;
+        background-position: -3.5rem -0.8rem;
       }
 
       .icons-service-2 {
-        background-position: -3.6rem -0.7rem;
+        background-position: -4.3rem -0.8rem;
       }
       .icons-service-3 {
-        background-position: -4.25rem -0.7rem;
+        background-position: -5.1rem -0.8rem;
       }
       .icons-service-4 {
-        background-position: -4.9rem -0.7rem;
+        background-position: -5.93rem -0.8rem;
       }
     }
 

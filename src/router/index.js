@@ -51,7 +51,8 @@ const Chat = r => require.ensure([], () => r(require('@/pages/webChat/Chat')), '
 
 //金融
 const FinanceHome = r => require.ensure([], () => r(require('@/pages/finance/FinanceHome')), 'financeHome')
-const MyFinance = r => require.ensure([], () => r(require('@/pages/finance/myFinance')), 'myFinance')
+const MyFinanceAccount = r => require.ensure([], () => r(require('@/pages/finance/myFinanceAccount')), 'myFinanceAccount')
+const ZhouFinance = r => require.ensure([], () => r(require('@/pages/finance/zhouFinance')), 'zhouFinance')
 const Recharge = r => require.ensure([], () => r(require('@/pages/finance/recharge')), 'recharge')
 
 Vue.use(Router)
@@ -293,10 +294,16 @@ const router = new Router({
       component: FinanceHome
     },
     {
+      //
+      path: '/myFinanceAccount',
+      name: 'myFinanceAccount',
+      component: MyFinanceAccount
+    },
+    {
       //金融详情
-      path: '/myFinance',
-      name: 'myFinance',
-      component: MyFinance
+      path: '/zhouFinance',
+      name: 'zhouFinance',
+      component: ZhouFinance
     },
     {
       //金融详情

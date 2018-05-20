@@ -43,9 +43,9 @@
               <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#arrow-right"></use>
             </svg>
           </router-link>
-          <router-link tag="li" to="/myFinance" class="wallet-item clearfix">
+          <router-link tag="li" to="/myFinanceAccount" class="wallet-item clearfix">
             <div class="item-left fl">
-              <h6>我的理财</h6>
+              <h6>理财记录</h6>
             </div>
             <svg class="fr">
               <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#arrow-right"></use>
@@ -91,7 +91,8 @@
             this.$router.push({path: '/withdrawDeposit', query: {id: ''}})
           },
           reCharge(){
-            this.$router.push({path: '/recharge', query: {id: ''}})
+            console.log('去冲钱')
+            this.$router.push({path: '/recharge'})
           }
         }
 

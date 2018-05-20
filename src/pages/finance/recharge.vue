@@ -47,7 +47,7 @@
         </div>
         <div class="charge_content" v-if="!showBank">
           <div class="wx_charge_content cont-item">
-              <span class="item-name fl">充值金额</span><span class="fl"><input type="tel" maxlength="8"  v-model="wxCharegMoney" placeholder="请输入金额" />（最低充值金额100）</span></li>
+              <span class="item-name fl">充值金额</span><span class="fl"><input type="tel" maxlength="8"  v-model="wxCharegMoney" placeholder="请输入金额" />（最低充值金额100）</span>
           </div>
 
         </div>
@@ -66,7 +66,7 @@
 
 <script>
   import PayRadio from '../../components/payRadio.vue'
-  import {mongeyInit, moneyInByBan} from '../../http/getDate'
+  import {mongeyInit, moneyInByBan, payOrderWx} from '../../http/getDate'
   export default {
       name: "recharge",
       data(){
@@ -154,34 +154,34 @@
         },
         accoutPay() {
           //银行卡充值提交充值订单
-          console.log(this.bankInfo.maxmin)
+          // console.log(this.bankInfo.maxmin)
           let max = this.handleBank(this.bankInfo.maxmin)[1]
-          console.log(max);
-          if(this.bankChargeMoney  == '') {
-            this.$createToast({
-              txt: '请输入充值金额',
-              type: 'error',
-              mask: true,
-              time: 2000
-            }).show();
-          } else  if( this.bankChargeMoney < 100 || this.bankChargeMoney > max ) {
-            this.$createToast({
-              txt: '充值金额填写不正确',
-              type: 'error',
-              mask: true,
-              time: 2000
-            }).show();
-          } else {
-            if(this.val == 1) {
-              console.log('银行卡充值')
-              if(this.bankChargeName == '') {
-                this.$createToast({
-                  txt: '请输入姓名',
-                  type: 'error',
-                  mask: true,
-                  time: 2000
-                }).show();
-              } else if(this.accoutType == 'public'  ) {
+
+          if(this.val == 1) {
+            console.log('银行卡充值')
+            if(this.bankChargeMoney  == '') {
+              this.$createToast({
+                txt: '请输入充值金额',
+                type: 'error',
+                mask: true,
+                time: 2000
+              }).show();
+            } else  if( this.bankChargeMoney < 100 || this.bankChargeMoney > max ) {
+              this.$createToast({
+                txt: '充值金额填写不正确',
+                type: 'error',
+                mask: true,
+                time: 2000
+              }).show();
+            } else if(this.bankChargeName == '') {
+              this.$createToast({
+                txt: '请输入姓名',
+                type: 'error',
+                mask: true,
+                time: 2000
+              }).show();
+            } else {
+              if(this.accoutType == 'public'  ) {
                 console.log(`'对公账户充值' + ${this.bankChargeMoney} + ${this.bankChargeName} `)
                 moneyInByBan({
                   way: 2,
@@ -199,12 +199,12 @@
                     this.$createDialog({
                       type: 'alert',
                       title: '提示',
-                      content: '申请充值成功'
+                      content: '已发起审核，请等待客服确认，如有疑问可联系在线客服。'
                     }).show()
                   }
                 })
               } else if(this.accoutType == 'private'  ) {
-                console.log('对私账户冲')
+                console.log('对私账户充值')
                 moneyInByBan({
                   way: 1,
                   money: this.bankChargeMoney,
@@ -220,16 +220,32 @@
                     this.$createDialog({
                       type: 'alert',
                       title: '提示',
-                      content: '申请充值成功'
+                      content: '已发起审核，请等待客服确认，如有疑问可联系在线客服。'
                     }).show()
 
                   }
 
                 })
               }
-
-            }else if(this.val == 2) {
-              console.log('微信充值')
+            }
+          }else if(this.val == 2) {
+            console.log('微信充值');
+            let max = this.handleBank(this.bankInfo.maxmin)[1]
+            if(this.wxCharegMoney  == '') {
+              this.$createToast({
+                txt: '请输入充值金额',
+                type: 'error',
+                mask: true,
+                time: 2000
+              }).show();
+            } else  if( this.wxCharegMoney < 100 || this.wxCharegMoney > max ) {
+              this.$createToast({
+                txt: '充值金额填写不正确',
+                type: 'error',
+                mask: true,
+                time: 2000
+              }).show();
+            } else {
               moneyInByBan({
                 way: 0,
                 money: this.wxCharegMoney,
@@ -242,26 +258,80 @@
                     content: res.msg
                   }).show()
                 } else {
+
+                  let orderNo = res.moneyInData.ordernumber
+                  console.log(orderNo);
                   //TODO: 调起微信支付
-
-
-
-                  console.log(res);
-                  this.$createDialog({
-                    type: 'alert',
-                    title: '提示',
-                    content: '申请充值成功'
-                  }).show()
+                  this.conPay(orderNo);
                 }
               })
-
-
-
-
             }
+
           }
 
+        },
+        conPay(orn) {
+          let that = this;
+          console.log('支付请求');
+          this.loading = true
+          let signUrl = location.href;
+          payOrderWx(orn, signUrl).then(res => {
+            let that = this;
+            console.log('===支付参数返回====')
+            this.loading = false;
+            wx.config({
+              debug: false,
+              appId: res.configMap.appid,
+              timestamp: res.configMap.timestamp,
+              nonceStr: res.configMap.nonceStr, //随机串
+              signature: res.configMap.signature ,//微信签名
+              jsApiList: ['chooseWXPay'] // 必填，需要使用的JS接口列表，这里只写支付的
+            });
 
+            // console.log(res.pay.appid, res.pay.timestamp, res.pay.nonce_str, res.packageValue, res.pay.sign)
+            wx.ready(function(){
+              console.log('进入了 wx.ready')
+              console.log(res)
+              let paysi = res.pay.sign.toUpperCase();
+              console.log(paysi)
+              wx.chooseWXPay({
+                timestamp:res.pay.timestamp,  // 支付签名时间戳，注意微信jssdk中的所有使用timestamp字段均为小写。但最新版的支付后台生成签名使用的timeStamp字段名需大写其中的S字符
+                nonceStr: res.pay.nonce_str, // 支付签名随机串，不长于 32 位
+                package: res.packageValue, // 统一支付接口返回的prepay_id参数值，提交格式如：prepay_id=***）
+                signType: "MD5", // 签名方式，默认为′SHA1′，使用新版支付需传入′MD5′
+                paySign: paysi , // 支付签名
+                success: function (res) {
+                  if(res.errMsg == "chooseWXPay:ok"){
+                    //支付成功的跳转
+                    that.alertText = '支付成功';
+                    that.showAlert = true;
+                    // that.$router.push({name: 'order',query: {orderNum: that.$route.query.orn}})
+                    // window.location.href  = "/hims/weixin/pages/Order_ok.html?access_token=" ;
+                  }else{
+                    console.log(res.errMsg);
+                    that.$createDialog({
+                      type: 'alert',
+                      title: '支付结果',
+                      content: '支付失败'
+                    }).show()
+                  }
+                },
+                cancel: function(res){
+                  that.$createDialog({
+                    type: 'alert',
+                    title: '支付结果',
+                    content: '取消支付'
+                  }).show()
+                }
+              });
+
+              wx.error(function (err) {
+                console.log(err)
+              })
+            })
+
+
+          })
         },
         handleBank(str){
           if( str && str.length > 0) {

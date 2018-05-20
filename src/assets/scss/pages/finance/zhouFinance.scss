@@ -1,7 +1,8 @@
 .myFinance {
 
   .selects {
-    @include setSize(px2rem(60px), px2rem(40px));
+    //@include setSize(px2rem(60px), px2rem(40px));
+    height: px2rem(40px);
     @include centerTop;
     right: px2rem(10px);
     @include font-dpr(14px);
@@ -9,7 +10,7 @@
     text-align: center;
     color: $color-red;
     .select-bill {
-      @include setButton(px2rem(70px), px2rem(30px),$color-black-secondary,transparent,0);
+      @include setButton(100%, px2rem(30px),$color-black-secondary,transparent,0);
       @include font-dpr(13px)
     }
   }
@@ -21,15 +22,19 @@
     background: linear-gradient(to right, #FF9F83 19%, #F96A7E 55%, #F96A7E 100%);
     .header {
       text-align: center;
-      line-height: px2rem(20px);
+      line-height: px2rem(30px);
       color: $white;
+      padding-top: px2rem(20px);
       .money {
         @include font-dpr(30px);
         line-height: px2rem(50px);
       }
 
       .aid-rate {
-        @include font-dpr(16px)
+        @include font-dpr(16px);
+        span {
+          @include font-dpr(20px)
+        }
       }
 
       .rate-num {
@@ -90,6 +95,12 @@
     .state-list {
       padding: 0 px2rem(20px);
     }
+    .no-list {
+      @include font-dpr(13px);
+      text-align: center;
+      line-height: px2rem(30px);
+    }
+
   }
 
   .finan-item {
@@ -100,13 +111,13 @@
     border-bottom: 1px solid $color-gray-primary;
     @include font-dpr(13px);
     >p {
-     @include font-dpr(13px);
+      @include font-dpr(13px);
       line-height: 1.5;
     }
 
     .name, .money {
       width: 30%;
-
+      @include ellipsis
     }
 
     .info img {
