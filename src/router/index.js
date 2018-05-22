@@ -34,6 +34,7 @@ const MyWallet = r => require.ensure([], () => r(require('@/pages/memCenter/myWa
 const ScoreRule = r => require.ensure([], () => r(require('@/pages/memCenter/scoreRule')), 'scoreRule')
 const Scores = r => require.ensure([], () => r(require('@/pages/memCenter/scores')), 'scores')
 const ExpandedList = r => require.ensure([], () => r(require('@/pages/memCenter/expandedList')), 'expandedList')
+const MyShare = r => require.ensure([], () => r(require('@/pages/memCenter/myShare')), 'myShare')
 //评论
 const Comment = r => require.ensure([], () => r(require('@/pages/memCenter/Comment')), 'comment')
 const AssessList = r => require.ensure([], () => r(require('@/pages/memCenter/assessList')), 'assessList')
@@ -208,6 +209,12 @@ const router = new Router({
       path: '/myQrcode',
       name: 'myQrcode',
       component: MyQrcode
+    },
+    {
+      //我的分享图片
+      path: '/myShare',
+      name: 'myShare',
+      component: MyShare
     },
     {
       path: '/expandedList',

@@ -2,7 +2,7 @@
     <div class="myQrcode">
       <div class="qr-code">
         <img :src="codeInfo.expandedodeUrl" alt="">
-        <p class="tips">长按分享或保存到本地</p>
+        <button class="tips" @click="$router.push({path: '/myShare'})">我的专属推广</button>
       </div>
       <ul class="expand-wrap clearfix">
         <li  class="mem-item fl">

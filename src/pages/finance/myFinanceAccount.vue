@@ -19,11 +19,19 @@
           <div class="money">
             <p class="num">￥{{item.money}}</p>
             <p class="bz">
-              收益中
+              <template v-if="item.status == 0">
+                收益中
+              </template>
+              <template v-if="item.status == 1">
+                结算中
+              </template>
+              <template v-else-if="item.status == 2">
+                已结算
+              </template>
             </p>
           </div>
           <div class="balance fr">
-            <p>理财周期{{item.sylday}}</p>
+            <p>理财周期{{item.sylday}}天</p>
             <p>收益￥{{item.symoney}}</p>
           </div>
 

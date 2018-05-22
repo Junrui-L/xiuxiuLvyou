@@ -11,10 +11,10 @@
   }
 
   .tips {
-    width: 100%;
+    display: block;
+    @include setButton(30%, px2rem(28px), $white, $color-red, px2rem(16px));
     @include centerLeft;
-    bottom: px2rem(20px);
-    color: $color-gray-secondary;
+    bottom: px2rem(10px);
     @include font-dpr(13px);
     text-align: center;
   }

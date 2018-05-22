@@ -1,0 +1,14 @@
+.myShare {
+  position: relative;
+  img {
+    width: 100%;
+  }
+
+  .atention {
+    position: absolute;
+    top: px2rem(90px);
+    left: px2rem(20px);
+    color: #9b6825;
+    @include font-dpr(20px);
+  }
+}

@@ -66,9 +66,10 @@ export default ((url = '', data = {}) => {
                     })
                     .then(function (response) {
                       // console.log(response.data)
-                        if (response.data.code == 1101) {
-                            console.log('登录超时')
+                        if (response.data.code == 1101 || response.data.code == -1001) {
+                            console.log('未登录或登录超时')
                             router.push({ path: '/login' })
+                          // location.href= response.data.redirect;
                         } else if (response.data.code == 200) {
                           console.log('接口200正常返回')
                             resolve(response.data.data)
@@ -92,8 +93,8 @@ export default ((url = '', data = {}) => {
                     })
                     .then(function (response) {
                       // console.log(response.data)
-                        if (response.data.code == 1101) {
-                            console.log('登录超时')
+                        if (response.data.code == 1101 || response.data.code == -1001) {
+                            console.log('未登录或登录超时')
                             router.push({path:'/login'})
                           // location.href= response.data.redirect;
                         } else if (response.data.code == 200) {

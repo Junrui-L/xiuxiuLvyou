@@ -9,7 +9,7 @@
     <div class="header-wrap">
       <div class="header">
         <!--<h3 class="money">{{licaiInfo.sumlicaiMoney}}元</h3>-->
-        <div class="aid-rate">目标 <span>周</span> 收益</div>
+        <div class="aid-rate">目标<span>周</span>收益</div>
         <div class="rate-num">{{licaiInfo.lvval}}%</div>
       </div>
     </div>

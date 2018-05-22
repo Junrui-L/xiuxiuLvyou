@@ -312,9 +312,9 @@
         await homeData().then(res => {
           console.log(res);
           let resp = res;
-          if(resp.position.newcitySn != null) {
-            this.locations.areasn = resp.position.newcitySn;
-          }
+          // if(resp.position.newcitySn != null) {
+          //   this.locations.areasn = resp.position.newcitySn;
+          // }
           this.banners = resp[1]   //banner图
           console.log(this.banners);
           console.log('轮播图呢')
@@ -332,9 +332,10 @@
 
           this.hotLine = resp[5];  //热门路线
           // console.log(resp[5])
+          console.log('这里取消Loading')
           this.loading = false
           userPerDetail().then(res => {
-            console.error('---------获取的个人信息-----------')
+            console.warn('---------获取的个人信息-----------')
             console.log(res);
             if(res.visitor) {
               UserInfo.set('userInfo', res.visitor)
@@ -360,15 +361,18 @@
         ConfigWx(signUrl).then(res => {
           console.log('===》签名基本参数返回《====')
           console.log(res);
-          this.configMap = res.configMap;
-          wx.config({
-            debug: false,
-            appId: res.configMap.appid,
-            timestamp: res.configMap.timestamp,
-            nonceStr: res.configMap.nonceStr, //随机串
-            signature: res.configMap.signature ,//微信签名
-            jsApiList: ['getLocation'] // 必填，需要使用的JS接口列表，这里只写获取地理位置
-          });
+          if(res.configMap) {
+            this.configMap = res.configMap;
+            wx.config({
+              debug: false,
+              appId: res.configMap.appid,
+              timestamp: res.configMap.timestamp,
+              nonceStr: res.configMap.nonceStr, //随机串
+              signature: res.configMap.signature ,//微信签名
+              jsApiList: ['getLocation'] // 必填，需要使用的JS接口列表，这里只写获取地理位置
+            });
+
+          }
 
           this.getLocation();
         })

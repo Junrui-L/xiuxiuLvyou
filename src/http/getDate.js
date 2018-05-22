@@ -349,12 +349,14 @@ export const updatePassword = (veCode, password, type) => $http.post('/siteH5/us
   type: type
 })
 /**
- * 用户推广二维码
+ * 用户推广二维码，推广图片
  *
  * */
 
 export const userQrcode = () => $http.get('/siteH5/user.json?act=expandedCode', {
 });
+
+export const userShareImg = () => $http.get('/siteH5/user.josn?act=loadexpandedImg',{})
 
 /**
  * 获取推广列表
