@@ -21,7 +21,7 @@
               <li class="cont-item">
                 <span class="item-name fl">收款账号：</span><span class="fl">{{handleBank(bankInfo.gsBank)[1]}}</span>
               </li>
-              <li class="cont-item clearfix"><span class="item-name fl">支行名：</span> <span class="fl">{{handleBank(bankInfo.gsBank)[2]}}</span></li>
+              <li class="cont-item clearfix"><span class="item-name fl">支 行 名：</span> <span class="fl">{{handleBank(bankInfo.gsBank)[2]}}</span></li>
               <li class="cont-item clearfix"><span class="item-name fl">充值金额</span><span class="fl"><input type="tel" v-model="bankChargeMoney" maxlength="8" placeholder="请输入金额" />（最低充值金额100）</span></li>
               <li class="cont-item clearfix"><span class="item-name fl">转账人</span><span class="fl"><input type="text" v-model="bankChargeName" maxlength="8" placeholder="请输入姓名" /></span></li>
             </ul>
@@ -32,7 +32,7 @@
               <li class="cont-item">
                 <span class="item-name fl">收款账号：</span><span class="fl">{{handleBank(bankInfo.grBank)[1]}}</span>
               </li>
-              <li class="cont-item clearfix"><span class="item-name fl">户 名：</span> <span class="fl">{{handleBank(bankInfo.grBank)[2]}}</span></li>
+              <li class="cont-item clearfix"><span class="item-name fl">支 行 名：</span> <span class="fl">{{handleBank(bankInfo.grBank)[2]}}</span></li>
               <li class="cont-item clearfix"><span class="item-name fl">充值金额</span><span class="fl"><input type="tel" v-model="bankChargeMoney" maxlength="8" placeholder="请输入金额" />（最低充值金额100）</span></li>
               <li class="cont-item clearfix"><span class="item-name fl">转账人</span><span class="fl"><input type="text" v-model="bankChargeName" maxlength="8" placeholder="请输入姓名" /></span></li>
             </ul>

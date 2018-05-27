@@ -3,7 +3,7 @@
       <div class="header">
         <div class="service-area clearfix">
           <span class="title fl">个人头像</span>
-          <div class="img-wrapper fr">
+          <div class="img-wrapper fr" @click="addImg">
             <img :src="userInfo.headimgurl" alt="">
           </div>
         </div>
@@ -12,9 +12,9 @@
             <span class="title">昵称</span>
             <span class="txt fr">
               {{userInfo.nickname}}
-            <svg>
-                <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#arrow-right"></use>
-            </svg>
+            <!--<svg>-->
+                <!--<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#arrow-right"></use>-->
+            <!--</svg>-->
             </span>
           </div>
         </div>
@@ -55,7 +55,7 @@
             </span>
           </div>
         </li>
-        <li class="head-item clearfix">
+        <li class="head-item clearfix" @click="toIdentification">
           <div class="item-wrapper clearfix">
             <span class="title">身份认证</span>
             <span class="txt fr">
@@ -131,7 +131,7 @@
             configMap: '', //微信sdk初始化参数
             images: [],   //图片
             mediaId: [],
-            serverSrc: [],
+            serverSrc: [],  //服务器头像路径
             showCancel: false
           }
         },
@@ -140,6 +140,7 @@
         },
         mounted() {
           this.getDate();
+          this.configWx();
           this.datePicker = this.$createDatePicker({
             title: '出生日期',
             min: [1950, 1, 1],
@@ -178,6 +179,7 @@
             })
           },
           addImg () {
+            console.log('切换头像')
             let that = this;
             wx.ready(function(){
               wx.chooseImage({
@@ -214,6 +216,7 @@
                   console.log(res.serverId)
                   getImgPath({type: 'image', media_ids: res.serverId}).then(res => {
                     console.warn(res);
+                    that.updateHeadImg(res.imgpaths);
                     that.serverSrc.push(res.imgpaths);
                     console.log(that.serverSrc)
                     if (i < length) {
@@ -228,6 +231,28 @@
             }
             upload();
 
+          },
+          updateHeadImg(hImg){
+            //更改头像
+            changePersonal('headimgurl',hImg).then(res => {
+              console.log(res)
+              if(res.msg){
+                this.$createDialog({
+                  type: 'alert',
+                  title: '温馨提示',
+                  content: res.msg,
+                  showClose: true
+                }).show()
+              } else {
+                this.$createToast({
+                  txt: '设置成功',
+                  type: 'correct',
+                  mask: true,
+                  time: 2000
+                }).show();
+                this.getDate();
+              }
+            })
           },
           toSetBankCard(){
             if(this.userInfo.mobile == '') {
@@ -245,6 +270,9 @@
             }else {
               this.$router.push({path: '/bankCardList'})
             }
+          },
+          toIdentification(){
+            this.$router.push({path: '/identification'})
           },
           toSafeCenter(){
             if(this.userInfo.mobile == '') {

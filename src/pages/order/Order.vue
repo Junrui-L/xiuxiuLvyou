@@ -89,7 +89,7 @@
         <div class="btn-triped clearfix">
           <button class="backpay btn fl">申请退款</button>
           <button class="onemore btn " @click="$router.push({path : '/scenicDetail',query: {playId:orderInfo.playid, accountId: orderInfo.accountid}})">再游一场</button>
-          <button class="evalu btn fr" @click="$router.push({name: 'comment'})">评价</button>
+          <button class="evalu btn fr" @click="$router.push({name: 'comment', query:{orderNum: orderNum}})">评价</button>
         </div>
       </div>
     </template>

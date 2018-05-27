@@ -1,130 +1,133 @@
 <template>
-  <div class="comment">
-    <HeadTop go-back='true' :headBg="true">
-      <div slot="select-title" class="select-title" >
+    <div class="identification">
+      <HeadTop go-back='true' :headBg="true">
+        <div slot="select-title" class="select-title" >
 
-        <span class="title_head black" >发表评价</span>
+          <span class="title_head black" >身份认证</span>
 
-      </div>
-      <div slot="message" class="push fr" @click="pushComment"><button class="commit">提交</button></div>
-    </HeadTop>
-    <div class="container">
-      <div class="tit">向导评分</div>
-      <div class="stars-wrapper">
-        <div class="stars">
-          <Rate v-model="rateValue" :max="max"></Rate>
         </div>
-        <div class="scores">{{rateValue}}分</div>
-      </div>
-      <div class="tit">评论内容</div>
-      <div class="comment-content">
-        <textarea v-model="contentTxt" name="com" maxlength="150" id="commm" placeholder="请输入您的评论内容(最多150字)" cols="30" rows="10"></textarea>
-      </div>
-      <div class="tit">精彩图片</div>
-      <div class="img-wrap clearfix">
+        <div slot="message" class="save fr" @click="pushIndentify"><button class="commit">保存</button></div>
+      </HeadTop>
 
-        <div class="upload fl" v-for="(img, index) in serverSrc" :key="index">
-          <img :src="basePath + img" alt=""  />
-          <i class="close" @click="removeImg(index)"></i>
-        </div>
-        <div class="upload fl" v-show="images.length < 9">
-          <img src="../../assets/img/upimg.png" alt=""  @click="addImg" />
+      <div class="item-wrapper clearfix">
+        <span class="title fl">身份证号</span>
+        <span class="txt fl">
+          <input v-model="idcard" type="text" class="idCard" maxlength="18" id="commm" placeholder="请填写身份证号码" />
+        </span>
+      </div>
+      <div class="container">
+        <div class="tit">身份证（正面）</div>
+        <div class="img-wrap clearfix">
+
+          <div class="upload fl" v-for="(img, index) in serverSrc" :key="index">
+            <img :src="basePath + img" alt=""  />
+            <i class="close" @click="removeImg(index)"></i>
+          </div>
+          <div class="upload fl" v-show="images.length < 1">
+            <img src="../../assets/img/upimg.png" alt=""  @click="addImg" />
+          </div>
+
         </div>
 
       </div>
-      <div class="tit">评价标签</div>
-      <div class="tip-wrapper">
-        <!--<check-box :checkText="checkText"  v-model="checkT"></check-box>-->
-        <CheckGroup v-model="checkList">
-          <CheckBox v-for="(v,i) in tipTxt" :checkText="v" :label='v' :key='i'></CheckBox>
-        </CheckGroup>
+      <div class="item-wrapper clearfix">
+        <span class="title">状态</span>
+        <span class="txt fr">
+          <template v-if="userInfo.status == 0">未验证</template>
+          <template v-if="userInfo.status == 1">审核中</template>
+          <template v-if="userInfo.status == 2">已认证</template>
+        </span>
       </div>
     </div>
-
-
-  </div>
 </template>
 
 <script>
-  import {mapState, mapMutations} from 'vuex'
-  import {addCommnet, ConfigWx, getImgPath } from '../../http/getDate'
-  import CheckBox from '../../components/check-box.vue'
+  import {mapState} from 'vuex'
+  import {userPerDetail, ConfigWx, getImgPath, setCardId } from '../../http/getDate'
   import HeadTop from '../../components/HeadTop.vue'
-  import CheckGroup from '../../components/groupCheckBox'
-  import Rate from '../../components/Rate'
     export default {
-        name: "comment",
-        data(){
+        name: "identification",
+      data(){
           return {
-            orn: this.$route.query.orderNum,
-            configMap: '', //微信sdk初始化参数
-            contentTxt: '',
-            rateValue:0,
-            max:10,
+            userInfo: {},
+            idcard: '',
             images: [],
-            maxSize: 9,
+            maxSize: 1,
             mediaId: [],
             serverSrc: [],
-            checkList: [],
-            tipTxt: [
-              '细心周到','热情好客','当地通','幽默开朗','诚信友善'
-            ]
           }
-        },
-      components: {
-        HeadTop,
-        CheckBox,
-        CheckGroup,
-        Rate
       },
       computed: {
         ...mapState([
-          'basePath','location','userInfo', 'baseOrder'
+          'basePath','userInfo', 'baseOrder'
         ])
       },
+      components: {
+          HeadTop
+      },
       mounted(){
+        this.getDate();
         this.configWx();
       },
       methods: {
-        pushComment(){
-          if(this.contentTxt == '') {
+        getDate(){
+          userPerDetail().then(res => {
+            console.log(res)
+            this.userInfo = res.visitor;
+          });
+        },
+        pushIndentify(){
+          console.log('保存认证信息');
+
+          if(this.idcard == '') {
             this.$createToast({
-              txt: '评论不能为空',
+              txt: '请填写身份证号码',
+              type: 'error',
+              mask: true,
+              time: 2000
+            }).show();
+            return false
+          } else if(this.serverSrc.length === 0) {
+            this.$createToast({
+              txt: '请填上传身份证正面图',
+              type: 'error',
+              mask: true,
+              time: 2000
+            }).show();
+            return false
+          }else if(this.idcard.length < 18) {
+            this.$createToast({
+              txt: '身份证号填写不正确',
               type: 'error',
               mask: true,
               time: 2000
             }).show();
             return false
           }
-          console.log(`发表评论${this.contentTxt} 标签 ${this.checkList.join(';')}`);
-          let coImgs = this.serverSrc.join(';');
-          let coTypes = this.checkList.join(';');
-          addCommnet({ordernumber:this.orn,
-            content: this.contentTxt,
-            pjImgs: coImgs,
-            types: coTypes,
-            score: this.rateValue
+          setCardId({
+            cardId: this.idcard,
+            cardImg: this.serverSrc[0]
           }).then(res => {
-            console.log(res);
-            if(res.msg) {
+            console.log(res)
+            if(res.msg){
               this.$createDialog({
                 type: 'alert',
-                title: '提示',
-                content: res.msg
+                title: '温馨提示',
+                content: res.msg,
+                showClose: true
               }).show()
-            }
-            let reg =JSON.stringify(res);
-            if( reg == "{}") {
+              this.showCancel = false;
+            } else {
               this.$createToast({
-                txt: '评价成功',
+                txt: '提交成功，请等待审核',
                 type: 'correct',
                 mask: true,
                 time: 2000
               }).show();
-              setTimeout(() => {
-                this.$router.replace({path: '/memberCenter'})
-              }, 1000)
 
+              setTimeout(() => {
+                this.$router.replace({path: '/memberInfo'})
+              }, 1000)
             }
 
           })
@@ -153,7 +156,7 @@
           let that = this;
           wx.ready(function(){
             let currentSize = that.images.length;
-            let count = that.maxSize === 0 ? 9 : that.maxSize - currentSize;
+            let count = that.maxSize;
             wx.chooseImage({
               count: count, // 默认9
               sizeType: ['original', 'compressed'], // 可以指定是原图还是压缩图，默认二者都有
@@ -172,7 +175,7 @@
               }
             })
 
-        })
+          })
 
         },
         wxUploadImg(arr){
@@ -205,8 +208,8 @@
         },
         removeImg(index){
           this.serverSrc.splice(index, 1);
+          this.images = []
         }
-
       }
     }
 </script>

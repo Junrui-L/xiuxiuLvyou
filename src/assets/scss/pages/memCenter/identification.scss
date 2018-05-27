@@ -1,0 +1,90 @@
+.identification {
+  height: 100%;
+  padding:px2rem(55px) 0 px2rem(10px);
+  .head_top {
+    z-index: 10;
+  }
+  .save {
+    @include setSize(px2rem(60px), px2rem(40px));
+    @include centerTop;
+    right: px2rem(10px);
+    @include font-dpr(14px);
+    line-height: px2rem(40px);
+    text-align: center;
+    color: $color-red;
+    .commit {
+      @include setButton(px2rem(70px), px2rem(40px),$color-red,$white,0);
+      @include font-dpr(13px)
+    }
+  }
+
+  .item-wrapper {
+    display: block;
+    @include setSize(100%, px2rem(50px));
+    line-height: px2rem(50px);
+    padding: 0 px2rem(20px);
+    margin-bottom: px2rem(10px);
+    @include font-dpr(14px);
+    color: $color-gray-secondary;
+    background: #fff;
+    border-bottom: 1px solid $color-body-bg;
+  }
+  .title {
+    color: $color-black;
+    width: 20%;
+  }
+
+  .txt {
+    text-align: right;
+    width: 70%;
+    @include ellipsis;
+
+    .idCard {
+      width: 100%;
+      padding: px2rem(5px);
+      @include font-dpr(14px)
+    }
+  }
+
+  .container {
+    padding: px2rem(20px);
+    margin-bottom: px2rem(10px);
+    background: $color-white;
+    .tit {
+      height: px2rem(25px);
+      line-height: px2rem(25px);
+      @include font-dpr(13px)
+    }
+
+    .img-wrap {
+
+      .upload {
+        text-align: center;
+        position: relative;
+        margin-right: px2rem(10px);
+        margin-bottom: px2rem(10px);
+        img {
+          @include setSize(px2rem(100px), px2rem(75px));
+          background: url(../../assets/img/message_white.png) no-repeat center;
+          background-size: 100%;
+        }
+
+        .close {
+          position: absolute;
+          right: px2rem(-5px);
+          top: px2rem(-5px);
+          @include setSize(px2rem(20px), px2rem(20px));
+          background: url(../../assets/img/nav_search_delete@2x.png) no-repeat center;
+          background-size: 100%;
+          z-index: 10;
+        }
+      }
+
+      .upload:nth-of-type(3n) {
+        padding-right: 0;
+      }
+    }
+  }
+
+
+}

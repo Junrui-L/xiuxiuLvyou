@@ -305,6 +305,14 @@ export const userPerDetail = (dict, val) => $http.get('/siteH5/user.json?act=dai
 });
 
 /**
+ * 上传身份信息
+ * */
+export const setCardId = (data) => $http.post('/siteH5/user.json?act=setCardID', {
+  cardId: data.cardId,
+  cardImg: data.cardImg
+})
+
+/**
  * 根据类型加载优惠券/siteH5/coupon.json?act=loadyhjByType&type
  * */
 

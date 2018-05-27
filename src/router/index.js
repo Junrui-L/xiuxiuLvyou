@@ -29,6 +29,7 @@ const WithdrawDeposit = r => require.ensure([], () => r(require('@/pages/memCent
 const Coupons = r => require.ensure([], () => r(require('@/pages/memCenter/coupons')), 'coupons')
 const Favorites = r => require.ensure([], () => r(require('@/pages/memCenter/favorites')), 'favorites')
 const MemberInfo = r => require.ensure([], () => r(require('@/pages/memCenter/memberInfo')), 'memberInfo')
+const Identification = r => require.ensure([], () => r(require('@/pages/memCenter/identification')), 'identification')
 const MyQrcode = r => require.ensure([], () => r(require('@/pages/memCenter/myQrcode')), 'myQrcode')
 const MyWallet = r => require.ensure([], () => r(require('@/pages/memCenter/myWallet')), 'myWallet')
 const ScoreRule = r => require.ensure([], () => r(require('@/pages/memCenter/scoreRule')), 'scoreRule')
@@ -204,6 +205,12 @@ const router = new Router({
       path: '/memberInfo',
       name: 'memberInfo',
       component: MemberInfo
+    },
+    {
+      //个人认证
+      path: '/identification',
+      name: 'identification',
+      component: Identification
     },
     {
       path: '/myQrcode',
