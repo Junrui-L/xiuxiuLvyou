@@ -2,8 +2,10 @@ import Vue from 'vue'
 import Router from 'vue-router'
 
 //分页面异步加载文件
-const Home = r => require.ensure([], () => r(require('@/pages/Home')), 'home')
-const Login = r => require.ensure([], () => r(require('@/pages/memCenter/Login')), 'login')
+import Home from '@/pages/Home.vue'
+// const Home = r => require.ensure([], () => r(require('@/pages/Home')), 'home')
+import Login from '@/pages/memCenter/Login.vue'
+// const Login = r => require.ensure([], () => r(require('@/pages/memCenter/Login')), 'login')
 //景区景点
 const ScenicRegion = r => require.ensure([], () => r(require('@/pages/scenicRegion/ScenicRegion')), 'scenicRegion')
 const ScenicDetail = r => require.ensure([], () => r(require('@/pages/scenicRegion/ScenicDetail')), 'scenicDetail')

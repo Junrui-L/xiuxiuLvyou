@@ -59,15 +59,23 @@
       .x-message-text {
         display: inline-block;
         padding: px2rem(10px) px2rem(15px);
-        margin-top: px2rem(6px);
+        //margin-top: px2rem(6px);
         border-radius: px2rem(25px);
         border: 1px solid #eceff1;
-        min-width: 100px;
+        min-width: px2rem(100px);
+        max-width: px2rem(250px);
+        vertical-align: bottom;
         img {
           display: block;
           @include setSize(px2rem(35px), px2rem(35px))
         }
+
+
       }
+      .headImg {
+        @include setSize(px2rem(36px), px2rem(36px));
+      }
+
       .x-message-time {
         padding: 0 px2rem(2px) 0 px2rem(3px);
         @include font-dpr(12px);

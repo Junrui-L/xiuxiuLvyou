@@ -10,20 +10,25 @@
       {{receiveNickName}}
 
     </div>
-    <div class="chat-content" @click="showEmoji = false">
-      <div class="no-msg">没有更多消息啦~</div>
-
-      <div class="x-message-group" :class="item.from == from_username ? 'x-message-right' : ''"
-           v-for="item in chatHistory">
-        <div class="x-message-user">{{item.nickName}}</div>
-        <div class="x-message-content">
-          <p class="x-message-text" v-html="handleMsg(item.sourceMsg)"></p>
+    <div style="height: 20px;"  class="chat-content" @click="showEmoji = false" :style="{'height': h + 'px'}" id="dialogue_box">
+        <div class="no-msg">没有更多消息啦~</div>
+        <div class="x-message-group" :class="item.from == from_username ? 'x-message-right' : ''"
+             v-for="item in chatHistory">
+          <div class="x-message-user">{{item.nickName}}</div>
+          <div class="x-message-content">
+            <!--<template v-if="item.from != from_username">-->
+              <!--<img class="headImg" src="http://www.youdingsoft.com/userfile/headsmall/20180524115017921140.jpg" alt="" />-->
+            <!--</template>-->
+            <p class="x-message-text" v-html="handleMsg(item.sourceMsg)"></p>
+            <!--<template v-if="item.from == from_username">-->
+              <!--<img class="headImg" :src="headimgurl" alt="" />-->
+            <!--</template>-->
+          </div>
+          <div class="x-message-time">
+            {{item.time}}
+            <span class="x-message-status"></span>
+          </div>
         </div>
-        <div class="x-message-time">
-          {{item.time}}
-          <span class="x-message-status"></span>
-        </div>
-      </div>
 
     </div>
     <div class="chat-footer">
@@ -101,10 +106,12 @@
     name: 'chat-list',
     data () {
       return {
+        h:'',
         from_username: '', // url中的发起方用户名
         to_username: '', // url中的接收方用户名
         conn: {}, // 与环信的通信长连接
-        chatHistory: [], // 聊天记录数组
+        chatHistory: [
+        ], // 聊天记录数组
         currentUserpwd: 'xiuxiutrip123456', // 当前用户环信密码
         accence_token: '', // 权限token
         emojiMap: {
@@ -161,6 +168,8 @@
       })
     },
     mounted () {
+      var div = document.getElementById('dialogue_box');
+      this.h = div.offsetHeight
       // URL格式 http://localhost:8082/#/chatList/me/?from_username=1&to_username=2
       document.querySelector('#inputcontent').focus()
       let urlParams = this.getParamsFromUrl()
@@ -176,6 +185,16 @@
           title: '温馨提示',
           content: '路径错误,缺少用户名'
         }).show()
+      }
+
+
+    },
+    watch: {
+      chatHistory(){
+        this.$nextTick(() =>{
+          let div = this.$el.querySelector("#dialogue_box");
+          div.scrollTop = div.scrollHeight;
+        })
       }
     },
     methods: {
@@ -232,6 +251,7 @@
         let receiveMessage = {
           from: message.from,
           sourceMsg: message.sourceMsg,
+          ext: message.ext,
           time: sendTime,
           nickName: this.receiveNickName
         }
@@ -253,6 +273,7 @@
       },
       // 接受图片消息
       receivePictureMessage (message) {
+        console.log(message);
         this.chatHistory.push(message)
       },
       // 发送文本消息
@@ -277,7 +298,7 @@
         msg.set({
           msg: text,
           action: 'action',                     //用户自定义，cmd消息必填
-          ext: {'nickName': myNickName, headimgurl},    //用户自扩展的消息内容（群聊用法相同）
+          ext: {'nickName': myNickName,'headimgurl': headimgurl},    //用户自扩展的消息内容（群聊用法相同）
           to: this.to_username,
           roomType: false,
           success: function (id, serverMsgId) {
@@ -309,6 +330,9 @@
         })
         msg.body.chatType = 'singleChat'
         this.$imconn.send(msg.body)
+
+        // var div = document.getElementById('dialogue_box');
+        // console.log('........'+ div.scrollTop)
       },
       getNowTime () {
         let now = new Date()
