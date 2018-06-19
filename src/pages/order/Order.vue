@@ -295,7 +295,7 @@
         payT: '', //付款时间
         startGoT: '', //开始出发时间
         orderInfo: '', //订单信息
-        cancelR: '',
+        CancelBox: '',
         showCancel: false,
         loading: true
       }

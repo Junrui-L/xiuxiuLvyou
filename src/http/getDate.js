@@ -276,6 +276,52 @@ export const cancelOrderKmoney = (orderNo) => $http.post('/siteH5/order.json?act
 });
 
 
+
+/**
+ * 一键询导加载价格
+ * */
+
+export const onkeyPrice = (data) => $http.post('/siteH5/onekey.json?act=loadprice', {
+  sourceType: data.sourceType,
+  citySn: data.citySn,
+  scenicspotId: data.scenicspotId
+});
+
+
+/**
+ * 一键询导呼叫向导
+ * */
+
+export const onkeyCallGuide = (data) => $http.post('/siteH5/onekey.json?act=CallGuide', {
+  sourceType: data.sourceType,
+  citySn: data.citySn,
+  scenicspotId: data.scenicspotId,
+  istuan: data.istuan,
+  godate: data.godate,
+  timehour: data.timehour,
+  tripsnum: data.tripsnum,
+  playday: data.playday,
+  tipamount: data.tipamount,
+  limkman: data.limkman,
+  linkPhone: data.linkPhone
+});
+
+
+/**
+ * 一键询导取消一键向导
+ * */
+
+export const onkeyCancelGuide = (data) => $http.post('/siteH5/onekey.json?act=loadprice', {
+  sourceType: data.sourceType,
+  citySn: data.citySn,
+  scenicspotId: data.scenicspotId
+});
+
+
+
+
+
+
 //个人中心
 
 /**

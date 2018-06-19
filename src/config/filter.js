@@ -30,6 +30,17 @@ Vue.filter('fmtDate', (data, fmt) => {
   return fmt;
 })
 
+//费用
+Vue.filter('fmtMoney', num => {
+  if(parseInt(num) > 0) {
+    return num + '元'
+
+  } else {
+    return num
+  }
+
+})
+
 //订单状态
 Vue.filter('orderStateText', state => {
   const orderStateMap = {

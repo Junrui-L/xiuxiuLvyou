@@ -210,9 +210,11 @@
         this.$imconn.open(this.$imoption)
       },
       addListen () {
+        var that = this;
         this.$imconn.listen({
           onOpened: function (message) {
             console.log('用户已上线')
+            that.sendCmdMsg();
           },
           onClosed: function (message) {
             console.log('用户已下线')
@@ -245,6 +247,7 @@
       },
       // 接受文本消息
       receiveTextMsg (message) {
+        console.log(message.ext)
         // message:{"id":"465540634703299052","type":"chat","from":"1","to":"2","data":"5共和国","ext":{"weichat":{"originType":"webim"}},"sourceMsg":"5共和国","error":false,"errorText":"","errorCode":"","time":"2018-05-10T12:55:27.432Z"}
         let sendTimeWZ = message.time ? new Date(message.time) : new Date()
         let sendTime = sendTimeWZ.getMonth() + 1 + '-' + sendTimeWZ.getDate() + ' ' + sendTimeWZ.getHours() + ':' + sendTimeWZ.getMinutes()
@@ -275,6 +278,39 @@
       receivePictureMessage (message) {
         console.log(message);
         this.chatHistory.push(message)
+      },
+      //发送命令消息
+      sendCmdMsg() {
+        // var id = conn.getUniqueId();            //生成本地消息id
+        // var msg = new WebIM.message('cmd', id); //创建命令消息
+        //
+        // msg.set({
+        //   msg: 'msg',
+        //   to: 'username',                       //接收消息对象
+        //   action : 'action'  ,                   //用户自定义，cmd消息必填
+        //   ext :{'extmsg':'extends messages'} ,  //用户自扩展的消息内容（群聊用法相同）
+        //   success: function ( id，serverMsgId ) {}//消息发送成功回调
+        console.log('发送命令消息-->')
+        var id = this.$imconn.getUniqueId()
+        var msg = new WebIM.message('cmd', id) //创建命令消息
+        let myNickName = this.getMyNickName
+        let headimgurl = this.headimgurl
+        msg.set({
+          msg: 'msg',
+          action: 'action',                     //用户自定义，cmd消息必填
+          ext: {'nickName': myNickName,'headimgurl': headimgurl},    //用户自扩展的消息内容（群聊用法相同）
+          to: this.to_username,
+          roomType: false,
+          success: function (id, serverMsgId) {
+            console.log('命令消息发出成功'+ id)
+          },
+          fail: function (e) {
+            console.log('Send private text error')
+          }
+        })
+        msg.body.chatType = 'singleChat'
+        this.$imconn.send(msg.body)
+
       },
       // 发送文本消息
       sendTextMsg () {
@@ -330,9 +366,6 @@
         })
         msg.body.chatType = 'singleChat'
         this.$imconn.send(msg.body)
-
-        // var div = document.getElementById('dialogue_box');
-        // console.log('........'+ div.scrollTop)
       },
       getNowTime () {
         let now = new Date()

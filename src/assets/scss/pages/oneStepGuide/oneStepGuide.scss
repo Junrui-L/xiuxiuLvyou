@@ -55,12 +55,14 @@
             padding-left: px2rem(30px);
             background: url(../../assets/img/one_list_t@2x.png) no-repeat px2rem(5px) center ;
             background-size: px2rem(12px) px2rem(12px);
+            @include ellipsis;
           }
 
           .trip-mount {
             background-image: url(../../assets/img/one_list_p@2x.png);
           }
           .trip-require {
+            width: 100%;
             background-image: url(../../assets/img/one_list_c@2x.png);
           }
           .thank-fee {
@@ -83,6 +85,7 @@
       }
     }
 
+    /**/
     .connect-phone {
       padding: 0 px2rem(15px);
       height: px2rem(50px);
@@ -99,6 +102,10 @@
           vertical-align: text-top;
         }
       }
+      .contact-input {
+        text-align: right;
+      }
+
     }
 
   }
@@ -160,5 +167,44 @@
       }
     }
   }
+
+  .cube-popup-container .cube-popup-content {
+    width: 90%;
+    border-radius: px2rem(8px);
+    background: #fff;
+  }
+
+  /*要求，感谢费选项*/
+  .cube-tip-popup {
+    .cube-popup-container .cube-popup-content {
+      width: 100%;
+      border-radius: 0;
+      min-height: px2rem(300px);
+      background: #fff;
+    }
+
+    .tip_contact {
+      padding: px2rem(20px);
+
+      .tit {
+        width: 20%;
+        padding: 0.26667rem;
+        line-height: 1;
+      }
+      .input-wrap {
+        width: 20%;
+        padding: 0.26667rem;
+        line-height: 1;
+        border: 1px solid #eee;
+      }
+      .inputs {
+        width: 60%;
+      }
+
+    }
+
+
+  }
+
 
 }

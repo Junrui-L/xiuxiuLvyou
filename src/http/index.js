@@ -102,7 +102,7 @@ export default ((url = '', data = {}) => {
                             resolve(response.data.data)
 
                         } else {
-                          // console.log(response.data)
+                          console.log(response.data)
                             resolve(response.data)
                             console.log('接口返回状态码：' + response.data.code)
                         }
