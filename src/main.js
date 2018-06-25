@@ -13,6 +13,7 @@ import errImg from './assets/img/404.png' //404图片
 import loadingImg from './assets/img/loading-spin.svg' //loading图片
 import Loading from './components/loading/index'
 
+
 //全局引用cube
 // import Cube from './assets/lib/cube-ui'
 import Cube from 'cube-ui'

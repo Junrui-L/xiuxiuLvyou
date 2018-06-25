@@ -119,12 +119,6 @@
               this.city = res.cityMap.name;
               this.senicList = res.scenicspotList;
               this.loading = false;
-              console.log(this.citySenic)
-            })
-          },
-          getCityScenicspots(citysn) {
-            this.cityScenicspots(citysn).then(res => {
-              console.log(res)
             })
           },
           showActive() {

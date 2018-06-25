@@ -46,8 +46,9 @@ export const cityArea = (areasn) => $http.get('/siteH5/index.json?act=citys', {
  * 获取区域景区
  * ok
  * */
-export const cityScenicspots = (areasn) => $http.get('/siteH5/index.json?act=cityScenicspots', {
-  citysn: areasn
+export const cityScenicspots = (areasn, keydicts) => $http.get('/siteH5/index.json?act=cityScenicspots', {
+  citysn: areasn,
+  keydicts: keydicts
 });
 
 /**
@@ -311,10 +312,8 @@ export const onkeyCallGuide = (data) => $http.post('/siteH5/onekey.json?act=Call
  * 一键询导取消一键向导
  * */
 
-export const onkeyCancelGuide = (data) => $http.post('/siteH5/onekey.json?act=loadprice', {
-  sourceType: data.sourceType,
-  citySn: data.citySn,
-  scenicspotId: data.scenicspotId
+export const onkeyCancelGuide = (data) => $http.post('/siteH5/onekey.json?act=cancelRun', {
+
 });
 
 

@@ -16,7 +16,7 @@
         <!-- 切换按钮 -->
         <section class="change_show_type" ref="chooseType">
           <div>
-            <span :class='{activity_show: changeType == "1"}' @click="changeGuideType(1)">私导</span>
+            <span :class='{activity_show: changeType == "1"}' @click="changeGuideType(1)">景导</span>
           </div>
           <div>
             <span :class='{activity_show: changeType =="2"}' @click="changeGuideType(2)">专导</span>
@@ -24,13 +24,13 @@
         </section>
         <div class="change_content private_content" v-if="changeType == '1' ">
           <ul class="condition">
-            <li class="cont-item address">定位当前的地址</li>
+            <li class="cont-item address" @click="showSpotPicker"> {{scenicspot.name || '请选择景点'}} </li>
             <li class="cont-item">
               <span class="trip-time fl" @click="showDatePicker">{{ travalDate.txt }}</span>
-              <span class="trip-time fl" @click="showDayPikcer">{{ playday || '出行天数'}}天</span>
+              <span class="trip-time fl" @click="showDayPikcer">{{ playday || '选择游玩天数' | fmtDay}}</span>
             </li>
             <li class="cont-item">
-              <span class="trip-mount fl" @click="showPicker">{{ goNum || '出行人数'}}人</span>
+              <span class="trip-mount fl" @click="showPicker">{{ goNum || '选择游玩人数' | fmtPeople}}</span>
             </li>
 
           </ul>
@@ -38,14 +38,14 @@
         </div>
         <div class="change_content professional_content" v-if="changeType == '2' ">
           <ul class="condition">
-            <li class="cont-item address">定位当前的地址</li>
+            <li class="cont-item address" @click="showSpotPicker"> {{scenicspot.name || '定位当前地址'}} </li>
             <li class="cont-item">
               <span class="trip-time fl" @click="showDatePicker">{{ travalDate.txt }}</span>
-              <span class="trip-time fl" @click="showDayPikcer">{{ playday || '出行天数'}}天</span>
+              <span class="trip-time fl" @click="showDayPikcer">{{ playday || '选择游玩天数' | fmtDay}}</span>
             </li>
             <li class="cont-item">
-              <span class="trip-mount fl" @click="showPicker">{{ goNum || '出行人数' }}人</span>
-              <span class="thank-fee fl" @click="showTipPopup">{{tipfee || '感谢费===' | fmtMoney}}</span>
+              <span class="trip-mount fl" @click="showPicker">{{ goNum || '选择游玩人数' | fmtPeople}}</span>
+              <span class="thank-fee fl" @click="showTipPopup">{{tipfee || '感谢费' | fmtMoney}}</span>
             </li>
             <li class="cont-item">
               <span class="trip-require fl" @click="showCancel = true">{{requires}}</span>
@@ -72,13 +72,13 @@
           <li class="buy-price fl" :class="{'group-active': group == '1'}" @click="group = '1'">
             <div class="txt">团购</div>
             <p class="price">
-              <span>99</span>元/人
+              <span>{{tuanPrice }}</span>元/人
             </p>
           </li>
           <li class="buy-price fr" :class="{'group-active': group == '0'}" @click="group = '0'">
             <div class="txt">不团购</div>
             <p class="price">
-              <span>199</span>元/人
+              <span>{{playPrice}}</span>元/人
             </p>
           </li>
         </ul>
@@ -128,6 +128,7 @@
     </cube-popup>
     <CancelBox v-if="showCancel" confirmText="请输入出行要求" :showCancelBox="showCancel" @closeTip=' shows '
                @confirmCancel="orderRequire"></CancelBox>
+    <loading v-show="loading"></loading>
   </div>
 </template>
 
@@ -140,21 +141,25 @@
   import CheckBox from '../../components/check-box.vue'
   import CheckGroup from '../../components/groupCheckBox'
   import {dateFmt, localStore} from '../../config/myUtils'
-  import {onkeyPrice, onkeyCallGuide, getVeryCode, userUpdateMobile} from '../../http/getDate'
+  import {cityScenicspots, onkeyPrice, onkeyCallGuide, getVeryCode, userUpdateMobile} from '../../http/getDate'
   import {provinceList, cityList, peopleNum, peoleData} from '../../config/datajs'
-
+  let callInfo =  localStore('callInfo', 'localStorage');
   const cityData = provinceList
   cityData.forEach(province => {
     province.children = cityList[province.value]
   })
+
   createAPI(Vue, DatePicker, ['select', 'cancel'], false)
 
   export default {
     data() {
       return {
         headBg: true,
-        city: '北京',
-        citySn: this.$route.query.citySn,
+        city: '本地',
+        // citySn: this.$route.query.citySn,
+        citySn: '440300',
+        senicList: '', //景点列表
+        scenicspot: '', //景点
         scenicspotId: '', //景点id
         changeType: '1',
         group: '1',
@@ -168,7 +173,8 @@
         tipamount: '',
         linkphone: '',
         linkman: '',
-        playPrice: '',
+        playPrice: '-',
+        tuanPrice: '-',
         phone: '', //手机号码
         verifyCode: '',
         btnText: '获取验证码',
@@ -186,7 +192,8 @@
           {label: '15元', value: '15'},
           {label: '20元', value: '20'},
           {label: '30元', value: '30'},
-        ]
+        ],
+        loading: true
       }
     },
     components: {
@@ -200,89 +207,151 @@
     mounted() {
       //初始化联系人
       this.getUsr();
-      this.cityPicker = this.$createCascadePicker({
-        title: '选择城市',
-        data: cityData,
-        onSelect: this.selectAreaHandle,
-        onCancel: this.cancelHandle
-      })
-      //获取当前日期,s设置日期初始时间点
-      let nowTime = new Date(), startTime = [];
-      let nowday = dateFmt(nowTime, 'yyyy-M-dd-hh');
-      console.log(`现在的日期是${nowday}`)
-      let minDay = nowday.split('-');
-      let mindate = [];
-      minDay.forEach((v, i) => {
-        mindate[i] = parseInt(v)
-      });
-      console.log(mindate)
-      if (nowTime.getHours() >= 18) {
-        //超过18点默认订明天
-        nowTime.setTime(nowTime.getTime() + 24 * 60 * 60 * 1000);
-        let startDay = dateFmt(nowTime, 'yyyy-M-dd');
-        let startDate = startDay.split('-');
-        startDate.push(8)
-        startDate.forEach((v, i) => {
-          startTime[i] = parseInt(v)
-        });
-      } else {
-        startTime = mindate
-      }
-      this.datePicker = this.$createDatePicker({
-        title: '出行日期',
-        min: mindate,
-        max: [2020, 12, 31, 8],
-        value: startTime,
-        columnCount: 4,
-        onSelect: this.selecTimetHandle,
-        onCancel: this.cancelHandle
-      })
-
-      this.picker = this.$createPicker({
-        title: '出行人数',
-        data: [peopleNum],
-        alias: {
-          value: 'num',
-        },
-        onSelect: this.selectNumHandle,
-        onCancel: this.cancelNumHandle
-      })
-
-      this.dayPicker = this.$createPicker({
-        title: '出行天数',
-        data: [peoleData],
-        alias: {
-          value: 'num',
-        },
-        onSelect: this.selectDayHandle,
-        onCancel: this.cancelHandle
-      })
+      // 初始化选择器
+      this.initData();
       console.log('获取价格开始..')
-      this.getPlayPrice(1)
+      //默认景点列表
+      this.getSpotsList(this.citySn);
+    this.getIndex();
     },
     methods: {
+
+      initData(){
+    //初始化数据
+        this.cityPicker = this.$createCascadePicker({
+          title: '选择城市',
+          data: cityData,
+          selectedIndex: this.getIndex(),
+          onSelect: this.selectAreaHandle,
+          onCancel: this.cancelHandle
+        })
+        //获取当前日期,s设置日期初始时间点
+        let nowTime = new Date(), startTime = [];
+        let nowday = dateFmt(nowTime, 'yyyy-M-dd-hh');
+        console.log(`现在的日期是${nowday}`)
+        let minDay = nowday.split('-');
+        let mindate = [];
+        minDay.forEach((v, i) => {
+          mindate[i] = parseInt(v)
+        });
+        console.log(mindate)
+        if (nowTime.getHours() >= 18) {
+          //超过18点默认订明天
+          nowTime.setTime(nowTime.getTime() + 24 * 60 * 60 * 1000);
+          let startDay = dateFmt(nowTime, 'yyyy-M-dd');
+          let startDate = startDay.split('-');
+          startDate.push(8)
+          startDate.forEach((v, i) => {
+            startTime[i] = parseInt(v)
+          });
+        } else {
+          startTime = mindate
+        }
+        this.datePicker = this.$createDatePicker({
+          title: '出行日期',
+          min: mindate,
+          max: [2020, 12, 31, 8],
+          value: startTime,
+          columnCount: 4,
+          onSelect: this.selecTimetHandle,
+          onCancel: this.cancelHandle
+        })
+
+        this.picker = this.$createPicker({
+          title: '出行人数',
+          data: [peopleNum],
+          alias: {
+            value: 'num',
+          },
+          onSelect: this.selectNumHandle,
+          onCancel: this.cancelNumHandle
+        })
+
+        this.dayPicker = this.$createPicker({
+          title: '出行天数',
+          data: [peoleData],
+          alias: {
+            value: 'num',
+          },
+          onSelect: this.selectDayHandle,
+          onCancel: this.cancelHandle
+        })
+
+      },
       changeGuideType(t) {
         //切换tab,显示价格
         this.changeType = t;
-        this.getPlayPrice(t);
+
+        if(this.scenicspotId) {
+          //已选择景点
+          if( t==1 ) {
+            //景导需要有景点
+            console.log(this.scenicspotId)
+            this.getPlayPrice(t, this.scenicspotId);
+          } else {
+            //专导
+            this.getPlayPrice(t);
+          }
+        }
+
       },
-      getPlayPrice(type) {
+      getSpotsList(area) {
+        //获取景点列表
+        cityScenicspots(area, 'id,name').then(res => {
+
+          //获取地区景区列表
+          let sData;
+          if(res && res.length > 0) {
+            sData = res
+          }
+          this.citySenic = res;
+          this.spotPicker = this.$createPicker({
+            title: '景点选择',
+            data: [sData],
+            alias: { value: 'id', text: 'name'},
+            onSelect: this.selectspotHandle,
+            onCancel: this.cancelHandle
+          })
+
+          this.loading = false
+        })
+      },
+      showSpotPicker(){
+        if(this.spotPicker) {
+          this.spotPicker.show();
+        } else {
+          this.$createDialog({
+            type: 'alert',
+            title: '温馨提示',
+            content: '内部错误'
+          }).show()
+        }
+
+      },
+      getPlayPrice(type , sId) {
         onkeyPrice({
           sourceType: type,
-          // citySn: '433101',
-          citySn: this.citySn,
-          scenicspotId: ''
+          citySn: '440300',
+          // citySn: this.citySn,
+          scenicspotId: sId
+          // scenicspotId: '2816'
         }).then(res => {
           console.log(res)
           if (res.msg) {
             console.log(res.msg)
+
+            this.playPrice = '-';
+            this.tuanPrice = '-';
+
             this.$createDialog({
               type: 'alert',
               title: '温馨提示',
               content: res.msg
             }).show()
           } else {
-            this.playPrice = res
+            //返回价格
+            this.playPrice = res.playprice;
+            this.tuanPrice = res.tuanPlayprice;
           }
 
         })
@@ -298,7 +367,16 @@
       getGuide() {
         if (this.changeType == 1) {
           //呼叫区导
-          if(this.travalDate.value ==  '') {
+
+          if(this.scenicspot == '') {
+            this.$createToast({
+              txt: '请定位当前景点',
+              type: 'error',
+              mask: false,
+              time: 2000
+            }).show();
+            return
+          } else if(this.travalDate.value ==  '') {
             this.$createToast({
               txt: '请选择出发日期',
               type: 'error',
@@ -387,10 +465,20 @@
       selectHandle(selectedVal, selectedIndex, selectedText) {
         this.goTime = selectedText.join('');
       },
+      selectspotHandle(v, i, t){
+        console.log(v[0], t[0])
+        this.getPlayPrice(1, v[0])
+        this.scenicspot = {
+          name: t[0],
+          id: v[0]
+        }
+        //景点ID
+        this.scenicspotId = v[0]
+      },
       cancelHandle() {
         this.$createToast({
           type: 'correct',
-          txt: 'Picker canceled',
+          txt: '取消选择',
           time: 1000
         }).show()
       },
@@ -412,12 +500,18 @@
       cancelNumHandle() {
         this.$createToast({
           type: 'correct',
-          txt: 'Picker canceled',
+          txt: '取消选择',
           time: 1000
         }).show()
       },
       selectAreaHandle(selectedVal, selectedIndex, selectedText) {
         this.city = selectedText[1]
+
+        this.city = selectedText[1];
+        this.citySn = selectedVal[1];
+        this.getSpotsList(this.citySn);
+
+
       },
       showTipPopup() {
         this.$refs.tipAmountPopup.show();
@@ -571,24 +665,42 @@
           linkPhone: this.linkPhone
         }
 
-//呼叫导游
-        onkeyCallGuide(callData).then( res => {
-
-          console.log('请求结束')
-          console.log(res);
-          if(res.msg){
-            this.$createDialog({
-              type: 'alert',
-              title: '温馨提示',
-              content: res.msg,
-              showClose: true
-            }).show()
-          }else  {
-            console.log(res.data)
+        callInfo.set('scienSopt', JSON.stringify(this.scenicspot))
+        callInfo.set('callInfo', JSON.stringify(callData));
+    // //呼叫导游
+    //     onkeyCallGuide(callData).then( res => {
+    //
+    //       console.log('请求结束')
+    //       console.log(res);
+    //       if(res.msg){
+    //         this.$createDialog({
+    //           type: 'alert',
+    //           title: '温馨提示',
+    //           content: res.msg,
+    //           showClose: true
+    //         }).show()
+    //       }else  {
+    //         console.log(res.data)
+    //       }
+    //     })
+        this.$router.push({path: '/waitResponse', query: {callData: JSON.stringify(callData)}})
+      },
+      getIndex(){
+        let m, n , p , q;
+        for(let i=0; i<cityData.length; i++) {
+          let chi = cityData[i].children
+          for(let j = 0 ; j< chi.length; j++) {
+            if(this.citySn == chi[j].value) {
+              this.city = chi[j].text
+              m = cityData[i]
+              n = chi[j]
+              p = cityData.indexOf(m)
+              q = chi.indexOf(n)
+              break
+            }
           }
-        })
-        // var send = JSON.stringify(callData)
-        // this.$router.push({path: '/waitResponse', query: {callData: JSON.stringify(callData)}})
+        }
+        return [p, q]
       }
     }
   }

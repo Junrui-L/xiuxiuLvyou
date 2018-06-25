@@ -292,17 +292,11 @@
       //获取首页数据
       this.initHome();
       let _this=this;
-      // this.$nextTick(() => {
-      //
-      // })
       setTimeout(() => {
         // _this.$refs.silde.refresh();
         _this.$refs.silde2.refresh();
       }, 1000)
       this.memoryLocation(); //查找本地记录
-
-
-
     },
 
     methods: {
@@ -316,8 +310,7 @@
           //   this.locations.areasn = resp.position.newcitySn;
           // }
           this.banners = resp[1]   //banner图
-          console.log(this.banners);
-          console.log('轮播图呢')
+          // console.log('轮播图呢')
           this.hotArea = resp[3]; //热门区域
 
           setTimeout(() => {

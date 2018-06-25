@@ -41,6 +41,29 @@ Vue.filter('fmtMoney', num => {
 
 })
 
+//天数
+Vue.filter('fmtDay', num => {
+  if(parseInt(num) > 0) {
+    return num + '天'
+
+  } else {
+    return num
+  }
+
+})
+
+//人数
+
+Vue.filter('fmtPeople', num => {
+  if(parseInt(num) > 0) {
+    return num + '人'
+
+  } else {
+    return num
+  }
+
+})
+
 //订单状态
 Vue.filter('orderStateText', state => {
   const orderStateMap = {
