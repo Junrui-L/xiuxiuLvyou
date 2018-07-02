@@ -668,22 +668,24 @@
         callInfo.set('scienSopt', JSON.stringify(this.scenicspot))
         callInfo.set('callInfo', JSON.stringify(callData));
     // //呼叫导游
-    //     onkeyCallGuide(callData).then( res => {
-    //
-    //       console.log('请求结束')
-    //       console.log(res);
-    //       if(res.msg){
-    //         this.$createDialog({
-    //           type: 'alert',
-    //           title: '温馨提示',
-    //           content: res.msg,
-    //           showClose: true
-    //         }).show()
-    //       }else  {
-    //         console.log(res.data)
-    //       }
-    //     })
-        this.$router.push({path: '/waitResponse', query: {callData: JSON.stringify(callData)}})
+        onkeyCallGuide(callData).then( res => {
+
+          console.log('请求结束')
+          console.log(res);
+          console.log(res.data.ordernumber)
+          this.$router.push({path: '/waitResponse', query: {orn: res.data.ordernumber,callData: JSON.stringify(callData)}})
+
+          // if(res.msg){
+          //   this.$createDialog({
+          //     type: 'alert',
+          //     title: '温馨提示',
+          //     content: res.msg,
+          //     showClose: true
+          //   }).show()
+          // }else  {
+          //   console.log(res.data)
+          // }
+        })
       },
       getIndex(){
         let m, n , p , q;

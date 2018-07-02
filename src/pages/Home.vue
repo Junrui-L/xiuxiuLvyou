@@ -63,12 +63,12 @@
         </router-link>
       </li>
       <li class="nav-item fl">
-        <router-link class="nav-link" :to="{path: '/oneStepGuide', query: {citySn: locations.areasn || 110100}}">
-        <!--<a class="nav-link" @click="tip">-->
+        <!--<router-link class="nav-link" :to="{path: '/oneStepGuide', query: {citySn: locations.areasn || 110100}}">-->
+        <a class="nav-link" @click="tip">
           <img class="nav-img" src="../assets/img/home_one_xhdpi.png" alt="">
           <p class="nav-tit">一键选导</p>
-        <!--</a>-->
-        </router-link>
+        </a>
+        <!--</router-link>-->
       </li>
     </ul>
     <div class="hot-spots">
