@@ -316,10 +316,13 @@ export const onkeyCancelGuide = (data) => $http.post('/siteH5/onekey.json?act=ca
   ordernumber: data.ordernumber
 });
 
-
-
-
-
+/**
+ * 一键询导感谢费改变
+ * */
+export const onkeyChangeCall = (data) => $http.post('/siteH5/onekey.json?act=changeCall', {
+  tipamount: data.tipamount,
+  ordernumber: data.ordernumber
+});
 
 //个人中心
 

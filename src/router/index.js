@@ -20,11 +20,14 @@ const SearchContentList = r => require.ensure([], () => r(require('@/pages/searc
 const OrderDetail = r => require.ensure([], () => r(require('@/pages/order/OrderDetail')), 'orderDetail')
 const Order = r => require.ensure([], () => r(require('@/pages/order/Order')), 'order')
 const PrepayOrder = r => require.ensure([], () => r(require('@/pages/order/PrepayOrder')), 'prepayOrder')
+//一键向导
 const OneStepGuide = r => require.ensure([], () => r(require('@/pages/oneStepGuide/OneStepGuide')), 'oneStepGuide')
 const WaitResponse = r => require.ensure([], () => r(require('@/pages/oneStepGuide/WaitResponse')), 'waitResponse')
-const SetContact = r => require.ensure([], () => r(require('@/pages/setContact/SetContact')), 'setContact')
+const GetGuide = r => require.ensure([], () => r(require('@/pages/oneStepGuide/getGuide')), 'getGuide')
+
 //个人中心页面
 const MemberCenter = r => require.ensure([], () => r(require('@/pages/memCenter/MemberCenter')), 'memberCenter')
+const SetContact = r => require.ensure([], () => r(require('@/pages/setContact/SetContact')), 'setContact')
 const AccountBill = r => require.ensure([], () => r(require('@/pages/memCenter/accountBill')), 'accountBill')
 const AccountDetail = r => require.ensure([], () => r(require('@/pages/memCenter/accountDetail')), 'accountDetail')
 const WithdrawDeposit = r => require.ensure([], () => r(require('@/pages/memCenter/withdrawDeposit')), 'withdrawDeposit')
@@ -141,6 +144,11 @@ const router = new Router({
       path: '/waitResponse',
       name: 'waitResponse',
       component: WaitResponse
+    },
+    {
+      path: '/getGuide',
+      name: 'getGuide',
+      component: GetGuide
     },
     {
       //订单详情

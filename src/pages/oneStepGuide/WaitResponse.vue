@@ -4,6 +4,7 @@
       <div slot="message" class="message"></div>
     </HeadTop>
     <div class="tip-txt">正在为您通知附近向导...</div>
+    <TimeCountUp :startTime="callData.createTime" countText="接单已等待"  :countCallback="endLog"/>
     <div class="custom-info">
       <div class="info-wrapper">
         <h3 class="info-tit">订单信息</h3>
@@ -17,7 +18,7 @@
           </li>
           <li class="info-item">游玩人数 <span class="fr">{{callData.tripsnum}}人</span></li>
           <li class="info-item">向导类型 <span class="fr">{{callData.sourceType == 1 ? '景导' : '专导'}}</span></li>
-          <li class="info-item">是否团游 <span class="fr">{{callData.istuan == 0 ? '是' : '否'}}</span></li>
+          <li class="info-item">是否团游 <span class="fr">{{callData.istuan == 1 ? '是' : '否'}}</span></li>
           <li class="info-item" v-if="callData.sourceType == 2">捎话内容 <span class="fr">幽默开朗、女、可带车接幽默开朗、女、可带车接幽默开朗、女、可带车接幽默开朗、女、可带车接</span>
           </li>
         </ul>
@@ -32,6 +33,7 @@
 
 <script type="text/ecmascript-6">
   import HeadTop from '../../components/HeadTop.vue'
+  import TimeCountUp from  '../../components/timeCountUp.vue'
   import {onkeyCallGuide, onkeyCancelGuide} from '../../http/getDate'
   import {dateFmt, localStore} from '../../config/myUtils'
   import  '../../assets/lib/jquery-2.1.4.min.js'
@@ -327,15 +329,19 @@
         userInfo: '', //用户信息
         callData: '', //叫导信息
         endate: '', //截止游玩时间
-        scienSopt: ''
+        scienSopt: '',
+        startGoT:''
       }
     },
     components: {
-      HeadTop
+      HeadTop,
+      TimeCountUp
     },
     mounted() {
       let callData = callInfo.get('callInfo'), scienSopt = callInfo.get('scienSopt'),
           userInfo = UserInfo.get('userInfo');
+      console.log(callData)
+
 
       if (callData) {
         //呼叫导游开始
@@ -382,44 +388,85 @@
         });
         var myHandler = {
           rcvMessage: function (message) {
+            //"{type:0, msg:'已通知向导数"+count+"人，请稍微等待向导接单。',ordernumber:'"+ordernumber+"'}"
             console.log(message.data)
 
             var msg = JSON.parse(message.data);
-            this.$createDialog({
-              type: 'confirm',
-              title: '消息通知',
-              content: msg.msg,
-              confirmBtn: {
-                text: '查看订单',
-                active: true,
-                disabled: false,
-                href: 'javascript:;'
-              },
-              cancelBtn: {
-                text: '取消',
-                active: false,
-                disabled: true,
-                href: 'javascript:;'
-              },
-              onConfirm: () => {
-                //跳转订单支付页
-                this.$router.replace({name: 'order',query: {orderNum: msg.ordernumber}})
-                this.$createToast({
-                  type: 'warn',
-                  time: 1000,
-                  txt: '点击确认按钮'
-                }).show()
+            if(msg.type == 0) {
+              //已通知多少人
+              console.log(msg)
+            } else if(msg.type == 1) {
+              //有人接单
+              that.$createDialog({
+                type: 'confirm',
+                title: '消息通知',
+                content: msg.msg,
+                confirmBtn: {
+                  text: '查看订单',
+                  active: true,
+                  disabled: false,
+                  href: 'javascript:;'
+                },
+                cancelBtn: {
+                  text: '取消',
+                  active: false,
+                  disabled: true,
+                  href: 'javascript:;'
+                },
+                onConfirm: () => {
+                  //跳转订单支付页
+                  that.$router.replace({name: 'order',query: {orderNum: msg.ordernumber}})
+                  that.$createToast({
+                    type: 'warn',
+                    time: 1000,
+                    txt: '点击确认按钮'
+                  }).show()
 
+                },
+                onCancel: () => {
+                  that.$createToast({
+                    type: 'warn',
+                    time: 1000,
+                    txt: '点击取消按钮'
+                  }).show()
+                }
+              }).show()
 
-              },
-              onCancel: () => {
-                this.$createToast({
-                  type: 'warn',
-                  time: 1000,
-                  txt: '点击取消按钮'
-                }).show()
-              }
-            }).show()
+            }
+//            that.$createDialog({
+//              type: 'confirm',
+//              title: '消息通知',
+//              content: msg.msg,
+//              confirmBtn: {
+//                text: '查看订单',
+//                active: true,
+//                disabled: false,
+//                href: 'javascript:;'
+//              },
+//              cancelBtn: {
+//                text: '取消',
+//                active: false,
+//                disabled: true,
+//                href: 'javascript:;'
+//              },
+//              onConfirm: () => {
+//                //跳转订单支付页
+//                that.$router.replace({name: 'order',query: {orderNum: msg.ordernumber}})
+//                that.$createToast({
+//                  type: 'warn',
+//                  time: 1000,
+//                  txt: '点击确认按钮'
+//                }).show()
+//
+//              },
+//              onCancel: () => {
+//                that.$createToast({
+//                  type: 'warn',
+//                  time: 1000,
+//                  txt: '点击取消按钮'
+//                }).show()
+//              }
+//            }).show()
 
           }
         }
@@ -492,7 +539,7 @@
         onkeyCancelGuide({
           ordernumber: this.orderNum
         }).then(res => {
-
+          console.log(res)
           if (res.msg) {
             this.$createDialog({
               type: 'alert',
@@ -505,6 +552,9 @@
           }
         })
       },
+      endLog: function(){
+        console.log('....')
+      }
 
     }
 

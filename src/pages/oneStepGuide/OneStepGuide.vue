@@ -662,9 +662,10 @@
           playday: this.playday,
           tipamount: this.tipfee,
           limkman: this.limkman,
-          linkPhone: this.linkPhone
+          linkPhone: this.linkPhone,
+          createTime: +new Date()
         }
-
+        console.log(+new Date())
         callInfo.set('scienSopt', JSON.stringify(this.scenicspot))
         callInfo.set('callInfo', JSON.stringify(callData));
     // //呼叫导游

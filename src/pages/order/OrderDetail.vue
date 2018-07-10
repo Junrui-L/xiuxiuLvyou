@@ -135,7 +135,7 @@
   </div>
 </template>
 
-<script>
+<script type="text/ecmascript-6">
   import {mapState, mapMutations} from 'vuex'
   import {initOrder, loadOrder, creatOrder,getCanUseyhj, getCouponsListType,getVeryCode, userUpdateMobile} from '../../http/getDate'
   import {dateFmt} from '../../config/myUtils'
