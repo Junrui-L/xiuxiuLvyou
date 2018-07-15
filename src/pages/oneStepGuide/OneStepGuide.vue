@@ -228,13 +228,12 @@
         //获取当前日期,s设置日期初始时间点
         let nowTime = new Date(), startTime = [];
         let nowday = dateFmt(nowTime, 'yyyy-M-dd-hh');
-        console.log(`现在的日期是${nowday}`)
+        // console.log(`现在的日期是${nowday}`)
         let minDay = nowday.split('-');
         let mindate = [];
         minDay.forEach((v, i) => {
           mindate[i] = parseInt(v)
         });
-        console.log(mindate)
         if (nowTime.getHours() >= 18) {
           //超过18点默认订明天
           nowTime.setTime(nowTime.getTime() + 24 * 60 * 60 * 1000);
@@ -668,25 +667,28 @@
         console.log(+new Date())
         callInfo.set('scienSopt', JSON.stringify(this.scenicspot))
         callInfo.set('callInfo', JSON.stringify(callData));
-    // //呼叫导游
-        onkeyCallGuide(callData).then( res => {
-
-          console.log('请求结束')
-          console.log(res);
-          console.log(res.data.ordernumber)
-          this.$router.push({path: '/waitResponse', query: {orn: res.data.ordernumber,callData: JSON.stringify(callData)}})
-
-          // if(res.msg){
-          //   this.$createDialog({
-          //     type: 'alert',
-          //     title: '温馨提示',
-          //     content: res.msg,
-          //     showClose: true
-          //   }).show()
-          // }else  {
-          //   console.log(res.data)
-          // }
-        })
+        //去呼叫导游
+        // this.$router.push({path: '/waitResponse', query: {orn: res.data.ordernumber,callData: JSON.stringify(callData)}})
+        this.$router.push({path: '/waitResponse', query: {callData: JSON.stringify(callData)}})
+    //
+    //     onkeyCallGuide(callData).then( res => {
+    //
+    //       console.log('请求结束')
+    //       console.log(res);
+    //       console.log(res.data.ordernumber)
+    //
+    //
+    //       // if(res.msg){
+    //       //   this.$createDialog({
+    //       //     type: 'alert',
+    //       //     title: '温馨提示',
+    //       //     content: res.msg,
+    //       //     showClose: true
+    //       //   }).show()
+    //       // }else  {
+    //       //   console.log(res.data)
+    //       // }
+    //     })
       },
       getIndex(){
         let m, n , p , q;

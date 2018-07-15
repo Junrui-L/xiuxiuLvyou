@@ -3,8 +3,8 @@
     <HeadTop go-back='true' :headBg="headBg" headTitle="等待应答...">
       <div slot="message" class="message"></div>
     </HeadTop>
-    <div class="tip-txt">正在为您通知附近向导...</div>
-    <TimeCountUp :startTime="callData.createTime" countText="接单已等待"  :countCallback="endLog"/>
+    <div class="tip-txt"> {{ headTxt || '正在为您通知附近向导...'}}</div>
+    <TimeCountUp :startTime="callData.createTime" countText=""  :countCallback="endLog"/>
     <div class="custom-info">
       <div class="info-wrapper">
         <h3 class="info-tit">订单信息</h3>
@@ -23,10 +23,28 @@
           </li>
         </ul>
       </div>
-      <div class="another clearfix">10元
+      <div class="another clearfix">
+        <span @click="showTipPopup">{{tipfee || 0}}元</span>
         <button class="cancel-btn fr"  @click="cancelGuide">取消呼叫</button>
       </div>
     </div>
+    <!--设置小费-->
+    <cube-popup type="tip-popup" :center="false" ref="tipAmountPopup">
+      <div class="cube-picker-choose border-bottom-1px"><span data-action="cancel" @click="hideTipPopup">取消</span><span
+        data-action="confirm" @click="thanksFee">确定</span>
+        <h1>感谢费</h1></div>
+      <div class="tip_contact">
+        <div class="tip-wrapper">
+          <radio-box title="小费" :options="tipAmount" v-model="tipfee"/>
+          <div class="other-amount">
+            <div class="tit fl">自定</div>
+            <div class="input-wrap fl">
+              <input class="inputs" type="number" v-model="tipfee" maxlength="3"/>元
+            </div>
+          </div>
+        </div>
+      </div>
+    </cube-popup>
 
   </div>
 </template>
@@ -34,7 +52,8 @@
 <script type="text/ecmascript-6">
   import HeadTop from '../../components/HeadTop.vue'
   import TimeCountUp from  '../../components/timeCountUp.vue'
-  import {onkeyCallGuide, onkeyCancelGuide} from '../../http/getDate'
+  import RadioBox from '../../components/radio-box.vue'
+  import {onkeyCallGuide, onkeyCancelGuide, onkeyChangeCall} from '../../http/getDate'
   import {dateFmt, localStore} from '../../config/myUtils'
   import  '../../assets/lib/jquery-2.1.4.min.js'
   import  {org} from '../../http/amq_jquery_adapter.js'
@@ -330,12 +349,22 @@
         callData: '', //叫导信息
         endate: '', //截止游玩时间
         scienSopt: '',
-        startGoT:''
+        startGoT:'',
+        headTxt: null,
+        tipfee: 10,
+        tipAmount: [
+          {label: '5元', value: '5'},
+          {label: '10元', value: '10'},
+          {label: '15元', value: '15'},
+          {label: '20元', value: '20'},
+          {label: '30元', value: '30'},
+        ],
       }
     },
     components: {
       HeadTop,
-      TimeCountUp
+      TimeCountUp,
+      RadioBox,
     },
     mounted() {
       let callData = callInfo.get('callInfo'), scienSopt = callInfo.get('scienSopt'),
@@ -346,6 +375,7 @@
       if (callData) {
         //呼叫导游开始
         this.callData = JSON.parse(callData)
+        // this.callGuide()
 
         let goda = this.callData.godate.replace(/-/g,"/")
 
@@ -353,7 +383,7 @@
         da.setTime(da.getTime()+ (this.callData.playday -1)*24*60*60*1000)
 
         this.endate = dateFmt(da, 'yyyy-M-d'); //游玩结束日期
-        // this.callGuide(this.callData)
+        this.callGuide(this.callData)
       }
       if (scienSopt) {
         //景区数据
@@ -363,7 +393,7 @@
       if(userInfo) {
         this.userInfo = userInfo;
       }
-      this.amqHander()
+      // this.amqHander()
     },
     beforeRouteLeave (to, from, next) {
       // 导航离开该组件的对应路由时调用
@@ -395,6 +425,12 @@
             if(msg.type == 0) {
               //已通知多少人
               console.log(msg)
+              that.headTxt = msg.msg
+              that.$createToast({
+                type: 'success',
+                time: 2000,
+                txt: msg.msg
+              }).show()
             } else if(msg.type == 1) {
               //有人接单
               that.$createDialog({
@@ -410,7 +446,7 @@
                 cancelBtn: {
                   text: '取消',
                   active: false,
-                  disabled: true,
+                  disabled: false,
                   href: 'javascript:;'
                 },
                 onConfirm: () => {
@@ -433,41 +469,6 @@
               }).show()
 
             }
-//            that.$createDialog({
-//              type: 'confirm',
-//              title: '消息通知',
-//              content: msg.msg,
-//              confirmBtn: {
-//                text: '查看订单',
-//                active: true,
-//                disabled: false,
-//                href: 'javascript:;'
-//              },
-//              cancelBtn: {
-//                text: '取消',
-//                active: false,
-//                disabled: true,
-//                href: 'javascript:;'
-//              },
-//              onConfirm: () => {
-//                //跳转订单支付页
-//                that.$router.replace({name: 'order',query: {orderNum: msg.ordernumber}})
-//                that.$createToast({
-//                  type: 'warn',
-//                  time: 1000,
-//                  txt: '点击确认按钮'
-//                }).show()
-//
-//              },
-//              onCancel: () => {
-//                that.$createToast({
-//                  type: 'warn',
-//                  time: 1000,
-//                  txt: '点击取消按钮'
-//                }).show()
-//              }
-//            }).show()
-
           }
         }
 
@@ -482,6 +483,7 @@
         amq.removeListener('msg', myDestination, 'unlisten')
       },
       callGuide(data) {
+
         onkeyCallGuide(data).then(res => {
 
           console.log('请求结束')
@@ -495,47 +497,14 @@
             }).show()
           } else {
             console.log(res.data)
+            this.orderNum = res.data.ordernumber
             //开始呼导游
-            // this.amqHander()
+            this.amqHander()
           }
         })
       },
 
       cancelGuide() {
-        // this.$createDialog({
-        //   type: 'confirm',
-        //   title: '消息通知',
-        //   content: '这个是也是爱上大 ',
-        //   confirmBtn: {
-        //     text: '查看订单',
-        //     active: true,
-        //     disabled: false,
-        //     href: 'javascript:;'
-        //   },
-        //   cancelBtn: {
-        //     text: '取消',
-        //     active: false,
-        //     disabled: false,
-        //     href: 'javascript:;'
-        //   },
-        //   onConfirm: () => {
-        //
-        //     this.$createToast({
-        //       type: 'warn',
-        //       time: 1000,
-        //       txt: '点击确认按钮'
-        //     }).show()
-        //
-        //
-        //   },
-        //   onCancel: () => {
-        //     this.$createToast({
-        //       type: 'warn',
-        //       time: 1000,
-        //       txt: '点击取消按钮'
-        //     }).show()
-        //   }
-        // }).show()
         onkeyCancelGuide({
           ordernumber: this.orderNum
         }).then(res => {
@@ -549,12 +518,39 @@
             }).show()
           } else {
             console.log(res.data)
+            this.$createDialog({
+              type: 'alert',
+              title: '温馨提示',
+              content: '取消成功',
+              showClose: true
+            }).show()
+
+            setTimeout(()=> {
+              this.$router.go(-1)
+            },2000)
           }
         })
       },
+      showTipPopup() {
+        this.$refs.tipAmountPopup.show();
+      },
+      hideTipPopup() {
+        this.$refs.tipAmountPopup.hide();
+      },
       endLog: function(){
         console.log('....')
-      }
+      },
+      thanksFee() {
+        //更改感谢费
+        this.hideTipPopup()
+        console.log(this.tipfee)
+        onkeyChangeCall({
+          tipamount: this.tipfee,
+          ordernumber: this.orderNum
+        }).then( res => {
+          console.log('更改感谢费')
+        })
+      },
 
     }
 
